@@ -1,0 +1,32 @@
+<%= link_to("<< Back to List", items_path, :class => 'back-link') %>
+
+<div class="items edit">
+  <h2>Update Item</h2>
+
+  <%= form_for(@item) do |f| %>
+
+    <table summary="Item form fields">
+      <tr>
+        <th>Title</th>
+        <td><%= f.text_field(:title) %></td>
+      </tr>
+      <tr>
+        <th>Description</th>
+        <td><%= f.text_field(:description) %></td>
+      </tr>
+      <tr>
+        <th>Quanity</th>
+        <td><%= f.text_field(:quantity) %></td>
+      </tr>
+      <tr>
+        <th>Image Upload</th>
+        <td> //TODO: </td>
+      </tr>
+    </table>
+
+    <div class="form-buttons">
+      <%= f.submit("Update Item") %>
+    </div>
+
+  <% end %>
+</div>

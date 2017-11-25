@@ -6,7 +6,7 @@ default: &default
 development:
   <<: *default
   encoding: unicode
-  database: rotationapp_development
+  database: rotation_development
   username: rotationapp
   password: password1
 
@@ -16,10 +16,10 @@ development:
 test:
   
   encoding: unicode
-  database: rotationapp_test
+  database: rotation_test
   username: rotationapp
   password: password1
 
 production:
   <<: *default
-  database: railsauth_db_production
+  database: rotation_production

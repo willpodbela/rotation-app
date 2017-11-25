@@ -1,0 +1,31 @@
+<% if !flash[:notice].blank? %>
+  <div class="notice">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<%= link_to("<< Back to List", items_path, :class => 'back-link') %>
+
+<div class="items show">
+  <h2>Show Item</h2>
+
+  <table summary="Item detail view">
+    <tr>
+      <th>Title</th>
+      <td><%= @item.title %></td>
+    </tr>
+    <tr>
+      <th>Description</th>
+      <td><%= @item.description %></td>
+    </tr>
+    <tr>
+      <th>Quanity</th>
+      <td><%= @item.quantity %></td>
+    </tr>
+    <tr>
+      <th>Image</th>
+      <td> //TODO: </td>
+    </tr>
+  </table>
+
+</div>

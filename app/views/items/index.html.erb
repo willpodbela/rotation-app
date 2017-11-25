@@ -1,0 +1,35 @@
+<% if !flash[:notice].blank? %>
+  <div class="notice">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+
+<div class="items index">
+  <h2>Items</h2>
+
+  <%= link_to("Add New Item", new_item_path, :class => 'action new') %>
+
+  <table class="listing" summary="Item list">
+    <tr class="header">
+      <th>#</th>
+      <th>Image</th>
+      <th>Title</th>
+      <th>Desc</th>
+      <th>Quantity</th>
+    </tr>
+    <% @items.each do |item| %>
+    <tr>
+      <td><%= item.image_url %></td>
+      <td><%= item.title %></td>
+      <td><%= item.description %></td>
+      <td><%= item.quantity %></td>>
+      <td class="actions">
+        <%= link_to("Show", item_path(item), :class => 'action show') %>
+        <%= link_to("Edit", edit_item_path(item), :class => 'action edit') %>
+        <%= link_to("Delete", item_path(item), :method => :delete, :class => 'action delete') %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>
