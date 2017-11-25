@@ -32,6 +32,8 @@ gem 'jbuilder', '~> 2.5'
 
 # For help with registering and authenticating users (outside of API token auth)
 gem 'devise'
+# For use encrypting user passwords sent via API
+gem 'aescrypt'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

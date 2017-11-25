@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :users
   root to: "landing#index"
+  devise_for :users
   resources :items
+  
+  namespace :api, defaults: {format: :json} do
+    post "auth/login"
+    get "auth/logout"
+    post "auth/forgot"
+    post "users", to: "users#create"
+    match "items", to: 'items#index', :via => :get
+  end
 end
