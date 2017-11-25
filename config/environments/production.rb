@@ -93,13 +93,14 @@ Rails.application.configure do
   # Config mailer
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = { :host => 'afternoon-cove-82972.heroku.com' }
+  config.action_mailer.default_url_options = { :host => 'rotation-app.heroku.com' }
   ActionMailer::Base.smtp_settings = {
     :address    => "smtp.sendgrid.net",
-    :port       => 25,
+    :port       => 587,
     :user_name  => ENV['SENDGRID_USERNAME'],
     :password   => ENV['SENDGRID_PASSWORD'],
     :domain     => ENV['SENDGRID_DOMAIN'],
-    :authentication  => :plain
+    :authentication  => :plain,
+    :enable_starttls_auto => true
   }
 end
