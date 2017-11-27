@@ -17,21 +17,15 @@ module Api
       render_error(405)
     end
     
-    def create
+    def create    
       begin 
 			  decrypted_pass = AESCrypt.decrypt(params[:password], ENV["API_AUTH_PASSWORD"])
 			rescue Exception => e
-			  decrypted_pass = nil
+			  render_error(:unprocessable_entity, "A network error occured. Please switch to a different network and try again.")
 			end
 				
 			params[:password] = decrypted_pass
-    
-      @user = User.create(user_params)
-      if @user.id
-        render :create
-      else
-        render json: get_resource.errors, status: :unprocessable_entity
-      end
+			super
     end
     
     private
