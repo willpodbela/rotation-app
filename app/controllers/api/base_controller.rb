@@ -13,7 +13,7 @@ module Api
       if get_resource.save
         render :show, status: :created
       else
-        render json: get_resource.errors, status: :unprocessable_entity
+        render_error(:unprocessable_entity, get_resource.errors.full_messages.to_sentence)
       end
     end
 
@@ -44,7 +44,7 @@ module Api
       if get_resource.update(resource_params)
         render :show
       else
-        render json: get_resource.errors, status: :unprocessable_entity
+        render_error(:unprocessable_entity, get_resource.errors.full_messages.to_sentence)
       end
     end
     
