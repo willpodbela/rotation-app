@@ -20,12 +20,11 @@ module Api
     def create    
       begin 
 			  decrypted_pass = AESCrypt.decrypt(params[:password], ENV["API_AUTH_PASSWORD"])
+			  params[:password] = decrypted_pass
+			  super
 			rescue Exception => e
 			  render_error(:unprocessable_entity, "A network error occured. Please switch to a different network and try again.")
 			end
-				
-			params[:password] = decrypted_pass
-			super
     end
     
     private
