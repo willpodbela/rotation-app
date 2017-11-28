@@ -8,6 +8,6 @@ Rails.application.routes.draw do
     get "auth/logout"
     post "auth/forgot"
     post "users", to: "users#create"
-    match "items", to: 'items#index', :via => :get
+    resources :items
   end
 end
