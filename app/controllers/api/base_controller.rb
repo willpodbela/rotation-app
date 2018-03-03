@@ -111,6 +111,11 @@ module Api
     # Use callbacks to share common setup or constraints between actions.
     def set_resource(resource = nil)
       resource ||= resource_class.find(params[:id])
+      
+      # Set instance variables for use in the global view template (fallback if no :show template is provided)
+      instance_variable_set("@global_view_template_data", resource)
+      instance_variable_set("@global_view_template_name", resource_name)
+      
       instance_variable_set("@#{resource_name}", resource)
     end
   end
