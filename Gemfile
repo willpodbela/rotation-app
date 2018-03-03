@@ -37,6 +37,9 @@ gem 'kaminari'
 gem 'devise'
 # For use encrypting user passwords sent via API
 gem 'aescrypt'
+# For file uploading
+gem "paperclip", "~> 5.1" 
+gem 'aws-sdk', '< 3.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
