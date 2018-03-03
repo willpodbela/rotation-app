@@ -18,7 +18,7 @@ class ItemsController < ApplicationController
     if @item.save
       # If save succeeds, redirect to the index action
       flash[:notice] = "Subject created successfully."
-      redirect_to(items_path)
+      redirect_to()
     else
       # If save fails, redisplay the form so user can fix problems
       render('new')

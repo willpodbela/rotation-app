@@ -21,6 +21,7 @@
         <%= link_to("Show", item_path(item), :class => 'action show') %>
         <%= link_to("Edit", edit_item_path(item), :class => 'action edit') %>
         <%= link_to("Delete", item_path(item), :method => :delete, :class => 'action delete') %>
+        <%= link_to("Reservations", item_reservations_path(item), :class => 'action index') %>
       </td>
     </tr>
     <% end %>
