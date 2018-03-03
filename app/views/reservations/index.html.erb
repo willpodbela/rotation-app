@@ -1,0 +1,32 @@
+<%= link_to("<< Back to Item", item_path(@item), :class => 'back-link') %>
+
+<div class="reservations index">
+  <h2>Reservations for Item #<%= @item.id %>, <%= @item.title %></h2>
+
+  <%= link_to("Add New Reservation", new_item_reservation_path(@item), :class => 'action new') %>
+
+  <table class="listing" summary="Resevation list">
+    <tr class="header">
+      <th>#</th>
+      <th>User #</th>
+      <th>User Email</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Status</th>
+    </tr>
+    <% @reservations.each do |reservation| %>
+    <tr>
+      <td><%= reservation.id %></td>
+      <td><%= reservation.user.id %></td>
+      <td><%= reservation.user.email %></td>
+      <td><%= reservation.start_date %></td>
+      <td><%= reservation.end_date %></td>
+      <td><%= reservation.status %></td>
+      <td class="actions">
+        <%= link_to("Show", item_reservation_path(@item, reservation), :class => 'action show') %>
+        <%= link_to("Edit", edit_item_reservation_path(@item, reservation), :class => 'action edit') %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>
