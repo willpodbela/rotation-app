@@ -1,7 +1,17 @@
 Rails.application.routes.draw do
+  get 'reservations/index'
+
+  get 'reservations/show'
+
+  get 'reservations/new'
+
+  get 'reservations/edit'
+
   root to: "landing#index"
   devise_for :users
-  resources :items
+  resources :items do
+    resources :reservations
+  end
   
   namespace :api, defaults: {format: :json} do
     post "auth/login"
@@ -9,5 +19,6 @@ Rails.application.routes.draw do
     post "auth/forgot"
     post "users", to: "users#create"
     resources :items
+    resources :reservations
   end
 end

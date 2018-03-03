@@ -29,7 +29,7 @@ module Api
       resources = resource_class.where(query_params)
       .page(page_params[:page])
       .per(page_params[:page_size])
-
+      
       instance_variable_set(plural_resource_name, resources)
       respond_with instance_variable_get(plural_resource_name)
     end
@@ -50,7 +50,8 @@ module Api
     
     private
     
-    def render_error(status, message)
+    def render_error(status, message = nil)
+      message = message ? message : Rack::Utils::HTTP_STATUS_CODES[status]
       message = message ? message : "An error occured."
       render :status=>status, :json=>{:error => {:message => message}}
     end
@@ -110,6 +111,11 @@ module Api
     # Use callbacks to share common setup or constraints between actions.
     def set_resource(resource = nil)
       resource ||= resource_class.find(params[:id])
+      
+      # Set instance variables for use in the global view template (fallback if no :show template is provided)
+      instance_variable_set("@global_view_template_data", resource)
+      instance_variable_set("@global_view_template_name", resource_name)
+      
       instance_variable_set("@#{resource_name}", resource)
     end
   end

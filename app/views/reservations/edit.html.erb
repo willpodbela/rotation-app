@@ -1,0 +1,36 @@
+<%= link_to("<< Back to List", item_reservations_path(@item), :class => 'back-link') %>
+
+<div class="reservations edit">
+  <h2>Edit Reservation</h2>
+
+  <%= form_for([@item, @reservation]) do |f| %>
+
+    <table summary="Reservation form fields">
+      <tr>
+        <th>User ID</th>
+        <td><%= @reservation.user.id %></td>
+      </tr>
+      <tr>
+        <th>User Email</th>
+        <td><%= @reservation.user.email %></td>
+      </tr>
+      <tr>
+        <th>Start Date</th>
+        <td><%= f.date_select :start_date %></td>
+      </tr>
+      <tr>
+        <th>End Date</th>
+        <td><%= f.date_select :end_date %></td>
+      </tr>
+      <tr>
+        <th>Status</th>
+        <td><%=  f.collection_select :status, Reservation.statuses.map{ |a| [a.first,a.first] },  :first, :second %></td>
+      </tr>
+    </table>
+
+    <div class="form-buttons">
+      <%= f.submit("Update Item") %>
+    </div>
+
+  <% end %>
+</div>

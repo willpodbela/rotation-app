@@ -1,4 +1,7 @@
 class Item < ApplicationRecord
+  has_many :reservations
+  has_many :users, through: :reservations
+
 	has_attached_file :image, 
 		url: "/system/:hash.:extension",
 		hash_secret: "longSecretString",
