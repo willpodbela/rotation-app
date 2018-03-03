@@ -41,6 +41,8 @@ gem 'aescrypt'
 gem "paperclip", "~> 5.1" 
 gem 'aws-sdk', '< 3.0'
 
+gem 'dotenv-rails'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
