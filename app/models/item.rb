@@ -39,6 +39,6 @@ class Item < ApplicationRecord
   # This function returns whether or not there are any items available for reservation
   # during the next two week reservation period. We will probably want to deprecate later.
   def num_available
-    self.quantity - self.reservations.where('start_date <= ?', Reservation.next_reservation_period.start_date).where('end_date >= ?', Reservation.next_reservation_period.end_date).count
+    self.quantity - self.reservations.where('start_date <= ?', Reservation.next_reservation_period[:start_date]).where('end_date >= ?', Reservation.next_reservation_period[:end_date]).count
   end
 end
