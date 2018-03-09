@@ -1,7 +1,10 @@
 class Item < ApplicationRecord
   has_many :reservations
   has_many :users, through: :reservations
-
+  
+  scope :my_rotation, ->(user) { joins(:reservations).merge(Reservation.for_user(user).now.front_cycle) }
+  scope :up_next, ->(user) { joins(:reservations).merge(Reservation.for_user(user).future.front_cycle) }
+   
 	has_attached_file :image, 
 		url: "/system/:hash.:extension",
 		hash_secret: "longSecretString",
@@ -40,5 +43,9 @@ class Item < ApplicationRecord
   # during the next two week reservation period. We will probably want to deprecate later.
   def num_available
     self.quantity - self.reservations.next_period.live.count
+  end
+  
+  def self.catalog(user)
+    Item.all - Item.my_rotation(user) - Item.up_next(user)
   end
 end
