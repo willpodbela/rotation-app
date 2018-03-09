@@ -14,7 +14,7 @@ class Reservation < ApplicationRecord
   
   enum status: [ :scheduled, :sent, :active, :returned, :ended, :cancelled ]
   
-  # NOTE: Very specific to the 2-week cycles and reservation restrictions of the beta. 
+  # NOTE: (#BETA) Very specific to the 2-week cycles and reservation restrictions of the beta. 
   # This function returns the date range for the next two week reservation period. 
   # RETURNS:     { start_date => 'yyyy-mm-dd', end_date => 'yyyy-mm-dd' }
   # We will probably want to deprecate later.
@@ -26,6 +26,6 @@ class Reservation < ApplicationRecord
     end_date += 1 + ((6-end_date.wday) % 7)
     end_date += 1 + ((6-end_date.wday) % 7)
   
-    { "start_date" => start_date, "end_date" => end_date}
+    { :start_date => start_date, :end_date => end_date }
   end
 end
