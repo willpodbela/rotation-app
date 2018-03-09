@@ -30,12 +30,36 @@ class Item < ApplicationRecord
 		content_type: { content_type: /\Aimage\/.*\z/ },
         size: { less_than: 10.megabyte }
   
+  def my_rotation(user)
+    self.reservations.for_user(user).now.front_cycle
+  end
+  
+  def up_next(user)
+    self.reservations.for_user(user).future.front_cycle
+  end
+  
   def user_has_reservation_now?(user)
-    self.reservations.for_user(user).now.front_cycle.count > 0
+    self.my_rotation(user).count > 0
+  end
+  
+  def my_rotation_reservation_id(user)
+    if self.user_has_reservation_now?(user)
+      return self.my_rotation(user).first.id
+    else
+      return nil
+    end
   end
   
   def user_has_reservation_future?(user)
-    self.reservations.for_user(user).future.front_cycle.count > 0
+    self.up_next(user).count > 0
+  end
+  
+  def up_next_reservation_id(user)
+    if self.user_has_reservation_future?(user)
+      return self.up_next(user).first.id
+    else
+      return nil
+    end
   end
   
   # NOTE: (#BETA) Very specific to the 2-week cycles and reservation restrictions of the beta. 
