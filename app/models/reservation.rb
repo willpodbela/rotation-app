@@ -21,6 +21,9 @@ class Reservation < ApplicationRecord
   def self.next_reservation_period
     start_date = Date.today
     start_date += 1 + ((3-start_date.wday) % 7)
+    if start_date.cweek % 2 == 0
+      start_date += 1 + ((3-start_date.wday) % 7)
+    end
   
     end_date = start_date
     end_date += 1 + ((6-end_date.wday) % 7)
