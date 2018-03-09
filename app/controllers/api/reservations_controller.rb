@@ -23,6 +23,10 @@ module Api
       render_error(405)
     end
     
+    def dates
+      render :status=>200, :json=>{:next_period => Reservation.next_reservation_period}
+    end
+    
     private
     
     def reservation_params
