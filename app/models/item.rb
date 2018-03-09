@@ -39,6 +39,6 @@ class Item < ApplicationRecord
   # This function returns whether or not there are any items available for reservation
   # during the next two week reservation period. We will probably want to deprecate later.
   def num_available
-    self.quantity - self.reservations.next_period.count
+    self.quantity - self.reservations.next_period.live.count
   end
 end
