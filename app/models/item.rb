@@ -35,10 +35,10 @@ class Item < ApplicationRecord
     self.reservations.for_user(user).future.front_cycle_statuses.count > 0
   end
   
-  # NOTE: Very specific to the 2-week cycles and reservation restrictions of the beta. 
+  # NOTE: (#BETA) Very specific to the 2-week cycles and reservation restrictions of the beta. 
   # This function returns whether or not there are any items available for reservation
   # during the next two week reservation period. We will probably want to deprecate later.
   def num_available
-    self.quantity - self.reservations.where('start_date <= ?', Reservation.next_reservation_period).where('end_date >= ?', Reservation.next_reservation_period).count
+    self.quantity - self.reservations.where('start_date <= ?', Reservation.next_reservation_period.start_date).where('end_date >= ?', Reservation.next_reservation_period.end_date).count
   end
 end
