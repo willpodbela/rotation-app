@@ -14,12 +14,12 @@ Rails.application.routes.draw do
   end
   
   namespace :api, defaults: {format: :json} do
-    get "reservations/dates"
     post "auth/login"
     get "auth/logout"
     post "auth/forgot"
     post "users", to: "users#create"
     resources :items
+    get "reservations/info"
     resources :reservations
   end
 end

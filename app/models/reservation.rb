@@ -6,11 +6,12 @@ class Reservation < ApplicationRecord
   scope :now, -> { where('start_date <= ?', Date.today).where('end_date >= ?', Date.today) }
   scope :future, -> { where('start_date >= ?', Date.today).where('end_date > ?', Date.today) }
   scope :past, -> { where('start_date < ?', Date.today).where('end_date <= ?', Date.today) }
+  scope :next_period, -> { where('start_date <= ?', Reservation.next_reservation_period[:start_date]).where('end_date >= ?', Reservation.next_reservation_period[:end_date]) }
   
-  #front_cycle_statuses are all statuses in the lifecycle from start until when the user decides to send the item back
-  scope :front_cycle_statuses, -> { where(status: [:scheduled, :sent, :active]) }
-  #live_statuses are all statuses except cancelled
-  scope :live_statuses, -> { where(status: [:scheduled, :sent, :active, :returned, :ended]) }
+  #front_cycle statuses are all statuses in the lifecycle from start until when the user decides to send the item back
+  scope :front_cycle, -> { where(status: [:scheduled, :sent, :active]) }
+  #live statuses are all statuses except cancelled
+  scope :live, -> { where(status: [:scheduled, :sent, :active, :returned, :ended]) }
   
   enum status: [ :scheduled, :sent, :active, :returned, :ended, :cancelled ]
   
