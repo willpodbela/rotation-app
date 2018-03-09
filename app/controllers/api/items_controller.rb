@@ -19,7 +19,15 @@ module Api
       .page(page_params[:page])
       .per(page_params[:page_size])
       
-      render :index
+      if display_params[:sort_by_section] == "true"
+        @my_rotation = Item.my_rotation(current_user)
+        @up_next = Item.up_next(current_user)
+        @catalog = Item.catalog(current_user)
+        
+        render :sorted_index
+      else 
+        render :index
+      end
     end
     
     private
@@ -30,6 +38,10 @@ module Api
 
     def query_params
       params.permit()
+    end
+    
+    def display_params
+      params.permit(:sort_by_section)
     end
     
     def set_current_user
