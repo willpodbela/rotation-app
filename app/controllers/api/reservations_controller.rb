@@ -23,6 +23,13 @@ module Api
       render_error(405)
     end
     
+    def info
+      render :status => 200, :json => {
+        :reservations_remaining => 2-Reservation.for_user(current_user).next_period.live.count, 
+        :next_period => Reservation.next_reservation_period
+      }
+    end
+    
     private
     
     def reservation_params

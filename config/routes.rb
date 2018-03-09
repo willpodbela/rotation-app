@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     post "auth/forgot"
     post "users", to: "users#create"
     resources :items
+    get "reservations/info"
     resources :reservations
   end
 end
