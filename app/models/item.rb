@@ -26,4 +26,12 @@ class Item < ApplicationRecord
 	validates_attachment :image,
 		content_type: { content_type: /\Aimage\/.*\z/ },
         size: { less_than: 10.megabyte }
+  
+  def user_has_reservation_now?(user)
+    self.reservations.for_user(user).now.front_cycle_statuses.count > 0
+  end
+  
+  def user_has_reservation_future?(user)
+    self.reservations.for_user(user).future.front_cycle_statuses.count > 0
+  end
 end
