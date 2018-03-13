@@ -11,15 +11,18 @@
       <th>Subtitle</th>
       <th>Retail Value</th>
       <th>Desc</th>
+      <th>Color</th>
       <th>Quantity</th>
     </tr>
     <% @items.each do |item| %>
     <tr>
+      <td><%= item.id %></td>
       <td><%= item.image_url %></td>
       <td><%= item.title %></td>
       <td><%= item.subtitle %></td>
       <td><%= item.retail_value %></td>
       <td><%= item.description %></td>
+      <td><%= item.color %></td>
       <td><%= item.quantity %></td>>
       <td class="actions">
         <%= link_to("Show", item_path(item), :class => 'action show') %>
