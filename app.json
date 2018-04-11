@@ -33,9 +33,6 @@
     "RAILS_SERVE_STATIC_FILES": {
       "required": true
     },
-    "S3_BUCKET_NAME": {
-      "required": true
-    },
     "SECRET_KEY_BASE": {
       "required": true
     },
