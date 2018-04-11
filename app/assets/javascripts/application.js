@@ -15,4 +15,5 @@
 //= require jquery.easing
 //= require twitter/bootstrap
 //= require turbolinks
+//= require cable
 //= require_tree .

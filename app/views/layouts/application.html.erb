@@ -20,5 +20,7 @@
       <p class="alert alert-danger"><%= alert %></p>
     <% end %>
     <%= yield %>
+    
+    <%= javascript_include_tag 'footer', 'data-turbolinks-track': 'reload' %>
   </body>
 </html>
