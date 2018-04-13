@@ -1,13 +1,8 @@
 Rails.application.routes.draw do
-  get 'reservations/index'
-
-  get 'reservations/show'
-
-  get 'reservations/new'
-
-  get 'reservations/edit'
 
   root to: "landing#index"
+  post "sign_up", to: "landing#sign_up"
+  get "status", to: "landing#status"
   devise_for :users
   resources :items do
     resources :reservations

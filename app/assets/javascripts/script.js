@@ -51,7 +51,8 @@ if(typeof(AOS) !== 'undefined'){
 }
 
 // AJAX send form
-	
+
+/*
 $("form").submit(function(event){
 	event.preventDefault();
  
@@ -75,6 +76,28 @@ $("form").submit(function(event){
 			}else{
 				$(".alert-form-error").fadeIn(200).delay(5000).fadeOut(200);
 			}
+		})
+		.fail(function(){
+			$(".alert-form-error").fadeIn(200).delay(5000).fadeOut(200);
+		});
+	}else{
+		$(".alert-form-check-fields").fadeIn(200).delay(5000).fadeOut(200);
+	}
+});
+*/
+
+$("#landing-form").submit(function(event){
+ 
+	var form = $(this),
+		term = form.serialize(),
+		url = form.attr("action"),
+		required_fields_filled = true;
+	
+	if(required_fields_filled){
+		var posting = $.post(url, term);
+		posting
+		.done(function(data){
+			window.location.replace("/status") 
 		})
 		.fail(function(){
 			$(".alert-form-error").fadeIn(200).delay(5000).fadeOut(200);

@@ -83,6 +83,62 @@
 	</div>
 </header>
 
+<!-- Header 3 -->
+<header class="header_3">
+   <!-- Navigation 2 -->
+   <nav class="navigation_2 padding_top30 padding_bottom30 top30">
+      <div class="container nopadding">
+         <div class="row line_height40">
+            <div class="col-lg-8 col-md-7 block_left">
+               <div class="right20 inline_block nav_logo"><b>Startup</b> Framework</div>
+               <span class="dropdown_holder dark_blue padding_left20 right20">
+                  <a href="#" class="link dark_blue">Products</a>
+                  <div class="dropdown_body white width200 padding_sides20 padding_top10 padding_bottom10">
+                     <div><a href="#" class="link dark_blue">Startup Framework 2</a></div>
+                     <div><a href="#" class="link dark_blue">Slides</a></div>
+                     <div><a href="#" class="link dark_blue">Qards</a></div>
+                  </div>
+               </span>
+               <a href="#" class="link dark_blue sides20">Pricing</a>
+               <a href="#" class="link dark_blue sides20">Community</a>
+            </div>
+            <div class="col-lg-4 col-md-5 text_right block_right">
+               <a href="#" class="link dark_blue sides20">API</a>
+               <a href="#" class="link dark_blue sides20">Help</a>
+               <a href="#" class="link dark_blue sides20">Login</a>
+               <a href="#" class="btn white border border_light_gray size40 radius6 padding_sides20">Sign Up</a>
+            </div>
+         </div>
+      </div>
+   </nav>
+   <div class="container nopadding">
+      <div class="float_left max_width570 top250 left_block">
+        <h1 class="raleway light font42">Now in Closed Beta!! Join our waitlist.</h1>
+        <%= form_tag("sign_up", id: "landing-form", remote: true, class: "width470 text_center top80 header_3_form") do %>
+          <%= email_field_tag("email", nil, class: "width_full radius6", placeholder: "Email Address") =%>
+          <%= password_field_tag("password", nil, class: "width_full radius6 top30", placeholder: "Password") =%>
+          <div class="top30 medium_gray text">By signing up, you agree to the <a href="#">Terms of Service</a></div>
+          <%= button_tag(type: "submit", class: "btn width_full size60 blue radius6 top30") do %>
+            Create an Account
+          <% end %>
+        <% end %>
+      </div>
+      <div class="left700 top250 right_block">
+         <div class="width470 radius8 video" data-ratio="16/9">
+            <div class="radius8 poster">
+               <div class="play red"><i class="fa fa-play"></i></div>
+            </div>
+            <video controls>
+               <source src="video/video1.mp4" type="video/mp4">
+            </video>
+         </div>
+         <div class="font18 dark_blue top30">
+            We made it so beautiful and simple. It combines landings, pages, blogs and shop screens. It is definitely the tool you need in your collection! 
+         </div>
+      </div>
+   </div>
+</header>
+
 <!-- Feature 1 -->
 
 <section class="feature_1 padding_top80 padding_bottom90">
