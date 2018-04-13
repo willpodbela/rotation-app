@@ -5,6 +5,11 @@ class ApplicationController < ActionController::Base
   
   private
   
+  #set devise to redirect to status after successful login
+  def after_sign_in_path_for(resource)
+    status_path
+  end
+  
   def generate_access_control_methods!
     class << self
       User.access_levels.each do |key, value|
