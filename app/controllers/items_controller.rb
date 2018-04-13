@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+  before_action :enforce_access_control_admin!
+
   def index
     @items = Item.all
   end

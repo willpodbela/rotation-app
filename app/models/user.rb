@@ -9,6 +9,8 @@ class User < ApplicationRecord
   
   before_save :ensure_authentication_token
   
+  enum access_level: [ :waitlist, :standard, :admin ]
+  
   def ensure_authentication_token
     if authentication_token.blank?
       renew_authentication_token
