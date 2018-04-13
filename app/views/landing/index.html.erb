@@ -1,88 +1,3 @@
-
-<!-- Navigation Mobile type 1 -->
-
-<a class="open_menu white"><i class="fa fa-bars"></i></a>
-<div class="navigation_mobile type1">
-	<a class="close_menu white"><i class="fa fa-close"></i></a>
-	<div class="padding_sides40 padding_top60 padding_bottom60 inner">
-		<div class="nav_logo white bottom30"><b>Startup</b> Framework</div>
-		<div><a href="#" class="raleway font22 link white bottom20">Home</a></div>
-		<div><a href="#" class="raleway font22 link white bottom20">Tour</a></div>
-		<div><a href="#" class="raleway font22 link white bottom20">Mobile Apps</a></div>
-		<div><a href="#" class="raleway font22 link white bottom20">Pricing</a></div>
-		<div><a href="#" class="raleway font22 link white bottom40">Development</a></div>
-		
-		<div><a href="#" class="font16 link white opacity3 bottom15">Help</a></div>
-		<div><a href="#" class="font16 link white opacity3 bottom15">F.A.Q.</a></div>
-		<div><a href="#" class="font16 link white opacity3 bottom15">Support</a></div>
-		<div><a href="#" class="font16 link white opacity3 bottom15">About Us</a></div>
-		<div><a href="#" class="font16 link white opacity3 bottom15">Blog</a></div>
-		<div><a href="#" class="font16 link white opacity3 bottom15">Careers</a></div>
-		
-		<div class="socials top40">
-			<a href="#" target="_blank" class="link white font18 right20"><i class="fa fa-twitter"></i></a>
-			<a href="#" target="_blank" class="link white font18 right20"><i class="fa fa-facebook"></i></a>
-			<a href="#" target="_blank" class="link white font18 right20"><i class="fa fa-google-plus"></i></a>
-		</div>
-		
-		<div class="top50 font14 light white opacity3 copy">© 2017 Designmodo. All rights reserved.</div>
-	</div>
-</div>
-
-<!-- Header 8 -->
-
-<header class="header_8 padding_bottom180">
-
-	<!-- Navigation 13 -->
-
-	<nav class="navigation_13 transparent padding_top30 padding_bottom30 top60">
-		<div class="container nopadding text_center">
-			<a href="#" class="sides15 semibold uppercase spacing20 font14 line_height40 link white">Home</a>
-			<a href="#" class="sides15 semibold uppercase spacing20 font14 line_height40 link white">Features</a>
-			<a href="#" class="sides15 semibold uppercase spacing20 font14 line_height40 link white">Pricing</a>
-			<a href="#" class="sides15 semibold uppercase spacing20 font14 line_height40 link white">Blog</a>
-			<a href="#" class="sides15 semibold uppercase spacing20 font18 line_height40 link white"><i class="fa fa-dribbble"></i></a>
-			<a href="#" class="sides15 semibold uppercase spacing20 font18 line_height40 link white"><i class="fa fa-behance"></i></a>
-		</div>
-	</nav>
-
-	<div class="container nopadding">
-		<img srcset="header_8_logo.png 1x, header_8_logo_2x.png 2x" src="header_8_logo.png" class="margin_auto top230 logo" alt="" />
-		<div class="text_center white font20 top20"><span class="semibold">The Rotation</span></div>
-		<h1 class="text_center white raleway semibold font92 top90">An Endless Closet</h1>
-		<div class="top70 slider dots-90">
-			<div>
-				<div class="max_width570 margin_auto white text_center light font22 text">
-					Startup Framework gives you complete freedom over your creative process — you don’t have to think about any technical aspects. There are no limits and absolutely no coding. 
-				</div>
-			</div>
-			<div>
-				<div class="max_width570 margin_auto white text_center light font22 text">
-					Startup Framework gives you complete freedom over your creative process — you don’t have to think about any technical aspects. There are no limits and absolutely no coding. 
-				</div>
-			</div>
-			<div>
-				<div class="max_width570 margin_auto white text_center light font22 text">
-					Startup Framework gives you complete freedom over your creative process — you don’t have to think about any technical aspects. There are no limits and absolutely no coding. 
-				</div>
-			</div>
-			<div>
-				<div class="max_width570 margin_auto white text_center light font22 text">
-					Startup Framework gives you complete freedom over your creative process — you don’t have to think about any technical aspects. There are no limits and absolutely no coding. 
-				</div>
-			</div>
-			<div>
-				<div class="max_width570 margin_auto white text_center light font22 text">
-					Startup Framework gives you complete freedom over your creative process — you don’t have to think about any technical aspects. There are no limits and absolutely no coding. 
-				</div>
-			</div>
-		</div>
-		<div class="text_center top210 block_with_button">
-			<a href="#" class="btn black padding_left25 padding_right25 size60 border border_white radius6"><i class="fa fa-apple font22 right10"></i> Available on the App Store</a>
-		</div>
-	</div>
-</header>
-
 <!-- Header 3 -->
 <header class="header_3">
    <!-- Navigation 2 -->
@@ -103,10 +18,7 @@
                <a href="#" class="link dark_blue sides20">Community</a>
             </div>
             <div class="col-lg-4 col-md-5 text_right block_right">
-               <a href="#" class="link dark_blue sides20">API</a>
-               <a href="#" class="link dark_blue sides20">Help</a>
-               <a href="#" class="link dark_blue sides20">Login</a>
-               <a href="#" class="btn white border border_light_gray size40 radius6 padding_sides20">Sign Up</a>
+              <%= link_to("Login", new_user_session_path, class: "link dark_blue sides20") %>
             </div>
          </div>
       </div>
@@ -114,7 +26,7 @@
    <div class="container nopadding">
       <div class="float_left max_width570 top250 left_block">
         <h1 class="raleway light font42">Now in Closed Beta!! Join our waitlist.</h1>
-        <%= form_tag("sign_up", id: "landing-form", remote: true, class: "width470 text_center top80 header_3_form") do %>
+        <%= form_tag(sign_up_path, id: "landing-form", remote: true, class: "width470 text_center top80 header_3_form") do %>
           <%= email_field_tag("email", nil, class: "width_full radius6", placeholder: "Email Address") =%>
           <%= password_field_tag("password", nil, class: "width_full radius6 top30", placeholder: "Password") =%>
           <div class="top30 medium_gray text">By signing up, you agree to the <a href="#">Terms of Service</a></div>
