@@ -1,9 +1,11 @@
 <div class="items index">
   <h2>Welcome!</h2>
 
-  <h3>Fuck you</h3>
-  
-  <h1>OR</h1>
-  
-  <h3>You're in!!!! Now click here to download our app.</h3>
+  <% if current_user.waitlist? %>
+    <h3>Fuck you. You still on da waitlist.</h3>
+  <% elsif current_user.standard? %>
+    <h3>You're in!!!! Now click here to download our app.</h3>
+  <% elsif current_user.admin? %>
+    <h3>You're an admin. Let's redirect you to the inventory backend.</h3>
+  <% end %>
 </div>
