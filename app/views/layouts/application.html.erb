@@ -3,13 +3,7 @@
   <head>
     <title>The Rotation</title>
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= csrf_meta_tags %>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<%= stylesheet_link_tag    'application', 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Raleway:100,200,300,400,500,600,700,800,900', media: 'all', 'data-turbolinks-track' => true %>
-		<%= javascript_include_tag 'application', 'https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDP6Ex5S03nvKZJZSvGXsEAi3X_tFkua4U', 'data-turbolinks-track' => true %>
+    <%= yield :stylesheets %>
   </head>
 
   <body>
@@ -21,6 +15,6 @@
     <% end %>
     <%= yield %>
     
-    <%= javascript_include_tag 'footer', 'data-turbolinks-track': 'reload' %>
+    <%= yield :footer_js %>
   </body>
 </html>
