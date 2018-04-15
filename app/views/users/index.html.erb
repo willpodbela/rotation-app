@@ -1,0 +1,26 @@
+<div class="users index">
+  <%= link_to("Back to Admin Home", admin_path, :class => 'back-link') %>
+
+  <h2>Users</h2>
+
+  <table class="listing" summary="User list">
+    <tr class="header">
+      <th>#</th>
+      <th>Email</th>
+      <th>Date Joined</th>
+      <th>Access</th>
+      <th>Actions</th>
+    </tr>
+    <% @users.each do |user| %>
+    <tr>
+      <td><%= user.id %></td>
+      <td style"<%= 'text-color: red' unless user.confirmed? %>"><%= user.email %></td>
+      <td><%= user.created_at %></td>
+      <td><%= user.access_level %></td>
+      <td class="actions">
+        <%= link_to("Release From Waitlist", release_user_path(user), :class => 'action') if user.waitlist? %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>

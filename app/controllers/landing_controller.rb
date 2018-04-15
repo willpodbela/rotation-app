@@ -1,9 +1,20 @@
 class LandingController < ApplicationController
-  skip_before_action :authenticate_user!
-
+  skip_before_action :authenticate_user!, only: [:index, :status]
+  before_action :enforce_access_control_admin!, only: [:admin]
+  
+  # Home Page
   def index
   end
   
+  # Displays waitlist status or download link to non-admin users.
+  def status
+  end
+  
+  # Admin Landing Page
+  def admin
+  end
+  
+  # AJAX endpoint for sign-up form on Home Page to call
   def sign_up
     # Instantiate a new object using form parameters
     @user = User.new(user_params)
@@ -15,9 +26,6 @@ class LandingController < ApplicationController
     else
       render :status=>400, :json => { "data":"" }
     end
-  end
-  
-  def status
   end
   
   private
