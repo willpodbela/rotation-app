@@ -7,7 +7,11 @@ class ApplicationController < ActionController::Base
   
   #set devise to redirect to status after successful login
   def after_sign_in_path_for(resource)
-    status_path
+    if resource.admin?
+      items_path
+    else
+      status_path
+    end
   end
   
   def generate_access_control_methods!
