@@ -1,3 +1,8 @@
+User.create!([
+  {email: "admin1@therotation.club", password: "123456", password_confirmation: "123456", access_level: :admin},
+  {email: "user1@therotation.club", password: "123456", password_confirmation: "123456", access_level: :standard},
+  {email: "waitlist1@therotation.club", password: "123456", password_confirmation: "123456"},
+])
 Item.create!([
   {title: "Off White", description: "Shirt", quantity: 2, image_url: nil, image_file_name: "blue.png", image_content_type: "image/png", image_file_size: 314834, image_updated_at: "2018-03-09 05:12:25", subtitle: "Shirt", retail_value: "$800 Retail", color: "#1C9ED1"},
   {title: "Fear of God", description: "Shirt", quantity: 3, image_url: nil, image_file_name: "jacket.png", image_content_type: "image/png", image_file_size: 374000, image_updated_at: "2018-03-09 05:12:39", subtitle: "Shirt", retail_value: "$800 Retail", color: "#6BC91A"},
