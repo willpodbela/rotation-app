@@ -18,9 +18,10 @@ Rails.application.routes.draw do
     post "auth/login"
     get "auth/logout"
     post "auth/forgot"
-    post "users", to: "users#create"
+    resources :users, only: [:create, :show]
     resources :items
-    get "reservations/info"
-    resources :reservations
+    resources :reservations do
+      get 'info', on: :collection
+    end
   end
 end

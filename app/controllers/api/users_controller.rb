@@ -1,7 +1,7 @@
 module Api
   class UsersController < Api::BaseController
-    http_basic_authenticate_with name:ENV["API_AUTH_NAME"], password:ENV["API_AUTH_PASSWORD"]
-    skip_before_action :authenticate_user_from_token!
+    http_basic_authenticate_with name:ENV["API_AUTH_NAME"], password:ENV["API_AUTH_PASSWORD"], only: [:create]
+    skip_before_action :authenticate_user_from_token!, only: [:create]
     
     #Failsafe: Override endpoints that we don't want to make available
     def destroy
@@ -13,8 +13,13 @@ module Api
     def index
       render_error(405)
     end
+    
     def show
-      render_error(405)
+      if params[:id].to_i == current_user.id
+        super
+      else
+        render_error(403)
+      end
     end
     
     def create    
