@@ -1,31 +1,57 @@
-<!-- Header 3 -->
-<header class="header_3">
-   <!-- Navigation 2 -->
-   <nav class="navigation_2 padding_top30 padding_bottom30 top30">
-      <div class="container nopadding">
-         <div class="row line_height40">
-            <div class="col-lg-8 col-md-7 block_left">
-               <div class="right20 inline_block nav_logo"><b>Startup</b> Framework</div>
-               <span class="dropdown_holder dark_blue padding_left20 right20">
-                  <a href="#" class="link dark_blue">Products</a>
-                  <div class="dropdown_body white width200 padding_sides20 padding_top10 padding_bottom10">
-                     <div><a href="#" class="link dark_blue">Startup Framework 2</a></div>
-                     <div><a href="#" class="link dark_blue">Slides</a></div>
-                     <div><a href="#" class="link dark_blue">Qards</a></div>
-                  </div>
-               </span>
-               <a href="#" class="link dark_blue sides20">Pricing</a>
-               <a href="#" class="link dark_blue sides20">Community</a>
-            </div>
-            <div class="col-lg-4 col-md-5 text_right block_right">
-              <%= link_to("Login", new_user_session_path, class: "link dark_blue sides20") %>
-            </div>
-         </div>
+<!-- Navigation Mobile type 1 -->
+
+<a class="open_menu white"><i class="fa fa-bars"></i></a>
+<div class="navigation_mobile type1">
+  <a class="close_menu white"><i class="fa fa-close"></i></a>
+  <div class="padding_sides40 padding_top60 padding_bottom60 inner">
+    <div class="nav_logo white bottom30">the rotation</div>
+    <div><a href="#" class="ubuntu font22 link white bottom20">Home</a></div>
+    <div><a href="#" class="ubuntu font22 link white bottom20">Tour</a></div>
+    <div><a href="#" class="ubuntu font22 link white bottom20">Mobile Apps</a></div>
+    <div><a href="#" class="ubuntu font22 link white bottom20">Pricing</a></div>
+    <div><a href="#" class="ubuntu font22 link white bottom40">Development</a></div>
+
+    <div><a href="#" class="font16 link white opacity3 bottom15">Help</a></div>
+    <div><a href="#" class="font16 link white opacity3 bottom15">F.A.Q.</a></div>
+    <div><a href="#" class="font16 link white opacity3 bottom15">Support</a></div>
+    <div><a href="#" class="font16 link white opacity3 bottom15">About Us</a></div>
+    <div><a href="#" class="font16 link white opacity3 bottom15">Blog</a></div>
+    <div><a href="#" class="font16 link white opacity3 bottom15">Careers</a></div>
+
+    <div class="socials top40">
+      <a href="#" target="_blank" class="link white font18 right20"><i class="fa fa-twitter"></i></a>
+      <a href="#" target="_blank" class="link white font18 right20"><i class="fa fa-facebook"></i></a>
+      <a href="#" target="_blank" class="link white font18 right20"><i class="fa fa-google-plus"></i></a>
+    </div>
+
+    <div class="top50 font14 light white opacity3 copy">© 2018 Rotation, Inc. All rights reserved.</div>
+  </div>
+</div>
+
+<!-- Header 11 -->
+
+<header class="header_11">
+
+  <!-- Navigation 6 -->
+
+  <nav class="navigation_6 padding_top30 padding_bottom30 line_height40 transparent top30">
+    <div class="container nopadding">
+      <div class="float_left nav_logo">the rotation</div>
+      <div class="float_right">
+        <%= link_to("Login", new_user_session_path, class: "link dark_gray right30") %>
+        <a href="#" class="btn black size40 padding_sides20 right30"><i class="fab fa-apple right10"></i>Download App</a>
+        <a href="#" class="nav_6_menu"><i class="fa fa-bars font18"></i></a>
       </div>
-   </nav>
-   <div class="container nopadding">
+    </div>
+  </nav>
+
+  <div class="container nopadding">
+    <div class="max_width470 inner">
+      <h1 class="ubuntu font62 dark_gray top230">Welcome<br /> to a closet without boundaries</h1>
+      <div class="font22 light dark_blue top50 text">
+        This is The Rotation. A members-only club where the only thing holding back your wardrobe is yourself. Everything you could want, right at your fingertips.
+      </div>
       <div class="float_left max_width570 top250 left_block">
-        <h1 class="raleway light font42">Now in Closed Beta!! Join our waitlist.</h1>
         <%= form_tag(sign_up_path, id: "landing-form", remote: true, class: "width470 text_center top80 header_3_form") do %>
           <%= email_field_tag("email", nil, class: "width_full radius6", placeholder: "Email Address") =%>
           <%= password_field_tag("password", nil, class: "width_full radius6 top30", placeholder: "Password") =%>
@@ -35,317 +61,280 @@
           <% end %>
         <% end %>
       </div>
-      <div class="left700 top250 right_block">
-         <div class="width470 radius8 video" data-ratio="16/9">
-            <div class="radius8 poster">
-               <div class="play red"><i class="fa fa-play"></i></div>
-            </div>
-            <video controls>
-               <source src="video/video1.mp4" type="video/mp4">
-            </video>
-         </div>
-         <div class="font18 dark_blue top30">
-            We made it so beautiful and simple. It combines landings, pages, blogs and shop screens. It is definitely the tool you need in your collection! 
-         </div>
-      </div>
-   </div>
+    </div>
+    <img srcset="<%= asset_path 'rotation-app@1x.jpg' %> 1x, <%= asset_path 'rotation-app@2x.jpg' %> 2x" src="<%= asset_path 'rotation-app@1x.jpg' %>" class="left470 bg" alt="" />
+  </div>
 </header>
-
-<!-- Feature 1 -->
-
-<section class="feature_1 padding_top80 padding_bottom90">
-	<div class="container nopadding max_width970">
-		<h2 class="font42 raleway light dark_gray text_center">Our Benefits</h2>
-		<div class="top70 inner">
-			<div class="col-sm-4 text_center bottom50 block">
-				<i class="fa fa-briefcase font60 light_gray"></i>
-				<div class="top20 font28 light dark_gray title">Many Useful <br />Components</div>
-				<div class="top30 font18 light dark_blue text">
-					Startup Framework contains components and complex blocks which can easily be integrated <br />into almost any design. 
-				</div>
-			</div>
-			<div class="col-sm-4 text_center bottom50 block">
-				<i class="fa fa-compress font60 light_gray"></i>
-				<div class="top20 font28 light dark_gray title">Responsive <br />Layout</div>
-				<div class="top30 font18 light dark_blue text">
-					We haven’t forgotten about responsive layout. With Startup Framework, you can create a website with full mobile support.
-				</div>
-			</div>
-			<div class="col-sm-4 text_center bottom50 block">
-				<i class="fa fa-desktop font60 light_gray"></i>
-				<div class="top20 font28 light dark_gray title">Retina <br />Ready</div>
-				<div class="top30 font18 light dark_blue text">
-					Startup Framework works on <br />devices supporting Retina <br />Display. Feel the clarity in each <br />pixel.
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-
-<!-- Feature 25 -->
-
-<section class="feature_25 padding_top125 padding_bottom180">
-	<div class="container nopadding">
-		<h2 class="font42 raleway light white">Better Landing for Your Startup.</h2>
-		<div class="top25 max_width670 font22 light white text text1">
-			Startup Framework contains components and complex which can easily be integrated into almost any design. All of these components are made in the same style, and can easy be integrated into projects.
-		</div>1
-		<div class="top85 max_width370 white block">
-			<div class="font18 raleway semibold title">How Startup Framework works?</div>
-			<div class="top10 font16 light text">
-				The Generator App is an online tool that helps you to export ready-made templates ready to work as your future website. 
-			</div>
-		</div>
-		<a href="#" class="top60 inline_block link white font16">Learn more <i class="fa fa-angle-right font18 line_height26 left10"></i></a>
-	</div>
-</section>
-
-<!-- Feature 15 -->
-
-<section class="feature_15 padding_top140 padding_bottom100">
-	<div class="container nopadding">
-		<div class="top20 float_left max_width470 block_left">
-			<h2 class="font42 raleway light dark_gray">Better design for your content.</h2>
-			<div class="top30 bottom70 font18 light dark_blue text">
-				With Startup, we don't make you start from an empty slate. All you have to do is to pick the elements you like best and combine them together and we guarantee that it will look fantastic. 
-			</div>
-			<div class="max_width370 bottom55 block">
-				<div class="font22 red light title"><i class="fa fa-check right15"></i>Retina Ready</div>
-				<div class="top20 font18 dark_blue light text">
-					Startup Framework works fine on devices supporting Retina Desplay. Feel the clarity!
-				</div>
-			</div>
-			<div class="max_width370 block">
-				<div class="font22 red light title"><i class="fa fa-check right15"></i>Responsive Layout</div>
-				<div class="top20 font18 dark_blue light text">
-					Of course we haven't forgotten about the responsive layout. Full mobile support.
-				</div>
-			</div>
-			<div class="top75 buttons">
-				<a href="#" class="bottom20 btn size50 black font16 radius6 padding_sides20"><i class="fa fa-apple font22 line_height40 right15"></i>Available on App Store</a>
-				<a href="#" class="left25 btn size50 transparent_red font16 radius6 padding_sides20 border border_red">Learn More</a>
-			</div>
-		</div>
-		<img srcset="feature_15_bg.jpg 1x, feature_15_bg_2x.jpg 2x" src="feature_15_bg.jpg" class="max_width675 float_right bg" alt="" />				
-		<div class="clearfix"></div>	
-	</div>
-</section>
-
-<!-- Content 1 -->
-
-<section class="content_1 padding_bottom90">
-	<div class="container nopadding max_width970">
-		<div class="top100 text_center inner">
-			<div class="font14 dark_blue semibold uppercase pretitle spacing17">Free Sample</div>
-			<h2 class="font62 black top30 light raleway">Demo Version of Startup <br />Framework</h2>
-		</div>
-	</div>
-</section>
-
-<!-- Content 35 -->
-
-<section class="content_35 padding_top130 padding_bottom50">
-	<div class="container nopadding">
-		<div class="text_center max_width970 margin_auto">
-			<div class="inline_block bottom50 width190 text_left">
-				<img srcset="demo_images/content_35_logo1.png 1x, demo_images/content_35_logo1_2x.png 2x" src="demo_images/content_35_logo1.png" class="max_width_full" alt="" />
-			</div>
-			<div class="inline_block margin_auto bottom50 width190 text_center">
-				<img srcset="demo_images/content_35_logo2.png 1x, demo_images/content_35_logo2_2x.png 2x" src="demo_images/content_35_logo2.png" class="max_width_full" alt="" />
-			</div>
-			<div class="inline_block margin_auto bottom50 width190 text_center">
-				<img srcset="demo_images/content_35_logo3.png 1x, demo_images/content_35_logo3_2x.png 2x" src="demo_images/content_35_logo3.png" class="max_width_full" alt="" />
-			</div>
-			<div class="inline_block margin_auto bottom50 width190 text_center">
-				<img srcset="demo_images/content_35_logo4.png 1x, demo_images/content_35_logo4_2x.png 2x" src="demo_images/content_35_logo4.png" class="max_width_full" alt="" />
-			</div>
-			<div class="inline_block margin_auto bottom50 width190 text_right">
-				<img srcset="demo_images/content_35_logo5.png 1x, demo_images/content_35_logo5_2x.png 2x" src="demo_images/content_35_logo5.png" class="max_width_full" alt="" />
-			</div>	
-			<div class="inline_block margin_auto bottom50 width190 text_left">
-				<img srcset="demo_images/content_35_logo6.png 1x, demo_images/content_35_logo6_2x.png 2x" src="demo_images/content_35_logo6.png" class="max_width_full" alt="" />
-			</div>
-			<div class="inline_block margin_auto bottom50 width190 text_center">
-				<img srcset="demo_images/content_35_logo7.png 1x, demo_images/content_35_logo7_2x.png 2x" src="demo_images/content_35_logo7.png" class="max_width_full" alt="" />
-			</div>
-			<div class="inline_block margin_auto bottom50 width190 text_center">
-				<img srcset="demo_images/content_35_logo8.png 1x, demo_images/content_35_logo8_2x.png 2x" src="demo_images/content_35_logo8.png" class="max_width_full" alt="" />
-			</div>
-			<div class="inline_block margin_auto bottom50 width190 text_center">
-				<img srcset="demo_images/content_35_logo9.png 1x, demo_images/content_35_logo9_2x.png 2x" src="demo_images/content_35_logo9.png" class="max_width_full" alt="" />
-			</div>
-			<div class="inline_block margin_auto bottom50 width190 text_right">
-				<img srcset="demo_images/content_35_logo10.png 1x, demo_images/content_35_logo10_2x.png 2x" src="demo_images/content_35_logo10.png" class="max_width_full" alt="" />
-			</div>	
-		</div>
-	</div>
-</section>
-
-<!-- Showcase 4 -->
-
-<section class="showcase_4 padding_top80 padding_bottom120">
-	<div class="container nopadding text_center white">
-		<h2 class="font42 light raleway">More than 150 components.</h2>
-		<div class="margin_auto top30 bottom75 max_width770 font22 light opacity7 text">
-			Many carefully crafted components to present your business.
-		</div>
-		<div class="row">
-			<div class="col-sm-4">
-				<div class="margin_auto bottom30 max_width370 block">
-					<a href="#">
-						<img srcset="demo_images/showcase_4_foto1.jpg 1x, demo_images/showcase_4_foto1_2x.jpg 2x" src="demo_images/showcase_4_foto1.jpg" class="radius8 width_full" alt="" />
-					</a>
-				</div>
-				<div class="margin_auto bottom15 max_width370 block">
-					<a href="#">
-						<img srcset="demo_images/showcase_4_foto2.jpg 1x, demo_images/showcase_4_foto2_2x.jpg 2x" src="demo_images/showcase_4_foto2.jpg" class="radius8 width_full" alt="" />
-					</a>
-				</div>
-				<div class="margin_auto bottom30 max_width370 block">
-					<a href="#">
-						<img srcset="demo_images/showcase_4_foto3.jpg 1x, demo_images/showcase_4_foto3_2x.jpg 2x" src="demo_images/showcase_4_foto3.jpg" class="radius8 width_full" alt="" />
-					</a>
-				</div>
-				<div class="margin_auto bottom30 max_width370 block">
-					<a href="#">
-						<img srcset="demo_images/showcase_4_foto4.jpg 1x, demo_images/showcase_4_foto4_2x.jpg 2x" src="demo_images/showcase_4_foto4.jpg" class="radius8 width_full" alt="" />
-					</a>
-				</div>
-				<div class="margin_auto bottom30 max_width370 block">
-					<a href="#">
-						<img srcset="demo_images/showcase_4_foto5.jpg 1x, demo_images/showcase_4_foto5_2x.jpg 2x" src="demo_images/showcase_4_foto5.jpg" class="radius8 width_full" alt="" />
-					</a>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="margin_auto bottom30 max_width370 block">
-					<a href="#">
-						<img srcset="demo_images/showcase_4_foto6.jpg 1x, demo_images/showcase_4_foto6_2x.jpg 2x" src="demo_images/showcase_4_foto6.jpg" class="radius8 width_full" alt="" />
-					</a>
-				</div>
-				<div class="margin_auto bottom30 max_width370 block">
-					<a href="#">
-						<img srcset="demo_images/showcase_4_foto7.jpg 1x, demo_images/showcase_4_foto7_2x.jpg 2x" src="demo_images/showcase_4_foto7.jpg" class="radius8 width_full" alt="" />
-					</a>
-				</div>
-				<div class="margin_auto bottom30 max_width370 block">
-					<a href="#">
-						<img srcset="demo_images/showcase_4_foto8.jpg 1x, demo_images/showcase_4_foto8_2x.jpg 2x" src="demo_images/showcase_4_foto8.jpg" class="radius8 width_full" alt="" />
-					</a>
-				</div>
-				<div class="margin_auto bottom30 max_width370 block">
-					<a href="#">
-						<img srcset="demo_images/showcase_4_foto9.jpg 1x, demo_images/showcase_4_foto9_2x.jpg 2x" src="demo_images/showcase_4_foto9.jpg" class="radius8 width_full" alt="" />
-					</a>
-				</div>
-				<div class="margin_auto bottom30 max_width370 block">
-					<a href="#">
-						<img srcset="demo_images/showcase_4_foto10.jpg 1x, demo_images/showcase_4_foto10_2x.jpg 2x" src="demo_images/showcase_4_foto10.jpg" class="radius8 width_full" alt="" />
-					</a>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="margin_auto bottom30 max_width370 block">
-					<a href="#">
-						<img srcset="demo_images/showcase_4_foto11.jpg 1x, demo_images/showcase_4_foto11_2x.jpg 2x" src="demo_images/showcase_4_foto11.jpg" class="radius8 width_full" alt="" />
-					</a>
-				</div>
-				<div class="margin_auto bottom30 max_width370 block">
-					<a href="#">
-						<img srcset="demo_images/showcase_4_foto12.jpg 1x, demo_images/showcase_4_foto12_2x.jpg 2x" src="demo_images/showcase_4_foto12.jpg" class="radius8 width_full" alt="" />
-					</a>
-				</div>
-				<div class="margin_auto bottom30 max_width370 block">
-					<a href="#">
-						<img srcset="demo_images/showcase_4_foto13.jpg 1x, demo_images/showcase_4_foto13_2x.jpg 2x" src="demo_images/showcase_4_foto13.jpg" class="radius8 width_full" alt="" />
-					</a>
-				</div>
-				<div class="margin_auto bottom30 max_width370 block">
-					<a href="#">
-						<img srcset="demo_images/showcase_4_foto14.jpg 1x, demo_images/showcase_4_foto14_2x.jpg 2x" src="demo_images/showcase_4_foto14.jpg" class="radius8 width_full" alt="" />
-					</a>
-				</div>
-				<div class="margin_auto bottom30 max_width370 block">
-					<a href="#">
-						<img srcset="demo_images/showcase_4_foto15.jpg 1x, demo_images/showcase_4_foto15_2x.jpg 2x" src="demo_images/showcase_4_foto15.jpg" class="radius8 width_full" alt="" />
-					</a>
-				</div>
-				<div class="margin_auto bottom30 max_width370 block">
-					<a href="#">
-						<img srcset="demo_images/showcase_4_foto16.jpg 1x, demo_images/showcase_4_foto16_2x.jpg 2x" src="demo_images/showcase_4_foto16.jpg" class="radius8 width_full" alt="" />
-					</a>
-				</div>
-			</div>
-		</div>
-		<a href="#" class="top35 btn size50 transparent_green border border_green radius6 font16 padding_sides20">View all components</a>
-	</div>
-</section>
-
-<!-- Pricing Table 7 -->
-
-<section class="pricing_table_7 padding_top70 padding_bottom110">
-	<div class="container nopadding dark_blue text_center">
-		<h2 class="font42 raleway light dark_gray">Not sure how much you'll send?</h2>
-		<div class="max_width570 margin_auto top15 font18 light">
-			Use the Startup Framework for free with no limits.
-		</div>
-		<div class="max_width570 margin_auto top55 padding_sides100 padding_top55 padding_bottom70 radius10 inner">
-			<div class="raleway light font28 dark_gray title">Free Plan</div>
-			<div class="top25 font14 uppercase semibold spacing20">20.000 customers</div>
-			<div class="top30 light font16 text">
-				Startup Framework is free forever — you only pay for custom domain hosting or to export your site.
-			</div>
-			<a href="#" class="top45 min_width170 btn size60 transparent_blue border border_blue radius6 font16">Try for Free</a>
-		</div>
-
-	</div>
-</section>
-
-<!-- Footer 7 -->
-
-<footer class="footer_7 padding_top55 padding_bottom60">
-	<div class="container nopadding">
-		<div class="flex justify_between inner">
-			<div class="top5 block block_left">
-				<a href="#" class="font14 semibold uppercase spacing15 link dark_blue right30">Home</a>
-				<a href="#" class="font14 semibold uppercase spacing15 link dark_blue right30">Company</a>
-				<a href="#" class="font14 semibold uppercase spacing15 link dark_blue right30">How it Works</a>
-			</div>
-			<div class="block block_center text_center">
-				<img srcset="footer_7_logo.png 1x, footer_7_logo_2x.png 2x" src="footer_7_logo.png" alt="" class="logo" />
-			</div>
-			<div class="top5 block block_right text_right">
-				<a href="#" class="font14 semibold uppercase spacing15 link dark_blue left30">Pricing</a>
-				<a href="#" class="font14 semibold uppercase spacing15 link dark_blue left30">About</a>
-				<span class="socials">
-					<a href="#" class="font18 line_height24 semibold uppercase spacing15 link dark_blue left30"><i class="fa fa-dribbble"></i></a>
-					<a href="#" class="font18 line_height24 semibold uppercase spacing15 link dark_blue left30"><i class="fa fa-behance-square"></i></a>
-				</span>
-			</div>
-		</div>
-	</div>
-</footer>
 <!-- forms alerts -->
 <div class="alert alert-success alert-dismissible alert-form-success" role="alert">
-	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	Thanks for your message!
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  Thanks for your message!
 </div>
-<div class="alert alert-warning alert-dismissible alert-form-check-fields" role="alert">
-	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	Please, fill in required fields.
+<div class="alert alert-warning alert-dismissible alert-form-check-f lds" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  Please, fill in required fields.
 </div>
 <div class="alert alert-danger alert-dismissible alert-form-error" role="alert">
-	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	An error occurred while sending data :(
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  An error occurred while sending data :(
 </div>
 <!-- popup with video -->
 <div class="overlay"></div>
 
 <div class="video_popup">
-	<a class="close">
-		<img srcset="close_white.png 1x, close_white_2x.png 2x" src="close_white.png" alt="" />
-	</a>
-	<div class="flex align_center justify_center width_full height_full iframe_container"></div>
+  <a class="close">
+    <img srcset="<%= asset_path 'close_white.png' %> 1x, <%= asset_path 'close_white_2x.png' %> 2x" src="<%= asset_path 'close_white.png' %>" alt="" />
+  </a>
+  <div class="flex align_center justify_center width_full height_full iframe_container"></div>
 </div>
-</body>
-</html>
+
+<!-- Feature 1 -->
+
+<section class="feature_1 padding_top80 padding_bottom90">
+  <div class="container nopadding max_width970">
+    <h2 class="font42 ubuntu light dark_gray text_center">How It Works</h2>
+    <div class="top70 inner">
+      <div class="col-sm-4 text_center bottom50 block">
+        <i class="fa fa-shopping-bag font60 light_gray"></i>
+        <div class="top20 font28 light dark_gray title">Select Your
+          <br />Desired Pieces</div>
+        <div class="top30 font18 light dark_blue text">
+          Startup Framework contains components and complex blocks which can easily be integrated
+          <br />into almost any design.
+        </div>
+      </div>
+      <div class="col-sm-4 text_center bottom50 block">
+        <i class="fa fa-box-open font60 light_gray"></i>
+        <div class="top20 font28 light dark_gray title">Recieve Them
+          <br />In The Mail</div>
+        <div class="top30 font18 light dark_blue text">
+          We haven’t forgotten about responsive layout. With Startup Framework, you can create a website with full mobile support.
+        </div>
+      </div>
+      <div class="col-sm-4 text_center bottom50 block">
+        <i class="fa fa-recycle font60 light_gray"></i>
+        <div class="top20 font28 light dark_gray title">Return
+          <br />& Repeat</div>
+        <div class="top30 font18 light dark_blue text">
+          Startup Framework works on
+          <br />devices supporting Retina
+          <br />Display. Feel the clarity in each
+          <br />pixel.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- Content 35 -->
+
+<section class="content_35 padding_bottom50">
+  <div class="container nopadding">
+    <div class="text_center max_width970 margin_auto">
+      <div class="top100 bottom100 text_center inner">
+        <div class="font14 dark_blue semibold uppercase pretitle spacing17">OUR CATALOG</div>
+        <h2 class="font42 black top30 light ubuntu">From Traditional Designers <br />to Modern Streetwear</h2>
+      </div>
+      <div class="inline_block bottom50 width190 text_left">
+        <img srcset="<%= asset_path 'Acne_Studios_logo@0,5x.png' %> 1x, <%= asset_path 'Acne_Studios_logo.png' %> 2x" src="<%= asset_path 'Acne_Studios_logo@0,5x.png' %>" class="max_width_full" alt="" />
+      </div>
+      <div class="inline_block margin_auto bottom50 width190 text_center">
+        <img srcset="<%= asset_path 'apc@0,5x.png' %> 1x, <%= asset_path 'apc.png' %> 2x" src="<%= asset_path 'apc@0,5x.png' %>" class="max_width_full" alt="" />
+      </div>
+      <div class="inline_block margin_auto bottom50 width190 text_center">
+        <img srcset="<%= asset_path 'bape@0,5x.png' %> 1x, <%= asset_path 'bape.png' %> 2x" src="<%= asset_path 'bape@0,5x.png' %>" class="max_width_full" alt="" />
+      </div>
+      <div class="inline_block margin_auto bottom50 width190 text_center">
+        <img srcset="<%= asset_path 'fearofgod_logo@0,5x.png' %> 1x, <%= asset_path 'fearofgod_logo.png' %> 2x" src="<%= asset_path 'fearofgod_logo@0,5x.png' %>" class="max_width_full" alt="" />
+      </div>
+      <div class="inline_block margin_auto bottom50 width190 text_right">
+        <img srcset="<%= asset_path 'offwhite@0,5x.png' %> 1x, <%= asset_path 'offwhite.png' %> 2x" src="<%= asset_path 'offwhite@0,5x.png' %>" class="max_width_full" alt="" />
+      </div>
+      <div class="inline_block margin_auto bottom50 width190 text_left">
+        <img srcset="<%= asset_path 'palace@0,5x.png' %> 1x, <%= asset_path 'palace.png' %> 2x" src="<%= asset_path 'palace@0,5x.png' %>" class="max_width_full" alt="" />
+      </div>
+      <div class="inline_block margin_auto bottom50 width190 text_center">
+        <img srcset="<%= asset_path 'raf@0,5x.png' %> 1x, <%= asset_path 'raf.png' %> 2x" src="<%= asset_path 'raf@0,5x.png' %>" class="max_width_full" alt="" />
+      </div>
+      <div class="inline_block margin_auto bottom50 width190 text_center">
+        <img srcset="<%= asset_path 'stone-island@0,5x.png' %> 1x, <%= asset_path 'stone-island.png' %> 2x" src="<%= asset_path 'stone-island@0,5x.png' %>" class="max_width_full" alt="" />
+      </div>
+      <div class="inline_block margin_auto bottom50 width190 text_center">
+        <img srcset="<%= asset_path 'supreme@0,5x.png' %> 1x, <%= asset_path 'supreme.png' %> 2x" src="<%= asset_path 'supreme@0,5x.png' %>" class="max_width_full" alt="" />
+      </div>
+      <div class="inline_block margin_auto bottom50 width190 text_right">
+        <img srcset="<%= asset_path 'Yeezy-Logo@1x.png' %> 1x, <%= asset_path 'Yeezy-Logo@2x.png' %> 2x" src="<%= asset_path 'Yeezy-Logo@1x.png' %>" class="max_width_full" alt="" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Showcase 4 -->
+
+<!--  <section class="showcase_4 padding_top80 padding_bottom120">
+  <div class="container nopadding text_center white">
+    <h2 class="font42 light ubuntu">More than 150 components.</h2>
+    <div class="margin_auto top30 bottom75 max_width770 font22 light opacity7 text">
+      Many carefully crafted components to present your business.
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="margin_auto bottom30 max_width370 block">
+          <a href="#">
+            <img srcset="<%= asset_path 'demo_images/showcase_4_foto1.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto1_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto1.jpg' %>" class="radius8 width_full" alt="" />
+          </a>
+        </div>
+        <div class="margin_auto bottom15 max_width370 block">
+          <a href="#">
+            <img srcset="<%= asset_path 'demo_images/showcase_4_foto2.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto2_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto2.jpg' %>" class="radius8 width_full" alt="" />
+          </a>
+        </div>
+        <div class="margin_auto bottom30 max_width370 block">
+          <a href="#">
+            <img srcset="<%= asset_path 'demo_images/showcase_4_foto3.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto3_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto3.jpg' %>" class="radius8 width_full" alt="" />
+          </a>
+        </div>
+        <div class="margin_auto bottom30 max_width370 block">
+          <a href="#">
+            <img srcset="<%= asset_path 'demo_images/showcase_4_foto4.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto4_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto4.jpg' %>" class="radius8 width_full" alt="" />
+          </a>
+        </div>
+        <div class="margin_auto bottom30 max_width370 block">
+          <a href="#">
+            <img srcset="<%= asset_path 'demo_images/showcase_4_foto5.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto5_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto5.jpg' %>" class="radius8 width_full" alt="" />
+          </a>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="margin_auto bottom30 max_width370 block">
+          <a href="#">
+            <img srcset="<%= asset_path 'demo_images/showcase_4_foto6.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto6_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto6.jpg' %>" class="radius8 width_full" alt="" />
+          </a>
+        </div>
+        <div class="margin_auto bottom30 max_width370 block">
+          <a href="#">
+            <img srcset="<%= asset_path 'demo_images/showcase_4_foto7.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto7_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto7.jpg' %>" class="radius8 width_full" alt="" />
+          </a>
+        </div>
+        <div class="margin_auto bottom30 max_width370 block">
+          <a href="#">
+            <img srcset="<%= asset_path 'demo_images/showcase_4_foto8.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto8_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto8.jpg' %>" class="radius8 width_full" alt="" />
+          </a>
+        </div>
+        <div class="margin_auto bottom30 max_width370 block">
+          <a href="#">
+            <img srcset="<%= asset_path 'demo_images/showcase_4_foto9.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto9_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto9.jpg' %>" class="radius8 width_full" alt="" />
+          </a>
+        </div>
+        <div class="margin_auto bottom30 max_width370 block">
+          <a href="#">
+            <img srcset="<%= asset_path 'demo_images/showcase_4_foto10.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto10_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto10.jpg' %>" class="radius8 width_full" alt="" />
+          </a>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="margin_auto bottom30 max_width370 block">
+          <a href="#">
+            <img srcset="<%= asset_path 'demo_images/showcase_4_foto11.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto11_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto11.jpg' %>" class="radius8 width_full" alt="" />
+          </a>
+        </div>
+        <div class="margin_auto bottom30 max_width370 block">
+          <a href="#">
+            <img srcset="<%= asset_path 'demo_images/showcase_4_foto12.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto12_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto12.jpg' %>" class="radius8 width_full" alt="" />
+          </a>
+        </div>
+        <div class="margin_auto bottom30 max_width370 block">
+          <a href="#">
+            <img srcset="<%= asset_path 'demo_images/showcase_4_foto13.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto13_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto13.jpg' %>" class="radius8 width_full" alt="" />
+          </a>
+        </div>
+        <div class="margin_auto bottom30 max_width370 block">
+          <a href="#">
+            <img srcset="<%= asset_path 'demo_images/showcase_4_foto14.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto14_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto14.jpg' %>" class="radius8 width_full" alt="" />
+          </a>
+        </div>
+        <div class="margin_auto bottom30 max_width370 block">
+          <a href="#">
+            <img srcset="<%= asset_path 'demo_images/showcase_4_foto15.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto15_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto15.jpg' %>" class="radius8 width_full" alt="" />
+          </a>
+        </div>
+        <div class="margin_auto bottom30 max_width370 block">
+          <a href="#">
+            <img srcset="<%= asset_path 'demo_images/showcase_4_foto16.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto16_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto16.jpg' %>" class="radius8 width_full" alt="" />
+          </a>
+        </div>
+      </div>
+    </div>
+    <a href="#" class="top35 btn size50 transparent_green border border_green radius6 font16 padding_sides20">View all components</a>
+  </div>
+</section> -->
+
+<!-- Pricing Table 7 -->
+
+<section class="pricing_table_7 padding_top70 padding_bottom110">
+  <div class="container nopadding dark_blue text_center">
+    <h2 class="font42 ubuntu light dark_gray">How much for no limits?</h2>
+    <div class="max_width570 margin_auto top15 font18 light">
+      Become a member of The Rotation for a low monthly fee.
+    </div>
+    <div class="max_width570 margin_auto top55 padding_sides100 padding_top55 padding_bottom70 radius10 inner">
+      <div class="ubuntu light font28 dark_gray title">Founding Member</div>
+      <div class="top25 font14 uppercase semibold spacing20">100 SPOTS</div>
+      <div class="top30 light font16 text">
+        Be the first to sign up for The Rotation and recieve a special price. New York City residents only.
+      </div>
+      <a href="#" class="top45 min_width170 btn size60 transparent_blue border border_blue radius6 font16">Try for $89/mo</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- Footer 7 -->
+
+<footer class="footer_7 padding_top55 padding_bottom60">
+  <div class="container nopadding">
+    <div class="flex justify_between inner">
+      <div class="top5 block block_left">
+        <a href="#" class="font14 semibold uppercase spacing15 link dark_blue right30">Home</a>
+        <a href="#" class="font14 semibold uppercase spacing15 link dark_blue right30">Company</a>
+        <a href="#" class="font14 semibold uppercase spacing15 link dark_blue right30">How it Works</a>
+      </div>
+      <div class="block block_center text_center">
+        <img srcset="<%= asset_path 'footer_7_logo.png' %> 1x, <%= asset_path 'footer_7_logo_2x.png' %> 2x" src="<%= asset_path 'footer_7_logo.png' %>" alt="" class="logo" />
+      </div>
+      <div class="top5 block block_right text_right">
+        <a href="#" class="font14 semibold uppercase spacing15 link dark_blue left30">Pricing</a>
+        <a href="#" class="font14 semibold uppercase spacing15 link dark_blue left30">About</a>
+        <span class="socials">
+        <a href="#" class="font18 line_height24 semibold uppercase spacing15 link dark_blue left30"><i class="fab fa-dribbble"></i></a>
+        <a href="#" class="font18 line_height24 semibold uppercase spacing15 link dark_blue left30"><i class="fab fa-behance-square"></i></a>
+      </span>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- forms alerts -->
+<div class="alert alert-success alert-dismissible alert-form-success" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  Thanks for your message!
+</div>
+<div class="alert alert-warning alert-dismissible alert-form-check-fields" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  Please, fill in required fields.
+</div>
+<div class="alert alert-danger alert-dismissible alert-form-error" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  An error occurred while sending data :(
+</div>
+<!-- popup with video -->
+<div class="overlay"></div>
+
+<div class="video_popup">
+  <a class="close">
+    <img srcset="<%= asset_path 'close_white.png' %> 1x, <%= asset_path 'close_white_2x.png' %> 2x" src="<%= asset_path 'close_white.png' %>" alt="" />
+  </a>
+  <div class="flex align_center justify_center width_full height_full iframe_container"></div>
+</div>
