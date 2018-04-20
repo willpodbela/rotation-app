@@ -54,7 +54,7 @@
       </div>
       <div class="max_width570 left_block">
         <%= form_tag(sign_up_path, id: "landing-form", remote: true, class: "width470 text_center top80 header_3_form") do %>
-          <%= email_field_tag("email", nil, class: "width_full radius6", placeholder: "Email Address") =%>
+          <%= email_field_tag("email", nil, id: "email", class: "width_full radius6", placeholder: "Email Address") =%>
           <%= password_field_tag("password", nil, class: "width_full radius6 top30", placeholder: "Password") =%>
           <div class="top30 medium_gray text">By signing up, you agree to the <a href="#">Terms of Service</a></div>
           <%= button_tag(type: "submit", class: "btn width_full size60 blue radius6 top30") do %>
@@ -286,36 +286,11 @@
       <div class="top30 light font16 text">
         Be the first to sign up for The Rotation and recieve a special price. New York City residents only.
       </div>
-      <a href="#" class="top45 min_width170 btn size60 transparent_blue border border_blue radius6 font16">Try for $89/mo</a>
+      <a id="price-btn" href="#" class="top45 min_width170 btn size60 transparent_blue border border_blue radius6 font16">Try for $49/mo</a>
     </div>
-
   </div>
 </section>
 
-<!-- Footer 7 -->
-
-<footer class="footer_7 padding_top55 padding_bottom60">
-  <div class="container nopadding">
-    <div class="flex justify_between inner">
-      <div class="top5 block block_left">
-        <a href="#" class="font14 semibold uppercase spacing15 link dark_blue right30">Home</a>
-        <a href="#" class="font14 semibold uppercase spacing15 link dark_blue right30">Company</a>
-        <a href="#" class="font14 semibold uppercase spacing15 link dark_blue right30">How it Works</a>
-      </div>
-      <div class="block block_center text_center">
-        <img srcset="<%= asset_path 'footer_7_logo.png' %> 1x, <%= asset_path 'footer_7_logo_2x.png' %> 2x" src="<%= asset_path 'footer_7_logo.png' %>" alt="" class="logo" />
-      </div>
-      <div class="top5 block block_right text_right">
-        <a href="#" class="font14 semibold uppercase spacing15 link dark_blue left30">Pricing</a>
-        <a href="#" class="font14 semibold uppercase spacing15 link dark_blue left30">About</a>
-        <span class="socials">
-        <a href="#" class="font18 line_height24 semibold uppercase spacing15 link dark_blue left30"><i class="fab fa-dribbble"></i></a>
-        <a href="#" class="font18 line_height24 semibold uppercase spacing15 link dark_blue left30"><i class="fab fa-behance-square"></i></a>
-      </span>
-      </div>
-    </div>
-  </div>
-</footer>
 <!-- forms alerts -->
 <div class="alert alert-success alert-dismissible alert-form-success" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>

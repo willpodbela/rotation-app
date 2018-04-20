@@ -1,5 +1,12 @@
 // Scroll.js
 
+$("#price-btn").click(function() {
+    $('html,body').animate({
+        scrollTop: ($("#landing-form").offset().top - 100)},
+        'fast');
+    $('#email').focus();
+});
+
 $(document).ready(function(){
 	$('a[href^="#"]').on('click',function (e) {
 	    e.preventDefault();
