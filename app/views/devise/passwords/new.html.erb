@@ -1,16 +1,18 @@
-<h2>Forgot your password?</h2>
+<header class="header_11">
+  <%= render("shared/nav") %>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+  <div class="container nopadding">
+    <div class="max_width470 inner">
+      <div class="max_width570 top250 left_block">
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), :html => { :method => :post, :class => "width470 text_center top80 header_3_form"}) do |f| %>
+          <%= devise_error_messages! %>
+          <%= f.email_field :email, autofocus: true, class: "width_full radius6", placeholder: "Email Address" %>
+          <%= f.button "Reset", type: :submit, class: "btn width_full size60 blue radius6 top30" %>
+        <% end %>
+        <%= link_to "Sign up", new_registration_path(resource_name) %><br />
+        <%= link_to "Log in", new_user_session_path(resource_name) %><br />
+      </div>
+    </div>
+    <img srcset="<%= asset_path 'rotation-app@1x.jpg' %> 1x, <%= asset_path 'rotation-app@2x.jpg' %> 2x" src="<%= asset_path 'rotation-app@1x.jpg' %>" class="left470 bg" alt="" />
   </div>
-
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</header>
