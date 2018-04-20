@@ -1,4 +1,7 @@
 json.user do
+  json.id                   @user.id
   json.auth_token           @user.authentication_token
   json.email                @user.email
+  json.is_waitlist          @user.waitlist?
+  json.is_email_confirmed   @user.confirmed?
 end

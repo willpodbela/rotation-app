@@ -22,8 +22,8 @@ module Api
     
     #[GET] login endpoint
     def login
-      user = User.find_by_email(params[:email])
-      if user
+      @user = User.find_by_email(params[:email])
+      if @user
         begin 
           decrypted_pass = AESCrypt.decrypt(params[:password], ENV["API_AUTH_PASSWORD"])
         rescue Exception => e
@@ -32,10 +32,10 @@ module Api
         
         params[:password] = decrypted_pass
       
-        if user.valid_password?(params[:password])
-          user.renew_authentication_token
-          if user.save
-            render :status=>200, :json=>{ :auth_token => user.authentication_token }
+        if @user.valid_password?(params[:password])
+          @user.renew_authentication_token
+          if @user.save
+            render('api/users/show')
           else
             render_error(500, nil)
           end 
