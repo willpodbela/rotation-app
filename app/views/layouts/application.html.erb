@@ -13,7 +13,8 @@
     <% if alert %>
       <p class="alert-danger"><%= alert %></p>
     <% end %>
-    <%= yield %>
-    <%= yield :footer_js %>
+    <%= yield :header %>
+    <%= content_for?(:content) ? yield(:content) : yield %>
+    <%= yield :footer %>
   </body>
 </html>

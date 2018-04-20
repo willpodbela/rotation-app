@@ -1,52 +1,7 @@
-<!-- Navigation Mobile type 1 -->
-
-<a class="open_menu white"><i class="fa fa-bars"></i></a>
-<div class="navigation_mobile type1">
-  <a class="close_menu white"><i class="fa fa-close"></i></a>
-  <div class="padding_sides40 padding_top60 padding_bottom60 inner">
-    <div class="nav_logo white bottom30">the rotation</div>
-    <div><%= link_to("Home", root_path, class: "ubuntu font22 link white bottom20") %></div>
-    <div>
-      <% if user_signed_in? %>
-        <%= link_to("Logout", destroy_user_session_path, method: :delete, class: "ubuntu font22 link white bottom20") %>
-      <% else %>
-        <%= link_to("Login", new_user_session_path, class: "ubuntu font22 link white bottom20") %>
-      <% end %>
-    </div>
-    <div><a href="#" class="ubuntu font22 link white bottom20"><i class="fab fa-apple right10"></i>Download App</a></div>
-
-    <div class="socials top40">
-      <a href="#" target="_blank" class="link white font18 right20"><i class="fa fa-twitter"></i></a>
-      <a href="#" target="_blank" class="link white font18 right20"><i class="fa fa-facebook"></i></a>
-      <a href="#" target="_blank" class="link white font18 right20"><i class="fa fa-instagram"></i></a>
-    </div>
-
-    <div class="top50 font14 light white opacity3 copy">© 2018 Rotation, Inc. All rights reserved.</div>
-  </div>
-</div>
-
-<!-- Header 11 -->
-
 <header class="header_11">
-
-  <!-- Navigation 6 -->
-
-  <nav class="navigation_6 padding_top30 padding_bottom30 line_height40 transparent top30">
-    <div class="container nopadding">
-      <div class="float_left nav_logo">the rotation</div>
-      <div class="float_right">
-        <% if user_signed_in? %>
-          <%= link_to("Logout", destroy_user_session_path, method: :delete, class: "link dark_gray right30") %>
-        <% else %>
-          <%= link_to("Login", new_user_session_path, class: "link dark_gray right30") %>
-        <% end %>
-        <a href="#" class="btn black size40 padding_sides20 right30"><i class="fab fa-apple right10"></i>Download App</a>
-      </div>
-    </div>
-  </nav>
+  <%= render("shared/nav") %>
 
   <div class="container nopadding">
-    <img srcset="<%= asset_path 'rotation-app@1x.png' %> 1x, <%= asset_path 'rotation-app@2x.png' %> 2x" src="<%= asset_path 'rotation-app@1x.png' %>" class="left470 bg" alt="" />
     <div class="max_width470 inner">
       <h1 class="ubuntu font62 dark_gray top150">Welcome<br /> to a closet without boundaries</h1>
       <div class="font22 light dark_blue top50 text">
@@ -63,30 +18,9 @@
         <% end %>
       </div>
     </div>
+    <img srcset="<%= asset_path 'rotation-app@1x.jpg' %> 1x, <%= asset_path 'rotation-app@2x.jpg' %> 2x" src="<%= asset_path 'rotation-app@1x.jpg' %>" class="left470 bg" alt="" />
   </div>
 </header>
-<!-- forms alerts -->
-<div class="alert alert-success alert-dismissible alert-form-success" role="alert">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  Thanks for your message!
-</div>
-<div class="alert alert-warning alert-dismissible alert-form-check-f lds" role="alert">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  Please, fill in required fields.
-</div>
-<div class="alert alert-danger alert-dismissible alert-form-error" role="alert">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  An error occurred while sending data :(
-</div>
-<!-- popup with video -->
-<div class="overlay"></div>
-
-<div class="video_popup">
-  <a class="close">
-    <img srcset="<%= asset_path 'close_white.png' %> 1x, <%= asset_path 'close_white_2x.png' %> 2x" src="<%= asset_path 'close_white.png' %>" alt="" />
-  </a>
-  <div class="flex align_center justify_center width_full height_full iframe_container"></div>
-</div>
 
 <!-- Feature 1 -->
 
@@ -125,9 +59,6 @@
     </div>
   </div>
 </section>
-
-
-
 
 <!-- Content 35 -->
 
@@ -290,26 +221,3 @@
     </div>
   </div>
 </section>
-
-<!-- forms alerts -->
-<div class="alert alert-success alert-dismissible alert-form-success" role="alert">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  Thanks for your message!
-</div>
-<div class="alert alert-warning alert-dismissible alert-form-check-fields" role="alert">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  Please, fill in required fields.
-</div>
-<div class="alert alert-danger alert-dismissible alert-form-error" role="alert">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  An error occurred while sending data :(
-</div>
-<!-- popup with video -->
-<div class="overlay"></div>
-
-<div class="video_popup">
-  <a class="close">
-    <img srcset="<%= asset_path 'close_white.png' %> 1x, <%= asset_path 'close_white_2x.png' %> 2x" src="<%= asset_path 'close_white.png' %>" alt="" />
-  </a>
-  <div class="flex align_center justify_center width_full height_full iframe_container"></div>
-</div>
