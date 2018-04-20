@@ -324,13 +324,21 @@ b {
 
 /* Header 8 */
 .header_8 {
-  background: #121114 url('<%= asset_path("header_8_bg.jpg") %> ') 50% 50%;
+  background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url('<%= asset_path("fear-of-god-collection-5-lookbook-02.jpg") %> ') 50% 50%;
   background-size: cover;
+  background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
 }
 
 @media (-webkit-min-device-pixel-ratio: 1.25), (-o-min-device-pixel-ratio: 5/4), (min-resolution: 120dpi) {
   .header_8 {
-    background-image: url('<%= asset_path("header_8_bg_2x.jpg") %> ');
+    background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url('<%= asset_path("fear-of-god-collection-5-lookbook-02.jpg") %> ');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
   }
 }
 
@@ -928,9 +936,9 @@ b {
 }
 
 /* Navigation 13 */
-.navigation_13 {
+/* .navigation_13 {
   background: #141414;
-}
+} */
 
 .navigation_13 .link {
   display: inline-block;
@@ -3214,9 +3222,9 @@ b {
   background: #141414;
 }
 
-.footer_8 .block_right a {
+/* .footer_8 .block_right a {
   border: 1px solid rgba(255, 255, 255, 0.3);
-}
+} */
 
 .footer_8 .block_right a:hover, .footer_8 .block_right a:focus {
   border-color: #95a5a6;
