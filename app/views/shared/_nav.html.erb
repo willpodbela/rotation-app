@@ -1,6 +1,8 @@
 <nav class="navigation_6 padding_top30 padding_bottom30 line_height40 transparent top30">
   <div class="container nopadding">
-    <div class="float_left nav_logo">the rotation</div>
+    <div class="float_left nav_logo">
+      <%= link_to("the rotation", root_path, style: "text-decoration: none; color: black;") %>
+    </div>
     <div class="float_right">
       <% if user_signed_in? %>
         <%= link_to("Logout", destroy_user_session_path, method: :delete, class: "link dark_gray right30") %>

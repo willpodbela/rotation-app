@@ -8,21 +8,8 @@
   <%= javascript_include_tag 'application', 'https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDP6Ex5S03nvKZJZSvGXsEAi3X_tFkua4U', 'data-turbolinks-track' => true %>
 <% end %>
 
-<% content_for :content do %>
+<% content_for :header do %>
   <%= render("shared/hamburger") %>
-  
-  <header class="header_11">
-    <%= render("shared/nav") %>
-
-    <div class="container nopadding">
-      <div class="max_width470 inner">
-        <div class="max_width570 top250 left_block">
-          <%= yield %>
-        </div>
-      </div>
-      <img srcset="<%= asset_path 'rotation-app@1x.jpg' %> 1x, <%= asset_path 'rotation-app@2x.jpg' %> 2x" src="<%= asset_path 'rotation-app@1x.jpg' %>" class="left470 bg" alt="" />
-    </div>
-  </header>
 <% end %>
 
 <% content_for :footer do %>

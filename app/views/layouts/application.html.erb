@@ -14,7 +14,7 @@
       <p class="alert-danger"><%= alert %></p>
     <% end %>
     <%= yield :header %>
-    <%= yield %>
+    <%= content_for?(:content) ? yield(:content) : yield %>
     <%= yield :footer %>
   </body>
 </html>
