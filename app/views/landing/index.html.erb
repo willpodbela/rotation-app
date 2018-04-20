@@ -3,7 +3,7 @@
 
   <div class="container nopadding">
     <div class="max_width470 inner">
-      <h1 class="ubuntu font62 dark_gray top230">Welcome<br /> to a closet without boundaries</h1>
+      <h1 class="ubuntu font62 dark_gray top150">Welcome<br /> to a closet without boundaries</h1>
       <div class="font22 light dark_blue top50 text">
         This is The Rotation. A members-only club where the only thing holding back your wardrobe is yourself. Everything you could want, right at your fingertips.
       </div>
@@ -11,10 +11,10 @@
         <%= form_tag(sign_up_path, id: "landing-form", remote: true, class: "width470 text_center top80 header_3_form") do %>
           <%= email_field_tag("email", nil, id: "email", class: "width_full radius6", placeholder: "Email Address") =%>
           <%= password_field_tag("password", nil, class: "width_full radius6 top30", placeholder: "Password") =%>
-          <div class="top30 medium_gray text">By signing up, you agree to the <a href="#">Terms of Service</a></div>
           <%= button_tag(type: "submit", class: "btn width_full size60 blue radius6 top30") do %>
             Create an Account
           <% end %>
+					<div class="top30 medium_gray text">By signing up, you agree to the <a href="#">Terms of Service</a></div>
         <% end %>
       </div>
     </div>
