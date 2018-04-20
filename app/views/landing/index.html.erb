@@ -8,9 +8,9 @@
     <div><%= link_to("Home", root_path, class: "ubuntu font22 link white bottom20") %></div>
     <div>
       <% if user_signed_in? %>
-        <%= link_to("Logout", destroy_user_session_path, method: :delete, class: "link dark_gray right30") %>
+        <%= link_to("Logout", destroy_user_session_path, method: :delete, class: "ubuntu font22 link white bottom20") %>
       <% else %>
-        <%= link_to("Login", new_user_session_path, class: "link dark_gray right30") %>
+        <%= link_to("Login", new_user_session_path, class: "ubuntu font22 link white bottom20") %>
       <% end %>
     </div>
     <div><a href="#" class="ubuntu font22 link white bottom20"><i class="fab fa-apple right10"></i>Download App</a></div>
