@@ -4,6 +4,7 @@
   <div class="container nopadding">
     <div class="max_width470 inner">
       <div class="max_width570 top250 left_block">
+        <h1 class="ubuntu font42">Log in</h1>
         <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:class => "width470 text_center top80 header_3_form"}) do |f| %>
           <%= f.email_field :email, autofocus: true, class: "width_full radius6", placeholder: "Email Address" %>
           <%= f.password_field :password, class: "width_full radius6 top30", placeholder: "Password" %>
