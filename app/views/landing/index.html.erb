@@ -5,23 +5,20 @@
   <a class="close_menu white"><i class="fa fa-close"></i></a>
   <div class="padding_sides40 padding_top60 padding_bottom60 inner">
     <div class="nav_logo white bottom30">the rotation</div>
-    <div><a href="#" class="ubuntu font22 link white bottom20">Home</a></div>
-    <div><a href="#" class="ubuntu font22 link white bottom20">Tour</a></div>
-    <div><a href="#" class="ubuntu font22 link white bottom20">Mobile Apps</a></div>
-    <div><a href="#" class="ubuntu font22 link white bottom20">Pricing</a></div>
-    <div><a href="#" class="ubuntu font22 link white bottom40">Development</a></div>
-
-    <div><a href="#" class="font16 link white opacity3 bottom15">Help</a></div>
-    <div><a href="#" class="font16 link white opacity3 bottom15">F.A.Q.</a></div>
-    <div><a href="#" class="font16 link white opacity3 bottom15">Support</a></div>
-    <div><a href="#" class="font16 link white opacity3 bottom15">About Us</a></div>
-    <div><a href="#" class="font16 link white opacity3 bottom15">Blog</a></div>
-    <div><a href="#" class="font16 link white opacity3 bottom15">Careers</a></div>
+    <div><%= link_to("Home", root_path, class: "ubuntu font22 link white bottom20") %></div>
+    <div>
+      <% if user_signed_in? %>
+        <%= link_to("Logout", destroy_user_session_path, method: :delete, class: "link dark_gray right30") %>
+      <% else %>
+        <%= link_to("Login", new_user_session_path, class: "link dark_gray right30") %>
+      <% end %>
+    </div>
+    <div><a href="#" class="ubuntu font22 link white bottom20"><i class="fab fa-apple right10"></i>Download App</a></div>
 
     <div class="socials top40">
       <a href="#" target="_blank" class="link white font18 right20"><i class="fa fa-twitter"></i></a>
       <a href="#" target="_blank" class="link white font18 right20"><i class="fa fa-facebook"></i></a>
-      <a href="#" target="_blank" class="link white font18 right20"><i class="fa fa-google-plus"></i></a>
+      <a href="#" target="_blank" class="link white font18 right20"><i class="fa fa-instagram"></i></a>
     </div>
 
     <div class="top50 font14 light white opacity3 copy">© 2018 Rotation, Inc. All rights reserved.</div>
@@ -38,20 +35,24 @@
     <div class="container nopadding">
       <div class="float_left nav_logo">the rotation</div>
       <div class="float_right">
-        <%= link_to("Login", new_user_session_path, class: "link dark_gray right30") %>
+        <% if user_signed_in? %>
+          <%= link_to("Logout", destroy_user_session_path, method: :delete, class: "link dark_gray right30") %>
+        <% else %>
+          <%= link_to("Login", new_user_session_path, class: "link dark_gray right30") %>
+        <% end %>
         <a href="#" class="btn black size40 padding_sides20 right30"><i class="fab fa-apple right10"></i>Download App</a>
-        <a href="#" class="nav_6_menu"><i class="fa fa-bars font18"></i></a>
       </div>
     </div>
   </nav>
 
   <div class="container nopadding">
+    <img srcset="<%= asset_path 'rotation-app@1x.jpg' %> 1x, <%= asset_path 'rotation-app@2x.jpg' %> 2x" src="<%= asset_path 'rotation-app@1x.jpg' %>" class="left470 bg" alt="" />
     <div class="max_width470 inner">
       <h1 class="ubuntu font62 dark_gray top230">Welcome<br /> to a closet without boundaries</h1>
       <div class="font22 light dark_blue top50 text">
         This is The Rotation. A members-only club where the only thing holding back your wardrobe is yourself. Everything you could want, right at your fingertips.
       </div>
-      <div class="float_left max_width570 top250 left_block">
+      <div class="max_width570 left_block">
         <%= form_tag(sign_up_path, id: "landing-form", remote: true, class: "width470 text_center top80 header_3_form") do %>
           <%= email_field_tag("email", nil, class: "width_full radius6", placeholder: "Email Address") =%>
           <%= password_field_tag("password", nil, class: "width_full radius6 top30", placeholder: "Password") =%>
@@ -62,7 +63,6 @@
         <% end %>
       </div>
     </div>
-    <img srcset="<%= asset_path 'rotation-app@1x.jpg' %> 1x, <%= asset_path 'rotation-app@2x.jpg' %> 2x" src="<%= asset_path 'rotation-app@1x.jpg' %>" class="left470 bg" alt="" />
   </div>
 </header>
 <!-- forms alerts -->
