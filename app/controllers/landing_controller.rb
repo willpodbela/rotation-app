@@ -2,6 +2,8 @@ class LandingController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :status, :sign_up]
   before_action :enforce_access_control_admin!, only: [:admin]
   
+  layout "devise"
+  
   # Home Page
   def index
   end

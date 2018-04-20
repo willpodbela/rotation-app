@@ -13,7 +13,8 @@
     <% if alert %>
       <p class="alert-danger"><%= alert %></p>
     <% end %>
+    <%= yield :header %>
     <%= yield %>
-    <%= yield :footer_js %>
+    <%= yield :footer %>
   </body>
 </html>
