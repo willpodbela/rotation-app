@@ -1,0 +1,54 @@
+<!-- Header 3 -->
+<header class="header_3">
+   <!-- Navigation 2 -->
+   <nav class="navigation_2 padding_top30 padding_bottom30 top30">
+      <div class="container nopadding">
+         <div class="row line_height40">
+            <div class="col-lg-8 col-md-7 block_left">
+               <div class="right20 inline_block nav_logo"><b>Startup</b> Framework</div>
+               <span class="dropdown_holder dark_blue padding_left20 right20">
+                  <a href="#" class="link dark_blue">Products</a>
+                  <div class="dropdown_body white width200 padding_sides20 padding_top10 padding_bottom10">
+                     <div><a href="#" class="link dark_blue">Startup Framework 2</a></div>
+                     <div><a href="#" class="link dark_blue">Slides</a></div>
+                     <div><a href="#" class="link dark_blue">Qards</a></div>
+                  </div>
+               </span>
+               <a href="#" class="link dark_blue sides20">Pricing</a>
+               <a href="#" class="link dark_blue sides20">Community</a>
+            </div>
+            <div class="col-lg-4 col-md-5 text_right block_right">
+              <%= link_to("Login", new_user_session_path, class: "link dark_blue sides20") %>
+            </div>
+         </div>
+      </div>
+   </nav>
+   <div class="container nopadding">
+      <div class="float_left max_width570 top250 left_block">
+        <h1 class="raleway light font42">Login</h1>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:class => "width470 text_center top80 header_3_form"}) do |f| %>
+          <%= f.email_field :email, autofocus: true, class: "width_full radius6", placeholder: "Email Address" %>
+          <%= f.password_field :password, class: "width_full radius6 top30", placeholder: "Password" %>
+          <% if devise_mapping.rememberable? -%>
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me, class: "top30 medium_gray text" %>
+          <% end -%>
+          <%= f.button "Log in", type: :submit, class: "btn width_full size60 blue radius6 top30" %>
+        <% end %>
+        <%= render "devise/shared/links" %>
+      </div>
+      <div class="left700 top250 right_block">
+         <div class="width470 radius8 video" data-ratio="16/9">
+            <div class="radius8 poster">
+               <div class="play red"><i class="fa fa-play"></i></div>
+            </div>
+            <video controls>
+               <source src="video/video1.mp4" type="video/mp4">
+            </video>
+         </div>
+         <div class="font18 dark_blue top30">
+            We made it so beautiful and simple. It combines landings, pages, blogs and shop screens. It is definitely the tool you need in your collection! 
+         </div>
+      </div>
+   </div>
+</header>
