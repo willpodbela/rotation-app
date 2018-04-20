@@ -7,7 +7,7 @@
       <% if user_signed_in? %>
         <%= link_to("Logout", destroy_user_session_path, method: :delete, class: "link dark_gray right30") %>
       <% else %>
-        <%= link_to("Login", new_user_session_path, class: "link dark_gray right30") %>
+        <%= link_to("Log in", new_user_session_path, class: "link dark_gray right30") %>
       <% end %>
       <a href="#" class="btn black size40 padding_sides20 right30"><i class="fab fa-apple right10"></i>Download App</a>
     </div>
