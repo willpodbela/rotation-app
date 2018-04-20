@@ -10,7 +10,6 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require style
  *= require twitter/bootstrap
  *= require font-awesome
  *= require aos.min
@@ -18,6 +17,7 @@
  *= require normalize
  *= require slick-theme
  *= require slick
+ *= require style
  *= require_tree .
  *= require_self
  */
