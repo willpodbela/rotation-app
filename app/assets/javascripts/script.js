@@ -1,4 +1,4 @@
-// Scroll.js
+// Custom JS
 
 $("#price-btn").click(function() {
     $('html,body').animate({
@@ -6,6 +6,22 @@ $("#price-btn").click(function() {
         'fast');
     $('#email').focus();
 });
+
+var pageInitialized = false;
+$( document ).ready(function() {
+    if(pageInitialized) return;
+    pageInitialized = true;
+
+    if ( $( "#alert" ).length ) {
+        $(".alert-danger > .content").text( $( "#alert" ).text() );
+        $(".alert-danger").fadeIn(200).delay(5000).fadeOut(200);
+    } else if ( $( "#notice" ).length ) {
+        $(".alert-success > .content").text( $( "#notice" ).text() );
+        $(".alert-success").fadeIn(200).delay(5000).fadeOut(200);
+    }
+});
+
+// Scroll.js
 
 $(document).ready(function(){
 	$('a[href^="#"]').on('click',function (e) {
@@ -59,54 +75,40 @@ if(typeof(AOS) !== 'undefined'){
 
 // AJAX send form
 
-/*
-$("form").submit(function(event){
-	event.preventDefault();
- 
-	var form = $(this),
-		term = form.serialize(),
-		url = form.attr("action"),
-		required_fields_filled = true;
-		
-	form.find("input, textarea, select").each(function(){
-		if($(this).prop("required") && $(this).val()==""){
-			required_fields_filled = false;
-		}
-	});
-
-	if(required_fields_filled){
-		var posting = $.post(url, term);
-		posting
-		.done(function(data){
-			if(data=="ok"){
-				$(".alert-form-success").fadeIn(200).delay(5000).fadeOut(200);
-			}else{
-				$(".alert-form-error").fadeIn(200).delay(5000).fadeOut(200);
-			}
-		})
-		.fail(function(){
-			$(".alert-form-error").fadeIn(200).delay(5000).fadeOut(200);
-		});
-	}else{
-		$(".alert-form-check-fields").fadeIn(200).delay(5000).fadeOut(200);
-	}
-});
-*/
-
-$("#landing-form").submit(function(event){
- 
+$("form").submit(function(event){ 
 	var form = $(this),
 		term = form.serialize(),
 		url = form.attr("action"),
 		required_fields_filled = true;
 	
+	form.find("input, textarea, select").each(function(){
+		if($(this).prop("required") && $(this).val()==""){
+			required_fields_filled = false;
+		}
+	});
+	
 	if(required_fields_filled){
 		var posting = $.post(url, term);
 		posting
 		.done(function(data){
-			window.location.replace("/status") 
+		  console.log(data)
+			if(data.redirect){
+			  window.location.replace(data.redirect) 
+			}else{
+			  if(data.message){
+			    $(".alert-form-success > .content").text(data.message)
+			  }else{
+			    $(".alert-form-success > .content").text("Success!")
+			  }
+			  $(".alert-form-success").fadeIn(200).delay(5000).fadeOut(200);
+			}	
 		})
-		.fail(function(){
+		.fail(function(data){
+		  if(data.responseJSON.message){
+		    $(".alert-form-error > .content").html(data.responseJSON.message)
+		  }else{
+		    $(".alert-form-error > .content").text("An unknown error occurred. Please try again later.")
+		  }
 			$(".alert-form-error").fadeIn(200).delay(5000).fadeOut(200);
 		});
 	}else{

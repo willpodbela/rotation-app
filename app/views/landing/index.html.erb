@@ -9,8 +9,8 @@
       </div>
       <div class="max_width570 left_block">
         <%= form_tag(sign_up_path, id: "landing-form", remote: true, class: "width470 text_center top80 header_3_form") do %>
-          <%= email_field_tag("email", nil, id: "email", class: "width_full radius6", placeholder: "Email Address") =%>
-          <%= password_field_tag("password", nil, class: "width_full radius6 top30", placeholder: "Password") =%>
+          <%= email_field_tag("email", nil, id: "email", class: "width_full radius6", placeholder: "Email Address", required: "required") =%>
+          <%= password_field_tag("password", nil, class: "width_full radius6 top30", placeholder: "Password", required: "required") =%>
           <%= button_tag(type: "submit", class: "btn width_full size60 blue radius6 top30") do %>
             Create an Account
           <% end %>

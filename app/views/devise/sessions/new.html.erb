@@ -1,7 +1,7 @@
 <h1 class="ubuntu font42">Log in</h1>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:class => "width470 text_center top80 header_3_form"}) do |f| %>
-  <%= f.email_field :email, autofocus: true, class: "width_full radius6", placeholder: "Email Address" %>
-  <%= f.password_field :password, class: "width_full radius6 top30", placeholder: "Password" %>
+  <%= f.email_field :email, autofocus: true, class: "width_full radius6", placeholder: "Email Address", :required => "required"  %>
+  <%= f.password_field :password, class: "width_full radius6 top30", placeholder: "Password", :required => "required"  %>
   <% if devise_mapping.rememberable? -%>
     <%= f.check_box :remember_me, style: "height: 12px" %>
     <%= f.label :remember_me, class: "top30 medium_gray text" %>

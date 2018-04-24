@@ -8,10 +8,10 @@
 
   <body>
     <% if notice %>
-      <p class="alert-success"><%= notice %></p>
+      <p id="notice" style="display: none;"><%= notice %></p>
     <% end %>
     <% if alert %>
-      <p class="alert-danger"><%= alert %></p>
+      <p id="alert" style="display: none;"><%= alert %></p>
     <% end %>
     <%= yield :header %>
     <%= content_for?(:content) ? yield(:content) : yield %>

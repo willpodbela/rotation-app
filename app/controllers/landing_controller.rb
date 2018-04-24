@@ -16,15 +16,21 @@ class LandingController < ApplicationController
   
   # AJAX endpoint for sign-up form on Home Page to call
   def sign_up
-    # Instantiate a new object using form parameters
-    @user = User.new(user_params)
-    # Save the object
-    if @user.save
-      # If save succeeds, sign them in and return 200
-      sign_in(@user)
-      render :status=>200, :json => { "data":"" }
+    # Check if user exists
+    if User.find_by_email(user_params[:email])
+      link = view_context.link_to "Click here to Log In.", new_user_session_path
+      render :status=>400, :json => { "message":("The email is already registered. " + link) }
     else
-      render :status=>400, :json => { "data":"" }
+      # Instantiate a new object using form parameters
+      @user = User.new(user_params)
+      # Save the object
+      if @user.save
+        # If save succeeds, sign them in and return 200
+        sign_in(@user)
+        render :status=>200, :json => { "redirect":"/status" }
+      else
+        render :status=>400, :json => { "message":"An unknown error occurred. Please try again later." }
+      end
     end
   end
   
