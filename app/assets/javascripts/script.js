@@ -100,11 +100,11 @@ $("form").submit(function(event){
 			}	
 		})
 		.fail(function(data){
-		  if(data.responseJSON.message)
+		  if(data.responseJSON.message){
 		    $(".alert-form-error > .content").html(data.responseJSON.message)
-		  else
+		  }else{
 		    $(".alert-form-error > .content").text("An unknown error occurred. Please try again later.")
-		  end
+		  }
 			$(".alert-form-error").fadeIn(200).delay(5000).fadeOut(200);
 		});
 	}else{
