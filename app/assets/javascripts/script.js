@@ -114,6 +114,12 @@ $("#landing-form").submit(function(event){
 		url = form.attr("action"),
 		required_fields_filled = true;
 	
+	form.find("input, textarea, select").each(function(){
+		if($(this).prop("required") && $(this).val()==""){
+			required_fields_filled = false;
+		}
+	});
+	
 	if(required_fields_filled){
 		var posting = $.post(url, term);
 		posting
