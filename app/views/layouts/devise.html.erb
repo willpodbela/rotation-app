@@ -46,19 +46,7 @@
     </div>
   </footer>
 
-  <!-- forms alerts -->
-  <div class="alert alert-success alert-dismissible alert-form-success" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <span class="content">Thanks for your message!</span>
-  </div>
-  <div class="alert alert-warning alert-dismissible alert-form-check-f lds" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <span class="content">Please, fill in required fields.</span>
-  </div>
-  <div class="alert alert-danger alert-dismissible alert-form-error" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <span class="content">An error occurred while sending data :(</span>
-  </div>
+  <%= render("shared/alerts") %>
 
   <%= javascript_include_tag 'footer', 'data-turbolinks-track': 'reload' %>
 <% end %>
