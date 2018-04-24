@@ -75,16 +75,11 @@ if(typeof(AOS) !== 'undefined'){
 
 // AJAX send form
 
-var formID = "";
-$("form").submit(function(event){
-	event.preventDefault();
- 
+$("form").submit(function(event){ 
 	var form = $(this),
 		term = form.serialize(),
 		url = form.attr("action"),
 		required_fields_filled = true;
-	
-	formID = form.id
 	
 	form.find("input, textarea, select").each(function(){
 		if($(this).prop("required") && $(this).val()==""){
