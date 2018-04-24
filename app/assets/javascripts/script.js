@@ -76,6 +76,7 @@ if(typeof(AOS) !== 'undefined'){
 // AJAX send form
 
 $("form").submit(function(event){
+	event.preventDefault();
  
 	var form = $(this),
 		term = form.serialize(),
