@@ -87,33 +87,31 @@ $("form").submit(function(event){
 		}
 	});
 	
-	if(required_fields_filled){
-		var posting = $.post(url, term);
-		posting
-		.done(function(data){
-		  console.log(data)
-			if(data.redirect){
-			  window.location.replace(data.redirect) 
-			}else{
-			  if(data.message){
-			    $(".alert-form-success > .content").text(data.message)
-			  }else{
-			    $(".alert-form-success > .content").text("Success!")
-			  }
-			  $(".alert-form-success").fadeIn(200).delay(5000).fadeOut(200);
-			}	
-		})
-		.fail(function(data){
-		  if(data.responseJSON.message){
-		    $(".alert-form-error > .content").html(data.responseJSON.message)
-		  }else{
-		    $(".alert-form-error > .content").text("An unknown error occurred. Please try again later.")
-		  }
-			$(".alert-form-error").fadeIn(200).delay(5000).fadeOut(200);
-		});
-	}else{
+	if(!required_fields_filled){
 		$(".alert-form-check-fields").fadeIn(200).delay(5000).fadeOut(200);
+		event.preventDefault()
+		event.stopImmediatePropagation()
 	}
+});
+
+$("#landing-form").submit(function(event){ 
+	var form = $(this),
+		term = form.serialize(),
+		url = form.attr("action")
+		
+  var posting = $.post(url, term);
+  posting
+  .done(function(data){
+    window.location.replace("/status") 
+  })
+  .fail(function(data){
+    if(data.responseJSON.message){
+      $(".alert-form-error > .content").html(data.responseJSON.message)
+    }else{
+      $(".alert-form-error > .content").text("An unknown error occurred. Please try again later.")
+    }
+    $(".alert-form-error").fadeIn(200).delay(5000).fadeOut(200);
+  });
 });
 
 // Function to add style to form, when user clicks to input inside it
