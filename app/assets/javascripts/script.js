@@ -1,4 +1,4 @@
-// Scroll.js
+// Custom JS
 
 $("#price-btn").click(function() {
     $('html,body').animate({
@@ -6,6 +6,20 @@ $("#price-btn").click(function() {
         'fast');
     $('#email').focus();
 });
+
+$( document ).ready(function() {
+    if ( $( "#alert" ).length ) {
+        $(".alert-danger > .content").text( $( "#alert" ).text() );
+        $( "#alert" ).text("");
+        $(".alert-danger").fadeIn(200).delay(5000).fadeOut(200);
+    } else if ( $( "#notice" ).length ) {
+        $(".alert-success > .content").text( $( "#notice" ).text() );
+        $( "#notice" ).text("");
+        $(".alert-success").fadeIn(200).delay(5000).fadeOut(200);
+    }
+});
+
+// Scroll.js
 
 $(document).ready(function(){
 	$('a[href^="#"]').on('click',function (e) {
@@ -106,7 +120,8 @@ $("#landing-form").submit(function(event){
 		.done(function(data){
 			window.location.replace("/status") 
 		})
-		.fail(function(){
+		.fail(function(data){
+			$(".alert-form-error").html(data.responseJSON.message)
 			$(".alert-form-error").fadeIn(200).delay(5000).fadeOut(200);
 		});
 	}else{
