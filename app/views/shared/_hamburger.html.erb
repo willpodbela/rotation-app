@@ -7,6 +7,7 @@
     <div>
       <% if user_signed_in? %>
         <%= link_to("Logout", destroy_user_session_path, method: :delete, class: "ubuntu font22 link white bottom20") %>
+        <%= link_to("Check Status", status_path, class: "link dark_gray right30") %>
       <% else %>
         <%= link_to("Log in", new_user_session_path, class: "ubuntu font22 link white bottom20") %>
       <% end %>
