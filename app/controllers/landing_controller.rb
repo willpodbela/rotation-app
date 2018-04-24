@@ -27,7 +27,7 @@ class LandingController < ApplicationController
       if @user.save
         # If save succeeds, sign them in and return 200
         sign_in(@user)
-        render :status=>200, :json => { "data":"" }
+        render :status=>200, :json => { "redirect":"/status" }
       else
         render :status=>400, :json => { "message":"An unknown error occurred. Please try again later." }
       end

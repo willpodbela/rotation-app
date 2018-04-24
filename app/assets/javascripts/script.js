@@ -75,6 +75,7 @@ if(typeof(AOS) !== 'undefined'){
 
 // AJAX send form
 
+var formID = "";
 $("form").submit(function(event){
 	event.preventDefault();
  
@@ -82,6 +83,8 @@ $("form").submit(function(event){
 		term = form.serialize(),
 		url = form.attr("action"),
 		required_fields_filled = true;
+	
+	formID = form.id
 	
 	form.find("input, textarea, select").each(function(){
 		if($(this).prop("required") && $(this).val()==""){
@@ -93,10 +96,15 @@ $("form").submit(function(event){
 		var posting = $.post(url, term);
 		posting
 		.done(function(data){
-			if(this.id == 'landing-form'){
-			  window.location.replace("/status") 
+		  console.log(data)
+			if(data.redirect){
+			  window.location.replace(data.redirect) 
 			}else{
-			  $(".alert-form-success > .content").text("Success!")
+			  if(data.message){
+			    $(".alert-form-success > .content").text(data.message)
+			  }else{
+			    $(".alert-form-success > .content").text("Success!")
+			  }
 			  $(".alert-form-success").fadeIn(200).delay(5000).fadeOut(200);
 			}	
 		})
