@@ -7,14 +7,16 @@ $("#price-btn").click(function() {
     $('#email').focus();
 });
 
+var pageInitialized = false;
 $( document ).ready(function() {
+    if(pageInitialized) return;
+    pageInitialized = true;
+
     if ( $( "#alert" ).length ) {
         $(".alert-danger > .content").text( $( "#alert" ).text() );
-        $( "#alert" ).text("");
         $(".alert-danger").fadeIn(200).delay(5000).fadeOut(200);
     } else if ( $( "#notice" ).length ) {
         $(".alert-success > .content").text( $( "#notice" ).text() );
-        $( "#notice" ).text("");
         $(".alert-success").fadeIn(200).delay(5000).fadeOut(200);
     }
 });
@@ -98,7 +100,11 @@ $("form").submit(function(event){
 			}	
 		})
 		.fail(function(data){
-			$(".alert-form-error > .content").html(data.responseJSON.message)
+		  if(data.responseJSON.message)
+		    $(".alert-form-error > .content").html(data.responseJSON.message)
+		  else
+		    $(".alert-form-error > .content").text("An unknown error occurred. Please try again later.")
+		  end
 			$(".alert-form-error").fadeIn(200).delay(5000).fadeOut(200);
 		});
 	}else{
