@@ -73,61 +73,32 @@ if(typeof(AOS) !== 'undefined'){
 
 // AJAX send form
 
-/*
 $("form").submit(function(event){
-	event.preventDefault();
  
 	var form = $(this),
 		term = form.serialize(),
 		url = form.attr("action"),
 		required_fields_filled = true;
-		
+	
 	form.find("input, textarea, select").each(function(){
 		if($(this).prop("required") && $(this).val()==""){
 			required_fields_filled = false;
 		}
 	});
-
+	
 	if(required_fields_filled){
 		var posting = $.post(url, term);
 		posting
 		.done(function(data){
-			if(data=="ok"){
-				$(".alert-form-success").fadeIn(200).delay(5000).fadeOut(200);
+			if(this.id == 'landing-form'){
+			  window.location.replace("/status") 
 			}else{
-				$(".alert-form-error").fadeIn(200).delay(5000).fadeOut(200);
-			}
-		})
-		.fail(function(){
-			$(".alert-form-error").fadeIn(200).delay(5000).fadeOut(200);
-		});
-	}else{
-		$(".alert-form-check-fields").fadeIn(200).delay(5000).fadeOut(200);
-	}
-});
-*/
-
-$("#landing-form").submit(function(event){
- 
-	var form = $(this),
-		term = form.serialize(),
-		url = form.attr("action"),
-		required_fields_filled = true;
-	
-	form.find("input, textarea, select").each(function(){
-		if($(this).prop("required") && $(this).val()==""){
-			required_fields_filled = false;
-		}
-	});
-	
-	if(required_fields_filled){
-		var posting = $.post(url, term);
-		posting
-		.done(function(data){
-			window.location.replace("/status") 
+			  $(".alert-form-success > .content").text("Success!")
+			  $(".alert-form-success").fadeIn(200).delay(5000).fadeOut(200);
+			}	
 		})
 		.fail(function(data){
-			$(".alert-form-error").html(data.responseJSON.message)
+			$(".alert-form-error > .content").html(data.responseJSON.message)
 			$(".alert-form-error").fadeIn(200).delay(5000).fadeOut(200);
 		});
 	}else{
