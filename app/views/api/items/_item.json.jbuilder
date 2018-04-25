@@ -4,4 +4,6 @@ json.my_rotation_reservation_id   item.my_rotation_reservation_id(@current_user)
 json.up_next                      item.user_has_reservation_future?(@current_user)
 json.up_next_reservation_id       item.up_next_reservation_id(@current_user)
 json.image_url      item.image.url
+json.image_url_small      item.image.url(:small)
+json.image_url_large      item.image.url(:large)
 json.num_available  item.num_available
