@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>RotationApp</title>
+    <title>The Rotation</title>
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= yield :stylesheets %>
   </head>
 
   <body>
     <% if notice %>
-      <p class="alert alert-success"><%= notice %></p>
+      <p id="notice" style="display: none;"><%= notice %></p>
     <% end %>
     <% if alert %>
-      <p class="alert alert-danger"><%= alert %></p>
+      <p id="alert" style="display: none;"><%= alert %></p>
     <% end %>
-    <%= yield %>
+    <%= yield :header %>
+    <%= content_for?(:content) ? yield(:content) : yield %>
+    <%= yield :footer %>
   </body>
 </html>

@@ -46,6 +46,13 @@ gem 'dotenv-rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Gems for Startup Framework II
+  gem 'jquery-rails'
+  gem 'therubyracer'
+	gem 'less-rails-bootstrap'
+	gem 'font-awesome-rails'
+	gem 'jquery-easing-rails'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

@@ -1,0 +1,40 @@
+<% content_for :stylesheets do %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= stylesheet_link_tag    'application', 'https://fonts.googleapis.com/css?family=Hind:300,400,500|Ubuntu:300,400,500', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application', 'https://use.fontawesome.com/releases/v5.0.10/css/all.css', integrity: 'sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg', crossorigin: 'anonymous', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDP6Ex5S03nvKZJZSvGXsEAi3X_tFkua4U', 'data-turbolinks-track' => true %>
+<% end %>
+
+<% content_for :header do %>
+  <%= render("shared/hamburger") %>
+<% end %>
+
+<% content_for :footer do %>
+  <footer class="footer_8 bg_dark_gray padding_top40 padding_bottom20">
+    <div class="container nopadding">
+      <div class="flex justify_between inner">
+        <div class="bottom30 block block_left text-center text-lg-left">
+          <div class="top10 ubuntu font20 font_second white">the rotation</div>
+        </div>
+        <div class="top10 bottom30 block block_center text-center">
+          <a href="#" class="font12 uppercase spacing15 link white sides15">Privacy</a>
+          <a href="#" class="font12 uppercase spacing15 link white sides15">Terms & Conditions</a>
+          <a href="#" class="font12 uppercase spacing15 link white sides15">Contact</a>
+        </div>
+        <div class="block block_right text-center text-lg-right">
+          <a href="#" class="link white text-center left10"><i class="fab fa-twitter line_height50"></i></a>
+          <a href="#" class="link white text-center left10"><i class="fab fa-facebook line_height50"></i></a>
+          <a href="#" class="link white text-center left10"><i class="fab fa-instagram line_height50"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <%= render("shared/alerts") %>
+
+  <%= javascript_include_tag 'footer', 'data-turbolinks-track': 'reload' %>
+<% end %>
+<%= render template: "layouts/application" %>

@@ -1,14 +1,15 @@
 Rails.application.routes.draw do
-  get 'reservations/index'
-
-  get 'reservations/show'
-
-  get 'reservations/new'
-
-  get 'reservations/edit'
-
+  
   root to: "landing#index"
+  post "sign_up", to: "landing#sign_up"
+  get "status", to: "landing#status"
+  get "admin", to: "landing#admin"
+  
+  resources "users", only: :index do
+    get "release", on: :member
+  end
   devise_for :users
+  
   resources :items do
     resources :reservations
   end
@@ -17,9 +18,10 @@ Rails.application.routes.draw do
     post "auth/login"
     get "auth/logout"
     post "auth/forgot"
-    post "users", to: "users#create"
+    resources :users, only: [:create, :show]
     resources :items
-    get "reservations/info"
-    resources :reservations
+    resources :reservations do
+      get 'info', on: :collection
+    end
   end
 end
