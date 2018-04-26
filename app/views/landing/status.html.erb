@@ -27,20 +27,20 @@
           </div>
         </div>
       </div>
-      <% elsif current_user.standard? %>
-        <h1 class="text-center white font_second light font92 top45">You're in.</h1>
-        <div class="top65">
-          <div>
-            <div class="max_width570 margin_auto white text-center light font22 text">
-              Check your email for instructions.
-            </div>
+    <% elsif current_user.standard? %>
+      <h1 class="text-center white font_second light font92 top45">You're in.</h1>
+      <div class="top65">
+        <div>
+          <div class="max_width570 margin_auto white text-center light font22 text">
+            Check your email for instructions.
           </div>
         </div>
-      <% elsif current_user.admin? %>
-        <h1 class="text-center white font_second light font72 top65">Welcome Administrator.</h1>
-      <% end %>
-      <div class="text-center top165 block_with_button">
-        <a href="#" class="width300 max_width_full btn white padding_sides25 size60 radius6"><span class="black"><i class="fab fa-apple right10"></i> Download on the App Store</span></a>
       </div>
+    <% elsif current_user.admin? %>
+      <h1 class="text-center white font_second light font72 top65">Welcome Administrator.</h1>
+    <% end %>
+    <div class="text-center top165 block_with_button">
+      <a href="#" class="width300 max_width_full btn white padding_sides25 size60 radius6"><span class="black"><i class="fab fa-apple right10"></i> Download on the App Store</span></a>
+    </div>
   </div>
 </header>
