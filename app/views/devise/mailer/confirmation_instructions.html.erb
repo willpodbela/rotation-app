@@ -66,29 +66,7 @@
       }
     }
   </style>
-  <!--<![endif]-->
-  <!--[if mso]>
-      <xml>
-        <o:OfficeDocumentSettings>
-          <o:AllowPNG/>
-          <o:PixelsPerInch>96</o:PixelsPerInch>
-        </o:OfficeDocumentSettings>
-      </xml>
-    <![endif]-->
-  <!--[if lte mso 11]>
-      <style type="text/css">
-        .outlook-group-fix {
-          width:100% !important;
-        }
-      </style>
-    <![endif]-->
-  <!--[if !mso]>
-      <!-->
-  <link href="https://d2yjfm58htokf8.cloudfront.net/static/fonts/averta-v2.css" rel="stylesheet" type="text/css">
-  <style type="text/css">
-    @import url(https://d2yjfm58htokf8.cloudfront.net/static/fonts/averta-v2.css);
-  </style>
-  <!--<![endif]-->
+
   <style type="text/css">
     p {
       margin: 0 0 24px 0;
@@ -351,13 +329,16 @@
                             <tbody>
                               <tr>
                                 <td style="word-wrap:break-word;font-size:0px;padding:0px;" align="left">
-                                  <div style="cursor:auto;color:#2F4EE3;font-family:TW-Averta-Regular, Averta, Helvetica, Arial;font-size:16px;line-height:24px;letter-spacing:0.4px;text-align:left;">
+                                  <div style="cursor:auto;color:#37517e; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; font-size:16px; line-height:24px; letter-spacing:0.4px; text-align:left;">
                                     <p>Hey <%= @email %>,</p>
                                     <p class="hero">It’s time to confirm your email address.</p>
                                     <p>Have we got the right email address to reach you on? To confirm that you can get our emails, just click the button below.</p>
                                     <p>
                                       <a href="<%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %>" class="btn" mc:disable-tracking="">Confirm my email address</a>
                                     </p>
+                                    <%= button_tag(type: "submit", class: "btn width_full size60 blue radius6 top30") do %>
+                                      Confirm my email address
+                                    <% end %>
                                     <p>If you don’t know why you got this email, please tell us straight away so we can fix this for you.</p>
                                     <hr style="margin-top: 56px">
                                     <p class="mb-0">Thanks,</p>
