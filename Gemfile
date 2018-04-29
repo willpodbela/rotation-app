@@ -38,7 +38,7 @@ gem 'devise'
 # For use encrypting user passwords sent via API
 gem 'aescrypt'
 # For file uploading
-gem "paperclip", "~> 5.1" 
+gem "paperclip", "~> 5.1"
 gem 'aws-sdk', '< 3.0'
 
 gem 'dotenv-rails'
@@ -52,6 +52,8 @@ gem 'dotenv-rails'
 	gem 'less-rails-bootstrap'
 	gem 'font-awesome-rails'
 	gem 'jquery-easing-rails'
+
+gem 'premailer-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
