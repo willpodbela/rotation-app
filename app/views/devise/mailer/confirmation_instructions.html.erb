@@ -93,7 +93,10 @@
     }
 
     h5 {
-      font-family: TW-Averta-SemiBold, Averta, Helvetica, Arial;
+      font-family: -apple-system, BlinkMacSystemFont,
+    “Segoe UI”, “Roboto”, “Oxygen”,
+    “Ubuntu”, “Cantarell”, “Fira Sans”,
+    “Droid Sans”, “Helvetica Neue”, sans-serif;
       font-size: 16px;
       line-height: 24px;
       color: #2e4369;
@@ -134,8 +137,12 @@
     }
 
     .hero {
-      font-family: TW-Averta-Bold, Averta, Helvetica, Arial;
+      font-family: -apple-system, BlinkMacSystemFont,
+    “Segoe UI”, “Roboto”, “Oxygen”,
+    “Ubuntu”, “Cantarell”, “Fira Sans”,
+    “Droid Sans”, “Helvetica Neue”, sans-serif;
       color: #37517e;
+      font-weight: bold
       font-size: 22px;
       line-height: 30px;
     }
@@ -251,7 +258,8 @@
                                     <tbody>
                                       <tr>
                                         <td style="width:150px;">
-                                          <img alt="Logo" title="" height="auto" src="<%= asset_path 'rotation-logo-gray.png' %>" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="150">
+                                          <img alt="Logo" title="logo" height="auto" src="<%= asset_path 'rotation-logo-gray.png' %>" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="150">
+                                          <%= image_tag("rotation-logo-gray.png", :alt => "Logo"), :style =>  "border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" %>
                                         </td>
                                       </tr>
                                     </tbody>
@@ -329,7 +337,10 @@
                             <tbody>
                               <tr>
                                 <td style="word-wrap:break-word;font-size:0px;padding:0px;" align="left">
-                                  <div style="cursor:auto;color:#37517e; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; font-size:16px; line-height:24px; letter-spacing:0.4px; text-align:left;">
+                                  <div style="cursor:auto;color:#5d7079;font-family: -apple-system, BlinkMacSystemFont,
+    'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;font-size:16px;line-height:24px;letter-spacing:0.4px;text-align:left;">
                                     <p>Hey <%= @email %>,</p>
                                     <p class="hero">It’s time to confirm your email address.</p>
                                     <p>Have we got the right email address to reach you on? To confirm that you can get our emails, just click the button below.</p>
@@ -405,7 +416,10 @@
                             <tbody>
                               <tr>
                                 <td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center">
-                                  <div style="cursor:auto;color:#5d7079;font-family:TW-Averta-Regular, Averta, Helvetica, Arial;font-size:14px;line-height:24px;letter-spacing:0.4px;text-align:center;">You can always reach us at
+                                  <div style="cursor:auto;color:#5d7079;font-family: -apple-system, BlinkMacSystemFont,
+    'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;font-size:14px;line-height:24px;letter-spacing:0.4px;text-align:center;">You can always reach us at
                                     <a href="mailto:support@therotation.club">support@therotation.club</a>.</div>
                                 </td>
                               </tr>
@@ -480,7 +494,10 @@
                             <tbody>
                               <tr>
                                 <td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center">
-                                  <div style="cursor:auto;color:#5d7079;font-family:TW-Averta-Regular, Averta, Helvetica, Arial;font-size:14px;line-height:24px;letter-spacing:0.4px;text-align:center;">Rotation, Inc. (c) 2018. All rights reserved.</div>
+                                  <div style="cursor:auto;color:#5d7079;font-family: -apple-system, BlinkMacSystemFont,
+    'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif; font-size:14px;line-height:24px;letter-spacing:0.4px;text-align:center;">Rotation, Inc. (c) 2018. All rights reserved.</div>
                                 </td>
                               </tr>
                             </tbody>
