@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get "admin", to: "landing#admin"
   
   resources "users", only: :index do
+    resource :profile, only: [:show, :edit, :update]
     get "release", on: :member
   end
   devise_for :users

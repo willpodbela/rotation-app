@@ -1,0 +1,82 @@
+<%= link_to("<< Back to Profile", user_profile_path(@profile), :class => 'back-link') %>
+
+<div class="profiles edit">
+  <h2>Edit Profile</h2>
+
+  <%= form_for([@user, @profile]) do |f| %>
+
+    <table summary="Profile form fields">
+      <tr>
+        <th>User ID</th>
+        <td><%= @profile.user.id %></td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td><%= @profile.user.email %></td>
+      </tr>
+      <tr>
+        <th>Access Level</th>
+        <td>
+        <%= @profile.user.access_level %> 
+        <%= link_to("Release From Waitlist", release_user_path(@user), :class => 'action') if @user.waitlist? %>
+        </td>
+      </tr>
+      
+      <tr>
+        <th>First Name</th>
+        <td><%= f.text_field(:first_name)  %></td>
+      </tr>
+      <tr>
+        <th>Last Name</th>
+        <td><%= f.text_field(:last_name) %></td>
+      </tr>
+      
+      <tr>
+        <th>Instagram Handle</th>
+        <td><%= link_to @profile.instagram_handle, ("https://www.instagram.com/"+@profile.instagram_handle+"/?hl=en") if @profile.instagram_handle %></td>
+      </tr>
+      <tr>
+        <th>Instagram Follower Count</th>
+        <td><%= @profile.instagram_follower_count %></td>
+      </tr>
+      <tr>
+        <th>Instagram Following Count</th>
+        <td><%= @profile.instagram_following_count %></td>
+      </tr>
+      <tr>
+        <th>Instagram Post Count</th>
+        <td><%= @profile.instagram_post_count %></td>
+      </tr>
+      <tr>
+        <th>Instagram Data Last Refreshed On</th>
+        <td><%= @profile.instagram_last_refresh %></td>
+      </tr>
+      
+      <tr>
+        <th>Address Line 1</th>
+        <td><%= f.text_field(:address_line_one) %></td>
+      </tr>
+      <tr>
+        <th>Address Line 2</th>
+        <td><%= f.text_field(:address_line_two) %></td>
+      </tr>
+      <tr>
+        <th>Address City</th>
+        <td><%= f.text_field(:address_city) %></td>
+      </tr>
+      <tr>
+        <th>Address State</th>
+        <td><%= f.text_field(:address_state) %></td>
+      </tr>
+      <tr>
+        <th>Address Zip</th>
+        <td><%= f.text_field(:address_zip) %></td>
+      </tr>
+    </table>
+
+    <div class="form-buttons">
+      <%= f.submit("Update Profile") %>
+    </div>
+
+  <% end %>
+</div>

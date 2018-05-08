@@ -1,0 +1,75 @@
+<%= link_to("<< Back to List", users_path, :class => 'back-link') %>
+
+<div class="profiles show">
+  <h2>Show Profile</h2>
+
+  <table summary="Profile detail view">
+      <tr>
+        <th>User ID</th>
+        <td><%= @profile.user.id %></td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td><%= @profile.user.email %></td>
+      </tr>
+      <tr>
+        <th>Access Level</th>
+        <td><%= @profile.user.access_level %></td>
+      </tr>
+      <tr>
+        <th>First Name</th>
+        <td><%= @profile.first_name %></td>
+      </tr>
+      <tr>
+        <th>Last Name</th>
+        <td><%= @profile.last_name %></td>
+      </tr>
+      
+      <tr>
+        <th>Instagram Handle</th>
+        <td><%= link_to(@profile.instagram_handle, ("https://www.instagram.com/"+@profile.instagram_handle+"/?hl=en")) if @profile.instagram_handle %></td>
+      </tr>
+      <tr>
+        <th>Instagram Follower Count</th>
+        <td><%= @profile.instagram_follower_count %></td>
+      </tr>
+      <tr>
+        <th>Instagram Following Count</th>
+        <td><%= @profile.instagram_following_count %></td>
+      </tr>
+      <tr>
+        <th>Instagram Post Count</th>
+        <td><%= @profile.instagram_post_count %></td>
+      </tr>
+      <tr>
+        <th>Instagram Data Last Refreshed On</th>
+        <td><%= @profile.instagram_last_refresh %></td>
+      </tr>
+      
+      <tr>
+        <th>Address Line 1</th>
+        <td><%= @profile.address_line_one %></td>
+      </tr>
+      <tr>
+        <th>Address Line 2</th>
+        <td><%= @profile.address_line_two %></td>
+      </tr>
+      <tr>
+        <th>Address City</th>
+        <td><%= @profile.address_city %></td>
+      </tr>
+      <tr>
+        <th>Address State</th>
+        <td><%= @profile.address_state %></td>
+      </tr>
+      <tr>
+        <th>Address Zip</th>
+        <td><%= @profile.address_zip %></td>
+      </tr>
+    </table>
+    
+    <div class="form-buttons">
+      <%= link_to("Edit Profile", edit_user_profile_path(@profile), :class => 'action') %>
+    </div>
+
+</div>
