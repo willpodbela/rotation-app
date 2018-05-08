@@ -19,8 +19,13 @@ Rails.application.routes.draw do
     post "auth/login"
     get "auth/logout"
     post "auth/forgot"
-    resources :users, only: [:create, :show]
+    
+    resources :users, only: [:create, :show] do
+      resource :profile, only: [:show, :update]
+    end
+    
     resources :items
+    
     resources :reservations do
       get 'info', on: :collection
     end
