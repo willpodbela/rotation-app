@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :reservations
   has_many :items, through: :reservations
+  has_one  :profile
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
