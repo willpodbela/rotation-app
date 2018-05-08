@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20180507235846) do
     t.integer "instagram_follower_count"
     t.integer "instagram_following_count"
     t.integer "instagram_post_count"
+    t.datetime "instagram_last_refresh"
     t.string "address_line_one"
     t.string "address_line_two"
     t.string "address_city"
