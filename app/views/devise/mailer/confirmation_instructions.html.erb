@@ -342,10 +342,10 @@
                                     <p class="hero">It’s time to confirm your email address.</p>
                                     <p>Have we got the right email address to reach you on? To confirm that you can get our emails, just click the button below.</p>
                                     <p>
-                                      <%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token), %>
+                                      <%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %>
                                     </p>
 
-                                    <%= button_to "Confirm my account", confirmation_url(@resource, confirmation_token: @token), :class => "btn width_full size60 blue radius6 top30", :method => :post %>
+                                    <%= button_to "Confirm my account", confirmation_url(@resource, confirmation_token: @token), :class => "btn width_full size60 blue radius6 top30", :method => :get %>
                                       <p>If you don’t know why you got this email, please tell us straight away so we can fix this for you.</p>
                                       <hr style="margin-top: 56px">
                                       <p class="mb-0">Thanks,</p>
