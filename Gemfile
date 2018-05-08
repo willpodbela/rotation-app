@@ -43,6 +43,9 @@ gem 'aws-sdk', '< 3.0'
 
 gem 'dotenv-rails'
 
+# For making not shit HTTP requests
+gem "http"
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
