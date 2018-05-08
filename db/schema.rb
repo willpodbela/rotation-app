@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180413013609) do
+ActiveRecord::Schema.define(version: 20180507235846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,25 @@ ActiveRecord::Schema.define(version: 20180413013609) do
     t.string "subtitle"
     t.string "retail_value"
     t.string "color"
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "instagram_auth_token"
+    t.string "instagram_handle"
+    t.integer "instagram_follower_count"
+    t.integer "instagram_following_count"
+    t.integer "instagram_post_count"
+    t.string "address_line_one"
+    t.string "address_line_two"
+    t.string "address_city"
+    t.string "address_state"
+    t.string "address_zip"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_profiles_on_user_id", unique: true
   end
 
   create_table "reservations", force: :cascade do |t|
