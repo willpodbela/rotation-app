@@ -25,6 +25,12 @@ module Api
       end
     end
     
+    def create
+      #If device already registered, unregister it
+      if Device.find_by_token(params[:token]).destroy
+      super
+    end
+    
     private
     
     def device_params
