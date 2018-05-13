@@ -5,7 +5,7 @@ module Api
     def update
       render_error(405)
     end
-    def create    
+    def show    
       render_error(405)
     end
     def index
@@ -13,26 +13,38 @@ module Api
     end
     
     def destroy
-      Device.find_by_token(params[:token]).destroy
-      head :no_content
-    end
-    
-    def create    
-      if Device.create(:user => current_user, :token => params[:token])
-        render text: "", status: :created
+      #Make sure device belongs to user
+      if get_resource
+        if get_resource.user_id == current_user.id
+          super
+        else
+          render_error(403)
+        end
       else
-        render_error(:unprocessable_entity, get_resource.errors.full_messages.to_sentence)
+        render_error(:unprocessable_entity, "No devices found for token.")
       end
     end
     
     private
     
-    def item_params
-      params.permit()
+    def device_params
+      params[:user_id] = current_user.id
+      params.permit(:token, :user_id)
     end
 
     def query_params
       params.permit()
+    end
+    
+    #Override set_resource
+    def set_resource(resource = nil)
+      resource ||= resource_class.find_by_token(params[:token])
+      
+      # Set instance variables for use in the global view template (fallback if no :show template is provided)
+      instance_variable_set("@global_view_template_data", resource)
+      instance_variable_set("@global_view_template_name", resource_name)
+      
+      instance_variable_set("@#{resource_name}", resource)
     end
   end
 end
