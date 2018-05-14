@@ -148,11 +148,9 @@ if ActiveRecord::Base.connection.table_exists? 'rpush_apps'
   app.save!
   
   # Start Rpush in separate Thread
-  if defined?(Rails)
+  if defined?(Rails::Server)
     ActiveSupport.on_load(:after_initialize) do
       Rpush.embed
     end
   else
-    Rpush.embed
-  end
 end
