@@ -46,6 +46,9 @@ gem 'dotenv-rails'
 # For making not shit HTTP requests
 gem "http"
 
+# For sending push notifications
+gem 'rpush'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

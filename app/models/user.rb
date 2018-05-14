@@ -22,6 +22,12 @@ class User < ApplicationRecord
   def renew_authentication_token
     self.authentication_token = generate_authentication_token
   end
+  
+  def send_notification(message)
+    self.devices.each do |device|
+      device.send_notification(message)
+    end
+  end
  
   private
   
