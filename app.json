@@ -10,10 +10,13 @@
     "API_AUTH_PASSWORD": {
       "required": true
     },
+    "APNS_CERT_PASSWORD": {
+      "required": true
+    },
     "APNS_CERT_PATH": {
       "required": true
     },
-    "APNS_CERT_PASSWORD": {
+    "APNS_CERT_TYPE": {
       "required": true
     },
     "AWS_ACCESS_KEY_ID": {
