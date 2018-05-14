@@ -152,5 +152,5 @@ if ActiveRecord::Base.connection.table_exists? 'rpush_apps'
     ActiveSupport.on_load(:after_initialize) do
       Rpush.embed
     end
-  else
+  end
 end
