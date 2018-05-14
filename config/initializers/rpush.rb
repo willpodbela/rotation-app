@@ -134,21 +134,20 @@ Rpush.reflect do |on|
   # end
 end
 
-
-if ActiveRecord::Base.connection.table_exists? 'rpush_apps'
-  # Setup Push App if needed
-  unless app = Rpush::Apns::App.find_by_name("rotation_ios")
-    app = Rpush::Apns::App.new
-    app.name = "rotation_ios"
-    app.environment = (Rails.env.production? ? "production" : "development")
-    app.connections = 1
-  end
-  app.certificate = File.read(File.join(Rails.root, ENV['APNS_CERT_PATH']))
-  app.password = ENV['APNS_CERT_PASSWORD']
-  app.save!
+if defined?(Rails::Server)
+  if ActiveRecord::Base.connection.table_exists? 'rpush_apps'
+    # Setup Push App if needed
+    unless app = Rpush::Apns2::App.find_by_name("rotation_ios")
+      app = Rpush::Apns2::App.new
+      app.name = "rotation_ios"
+      app.environment = ENV['APNS_CERT_TYPE']
+      app.connections = 1
+    end
+    app.certificate = File.read(File.join(Rails.root, ENV['APNS_CERT_PATH']))
+    app.password = ENV['APNS_CERT_PASSWORD']
+    app.save!
   
-  # Start Rpush in separate Thread
-  if defined?(Rails::Server)
+    # Start Rpush in separate Thread  
     ActiveSupport.on_load(:after_initialize) do
       Rpush.embed
     end
