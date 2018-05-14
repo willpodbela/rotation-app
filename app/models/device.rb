@@ -3,7 +3,7 @@ class Device < ApplicationRecord
   
   def send_notification(message)
     n = Rpush::Apns::Notification.new
-    n.app = Rpush::Apns::App.find_by_name("rotation_ios")
+    n.app = Rpush::Apns2::App.find_by_name("rotation_ios")
     n.device_token = self.token
     n.alert = message
     #n.data = { foo: :bar }     #Can be used to customize sound
