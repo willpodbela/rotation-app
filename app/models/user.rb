@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_many :reservations
   has_many :items, through: :reservations
+  has_one  :profile
+  has_many :devices
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -19,6 +21,12 @@ class User < ApplicationRecord
   
   def renew_authentication_token
     self.authentication_token = generate_authentication_token
+  end
+  
+  def send_notification(message)
+    self.devices.each do |device|
+      device.send_notification(message)
+    end
   end
  
   private
