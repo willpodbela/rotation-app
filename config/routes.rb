@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get "admin", to: "landing#admin"
   
   resources "users", only: :index do
+    resource :profile, only: [:show, :edit, :update]
     get "release", on: :member
   end
   devise_for :users
@@ -18,10 +19,18 @@ Rails.application.routes.draw do
     post "auth/login"
     get "auth/logout"
     post "auth/forgot"
-    resources :users, only: [:create, :show]
+    
+    resources :users, only: [:create, :show] do
+      resource :profile, only: [:show, :update]
+    end
+    
     resources :items
+    
     resources :reservations do
       get 'info', on: :collection
     end
+    
+    post 'devices/:token', to: 'devices#create'
+    delete 'devices/:token', to: 'devices#destroy'
   end
 end

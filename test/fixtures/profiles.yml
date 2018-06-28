@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  first_name: MyString
+  last_name: MyString
+  instagram_auth_token: MyString
+  instagram_handle: MyString
+  instagram_follower_count: 
+  instagram_following_count: 
+  instagram_post_count: 
+  address_line_one: MyString
+  address_line_two: MyString
+  address_city: MyString
+  address_state: MyString
+  address_zip: MyString
+
+two:
+  first_name: MyString
+  last_name: MyString
+  instagram_auth_token: MyString
+  instagram_handle: MyString
+  instagram_follower_count: 
+  instagram_following_count: 
+  instagram_post_count: 
+  address_line_one: MyString
+  address_line_two: MyString
+  address_city: MyString
+  address_state: MyString
+  address_zip: MyString
