@@ -36,7 +36,7 @@ module Api
           if @user.valid_password?(params[:password])
             @user.renew_authentication_token
             if @user.save
-              render('api/users/show')
+              render('users/show')
             else
               render_error(500, nil)
             end 
