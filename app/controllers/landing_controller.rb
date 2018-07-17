@@ -16,7 +16,7 @@ class LandingController < ApplicationController
   
   def download
     # TODO: Add App Store URL once approved!!
-    redirect_to index
+    redirect_to :action => "index"
   end
   
   # AJAX endpoint for sign-up form on Home Page to call
