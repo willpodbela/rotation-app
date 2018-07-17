@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   post "sign_up", to: "landing#sign_up"
   get "status", to: "landing#status"
   get "admin", to: "landing#admin"
+  get "download", to: "landing#download"
   
   resources "users", only: :index do
     resource :profile, only: [:show, :edit, :update]
@@ -16,21 +17,23 @@ Rails.application.routes.draw do
   end
   
   namespace :api, defaults: {format: :json} do
-    post "auth/login"
-    get "auth/logout"
-    post "auth/forgot"
+    namespace :v1 do
+      post "auth/login"
+      get "auth/logout"
+      post "auth/forgot"
     
-    resources :users, only: [:create, :show] do
-      resource :profile, only: [:show, :update]
+      resources :users, only: [:create, :show] do
+        resource :profile, only: [:show, :update]
+      end
+    
+      resources :items
+    
+      resources :reservations do
+        get 'info', on: :collection
+      end
+    
+      post 'devices/:token', to: 'devices#create'
+      delete 'devices/:token', to: 'devices#destroy'
     end
-    
-    resources :items
-    
-    resources :reservations do
-      get 'info', on: :collection
-    end
-    
-    post 'devices/:token', to: 'devices#create'
-    delete 'devices/:token', to: 'devices#destroy'
   end
 end
