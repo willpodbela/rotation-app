@@ -1,5 +1,5 @@
 class LandingController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :status, :sign_up]
+  skip_before_action :authenticate_user!, only: [:index, :status, :sign_up, :download]
   before_action :enforce_access_control_admin!, only: [:admin]
   
   # Home Page
@@ -12,6 +12,11 @@ class LandingController < ApplicationController
   
   # Admin Landing Page
   def admin
+  end
+  
+  def download
+    # TODO: Add App Store URL once approved!!
+    redirect_to index
   end
   
   # AJAX endpoint for sign-up form on Home Page to call

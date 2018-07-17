@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   post "sign_up", to: "landing#sign_up"
   get "status", to: "landing#status"
   get "admin", to: "landing#admin"
+  get "download", to: "landing#download"
   
   resources "users", only: :index do
     resource :profile, only: [:show, :edit, :update]
