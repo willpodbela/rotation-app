@@ -1,6 +1,6 @@
 module Api
     module V1
-    class ProfilesController < Api::BaseController
+    class ProfilesController < Api::V1::BaseController
       before_action :enforce_user_permission!
       before_action :create_profile
     

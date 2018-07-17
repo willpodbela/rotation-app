@@ -1,6 +1,6 @@
 module Api
   module V1
-    class DevicesController < Api::BaseController
+    class DevicesController < Api::V1::BaseController
     
       #Failsafe: Override endpoints that we don't want to make available
       def update

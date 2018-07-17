@@ -1,6 +1,6 @@
 module Api
     module V1
-    class ItemsController < Api::BaseController
+    class ItemsController < Api::V1::BaseController
       before_action :set_current_user
     
       #Failsafe: Override endpoints that we don't want to make available
