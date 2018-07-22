@@ -140,9 +140,9 @@ if defined?(Rails::Server)
     unless app = Rpush::Apns2::App.find_by_name("rotation_ios")
       app = Rpush::Apns2::App.new
       app.name = "rotation_ios"
-      app.environment = ENV['APNS_CERT_TYPE']
       app.connections = 1
     end
+    app.environment = ENV['APNS_CERT_TYPE']
     app.certificate = File.read(File.join(Rails.root, ENV['APNS_CERT_PATH']))
     app.password = ENV['APNS_CERT_PASSWORD']
     app.save!
