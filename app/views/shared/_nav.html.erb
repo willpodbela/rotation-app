@@ -10,7 +10,9 @@
       <% else %>
         <%= link_to("Log in", new_user_session_path, class: "link dark_gray right30") %>
       <% end %>
-      <a href="#" class="btn black size40 padding_sides20 right30"><i class="fab fa-apple right10"></i>Download App</a>
+      <%= link_to(download_path, class:"btn black size40 padding_sides20 right30") do %>
+        <i class="fab fa-apple right10"></i>Download App
+      <% end %>
     </div>
   </div>
 </nav>
