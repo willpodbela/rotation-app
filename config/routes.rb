@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get "status", to: "landing#status"
   get "admin", to: "landing#admin"
   get "download", to: "landing#download"
+  get "privacy", to: "landing#privacy"
   
   resources "users", only: :index do
     resource :profile, only: [:show, :edit, :update]
