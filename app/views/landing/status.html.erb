@@ -40,7 +40,9 @@
         <h1 class="text-center white font_second light font72 top65">Welcome Administrator.</h1>
       <% end %>
       <div class="text-center top165 block_with_button">
-        <a href="#" class="width300 max_width_full btn white padding_sides25 size60 radius6"><span class="black"><i class="fab fa-apple right10"></i> Download on the App Store</span></a>
+        <%= link_to(download_path, class:"width300 max_width_full btn white padding_sides25 size60 radius6") do %>
+          <span class="black"><i class="fab fa-apple right10"></i> Download on the App Store</span>
+        <% end %>
       </div>
   </div>
 </header>
