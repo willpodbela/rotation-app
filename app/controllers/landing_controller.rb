@@ -16,7 +16,7 @@ class LandingController < ApplicationController
   
   def download
     # TODO: Add App Store URL once approved!!
-    redirect_to :action => "index"
+    redirect_to "https://itunes.apple.com/us/app/com-rotationinc-rotation/id1404678165?ls=1&mt=8"
   end
   
   # Privacy Page
