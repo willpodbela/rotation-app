@@ -1,6 +1,7 @@
 class LandingController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :status, :sign_up, :download, :privacy]
   before_action :enforce_access_control_admin!, only: [:admin]
+  layout :resolve_layout
   
   # Home Page
   def index
@@ -47,5 +48,14 @@ class LandingController < ApplicationController
   
   def user_params
     params.permit(:email,:password)
+  end
+
+  def resolve_layout
+    case action_name
+    when "status"
+      "status"
+    else
+      "landing"
+    end
   end
 end
