@@ -51,9 +51,11 @@ function showMenuBtn(){
 	if($(window).width()<=1200){
 		$(".open_menu").addClass("visible");
 		$("header nav").addClass("hidden");
+		$("#nav-container").addClass("hidden");
 	}else{
 		$(".open_menu").removeClass("visible");
 		$("header nav").removeClass("hidden");
+		$("#nav-container").removeClass("hidden");
 	}
 }
 
