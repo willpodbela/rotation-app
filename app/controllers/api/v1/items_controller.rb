@@ -44,7 +44,6 @@ module Api
     
       def items_params
         params.permit(items: [:retail_value, :subtitle, :image_url, :title, :buyURL])
-        end
       end
       
       def item_params
