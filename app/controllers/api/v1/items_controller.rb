@@ -15,7 +15,7 @@ module Api
       
       # NOTE: Only to be called by our item scraper python script.
       def create
-        if Item.create(items_params)
+        if Item.create(items_params[:items])
           Item.where("created_at < ?", 2.hours.ago).destroy_all
           render :status=>200, :json=>{}
         else
