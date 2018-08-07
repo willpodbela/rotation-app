@@ -9,6 +9,7 @@
       <div><%= link_to("Check Status", status_path, class: "ubuntu font22 link white bottom20") %></div>
     <% else %>
       <div><%= link_to("Log in", new_user_session_path, class: "ubuntu font22 link white bottom20") %></div>
+      <div><%= link_to("Sign up", new_user_registration_path, class: "ubuntu font22 link white bottom20") %></div>
     <% end %>
     <div>
       <%= link_to(download_path, class:"ubuntu font22 link white bottom20") do %>
