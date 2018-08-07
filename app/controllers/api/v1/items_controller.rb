@@ -43,7 +43,7 @@ module Api
       private
     
       def item_params
-        params.require(:items).permit(array: [:retail_value, :subtitle, :image_url, :title, :buyURL])
+        params.require(:items).permit(:retail_value, :subtitle, :image_url, :title, :buyURL)
       end
 
       def query_params
