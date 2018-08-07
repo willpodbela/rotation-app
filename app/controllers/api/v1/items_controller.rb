@@ -43,14 +43,7 @@ module Api
       private
     
       def items_params
-        params.require(:items).map do |p|
-          ActionController::Parameters.new(p).permit(
-            :retail_value,
-            :subtitle,
-            :image_url,
-            :title,
-            :buyURL
-          )
+        params.permit(items: [:retail_value, :subtitle, :image_url, :title, :buyURL])
         end
       end
       
