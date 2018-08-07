@@ -1,14 +1,12 @@
 <header class="header_11">
-  <%= render("shared/nav") %>
-
   <div style="padding-bottom: 148px;" class="container nopadding">
     <div class="max_width470 inner">
-      <h1 class="ubuntu font62 dark_gray top150">Welcome<br /> to a closet without boundaries</h1>
+      <h1 class="ubuntu font62 dark_gray">Welcome<br /> to a closet without boundaries</h1>
       <div class="font22 light dark_blue top50 text">
         This is The Rotation. A members-only club that gives you access an extensive designer wardrobe, for a fraction of the price. Everything you could want, right at your fingertips.
       </div>
       <div class="max_width570 left_block">
-        <%= form_tag(sign_up_path, id: "landing-form", remote: true, class: "width470 text_center top80 header_3_form") do %>
+        <%= form_tag(sign_up_path, id: "landing-form", remote: true, class: "max_width470 text_center top80 header_3_form") do %>
           <%= email_field_tag("email", nil, id: "email", class: "width_full radius6", placeholder: "Email Address", required: "required") =%>
           <%= password_field_tag("password", nil, class: "width_full radius6 top30", placeholder: "Password", required: "required") =%>
           <%= button_tag(type: "submit", class: "btn width_full size60 blue radius6 top30") do %>
@@ -18,7 +16,7 @@
         <% end %>
       </div>
     </div>
-    <img srcset="<%= asset_path 'rotation-app@1x.png' %> 1x, <%= asset_path 'rotation-app@2x.png' %> 2x" src="<%= asset_path 'rotation-app@1x.png' %>" class="left470 bg" alt="" />
+    <img style="top: 0px;" srcset="<%= asset_path 'rotation-app@1x.png' %> 1x, <%= asset_path 'rotation-app@2x.png' %> 2x" src="<%= asset_path 'rotation-app@1x.png' %>" class="left470 bg" alt="" />
   </div>
 </header>
 

@@ -1,17 +1,15 @@
-<a class="open_menu white"><i class="fa fa-bars"></i></a>
+<a class="open_menu white" style="background-color: rgb(240, 242, 245); border-radius: 50%; box-shadow: 0 3px 16px 0 rgba(0,0,0,0.2)"><i class="fa fa-bars" style="margin-top: 10px"></i></a>
 <div class="navigation_mobile type1">
   <a class="close_menu white"><i class="fa fa-close"></i></a>
   <div class="padding_sides40 padding_top60 padding_bottom60 inner">
     <div class="nav_logo white bottom30">the rotation</div>
     <div><%= link_to("Home", root_path, class: "ubuntu font22 link white bottom20") %></div>
-    <div>
-      <% if user_signed_in? %>
-        <%= link_to("Logout", destroy_user_session_path, method: :delete, class: "ubuntu font22 link white bottom20") %>
-        <%= link_to("Check Status", status_path, class: "link dark_gray right30") %>
-      <% else %>
-        <%= link_to("Log in", new_user_session_path, class: "ubuntu font22 link white bottom20") %>
-      <% end %>
-    </div>
+    <% if user_signed_in? %>
+      <div><%= link_to("Logout", destroy_user_session_path, method: :delete, class: "ubuntu font22 link white bottom20") %></div>
+      <div><%= link_to("Check Status", status_path, class: "ubuntu font22 link white bottom20") %></div>
+    <% else %>
+      <div><%= link_to("Log in", new_user_session_path, class: "ubuntu font22 link white bottom20") %></div>
+    <% end %>
     <div>
       <%= link_to(download_path, class:"ubuntu font22 link white bottom20") do %>
         <i class="fab fa-apple right10"></i>Download App
