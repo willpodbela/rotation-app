@@ -8,8 +8,8 @@
       <div class="max_width570 left_block">
         <%= form_tag(sign_up_path, id: "landing-form", remote: true, class: "max_width470 text_center top80 header_3_form") do %>
           <%= email_field_tag("email", nil, id: "email", class: "width_full radius6", placeholder: "Email Address", required: "required") =%>
-          <%= password_field_tag("password", nil, class: "width_full radius6 top30", placeholder: "Password", required: "required") =%>
-          <%= password_field_tag("password_confirmation", nil, class: "width_full radius6 top30", placeholder: "Confirm", required: "required") %>
+          <%= password_field_tag("password", nil, id: "password", class: "width_full radius6 top30", placeholder: "Password", required: "required") =%>
+          <%= password_field_tag("password_confirmation", nil, id: "password_confirmation", class: "width_full radius6 top30", placeholder: "Confirm", required: "required") %>
           <%= button_tag(type: "submit", class: "btn width_full size60 blue radius6 top30") do %>
             Create an Account
           <% end %>
