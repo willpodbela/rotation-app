@@ -10,17 +10,16 @@
 
 <% content_for :content do %>
   <%= render("shared/hamburger") %>
-  
-  <header class="header_11">
-    <%= render("shared/nav") %>
+  <%= render("shared/nav") %>
 
-    <div class="container nopadding">
+  <header class="header_11">
+    <div style="padding-bottom: 148px;" class="container nopadding">
       <div class="max_width470 inner">
-        <div class="max_width570 top250 left_block">
-          <%= yield %>
+          <div class="max_width570 top120 left_block">
+            <%= yield %>
+          </div>
         </div>
-      </div>
-      <img srcset="<%= asset_path 'rotation-app@1x.png' %> 1x, <%= asset_path 'rotation-app@2x.png' %> 2x" src="<%= asset_path 'rotation-app@1x.png' %>" class="left470 bg" alt="" />
+      <img style="top: 0px;" srcset="<%= asset_path 'rotation-app@1x.png' %> 1x, <%= asset_path 'rotation-app@2x.png' %> 2x" src="<%= asset_path 'rotation-app@1x.png' %>" class="left470 bg" alt="" />
     </div>
   </header>
 <% end %>
