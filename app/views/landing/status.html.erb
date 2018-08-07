@@ -8,7 +8,7 @@
 		<div class="container nopadding text-center">
 			<%= link_to("Home", root_path, class: "sides15 semibold uppercase spacing20 font14 line_height40 link white") %>
 		  <% if current_user.admin? %>
-		    <%= link_to("Admin", root_path, class: "sides15 semibold uppercase spacing20 font14 line_height40 link white") %>
+		    <%= link_to("Admin", admin_path, class: "sides15 semibold uppercase spacing20 font14 line_height40 link white") %>
 		  <% end %>
 		  <%= link_to("Logout", destroy_user_session_path, method: :delete, class: "sides15 semibold uppercase spacing20 font14 line_height40 link white") %>
 		</div>

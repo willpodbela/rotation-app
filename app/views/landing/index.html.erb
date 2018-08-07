@@ -8,7 +8,8 @@
       <div class="max_width570 left_block">
         <%= form_tag(sign_up_path, id: "landing-form", remote: true, class: "max_width470 text_center top80 header_3_form") do %>
           <%= email_field_tag("email", nil, id: "email", class: "width_full radius6", placeholder: "Email Address", required: "required") =%>
-          <%= password_field_tag("password", nil, class: "width_full radius6 top30", placeholder: "Password", required: "required") =%>
+          <%= password_field_tag("password", nil, id: "password", class: "width_full radius6 top30", placeholder: "Password", required: "required") =%>
+          <%= password_field_tag("password_confirmation", nil, id: "password_confirmation", class: "width_full radius6 top30", placeholder: "Confirm", required: "required") %>
           <%= button_tag(type: "submit", class: "btn width_full size60 blue radius6 top30") do %>
             Create an Account
           <% end %>
@@ -213,7 +214,11 @@
       <div class="top30 light font16 text">
         Be the first to sign up for The Rotation and recieve a special price. New York City residents only.
       </div>
-      <a id="price-btn" href="#" class="top45 min_width170 btn size60 transparent_blue border border_blue radius6 font16">Try for $49/mo</a>
+      <% if user_signed_in? %>
+          <%= link_to("Try for $49/mo", status_path, class: "top45 min_width170 btn size60 transparent_blue border border_blue radius6 font16") %>
+        <% else %>
+          <a id="price-btn" href="#" class="top45 min_width170 btn size60 transparent_blue border border_blue radius6 font16">Try for $49/mo</a>
+        <% end %>
     </div>
   </div>
 </section>

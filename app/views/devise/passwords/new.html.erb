@@ -1,8 +1,12 @@
-<h1 class="ubuntu font42">Forgot your password?</h1>
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), :html => { :method => :post, :class => "width470 text_center top80 header_3_form"}) do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.email_field :email, autofocus: true, class: "width_full radius6", placeholder: "Email Address", :required => "required" %>
-  <%= f.button "Reset", type: :submit, class: "btn width_full size60 blue radius6 top30" %>
-<% end %>
-<%= link_to "Sign up", new_registration_path(resource_name) %><br />
-<%= link_to "Log in", new_user_session_path %><br />
+<h1 class="ubuntu font42">Forgot your </br>password?</h1>
+<div class="max_width570 left_block">
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), :html => { :method => :post, :class => "max_width470 text_center top80 header_3_form"}) do |f| %>
+    <%= devise_error_messages! %>
+    <%= f.email_field :email, autofocus: true, class: "width_full radius6", placeholder: "Email Address", :required => "required" %>
+    <%= f.button "Reset", type: :submit, class: "btn width_full size60 blue radius6 top30" %>
+  <% end %>
+  <div style="margin-top: 10px">
+    <%= link_to "Sign up", new_registration_path(resource_name) %><br />
+    <%= link_to "Log in", new_user_session_path %><br />
+  </div>
+</div>

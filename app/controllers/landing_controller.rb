@@ -39,7 +39,7 @@ class LandingController < ApplicationController
         sign_in(@user)
         render :status=>200, :json => { "redirect":"/status" }
       else
-        render :status=>400, :json => { "message":"An unknown error occurred. Please try again later." }
+        render :status=>400, :json => { "message": @user.errors.full_messages.first }
       end
     end
   end
@@ -47,7 +47,7 @@ class LandingController < ApplicationController
   private
   
   def user_params
-    params.permit(:email,:password)
+    params.permit(:email,:password, :password_confirmation)
   end
 
   def resolve_layout
