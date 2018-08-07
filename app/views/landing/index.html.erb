@@ -214,7 +214,11 @@
       <div class="top30 light font16 text">
         Be the first to sign up for The Rotation and recieve a special price. New York City residents only.
       </div>
-      <a id="price-btn" href="#" class="top45 min_width170 btn size60 transparent_blue border border_blue radius6 font16">Try for $49/mo</a>
+      <% if user_signed_in? %>
+          <%= link_to("Try for $49/mo", status_path, class: "top45 min_width170 btn size60 transparent_blue border border_blue radius6 font16") %>
+        <% else %>
+          <a id="price-btn" href="#" class="top45 min_width170 btn size60 transparent_blue border border_blue radius6 font16">Try for $49/mo</a>
+        <% end %>
     </div>
   </div>
 </section>
