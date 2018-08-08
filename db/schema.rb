@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20180808002725) do
     t.string "retail_value"
     t.string "color"
     t.string "buyURL"
-    t.boolean "hidden"
+    t.boolean "hidden", default: false
   end
 
   create_table "profiles", force: :cascade do |t|
