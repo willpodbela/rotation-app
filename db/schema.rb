@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180807030423) do
+ActiveRecord::Schema.define(version: 20180808002725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20180807030423) do
     t.string "retail_value"
     t.string "color"
     t.string "buyURL"
+    t.boolean "hidden"
   end
 
   create_table "profiles", force: :cascade do |t|
