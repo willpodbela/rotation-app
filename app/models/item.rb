@@ -30,10 +30,11 @@ class Item < ApplicationRecord
 		s3_host_name: "s3.us-east-2.amazonaws.com"
 
 
+  validates :buyURL, uniqueness: true
 	validates_attachment :image,
 		content_type: { content_type: /\Aimage\/.*\z/ },
         size: { less_than: 10.megabyte }
-
+  
   def my_rotation(user)
     self.reservations.for_user(user).now.front_cycle
   end
