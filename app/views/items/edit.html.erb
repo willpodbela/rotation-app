@@ -31,6 +31,14 @@
         <td><%= f.text_field(:quantity) %></td>
       </tr>
       <tr>
+        <th>Hidden?</th>
+        <td><%= f.check_box(:hidden) %></td>
+      </tr>
+      <tr>
+        <th>Company Owned?</th>
+        <td><%= f.check_box(:company_owned) %></td>
+      </tr>
+      <tr>
         <th>Image Upload</th>
         <td><%= f.file_field :image %> </td>
       </tr>
