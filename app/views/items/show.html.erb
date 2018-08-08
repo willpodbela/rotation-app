@@ -29,6 +29,30 @@
       <td><%= @item.quantity %></td>
     </tr>
     <tr>
+      <th>Visible?</th>
+      <% if item.hidden %>
+        <td>&#10007;</td>
+      <% else %>
+        <td>&#10003;</td>
+      <% end %>
+    </tr>
+    <tr>
+      <th>Last Seen</th>
+      <% if item.hidden %>
+        <td><%= item.last_seen %></td>
+      <% else %>
+        <td></td>
+      <% end %>
+    </tr>
+    <tr>
+      <th>Company Owned?</th>
+      <% if item.company_owned %>
+        <td>&#10003;</td>
+      <% else %>
+        <td>&#10007;</td>
+      <% end %>
+    </tr>
+    <tr>
       <th>Image</th>
       <td><%= link_to(image_tag(@item.image.url(:small)), @item.image.url, target: '_blank') if @item.image.exists? %></td>
     </tr>
