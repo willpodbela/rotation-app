@@ -78,7 +78,7 @@ module Api
     
       # Override: GET /api/{plural_resource_name}
       def index
-        @items = resource_class.where(query_params)
+        @items = Item.visible.where(query_params)
         .page(page_params[:page])
         .per(page_params[:page_size])
       
