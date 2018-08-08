@@ -24,7 +24,7 @@ module Api
         
         # Step 2: Iterate over all scraped items
         items_params[:items].each { |item|
-          if i = all_items.detect{|i| i.buyURL == item[:buyUrl]}
+          if i = all_items.detect{|i| i.buyURL == item[:buyURL]}
             # This item already exists in DB, switch it back to hidden=false
             i.hidden = false
           else
@@ -53,12 +53,12 @@ module Api
                 count_readded += 1
               end
             end
-          end
-          
-          if i.save
-            count_success += 1
-          else
-            count_failure += 1
+            
+            if i.save
+              count_success += 1
+            else
+              count_failure += 1
+            end
           end
         }
         
