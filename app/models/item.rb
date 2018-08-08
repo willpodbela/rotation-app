@@ -3,7 +3,8 @@ class Item < ApplicationRecord
   has_many :users, through: :reservations
   scope :my_rotation, ->(user) { joins(:reservations).merge(Reservation.for_user(user).now.front_cycle) }
   scope :up_next, ->(user) { joins(:reservations).merge(Reservation.for_user(user).future.front_cycle) }
-
+  scope :visible, -> { where hidden: false }
+  
 	has_attached_file :image,
 		url: "/system/:hash.:extension",
 		hash_secret: "longSecretString",
