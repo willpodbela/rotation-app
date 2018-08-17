@@ -148,8 +148,8 @@ if defined?(Rails::Server)
     app.save!
   
     # Start Rpush in separate Thread  
-    ActiveSupport.on_load(:after_initialize) do
-      Rpush.embed
-    end
+    #ActiveSupport.on_load(:after_initialize) do
+    #  Rpush.embed
+    #end
   end
 end

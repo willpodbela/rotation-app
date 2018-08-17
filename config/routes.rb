@@ -22,6 +22,8 @@ Rails.application.routes.draw do
       post "auth/login"
       get "auth/logout"
       post "auth/forgot"
+      
+      get 'config', to: 'config#index'
     
       resources :users, only: [:create, :show] do
         resource :profile, only: [:show, :update]
