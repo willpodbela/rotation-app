@@ -1,4 +1,30 @@
 @charset "UTF-8";
+/* Admin Page CSS */
+div.edit td, div.edit th,
+div.new td, div.new th, 
+.admin_table td, .admin_table th {
+  padding: 5px;
+}
+div.edit td input, div.edit td textarea,
+div.new td input, div.new td textarea {
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+div.edit input[type=submit], 
+div.new input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    margin: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+div.edit input[type=submit]:hover,
+div.new input[type=submit]:hover {
+    background-color: #45a049;
+}
+
 /* Blocks layout */
 body {
   font-family: 'Hind', sans-serif;

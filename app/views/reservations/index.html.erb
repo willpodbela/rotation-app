@@ -5,7 +5,7 @@
 
   <%= link_to("Add New Reservation", new_item_reservation_path(@item), :class => 'action new') %>
 
-  <table class="listing" summary="Resevation list">
+  <table class="listing admin_table" summary="Resevation list">
     <tr class="header">
       <th>#</th>
       <th>User #</th>
@@ -23,7 +23,7 @@
       <td><%= reservation.end_date %></td>
       <td><%= reservation.status %></td>
       <td class="actions">
-        <%= link_to("Show", item_reservation_path(@item, reservation), :class => 'action show') %>
+        <%= link_to("Show", item_reservation_path(@item, reservation), :class => 'action -show') %>
         <%= link_to("Edit", edit_item_reservation_path(@item, reservation), :class => 'action edit') %>
       </td>
     </tr>

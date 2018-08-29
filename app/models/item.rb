@@ -3,7 +3,10 @@ class Item < ApplicationRecord
   has_many :users, through: :reservations
   scope :my_rotation, ->(user) { joins(:reservations).merge(Reservation.for_user(user).now.front_cycle) }
   scope :up_next, ->(user) { joins(:reservations).merge(Reservation.for_user(user).future.front_cycle) }
-
+  scope :visible, -> { where hidden: false }
+  scope :company_owned, -> { where company_owned: true }
+  scope :not_company_owned, -> { where company_owned: false }
+  
 	has_attached_file :image,
 		url: "/system/:hash.:extension",
 		hash_secret: "longSecretString",
@@ -29,10 +32,11 @@ class Item < ApplicationRecord
 		s3_host_name: "s3.us-east-2.amazonaws.com"
 
 
+  validates :buyURL, uniqueness: true, :allow_blank => true, :allow_nil => true
 	validates_attachment :image,
 		content_type: { content_type: /\Aimage\/.*\z/ },
         size: { less_than: 10.megabyte }
-
+  
   def my_rotation(user)
     self.reservations.for_user(user).now.front_cycle
   end
