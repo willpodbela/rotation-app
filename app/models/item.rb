@@ -68,12 +68,13 @@ class Item < ApplicationRecord
       return nil
     end
   end
-
+  
   # NOTE: (#BETA) Very specific to the 2-week cycles and reservation restrictions of the beta.
   # This function returns whether or not there are any items available for reservation
-  # during the next two week reservation period. We will probably want to deprecate later.
+  # during the next two week reservation period. Additionally, if the item is not "company_owned"
+  # we pretend that we have 2. We will probably want to deprecate later.
   def num_available
-    self.quantity - self.reservations.next_period.live.count
+    (company_owned ? self.quantity : 2) - self.reservations.next_period.live.count
   end
 
   def self.catalog(user)
