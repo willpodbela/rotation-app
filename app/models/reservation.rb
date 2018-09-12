@@ -40,6 +40,6 @@ class Reservation < ApplicationRecord
   end
   
   after_save do |reservation|
-    ReservationMailer.with(reservation: reservation).reservation_cancelled(reservation).deliver if reservation.cancelled?
+    ReservationMailer.with(reservation: reservation).reservation_cancelled.deliver if reservation.cancelled?
   end
 end
