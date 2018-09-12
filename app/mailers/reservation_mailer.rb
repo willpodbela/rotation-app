@@ -18,9 +18,11 @@ class ReservationMailer < ActionMailer::Base
           from:     -> { 'rotation-app@therotation.club' },
           subject:  -> { @subject }
   
-  def reservation_created    
+  def reservation_created
+    mail    
   end
   
-  def reservation_cancelled    
+  def reservation_cancelled
+    mail  
   end
 end
