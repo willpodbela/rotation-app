@@ -1,0 +1,24 @@
+A new reservation has been created.
+
+<br/><br/>
+<u>Item</u><br/>
+ID: <%= @item.id %><br/>
+Brand: <%= @item.title %><br/>
+Name: <%= @item.subtitle %><br/>
+
+<% if @item.company_owned?  %>
+  Item is company owned.
+<% else %>
+  <a href='<%= @item.buyURL %>'>Purchase Item</a>
+<% end %>
+
+<br/><br/>
+
+<u>User</u><br/>
+ID: <%= @user.id %><br/>
+Email: <%= @user.email %><br/>
+Address Line 1: <%= @profile.address_line_one %><br/>
+Address Line 2: <%= @profile.address_line_two %><br/>
+Address City: <%= @profile.address_city %><br/>
+Address State: <%= @profile.address_state %><br/>
+Address Zip: <%= @profile.address_zip %><br/>

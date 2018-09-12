@@ -65,7 +65,7 @@ module Api
           end
         }
         
-        count_end = Item.all.count
+        count_end = Item.not_company_owned.count
           
         render :status=>200, :json => { :counts => {
           :start => count_start,
