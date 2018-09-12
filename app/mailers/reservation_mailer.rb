@@ -5,7 +5,7 @@ class ReservationMailer < ActionMailer::Base
   before_action do
     @to_address = "support@therotation.club"
     
-    @subject = ENV["EMAIL_SUBJ_PREFIX"]
+    @subject = ENV["EMAIL_PREFIX"]
     @subject ||= ""
   end
   
