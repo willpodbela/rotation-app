@@ -1,5 +1,5 @@
 class ReservationMailer < ActionMailer::Base
-  default from: 'rails-application@therotation.club'
+  default from: 'rotation-app@therotation.club'
   layout 'mailer'
   
   before_action do
