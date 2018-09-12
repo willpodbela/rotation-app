@@ -1,32 +1,26 @@
 class ReservationMailer < ActionMailer::Base
-  default from: 'rotation-app@therotation.club'
   layout 'mailer'
   
   before_action do
+    @reservation = params[:reservation]
+    @item = @reservation.item
+    @user = @reservation.user
+    @profile = @user.profile
+  
     @to_address = "support@therotation.club"
     
     @subject = ENV["EMAIL_PREFIX"]
     @subject ||= ""
+    @subject += "Reservation #{@reservation.id}"
   end
   
-  def reservation_created(reservation)
-    @item = reservation.item
-    @user = reservation.user
-    @profile = @user.profile
-    
-    @subject += "Reservation #{reservation.id}"
-    
-    mail(to: @to_address, subject: @subject)
+  default to:       -> { 'support@therotation.club' },
+          from:     -> { 'rotation-app@therotation.club' },
+          subject:  -> { @subject }
+  
+  def reservation_created    
   end
   
-  def reservation_cancelled(reservation)
-    @reservation = reservation
-    @item = reservation.item
-    @user = reservation.user
-    @profile = @user.profile
-    
-    @subject += "Reservation #{reservation.id}"
-    
-    mail(to: @to_address, subject: @subject)
+  def reservation_cancelled    
   end
 end

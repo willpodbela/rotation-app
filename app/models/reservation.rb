@@ -36,10 +36,10 @@ class Reservation < ApplicationRecord
   
   # We'll use Active Record Callbacks to send fulfillment notification emails to the team
   after_create do |reservation|
-    ReservationMailer.reservation_created(reservation).deliver
+    ReservationMailer.with(reservation: reservation).reservation_created.deliver
   end
   
   after_save do |reservation|
-    ReservationMailer.reservation_cancelled(reservation).deliver if reservation.cancelled?
+    ReservationMailer.with(reservation: reservation).reservation_cancelled(reservation).deliver if reservation.cancelled?
   end
 end
