@@ -11,6 +11,10 @@ class User < ApplicationRecord
   
   before_save :ensure_authentication_token
   
+  after_save do |user|
+    user.create_profile unless user.profile.present?
+  end
+  
   enum access_level: [ :waitlist, :standard, :admin ]
   
   def ensure_authentication_token
