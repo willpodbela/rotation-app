@@ -4,11 +4,10 @@ A new reservation has been created.
 ID: <%= @item.id %>
 Brand: <%= @item.title %>
 Name: <%= @item.subtitle %>
-
-<% if @item.company_owned? %>
-  Item is company owned.
+<% if @item.company_owned?  %>
+Item is company owned.
 <% else %>
-  <a href='<%= @item.buyURL %>'>Purchase Item</a>
+<a href='<%= @item.buyURL %>'>Purchase Item</a>
 <% end %>
  
 <ul>User</ul>
