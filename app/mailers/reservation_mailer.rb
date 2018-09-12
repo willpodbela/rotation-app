@@ -14,7 +14,7 @@ class ReservationMailer < ActionMailer::Base
     @user = reservation.user
     @profile = @user.profile
     
-    @subject += "New Reservation!"
+    @subject += "Reservation #{reservation.id}"
     
     mail(to: @to_address, subject: @subject)
   end
@@ -25,7 +25,7 @@ class ReservationMailer < ActionMailer::Base
     @user = reservation.user
     @profile = @user.profile
     
-    @subject += "Reservation Cancelled"
+    @subject += "Reservation #{reservation.id}"
     
     mail(to: @to_address, subject: @subject)
   end
