@@ -39,8 +39,7 @@ class Reservation < ApplicationRecord
     ReservationMailer.reservation_created(reservation).deliver
   end
   
-  after_destroy do |reservation|
-    ReservationMailer.reservation_destroyed(reservation).deliver
+  after_save do |reservation|
+    ReservationMailer.reservation_cancelled(reservation).deliver if reservation.cancelled?
   end
-    
 end

@@ -19,7 +19,14 @@ class ReservationMailer < ActionMailer::Base
     mail(to: @to_address, subject: @subject)
   end
   
-  def reservation_destroyed(reservation)
-  
+  def reservation_cancelled(reservation)
+    @reservation = reservation
+    @item = reservation.item
+    @user = reservation.user
+    @profile = @user.profile
+    
+    @subject += "Reservation Cancelled"
+    
+    mail(to: @to_address, subject: @subject)
   end
 end
