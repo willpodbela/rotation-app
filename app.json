@@ -28,6 +28,9 @@
     "AWS_SECRET_ACCESS_KEY": {
       "required": true
     },
+    "EMAIL_PREFIX": {
+      "required": true
+    },
     "INSTAGRAM_ENABLED": {
       "required": true
     },
