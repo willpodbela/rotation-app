@@ -4,4 +4,7 @@ json.user do
   json.email                @user.email
   json.is_waitlist          @user.waitlist?
   json.is_email_confirmed   @user.confirmed?
+  json.profile do
+    json.merge!             @user.profile.attributes
+  end
 end
