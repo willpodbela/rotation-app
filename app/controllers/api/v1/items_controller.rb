@@ -105,7 +105,7 @@ module Api
       end
     
       def items_params
-        params.permit(items: [:retail_value, :subtitle, :image_url, :title, :buyURL])
+        params.permit(items: [:retail_value, :subtitle, :image_url, :title, :buyURL, :image_remote_url])
       end
       
       def item_params

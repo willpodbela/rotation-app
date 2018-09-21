@@ -7,6 +7,8 @@ class Item < ApplicationRecord
   scope :company_owned, -> { where company_owned: true }
   scope :not_company_owned, -> { where company_owned: false }
   
+  attr_reader :image_remote_url
+  
 	has_attached_file :image,
 		url: "/system/:hash.:extension",
 		hash_secret: "longSecretString",
@@ -36,6 +38,11 @@ class Item < ApplicationRecord
 	validates_attachment :image,
 		content_type: { content_type: /\Aimage\/.*\z/ },
         size: { less_than: 10.megabyte }
+  
+  def image_remote_url=(url_value)
+    self.image = URI.parse(url_value)
+    @image_remote_url = url_value
+  end
   
   def my_rotation(user)
     self.reservations.for_user(user).now.front_cycle
