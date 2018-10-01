@@ -5,7 +5,7 @@ class Device < ApplicationRecord
   
   def send_notification(message)   
     n = Houston::Notification.new(device: self.token)
-    notification.alert = message
+    n.alert = message
     APN.push(n)
     
     # n = Rpush::Apns::Notification.new
