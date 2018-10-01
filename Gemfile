@@ -47,7 +47,7 @@ gem 'dotenv-rails'
 gem "http"
 
 # For sending push notifications
-gem 'rpush'
+gem 'houston'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
