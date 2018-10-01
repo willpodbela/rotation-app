@@ -2,6 +2,8 @@ class Device < ApplicationRecord
   belongs_to :user
   
   def send_notification(message)
+    require 'houston'
+  
     APN = Houston::Client.development
     APN.certificate = File.read(ENV['APNS_CERT_PATH'])
     
