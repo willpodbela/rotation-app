@@ -3,10 +3,7 @@ require 'houston'
 class Device < ApplicationRecord
   belongs_to :user
   
-  def send_notification(message)
-    APN = Houston::Client.development
-    APN.certificate = File.read(ENV['APNS_CERT_PATH'])
-    
+  def send_notification(message)   
     n = Houston::Notification.new(device: self.token)
     notification.alert = message
     APN.push(n)
