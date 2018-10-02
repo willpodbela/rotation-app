@@ -6,11 +6,5 @@ class Device < ApplicationRecord
     n = Houston::Notification.new(device: self.token)
     n.alert = message
     apns.push(n)
-    
-    # n = Rpush::Apns::Notification.new
-#     n.app = Rpush::Apns2::App.find_by_name("rotation_ios")
-#     n.device_token = self.token
-#     n.alert = message
-#     n.save!
   end
 end
