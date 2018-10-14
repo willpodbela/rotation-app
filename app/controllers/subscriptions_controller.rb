@@ -10,12 +10,18 @@ class SubscriptionsController < ApplicationController
  
   def create
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
-        
-    customer = Stripe::Customer.create(
-      :email => params[:stripeEmail],
-      :source  => params[:stripeToken]
-    )
-      
+    
+    if current_user.stripe_customer_id? 
+      customer = Stripe::Customer.retrieve(current_user.stripe_customer_id)
+    else
+      customer = Stripe::Customer.create(
+        :email => params[:stripeEmail],
+        :source  => params[:stripeToken]
+      )
+      current_user.stripe_customer_id = customer.id
+      current_user.save
+    end
+    
     stripe_subscription = customer.subscriptions.create({plan: stripe_plan_id})
     response = ServiceResponse.new(stripe_subscription)
     
