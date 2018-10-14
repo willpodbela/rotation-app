@@ -1,4 +1,4 @@
-require 'subscribe_user_to_premium'
+require 'subscriptions_service'
  
 class SubscriptionsController < ApplicationController
   def new
@@ -9,21 +9,7 @@ class SubscriptionsController < ApplicationController
   end
  
   def create
-    Stripe.api_key = Rails.configuration.stripe[:secret_key]
-    
-    if current_user.stripe_customer_id? 
-      customer = Stripe::Customer.retrieve(current_user.stripe_customer_id)
-    else
-      customer = Stripe::Customer.create(
-        :email => params[:stripeEmail],
-        :source  => params[:stripeToken]
-      )
-      current_user.stripe_customer_id = customer.id
-      current_user.save
-    end
-    
-    stripe_subscription = customer.subscriptions.create({plan: stripe_plan_id})
-    response = ServiceResponse.new(stripe_subscription)
+    response = SubscriptionsService.purchase_subscription(current_user, subscription_params)
     
     if response.success?
       flash[:notice] = 'You have successfully subscribed to our premium plan!'
