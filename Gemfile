@@ -40,8 +40,11 @@ gem 'aescrypt'
 # For file uploading
 gem "paperclip", "~> 5.1" 
 gem 'aws-sdk', '< 3.0'
-
+# For local environment variables
 gem 'dotenv-rails'
+
+# For payment processing and subscription management
+gem 'stripe'
 
 # For making not shit HTTP requests
 gem "http"
