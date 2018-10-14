@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   resources :subscriptions
   
   namespace :api, defaults: {format: :json} do
+    post "stripe", to: "stripe_webhook#stripe"
+  
     namespace :v1 do
       post "auth/login"
       get "auth/logout"
