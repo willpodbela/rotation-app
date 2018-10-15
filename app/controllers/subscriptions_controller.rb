@@ -9,15 +9,19 @@ class SubscriptionsController < ApplicationController
   end
  
   def create
-    response = SubscriptionsService.purchase_subscription(current_user, subscription_params)
+    subsciption = Subscription.new(
+      :user => current_user,
+      :subscription_params => subscription_params,
+      :stripe_plan_id => stripe_plan_id
+    )
     
-    if response.success?
+    if subsciption.save
       flash[:notice] = 'You have successfully subscribed to our premium plan!'
     else
       flash[:alert] = 'Ooops, something went wrong!'
     end
- 
-    redirect_to root_path
+    
+    redirect_to status_path
   end
  
   private

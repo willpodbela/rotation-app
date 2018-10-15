@@ -8,7 +8,7 @@ class SubscriptionsService
     end
   
     # Processes the purchase of a subscription for user
-    def purchase_subscription(user, subscription_params, plan_id=stripe_plan_id)
+    def create_subscription(user, subscription_params, plan_id=stripe_plan_id)
       begin
         Stripe.api_key = Rails.configuration.stripe[:secret_key]
     
