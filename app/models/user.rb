@@ -3,7 +3,8 @@ class User < ApplicationRecord
   has_many :items, through: :reservations
   has_one  :profile
   has_many :devices
-
+  has_many :subscriptions
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
@@ -31,6 +32,10 @@ class User < ApplicationRecord
     self.devices.each do |device|
       device.send_notification(message)
     end
+  end
+  
+  def current_subscription
+    self.subscriptions.current.valid.first
   end
  
   private

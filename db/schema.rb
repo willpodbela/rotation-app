@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181002031634) do
+ActiveRecord::Schema.define(version: 20181014221945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,20 @@ ActiveRecord::Schema.define(version: 20181002031634) do
     t.index ["item_id", "user_id"], name: "index_reservations_on_item_id_and_user_id"
   end
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.string "stripe_subscription_id", null: false
+    t.string "stripe_plan_id", null: false
+    t.integer "status", null: false
+    t.integer "billing_status"
+    t.integer "user_id", null: false
+    t.datetime "start", null: false
+    t.datetime "current_period_start", null: false
+    t.datetime "current_period_end", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["stripe_subscription_id"], name: "index_subscriptions_on_stripe_subscription_id", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -94,10 +108,12 @@ ActiveRecord::Schema.define(version: 20181002031634) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "access_level", default: 0, null: false
+    t.string "stripe_customer_id"
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["stripe_customer_id"], name: "index_users_on_stripe_customer_id", unique: true
   end
 
 end

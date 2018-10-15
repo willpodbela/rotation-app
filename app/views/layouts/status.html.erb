@@ -10,13 +10,29 @@
 
 <% content_for :header do %>
   <%= render("shared/hamburger") %>
+  <div class="header_8_bg">
+  <header class="header_11" style="background: none;">
+    <nav class="navigation_13 padding_top30 padding_bottom30 top45">
+      <div class="container nopadding text-center">
+        <%= link_to("Home", root_path, class: "sides15 semibold uppercase spacing20 font14 line_height40 link white") %>
+        <% if current_user.admin? %>
+          <%= link_to("Admin", admin_path, class: "sides15 semibold uppercase spacing20 font14 line_height40 link white") %>
+        <% end %>
+        <%= link_to("Logout", destroy_user_session_path, method: :delete, class: "sides15 semibold uppercase spacing20 font14 line_height40 link white") %>
+      </div>
+    </nav>
+    <div id="nav-container" style="padding-bottom: 148px;" class="container nopadding">
+    </div>
+	</header>
 <% end %>
 
 <% content_for :footer do %>
+  </div>
   <%= render("shared/footer") %>
 
   <%= render("shared/alerts") %>
 
   <%= javascript_include_tag 'footer', 'data-turbolinks-track': 'reload' %>
 <% end %>
-<%= render template: "layouts/application" %>
+
+  <%= render template: "layouts/application" %>

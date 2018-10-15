@@ -3,4 +3,5 @@ json.items do
   json.up_next @up_next, partial: 'item', as: :item
   json.catalog @catalog, partial: 'item', as: :item
 end
-json.reservation_info @reservation_info
+json.reservation_info       @reservation_info
+json.current_subscription   @current_subscription

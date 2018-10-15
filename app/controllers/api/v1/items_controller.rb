@@ -81,12 +81,13 @@ module Api
     
       # Override: GET /api/{plural_resource_name}
       def index
-        # Pass reservation info along with call
+        # Pass reservation info and user subscription info along with call
         # FIXME: We should dry this up later as it was copy pasted directly from ReservationsController
         @reservation_info = {
           :reservations_remaining => 2-Reservation.for_user(current_user).next_period.live.count, 
           :next_period => Reservation.next_reservation_period
         }
+        @current_subscription = current_user.current_subscription
         
         # Items logic
         @items = Item.visible.where(query_params)

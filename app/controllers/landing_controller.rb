@@ -1,7 +1,13 @@
 class LandingController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :status, :sign_up, :download, :privacy]
+  skip_before_action :authenticate_user!, only: [:index, :sign_up, :download, :privacy]
   before_action :enforce_access_control_admin!, only: [:admin]
   layout :resolve_layout
+  
+  before_action do
+    if display_params[:ios_init] == "true"
+      session[:ios_init] = true
+    end
+  end
   
   # Home Page
   def index
@@ -9,6 +15,10 @@ class LandingController < ApplicationController
   
   # Displays waitlist status or download link to non-admin users.
   def status
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    @plan = Stripe::Plan.retrieve(stripe_plan_id)
+    
+    @current_subscription = current_user.current_subscription
   end
   
   # Admin Landing Page
@@ -57,5 +67,13 @@ class LandingController < ApplicationController
     else
       "landing"
     end
+  end
+  
+  def stripe_plan_id
+    "plan_DmpGqUGCX1SpsS"
+  end
+  
+  def display_params
+    params.permit(:ios_init)
   end
 end
