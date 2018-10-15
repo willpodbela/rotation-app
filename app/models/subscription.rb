@@ -21,4 +21,12 @@ class Subscription < ApplicationRecord
     end
     self.status = :active
   end
+  
+  class << self
+    #Class Method for updating Subscription objects with stripe webhooks
+    def process_stripe_webhook(subscription_id, params)
+      subscription = Subscription.find_by_stripe_subscription_id(subscription_id)
+      subscription.update_attributes(params)
+    end
+  end
 end
