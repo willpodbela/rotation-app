@@ -18,10 +18,10 @@ module Api
       # when "customer.subscription.created"
         # Occurs whenever a customer is signed up for a new plan.
         # No action: We're handling this synchronously right now
-      when "customer.subscription.deleted"
+      when "customer.subscription.updated", "customer.subscription.deleted"
         # Occurs whenever a customer's subscription ends.
         subscription_id = data_object["id"]
-        unless Subscription.process_stripe_webhook(subscription_id, {:status => :canceled})
+        unless Subscription.process_stripe_webhook(subscription_id, {:stripe_subscription_obj => OpenStruct.new(data_object)})
           # TODO Log error
         end
       when "invoice.payment_succeeded"

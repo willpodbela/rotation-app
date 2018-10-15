@@ -11,6 +11,8 @@ class LandingController < ApplicationController
   def status
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     @plan = Stripe::Plan.retrieve(stripe_plan_id)
+    
+    @current_subscription = current_user.current_subscription
   end
   
   # Admin Landing Page

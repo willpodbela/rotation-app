@@ -33,6 +33,10 @@ class User < ApplicationRecord
       device.send_notification(message)
     end
   end
+  
+  def current_subscription
+    self.subscriptions.current.valid.first
+  end
  
   private
   

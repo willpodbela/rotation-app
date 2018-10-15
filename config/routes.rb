@@ -17,7 +17,10 @@ Rails.application.routes.draw do
     resources :reservations
   end
   
-  resources :subscriptions
+  resources :subscriptions, only: [:create] do
+    get "cancel", on: :collection
+    get "restore", on: :collection
+  end
   
   namespace :api, defaults: {format: :json} do
     post "stripe", to: "stripe_webhook#stripe"

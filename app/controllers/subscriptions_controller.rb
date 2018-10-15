@@ -1,11 +1,5 @@
  class SubscriptionsController < ApplicationController
-  def new
- 
-    #Always store your API key in environment variables
-    Stripe.api_key = Rails.configuration.stripe[:secret_key]
-    @plan = Stripe::Plan.retrieve(stripe_plan_id)
-  end
- 
+  
   def create
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
 
@@ -23,6 +17,10 @@
     end
     
     stripe_subscription_obj = customer.subscriptions.create({plan: stripe_plan_id})
+    
+    print "AHHHHHH: \n\n"
+    print stripe_subscription_obj
+    
     response = ServiceResponse.new(stripe_subscription_obj)
     if response.success?
       flash[:notice] = 'You have successfully subscribed to our premium plan!'
@@ -36,6 +34,36 @@
       end
     else
       flash[:alert] = 'Ooops, something went wrong!'
+    end
+    
+    redirect_to status_path
+  end
+  
+  def cancel
+    loc_subscription = current_user.subscriptions.current.active.first
+    if loc_subscription
+      subscription = Stripe::Subscription.retrieve(loc_subscription.stripe_subscription_id)
+      subscription.cancel_at_period_end = true
+      if subscription.save
+        flash[:notice] = 'You have successfully cancelled your plan. Please allow up to 24hrs for processing.'
+      else 
+        flash[:alert] = 'Ooops, something went wrong!'
+      end
+    end
+    
+    redirect_to status_path
+  end
+  
+  def restore
+    loc_subscription = current_user.subscriptions.current.canceled.first
+    if loc_subscription
+      subscription = Stripe::Subscription.retrieve(loc_subscription.stripe_subscription_id)
+      subscription.cancel_at_period_end = false
+      if subscription.save
+        flash[:notice] = 'You have successfully restored your plan. Glad to you have you back! Please allow up to 24hrs for processing.'
+      else 
+        flash[:alert] = 'Ooops, something went wrong!'
+      end
     end
     
     redirect_to status_path
