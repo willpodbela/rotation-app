@@ -32,11 +32,17 @@
       unless subsciption.save
         # Log this error.
       end
+      
+      if session[:ios_init]
+        session[:ios_init] = false
+        redirect_to ios_deep_link_path
+      else 
+        redirect_to status_path
+      end
     else
       flash[:alert] = 'Ooops, something went wrong!'
+      redirect_to status_path
     end
-    
-    redirect_to status_path
   end
   
   def cancel
@@ -79,4 +85,7 @@
       "plan_DmpGqUGCX1SpsS"
     end
  
+    def ios_deep_link_path
+      "rotation://success"
+    end
 end

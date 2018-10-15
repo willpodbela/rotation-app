@@ -3,6 +3,12 @@ class LandingController < ApplicationController
   before_action :enforce_access_control_admin!, only: [:admin]
   layout :resolve_layout
   
+  before_action do
+    if display_params[:ios_init] == "true"
+      session[:ios_init] = true
+    end
+  end
+  
   # Home Page
   def index
   end
@@ -65,5 +71,9 @@ class LandingController < ApplicationController
   
   def stripe_plan_id
     "plan_DmpGqUGCX1SpsS"
+  end
+  
+  def display_params
+    params.permit(:ios_init)
   end
 end
