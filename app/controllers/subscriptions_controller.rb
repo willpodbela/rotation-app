@@ -1,6 +1,4 @@
-require 'subscriptions_service'
- 
-class SubscriptionsController < ApplicationController
+ class SubscriptionsController < ApplicationController
   def new
  
     #Always store your API key in environment variables
