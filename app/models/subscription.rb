@@ -4,7 +4,7 @@ class Subscription < ApplicationRecord
   belongs_to :user
   scope :current, -> { where('current_period_end >= ?', Date.today) }
   scope :active, -> { where(status: :active) }
-  scope :active, -> { where(status: :canceled) }
+  scope :canceled, -> { where(status: :canceled) }
   scope :valid, -> { where(status: [:active, :canceled]) }
     
   enum billing_status: [ :paid, :payment_failed ]
