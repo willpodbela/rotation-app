@@ -9,6 +9,8 @@ class LandingController < ApplicationController
   
   # Displays waitlist status or download link to non-admin users.
   def status
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    @plan = Stripe::Plan.retrieve(stripe_plan_id)
   end
   
   # Admin Landing Page
@@ -57,5 +59,9 @@ class LandingController < ApplicationController
     else
       "landing"
     end
+  end
+  
+  def stripe_plan_id
+    "plan_DmpGqUGCX1SpsS"
   end
 end

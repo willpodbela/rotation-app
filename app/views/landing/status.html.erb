@@ -1,24 +1,19 @@
 <!-- Header 8 -->
 
-<header class="header_8 padding_top225 padding_bottom155">
+
+
+<header class="header_8">
 
 	<!-- Navigation 13 -->
 
-	<nav class="navigation_13 padding_top30 padding_bottom30 top45">
-		<div class="container nopadding text-center">
-			<%= link_to("Home", root_path, class: "sides15 semibold uppercase spacing20 font14 line_height40 link white") %>
-		  <% if current_user.admin? %>
-		    <%= link_to("Admin", admin_path, class: "sides15 semibold uppercase spacing20 font14 line_height40 link white") %>
-		  <% end %>
-		  <%= link_to("Logout", destroy_user_session_path, method: :delete, class: "sides15 semibold uppercase spacing20 font14 line_height40 link white") %>
-		</div>
-	</nav>
+	
 
 
-  <div class="container nopadding">
+  <div class="container nopadding top45">
     <!-- <img srcset="i/header_8_logo.png 1x, i/header_8_logo_2x.png 2x" src="i/header_8_logo.png" class="margin_auto logo" alt="" /> -->
-    <div class="text-center ubuntu white font20 top15">the rotation</div>
+    
     <% if current_user.waitlist? %>
+      <div class="text-center ubuntu white font20 top15">the rotation</div>
       <h1 class="text-center white font_second light font92 top45">You're on the waitlist.</h1>
       <div class="top65">
         <div>
@@ -27,22 +22,35 @@
           </div>
         </div>
       </div>
-      <% elsif current_user.standard? %>
-        <h1 class="text-center white font_second light font92 top45">You're in.</h1>
-        <div class="top65">
-          <div>
-            <div class="max_width570 margin_auto white text-center light font22 text">
-              Check your email for instructions.
+    <% elsif current_user.standard? || current_user.admin? %>
+      <h1 class="text-center white font_second light font50">Welcome to the Rotation!</h1>
+      <!-- <div class="max_width570 margin_auto white text-center light font22 text">
+          You're in! Purchase your membership below.
+      </div> -->
+      <div class="container nopadding dark_blue text_center">
+        <div class="max_width570 margin_auto top55 padding_sides100 padding_top55 padding_bottom70 radius10 inner pricing_table_7">
+          <div class="ubuntu light font28 dark_gray title">Founding Member</div>
+            <div class="top25 font14 uppercase semibold spacing20">100 SPOTS</div>
+            <div class="top30 light font16 text" style="margin-left: 30px; margin-right: 30px;">
+              Be the first to sign up for The Rotation and recieve a special price. New York City residents only.
             </div>
+            <%= form_tag subscriptions_path do %>
+              <div style="margin:30px;">Price: $<%= (@plan.amount / 100) %>/mo</div>
+              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                data-amount="<%= @plan.amount %>"
+                data-email="<%= current_user.email %>"
+                data-locale="auto">
+              </script>
+            <% end %>
           </div>
         </div>
-      <% elsif current_user.admin? %>
-        <h1 class="text-center white font_second light font72 top65">Welcome Administrator.</h1>
-      <% end %>
-      <div class="text-center top165 block_with_button">
-        <%= link_to(download_path, class:"width300 max_width_full btn white padding_sides25 size60 radius6") do %>
-          <span class="black"><i class="fab fa-apple right10"></i> Download on the App Store</span>
-        <% end %>
       </div>
+    <% end %>
+    <div class="text-center top165 block_with_button">
+      <%= link_to(download_path, class:"width300 max_width_full btn white padding_sides25 size60 radius6") do %>
+        <span class="black"><i class="fab fa-apple right10"></i> Download on the App Store</span>
+      <% end %>
+    </div>
   </div>
 </header>
