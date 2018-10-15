@@ -1,38 +1,24 @@
+require 'date'
+
 class Subscription < ApplicationRecord
   belongs_to :user
+  scope :current, -> { where('current_period_end >= ?', Date.today) }
+    
+  enum billing_status: [ :paid, :payment_failed ]
+  enum status: [ :active, :canceled ]
   
-  attr_accessor :subscription_params
-  
-  enum status: [ :inactive, :active, :payment_failed ]
+  def stripe_subscription_obj=(obj)
+    self.start = Time.at(obj.start).to_datetime
+    self.current_period_start = Time.at(obj.current_period_start).to_datetime
+    self.current_period_end = Time.at(obj.current_period_end).to_datetime
+    
+    @stripe_subscription_obj=obj
+  end
   
   before_create do
-    Stripe.api_key = Rails.configuration.stripe[:secret_key]
-
-    if user.stripe_customer_id? 
-      customer = Stripe::Customer.retrieve(user.stripe_customer_id)
-    else
-      customer = Stripe::Customer.create(
-        :email => params[:stripeEmail],
-        :source  => params[:stripeToken]
-      )
-      user.stripe_customer_id = customer.id
-      unless user.save
-        # TODO: Log error
-      end
+    if @stripe_subscription_obj
+      self.stripe_subscription_id = @stripe_subscription_obj.id
     end
-    
-    stripe_subscription = customer.subscriptions.create({plan: stripe_plan_id})
-    print "STRIPE SUBSCRIPTION:\n"
-    print stripe_subscription
-    print "\n\n"
-    response = ServiceResponse.new(stripe_subscription)
-    if response.success?
-      self.stripe_subscription_id = stripe_subscription.id
-      self.status = :active
-      #NOTE: We take an optimistic approach to payment processing, 
-      #and activate the subscription unless we get a callback that payment failed
-    else
-      throw :abort
-    end
+    self.status = :active
   end
 end

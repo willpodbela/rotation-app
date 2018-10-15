@@ -79,9 +79,14 @@ ActiveRecord::Schema.define(version: 20181014221945) do
     t.string "stripe_subscription_id", null: false
     t.string "stripe_plan_id", null: false
     t.integer "status", null: false
+    t.integer "billing_status"
     t.integer "user_id", null: false
+    t.datetime "start", null: false
+    t.datetime "current_period_start", null: false
+    t.datetime "current_period_end", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["stripe_subscription_id"], name: "index_subscriptions_on_stripe_subscription_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -108,6 +113,7 @@ ActiveRecord::Schema.define(version: 20181014221945) do
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["stripe_customer_id"], name: "index_users_on_stripe_customer_id", unique: true
   end
 
 end

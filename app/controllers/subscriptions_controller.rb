@@ -7,14 +7,33 @@
   end
  
   def create
-    subsciption = Subscription.new(
-      :user => current_user,
-      :subscription_params => subscription_params,
-      :stripe_plan_id => stripe_plan_id
-    )
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+
+    if current_user.stripe_customer_id? 
+      customer = Stripe::Customer.retrieve(current_user.stripe_customer_id)
+    else
+      customer = Stripe::Customer.create(
+        :email => subscription_params[:stripeEmail],
+        :source  => subscription_params[:stripeToken]
+      )
+      current_user.stripe_customer_id = customer.id
+      unless current_user.save
+        # TODO: Log error
+      end
+    end
     
-    if subsciption.save
+    stripe_subscription_obj = customer.subscriptions.create({plan: stripe_plan_id})
+    response = ServiceResponse.new(stripe_subscription_obj)
+    if response.success?
       flash[:notice] = 'You have successfully subscribed to our premium plan!'
+      subsciption = Subscription.new(
+        :user => current_user,
+        :stripe_subscription_obj => stripe_subscription_obj,
+        :stripe_plan_id => stripe_plan_id
+      )
+      unless subsciption.save
+        # Log this error.
+      end
     else
       flash[:alert] = 'Ooops, something went wrong!'
     end
