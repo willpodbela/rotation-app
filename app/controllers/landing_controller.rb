@@ -3,7 +3,7 @@ class LandingController < ApplicationController
   before_action :enforce_access_control_admin!, only: [:admin]
   layout :resolve_layout
   
-  before_action do
+  prepend_before_action do
     if display_params[:ios_init] == "true"
       session[:ios_init] = true
     end
