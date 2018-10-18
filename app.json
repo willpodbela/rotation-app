@@ -61,6 +61,9 @@
     "SENDGRID_USERNAME": {
       "required": true
     },
+    "STRIPE_PLAN_ID": {
+      "required": true
+    },
     "STRIPE_SECRET_KEY": {
       "required": true
     },

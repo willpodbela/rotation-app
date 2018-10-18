@@ -70,7 +70,7 @@ class LandingController < ApplicationController
   end
   
   def stripe_plan_id
-    "plan_DmpGqUGCX1SpsS"
+    ENV['STRIPE_PLAN_ID']
   end
   
   def display_params
