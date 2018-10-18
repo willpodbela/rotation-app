@@ -9,4 +9,5 @@ unless Rails.env.production?
   ENV['API_AUTH_PASSWORD'] = "password2"
   ENV['INSTAGRAM_ENABLED'] = "true"
   ENV['EMAIL_PREFIX'] = "LOCAL DEV: "
+  ENV['STRIPE_PLAN_ID'] = "plan_DmpGqUGCX1SpsS"
 end
