@@ -39,6 +39,12 @@ class Item < ApplicationRecord
 		content_type: { content_type: /\Aimage\/.*\z/ },
         size: { less_than: 10.megabyte }
   
+  before_save do
+    if subtitle
+      self.subtitle = self.subtitle.strip
+    end
+  end
+  
   def image_remote_url=(url_value)
     self.image = URI.parse(url_value)
     @image_remote_url = url_value
