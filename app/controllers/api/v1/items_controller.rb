@@ -97,7 +97,7 @@ module Api
         if display_params[:sort_by_section] == "true"
           @my_rotation = Item.my_rotation(current_user)
           @up_next = Item.up_next(current_user)
-          @catalog = Item.catalog(current_user)
+          @catalog = Item.visible.catalog(current_user)
         
           render :sorted_index
         else 
