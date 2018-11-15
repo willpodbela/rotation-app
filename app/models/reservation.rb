@@ -3,36 +3,23 @@ class Reservation < ApplicationRecord
   belongs_to :user
   
   scope :for_user, ->(user) { where(user: user) }
-  scope :now, -> { where('start_date <= ?', Date.today).where('end_date >= ?', Date.today) }
-  scope :future, -> { where('start_date >= ?', Date.today).where('end_date > ?', Date.today) }
-  scope :past, -> { where('start_date < ?', Date.today).where('end_date <= ?', Date.today) }
-  scope :next_period, -> { where('start_date <= ?', Reservation.next_reservation_period[:start_date]).where('end_date >= ?', Reservation.next_reservation_period[:end_date]) }
-  
-  #front_cycle statuses are all statuses in the lifecycle from start until when the user decides to send the item back
-  scope :front_cycle, -> { where(status: [:scheduled, :sent, :active]) }
-  #live statuses are all statuses except cancelled
-  scope :live, -> { where(status: [:scheduled, :sent, :active, :returned, :ended]) }
+  scope :live, -> { where(status: [:sent, :active, :returned]) }
+  scope :scheduled, -> { where(status: [:scheduled]) } 
   
   enum status: [ :scheduled, :sent, :active, :returned, :ended, :cancelled ]
   
-  # NOTE: (#BETA) Very specific to the 2-week cycles and reservation restrictions of the beta. 
-  # This function returns the date range for the next two week reservation period. 
-  # RETURNS:     { start_date => 'yyyy-mm-dd', end_date => 'yyyy-mm-dd' }
-  # We will probably want to deprecate later.
-  def self.next_reservation_period
-    start_date = Date.today
-    start_date += 1 + ((3-start_date.wday) % 7)
-    if start_date.cweek % 2 == 0
-      start_date += 1 + ((3-start_date.wday) % 7)
-    end
-  
-    end_date = start_date
-    end_date += 1 + ((6-end_date.wday) % 7)
-    end_date += 1 + ((6-end_date.wday) % 7)
-  
-    { :start_date => start_date, :end_date => end_date }
+  before_create do |reservation|
+    # For now, since the iOS front end is showing the "start date" as the date the customer will receive the clothes we'll set it to today + a shipping period, which we'll default to 3 days
+    shipping_delay = defined?(reservation.user.shipping_delay) ? reservation.user.shipping_delay : 3
+    reservation.start_date = Date.today+shipping_delay
   end
   
+  before_save do |reservation|
+    # If reservation is ended, set its end_date
+    if [:scheduled, :sent, :active, :returned].include? reservation.status_was && [:ended, :cancelled].include? reservation.status
+      reservation.start_date = Date.today
+    end
+  end
   
   # We'll use Active Record Callbacks to send fulfillment notification emails to the team
   after_create do |reservation|
