@@ -14,7 +14,7 @@ class Reservation < ApplicationRecord
   
   before_save do |reservation|
     # If reservation is ended, set its end_date
-    reservation.end_date = Date.today if (["scheduled", "sent", "active", "returned"].include? reservation.status_was) && (["ended", "cancelled"].include? reservation.status)
+    reservation.end_date = Date.today if ((["scheduled", "sent", "active", "returned"].include? reservation.status_was) && (["ended", "cancelled"].include? reservation.status))
   end
   
   # We'll use Active Record Callbacks to send fulfillment notification emails to the team
