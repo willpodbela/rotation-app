@@ -51,11 +51,11 @@ class Item < ApplicationRecord
   end
   
   def my_rotation(user)
-    self.reservations.for_user(user).now.front_cycle
+    self.reservations.for_user(user).live
   end
 
   def up_next(user)
-    self.reservations.for_user(user).future.front_cycle
+    self.reservations.for_user(user).scheduled
   end
 
   def user_has_reservation_now?(user)

@@ -37,7 +37,24 @@ class User < ApplicationRecord
   def current_subscription
     self.subscriptions.current.valid.first
   end
- 
+  
+  def reservations_remaining
+    2 - self.reservations.live.count - self.reservations.scheduled.count
+  end
+  
+  def est_delivery_date
+    shipping_delay = defined?(self.shipping_delay) ? self.shipping_delay : 3
+    Date.today+shipping_delay
+  end
+  
+  # DEPRECATED: iOS app <= v1.1
+  # We must provide a reservation period for legacy versions of the iOS app, as a stop gap
+  # solution, we just take the estimated delivery date and add 30 days as the "end" of the
+  # reservation even though there is no "end" anymore.
+  def legacy_next_reservation_period
+    { :start_date => est_delivery_date, :end_date => est_delivery_date+30 }
+  end
+  
   private
   
   def generate_authentication_token

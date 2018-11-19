@@ -9,16 +9,12 @@ class Reservation < ApplicationRecord
   enum status: [ :scheduled, :sent, :active, :returned, :ended, :cancelled ]
   
   before_create do |reservation|
-    # For now, since the iOS front end is showing the "start date" as the date the customer will receive the clothes we'll set it to today + a shipping period, which we'll default to 3 days
-    shipping_delay = defined?(reservation.user.shipping_delay) ? reservation.user.shipping_delay : 3
-    reservation.start_date = Date.today+shipping_delay
+    reservation.start_date = Date.today
   end
   
   before_save do |reservation|
     # If reservation is ended, set its end_date
-    if [:scheduled, :sent, :active, :returned].include? reservation.status_was && [:ended, :cancelled].include? reservation.status
-      reservation.start_date = Date.today
-    end
+    reservation.end_date = Date.today if (["scheduled", "sent", "active", "returned"].include? reservation.status_was) && (["ended", "cancelled"].include? reservation.status)
   end
   
   # We'll use Active Record Callbacks to send fulfillment notification emails to the team
