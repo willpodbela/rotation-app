@@ -1,8 +1,8 @@
 class Item < ApplicationRecord
   has_many :reservations
   has_many :users, through: :reservations
-  scope :my_rotation, ->(user) { joins(:reservations).merge(Reservation.for_user(user).now.front_cycle) }
-  scope :up_next, ->(user) { joins(:reservations).merge(Reservation.for_user(user).future.front_cycle) }
+  scope :my_rotation, ->(user) { joins(:reservations).merge(Reservation.for_user(user).live) }
+  scope :up_next, ->(user) { joins(:reservations).merge(Reservation.for_user(user).scheduled) }
   scope :visible, -> { where hidden: false }
   scope :company_owned, -> { where company_owned: true }
   scope :not_company_owned, -> { where company_owned: false }
@@ -51,11 +51,11 @@ class Item < ApplicationRecord
   end
   
   def my_rotation(user)
-    self.reservations.for_user(user).now.front_cycle
+    self.reservations.for_user(user).live
   end
 
   def up_next(user)
-    self.reservations.for_user(user).future.front_cycle
+    self.reservations.for_user(user).scheduled
   end
 
   def user_has_reservation_now?(user)
@@ -82,12 +82,8 @@ class Item < ApplicationRecord
     end
   end
   
-  # NOTE: (#BETA) Very specific to the 2-week cycles and reservation restrictions of the beta.
-  # This function returns whether or not there are any items available for reservation
-  # during the next two week reservation period. Additionally, if the item is not "company_owned"
-  # we pretend that we have 2. We will probably want to deprecate later.
   def num_available
-    (company_owned ? self.quantity : 2) - self.reservations.next_period.live.count
+    (company_owned ? self.quantity : 2) - self.reservations.live.count - self.reservations.scheduled.count
   end
 
   def self.catalog(user)

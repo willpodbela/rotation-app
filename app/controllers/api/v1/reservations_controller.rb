@@ -26,8 +26,9 @@ module Api
     
       def info
         render :status => 200, :json => {
-          :reservations_remaining => 2-Reservation.for_user(current_user).next_period.live.count, 
-          :next_period => Reservation.next_reservation_period
+          :reservations_remaining => current_user.reservations_remaining, 
+          :next_period => current_user.legacy_next_reservation_period,
+          :est_delivery_date => current_user.est_delivery_date
         }
       end
     
@@ -36,11 +37,8 @@ module Api
       def reservation_params
         # NOTE: (#BETA) Per the 2-week cycles and reservation restrictions of the beta we will
         # automatically assign the start and end dates to incoming create request.
-        params[:reservation][:start_date] = Reservation.next_reservation_period[:start_date]
-        params[:reservation][:end_date] = Reservation.next_reservation_period[:end_date]
-      
         params[:reservation][:user_id] = current_user.id
-        params.require(:reservation).permit(:start_date, :end_date, :item_id, :user_id)
+        params.require(:reservation).permit(:item_id, :user_id)
       end
 
       def query_params
