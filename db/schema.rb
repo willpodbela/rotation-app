@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181014221945) do
+ActiveRecord::Schema.define(version: 20181227212956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20181014221945) do
     t.boolean "hidden", default: false
     t.boolean "company_owned", default: true, null: false
     t.datetime "last_seen"
+    t.text "alternate_image_urls", default: [], array: true
   end
 
   create_table "profiles", force: :cascade do |t|
