@@ -35,8 +35,6 @@ module Api
       private
     
       def reservation_params
-        # NOTE: (#BETA) Per the 2-week cycles and reservation restrictions of the beta we will
-        # automatically assign the start and end dates to incoming create request.
         params[:reservation][:user_id] = current_user.id
         params.require(:reservation).permit(:item_id, :user_id)
       end
