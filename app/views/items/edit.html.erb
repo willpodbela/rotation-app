@@ -39,9 +39,28 @@
         <td><%= f.check_box(:company_owned) %></td>
       </tr>
       <tr>
+        <th>Purchase URL</th>
+        <td><%= link_to(@item.buyURL, "http://www.#{@item.buyURL}", :class => 'action purchase') if @item.buyURL %></td>
+      </tr>
+      <tr>
+        <th>Current Image</th>
+        <td><%= link_to(image_tag(@item.image.url(:small)), @item.image.url, target: '_blank') if @item.image.exists? %></td>
+      </tr>
+      <tr>
         <th>Image Upload</th>
         <td><%= f.file_field :image %> </td>
       </tr>
+      <% unless @item.alternate_image_urls.empty? %>
+        <tr>
+          <th>Alternate Images</th>
+          <td>
+          <% @item.alternate_image_urls.each do |url| %>
+            <%= f.label(:image_remote_url, image_tag(url), :value => url)  %>
+            <%= f.radio_button(:image_remote_url, url) %>
+          <% end %>
+          </td>
+        </tr>
+      <% end %>
     </table>
 
     <div class="form-buttons">
