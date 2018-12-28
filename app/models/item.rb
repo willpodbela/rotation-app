@@ -7,6 +7,8 @@ class Item < ApplicationRecord
   scope :company_owned, -> { where company_owned: true }
   scope :not_company_owned, -> { where company_owned: false }
   scope :with_images, -> { where('image_file_name IS NOT NULL') }
+  scope :without_images, -> { where('image_file_name IS NULL') }
+  scope :with_alternate_image_options, -> { where("alternate_image_urls != '{}'") }
   
   attr_reader :image_remote_url
   

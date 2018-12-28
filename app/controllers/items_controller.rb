@@ -4,6 +4,11 @@ class ItemsController < ApplicationController
   def index
     @items = Item.all
   end
+  
+  def image_matching_tool
+    @item = Item.visible.without_images.with_alternate_image_options.order("RANDOM()").first
+    render :edit
+  end
 
   def show
     @item = Item.find(params[:id])

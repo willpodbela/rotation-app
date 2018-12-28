@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   
   resources :items do
     resources :reservations
+    get 'image-matching-tool', on: :collection
   end
   
   resources :subscriptions, only: [:create] do
