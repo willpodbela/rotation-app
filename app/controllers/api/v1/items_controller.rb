@@ -91,7 +91,7 @@ module Api
         @current_subscription = current_user.current_subscription
         
         # Items logic
-        @items = Item.visible.where(query_params)
+        @items = Item.visible.with_images.where(query_params)
         .page(page_params[:page])
         .per(page_params[:page_size])
       
