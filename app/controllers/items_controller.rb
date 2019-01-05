@@ -4,6 +4,11 @@ class ItemsController < ApplicationController
   def index
     @items = Item.all
   end
+  
+  def image_matching_tool
+    @item = Item.visible.without_images.with_alternate_image_options.order("RANDOM()").first
+    render :edit
+  end
 
   def show
     @item = Item.find(params[:id])
@@ -55,6 +60,6 @@ class ItemsController < ApplicationController
   private
   
   def item_params
-    params.require(:item).permit(:title, :description, :quantity, :image_url, :image, :subtitle, :retail_value, :color, :hidden, :company_owned)
+    params.require(:item).permit(:title, :description, :quantity, :image_url, :image, :subtitle, :retail_value, :color, :hidden, :company_owned, :image_remote_url)
   end
 end

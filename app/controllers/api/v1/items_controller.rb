@@ -91,7 +91,7 @@ module Api
         @current_subscription = current_user.current_subscription
         
         # Items logic
-        @items = Item.visible.where(query_params)
+        @items = Item.visible.with_images.where(query_params)
         .page(page_params[:page])
         .per(page_params[:page_size])
       
@@ -115,7 +115,7 @@ module Api
       end
     
       def items_params
-        params.permit(items: [:retail_value, :subtitle, :image_url, :title, :buyURL, :image_remote_url])
+        params.permit(items: [:retail_value, :subtitle, :image_url, :title, :buyURL, :image_remote_url, :alternate_image_urls => []])
       end
       
       def item_params
