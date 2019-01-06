@@ -18,4 +18,9 @@ class UsersController < ApplicationController
     end
     redirect_to(users_path)
   end
+  
+  def become
+    sign_in(:user, User.find(params[:id]))
+    redirect_to root_url
+  end
 end

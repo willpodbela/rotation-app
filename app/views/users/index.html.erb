@@ -20,6 +20,7 @@
       <td class="actions">
         <%= link_to("Release From Waitlist", release_user_path(user), :class => 'action') if user.waitlist? %>
         <%= link_to("View Profile", user_profile_path(user), :class => 'action') %>
+        <%= link_to("Sign In as User", become_user_path(user), :class => 'action') %>
       </td>
     </tr>
     <% end %>
