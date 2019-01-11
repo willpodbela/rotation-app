@@ -1,0 +1,20 @@
+<%= link_to("<< Back to List", referral_codes_path, :class => 'back-link') %>
+
+<div class="referral_codes show">
+  <h2>Show Referral Code</h2>
+
+  <table summary="Referral Code detail view">
+    <tr>
+      <th>Code</th>
+      <td><%= @referral_code.code %></td>
+    </tr>
+    <tr>
+      <th>Description</th>
+      <td><%= @referral_code.description %></td>
+    </tr>
+    <tr>
+      <th>User Count</th>
+      <td><%= @referral_code.users.count %></td>
+    </tr>
+  </table>
+</div>
