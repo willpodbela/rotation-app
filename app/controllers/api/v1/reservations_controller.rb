@@ -3,8 +3,14 @@ module Api
     class ReservationsController < Api::V1::BaseController
       before_action :validate_ownership, only: [:destroy, :show, :update]
     
-      # Overriding Super
-      # DELETE /api/{plural_resource_name}/1
+      def create
+        unless Item.find_by_id(params[:item_id]).num_available > 0
+          render_error(400, "Looks like this item is sold out right now. Please choose a different one.")
+        else
+          super
+        end
+      end
+      
       def destroy
         if get_resource.scheduled?
           if get_resource.update(:status => :cancelled)
