@@ -8,9 +8,6 @@ module Api
       def destroy
         render_error(405)
       end
-      def update
-        render_error(405)
-      end
       def index
         render_error(405)
       end
@@ -32,6 +29,22 @@ module Api
       
         params[:password] = decrypted_pass
         super
+      end
+      
+      def update
+        if r = ReferralCode.find_by_code(params[:referral_code])
+          @user.referral_code = r
+          @user.access_level = :standard if current_user.waitlist?
+          if @user.save
+            #Send Push Notification
+            @user.send_notification("Congrats!! You're off the waitlist. Open up the app and join The Rotation.")
+            render :show
+          else
+            render_error(:unprocessable_entity, get_resource.errors.full_messages.to_sentence)
+          end
+        else 
+          render_error(404, "That referral code is not valid. Please try again.")
+        end
       end
     
       private

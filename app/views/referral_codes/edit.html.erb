@@ -1,0 +1,24 @@
+<%= link_to("<< Back to List", referral_codes_path, :class => 'back-link') %>
+
+<div class="referral_codes edit">
+  <h2>Update Referral Code</h2>
+
+  <%= form_for(@referral_code) do |f| %>
+
+    <table summary="Referral Code form fields">
+      <tr>
+        <th>Code</th>
+        <td><%= f.text_field(:code) %></td>
+      </tr>
+      <tr>
+        <th>Description</th>
+        <td><%= f.text_area(:description) %></td>
+      </tr>
+    </table>
+
+    <div class="form-buttons">
+      <%= f.submit("Update Referral Code") %>
+    </div>
+
+  <% end %>
+</div>
