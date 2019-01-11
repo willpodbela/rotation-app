@@ -42,6 +42,8 @@ module Api
           else
             render_error(:unprocessable_entity, get_resource.errors.full_messages.to_sentence)
           end
+        else 
+          render_error(404, "That referral code is not valid. Please try again.")
         end
       end
     
