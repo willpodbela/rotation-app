@@ -18,9 +18,6 @@
     
     stripe_subscription_obj = customer.subscriptions.create({plan: stripe_plan_id})
     
-    print "AHHHHHH: \n\n"
-    print stripe_subscription_obj
-    
     response = ServiceResponse.new(stripe_subscription_obj)
     if response.success?
       flash[:notice] = 'You have successfully subscribed to our premium plan!'
