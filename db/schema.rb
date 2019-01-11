@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181227212956) do
+ActiveRecord::Schema.define(version: 20190111014819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,15 @@ ActiveRecord::Schema.define(version: 20181227212956) do
     t.index ["user_id"], name: "index_profiles_on_user_id", unique: true
   end
 
+  create_table "referral_codes", force: :cascade do |t|
+    t.string "description", null: false
+    t.string "code", null: false
+    t.integer "limit"
+    t.datetime "expires"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "reservations", force: :cascade do |t|
     t.integer "item_id"
     t.integer "user_id"
@@ -110,11 +119,14 @@ ActiveRecord::Schema.define(version: 20181227212956) do
     t.datetime "updated_at", null: false
     t.integer "access_level", default: 0, null: false
     t.string "stripe_customer_id"
+    t.bigint "referral_code_id"
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["referral_code_id"], name: "index_users_on_referral_code_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["stripe_customer_id"], name: "index_users_on_stripe_customer_id", unique: true
   end
 
+  add_foreign_key "users", "referral_codes"
 end

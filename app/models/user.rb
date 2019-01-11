@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_one  :profile
   has_many :devices
   has_many :subscriptions
+  belongs_to  :referral_code
   
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
