@@ -8,9 +8,6 @@ module Api
       def destroy
         render_error(405)
       end
-      def update
-        render_error(405)
-      end
       def index
         render_error(405)
       end
@@ -32,6 +29,20 @@ module Api
       
         params[:password] = decrypted_pass
         super
+      end
+      
+      def update
+        if r = ReferralCode.find_by_code(params[:referral_code])
+          current_user.referral_code = r
+          current_user.access_level = :standard if current_user.waitlist?
+          if current_user.save
+            #Send Push Notification
+            @user.send_notification("Congrats!! You're off the waitlist. Open up the app and join The Rotation.")
+            render :show
+          else
+            render_error(:unprocessable_entity, get_resource.errors.full_messages.to_sentence)
+          end
+        end
       end
     
       private
