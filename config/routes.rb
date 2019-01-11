@@ -36,7 +36,7 @@ Rails.application.routes.draw do
       
       get 'config', to: 'config#index'
     
-      resources :users, only: [:create, :show] do
+      resources :users, only: [:create, :show, :update] do
         resource :profile, only: [:show, :update]
       end
     
