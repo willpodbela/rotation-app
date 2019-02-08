@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :subscriptions
   belongs_to  :referral_code, optional: true
   
+  scope :paying_customers, -> { joins(:subscriptions).merge(Subscription.valid) }
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
@@ -15,6 +17,14 @@ class User < ApplicationRecord
   
   after_save do |user|
     user.create_profile unless user.profile.present?
+  end
+  
+  before_create do |user|
+    if limit = Integer(ENV['USER_AUTOENROLL_LIMIT']) rescue false
+      if User.paying_customers.count < limit
+        user.access_level = :standard
+      end
+    end
   end
   
   enum access_level: [ :waitlist, :standard, :admin ]
