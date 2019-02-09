@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :subscriptions
   belongs_to  :referral_code, optional: true
   
+  scope :paying_customers, -> { joins(:subscriptions).merge(Subscription.valid) }
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
