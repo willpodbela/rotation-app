@@ -19,14 +19,6 @@ class User < ApplicationRecord
     user.create_profile unless user.profile.present?
   end
   
-  before_create do |user|
-    if limit = Integer(ENV['USER_AUTOENROLL_LIMIT']) rescue false
-      if User.paying_customers.count < limit
-        user.access_level = :standard
-      end
-    end
-  end
-  
   enum access_level: [ :waitlist, :standard, :admin ]
   
   def ensure_authentication_token
