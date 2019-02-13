@@ -4,6 +4,7 @@ module Api
       protect_from_forgery with: :null_session
       before_action :authenticate_user_from_token!
       skip_before_action :authenticate_user!
+      skip_before_action :advertisement_tracking
       before_action :set_resource, only: [:destroy, :show, :update]
       respond_to :json
     
