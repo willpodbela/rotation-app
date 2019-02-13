@@ -34,7 +34,7 @@ gem 'kaminari'
 
 
 # For help with registering and authenticating users (outside of API token auth)
-gem 'devise'
+gem 'devise', '4.4.0'
 # For use encrypting user passwords sent via API
 gem 'aescrypt'
 # For file uploading
