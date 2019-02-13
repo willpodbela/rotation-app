@@ -2,7 +2,13 @@
 <header class="header_8 padding_bottom155">
   <div class="container nopadding top45">
     <!-- <img srcset="i/header_8_logo.png 1x, i/header_8_logo_2x.png 2x" src="i/header_8_logo.png" class="margin_auto logo" alt="" /> -->
-    
+    <% if (@is_ios && current_user.waitlist?) %>
+      <div class="text-center top165 block_with_button">
+        <%= link_to(download_path, class:"width300 max_width_full btn white padding_sides25 size60 radius6") do %>
+          <span class="black"><i class="fab fa-apple right10"></i> Download on the App Store</span>
+        <% end %>
+      </div>
+    <% end %>
     <% if current_user.waitlist? %>
       <div class="text-center ubuntu white font20 top15">the rotation</div>
       <h1 class="text-center white font_second light font92 top45">You're on the waitlist.</h1>
@@ -54,10 +60,12 @@
         </div>
       <% end %>
     <% end %>
-    <div class="text-center top165 block_with_button">
-      <%= link_to(download_path, class:"width300 max_width_full btn white padding_sides25 size60 radius6") do %>
-        <span class="black"><i class="fab fa-apple right10"></i> Download on the App Store</span>
-      <% end %>
-    </div>
+    <% unless (@is_ios && current_user.waitlist?) %>
+      <div class="text-center top165 block_with_button">
+        <%= link_to(download_path, class:"width300 max_width_full btn white padding_sides25 size60 radius6") do %>
+          <span class="black"><i class="fab fa-apple right10"></i> Download on the App Store</span>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </header>

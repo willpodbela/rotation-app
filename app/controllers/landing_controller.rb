@@ -19,6 +19,7 @@ class LandingController < ApplicationController
     @plan = Stripe::Plan.retrieve(stripe_plan_id)
     
     @current_subscription = current_user.current_subscription
+    @is_ios = browser.platform.ios?
   end
   
   # Admin Landing Page
