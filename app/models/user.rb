@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :devices
   has_many :subscriptions
   belongs_to  :referral_code, optional: true
+  belongs_to  :advertisement_code, optional: true
   
   scope :paying_customers, -> { joins(:subscriptions).merge(Subscription.valid) }
   

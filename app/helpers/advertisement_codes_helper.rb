@@ -1,0 +1,2 @@
+module AdvertisementCodesHelper
+end

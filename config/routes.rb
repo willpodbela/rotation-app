@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   end
   
   resources :referral_codes
+  resources :advertisement_codes
   
   namespace :api, defaults: {format: :json} do
     post "stripe", to: "stripe_webhook#stripe"
