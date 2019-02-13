@@ -11,6 +11,7 @@
       <th>Code</th>
       <th>Desc</th>
       <th>User Count</th>
+      <th>Active Subscriptions Count</th>
     </tr>
     <% @referral_codes.each do |referral_code| %>
     <tr>
@@ -18,6 +19,7 @@
       <td><%= referral_code.code %></td>
       <td><%= referral_code.description %></td>
       <td><%= referral_code.users.count %></td>
+      <td><%= referral_code.users.paying_customers.count %></td>
       <td class="actions">
         <%= link_to("Show", referral_code_path(referral_code), :class => 'action -show') %>
         <%= link_to("Edit", edit_referral_code_path(referral_code), :class => 'action edit') %>
