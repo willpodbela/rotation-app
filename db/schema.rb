@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190213065722) do
+ActiveRecord::Schema.define(version: 20190213074820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20190213065722) do
   create_table "advertisement_codes", force: :cascade do |t|
     t.string "description", null: false
     t.string "code", null: false
+    t.integer "session_count", default: 0
     t.index ["code"], name: "index_advertisement_codes_on_code", unique: true
   end
 

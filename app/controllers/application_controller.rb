@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :generate_access_control_methods!
   before_action :authenticate_user!
+  before_action :advertisement_tracking
   
   private
   
@@ -32,6 +33,19 @@ class ApplicationController < ActionController::Base
       flash[:alert] = "Access Denied. Head back to the iOS app (or come work for us)!"
       sign_out(current_user)
       redirect_to new_user_session_path
+    end
+  end
+  
+  def advertisement_tracking
+    if !session.has_key?(:advertisement_code) && params.has_key?(:campaign)
+      code = params[:campaign]
+      session[:advertisement_code] = code
+      a = AdvertisementCode.find_by_code(code)
+      unless a
+        a = AdvertisementCode.create(:description => "Auto-detected tracking code.", :code => code)
+      end
+      a.session_count = a.session_count + 1
+      a.save
     end
   end
 end
