@@ -34,7 +34,7 @@ gem 'kaminari'
 
 
 # For help with registering and authenticating users (outside of API token auth)
-gem 'devise'
+gem 'devise', '4.4.0'
 # For use encrypting user passwords sent via API
 gem 'aescrypt'
 # For file uploading
@@ -51,6 +51,9 @@ gem "http"
 
 # For sending push notifications
 gem 'houston'
+
+# For detecting browser
+gem 'browser'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

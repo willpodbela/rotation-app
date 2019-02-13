@@ -50,8 +50,9 @@ GEM
     aws-sdk-resources (2.11.8)
       aws-sdk-core (= 2.11.8)
     aws-sigv4 (1.0.2)
-    bcrypt (3.1.11)
+    bcrypt (3.1.12)
     bindex (0.5.0)
+    browser (2.5.3)
     builder (3.2.3)
     byebug (9.1.0)
     capybara (2.16.1)
@@ -78,7 +79,7 @@ GEM
     commonjs (0.2.7)
     concurrent-ruby (1.0.5)
     crass (1.0.3)
-    devise (4.3.0)
+    devise (4.4.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0, < 5.2)
@@ -210,9 +211,9 @@ GEM
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     ref (2.0.0)
-    responders (2.4.0)
-      actionpack (>= 4.2.0, < 5.3)
-      railties (>= 4.2.0, < 5.3)
+    responders (2.4.1)
+      actionpack (>= 4.2.0, < 6.0)
+      railties (>= 4.2.0, < 6.0)
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
     sass (3.5.3)
@@ -278,10 +279,11 @@ PLATFORMS
 DEPENDENCIES
   aescrypt
   aws-sdk (< 3.0)
+  browser
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
-  devise
+  devise (= 4.4.0)
   dotenv-rails
   font-awesome-rails
   houston
