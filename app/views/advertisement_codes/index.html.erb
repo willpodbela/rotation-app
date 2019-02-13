@@ -10,14 +10,16 @@
       <th>#</th>
       <th>Code</th>
       <th>Desc</th>
-      <th>User Count</th>
-      <th>Active Subscriptions Count</th>
+      <th>Sessions</th>
+      <th>Users</th>
+      <th>Active Subscriptions</th>
     </tr>
     <% @advertisement_codes.each do |advertisement_code| %>
     <tr>
       <td><%= advertisement_code.id %></td>
       <td><%= advertisement_code.code %></td>
       <td><%= advertisement_code.description %></td>
+      <td><%= advertisement_code.session_count %></td>
       <td><%= advertisement_code.users.count %></td>
       <td><%= advertisement_code.users.paying_customers.count %></td>
       <td class="actions">
