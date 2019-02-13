@@ -104,7 +104,11 @@ $("#landing-form").submit(function(event){
   var posting = $.post(url, term);
   posting
   .done(function(data){
-    window.location.replace("/status") 
+    if(data.redirect == null){
+      window.location.replace("/status")
+    }else{
+      window.location.replace(data.redirect)
+    }
   })
   .fail(function(data){
     if(data.responseJSON.message){

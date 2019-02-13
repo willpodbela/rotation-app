@@ -52,6 +52,9 @@ gem "http"
 # For sending push notifications
 gem 'houston'
 
+# For detecting browser
+gem 'browser'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

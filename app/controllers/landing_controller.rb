@@ -26,7 +26,6 @@ class LandingController < ApplicationController
   end
   
   def download
-    # TODO: Add App Store URL once approved!!
     redirect_to "https://itunes.apple.com/us/app/com-rotationinc-rotation/id1404678165?ls=1&mt=8"
   end
   
@@ -47,7 +46,11 @@ class LandingController < ApplicationController
       if @user.save
         # If save succeeds, sign them in and return 200
         sign_in(@user)
-        render :status=>200, :json => { "redirect":"/status" }
+        if browser.platform.ios?
+          render :status=>200, :json => { "redirect":"/download" }
+        else
+          render :status=>200, :json => { "redirect":"/status" }
+        end
       else
         render :status=>400, :json => { "message": @user.errors.full_messages.first }
       end
