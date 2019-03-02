@@ -3,23 +3,17 @@
   def create
     begin
       StripeService.create_monthly_subscription(current_user, subscription_params[:stripeToken])
-      
-      if session[:ios_init]
-        session[:ios_init] = false
-        redirect_to ios_deep_link_path
-      else 
-        flash[:notice] = 'You have successfully subscribed to our premium plan!'
-        redirect_to status_path
-      end
+
+      flash[:notice] = 'You have successfully subscribed to our premium plan!'
     rescue Stripe::CardError => e
       # CardError; return the error message.
       flash[:alert] = e.message
-      redirect_to status_path
     rescue => e
       # Some other error
       flash[:alert] = 'Ooops, something went wrong!'
-      redirect_to status_path
     end
+    
+    redirect_to status_path
   end
   
   def cancel
@@ -60,9 +54,5 @@
     
     def stripe_plan_id
       ENV['STRIPE_PLAN_ID']
-    end
- 
-    def ios_deep_link_path
-      "rotation://success"
     end
 end
