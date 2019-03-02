@@ -29,6 +29,8 @@ class StripeService
             )
             unless subsciption.save
               # TODO: Log error - stripe succeeded but local obj could not be saved
+            else
+              return subsciption
             end
           else
             # TODO: Log error from stripe

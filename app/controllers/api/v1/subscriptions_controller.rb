@@ -18,8 +18,9 @@ module Api
       
       def create                
         begin
-          StripeService.create_monthly_subscription(current_user, subscription_params[:stripe_source_id])
-          render :status=>201, :json=>{}
+          subscription = StripeService.create_monthly_subscription(current_user, subscription_params[:stripe_source_id])
+          set_resource(subscription)
+          render :show, status: :created
         rescue Stripe::CardError => e
           # CardError; return the error message.
           render_error(400, e.message)
