@@ -46,7 +46,12 @@ Rails.application.routes.draw do
       resources :reservations do
         get 'info', on: :collection
       end
-    
+      
+      resources :subscriptions, only: [:create] do
+        get "cancel", on: :collection
+        get "restore", on: :collection
+      end
+      
       post 'devices/:token', to: 'devices#create'
       delete 'devices/:token', to: 'devices#destroy'
     end
