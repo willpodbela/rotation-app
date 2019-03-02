@@ -16,9 +16,7 @@ module Api
         render_error(405)
       end
       
-      def create        
-        Stripe.api_key = Rails.configuration.stripe[:secret_key]
-        
+      def create                
         begin
           StripeService.create_monthly_subscription(current_user, subscription_params[:stripe_source_id])
           render :status=>201, :json=>{}
