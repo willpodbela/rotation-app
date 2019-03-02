@@ -31,9 +31,9 @@ class StripeService
         )
         unless subsciption.save
           # TODO: Log error - stripe succeeded but local obj could not be saved
-        else
-          return subsciption
         end
+        
+        return subsciption
       else
         # TODO: Log error from stripe
         raise StandardError.new("Unable to create subscription in Stripe")
