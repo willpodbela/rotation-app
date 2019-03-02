@@ -16,50 +16,19 @@ module Api
         render_error(405)
       end
       
-      def create
+      def create        
         Stripe.api_key = Rails.configuration.stripe[:secret_key]
-
-        if current_user.stripe_customer_id? 
-          customer = Stripe::Customer.retrieve(current_user.stripe_customer_id)
-        else
-          begin
-            customer = Stripe::Customer.create(
-              :email => current_user.email,
-              :source  => subscription_params[:stripe_source_id]
-            )
-            current_user.stripe_customer_id = customer.id
-            unless current_user.save
-              # TODO: Log error - error with stripe unable to save/create user
-              render_error(500, nil)
-            else
-              
-              # Happy path
-              stripe_subscription_obj = customer.subscriptions.create({plan: stripe_plan_id})
-              response = ServiceResponse.new(stripe_subscription_obj)
-              if response.success?
-                subsciption = Subscription.new(
-                  :user => current_user,
-                  :stripe_subscription_obj => stripe_subscription_obj,
-                  :stripe_plan_id => stripe_plan_id
-                )
-                unless subsciption.save
-                  # TODO: Log error - stripe succeeded but local obj could not be saved
-                end
-          
-                render :status=>200, :json=>{}
-              else
-                # TODO: Log error from stripe
-                render_error(500, nil)
-              end
-              
-            end
-          rescue Stripe::CardError => e
-            # CardError; return the error message.
-            render_error(400, e.message)
-          rescue => e
-            # Some other server error; Return 500
-            render_error(500, nil)
-          end
+        
+        begin
+          StripeService.create_monthly_subscription(current_user, subscription_params[:stripe_source_id])
+          render :status=>201, :json=>{}
+        rescue Stripe::CardError => e
+          # CardError; return the error message.
+          render_error(400, e.message)
+        rescue => e
+          # Some other error; Return 500
+          print(e)
+          render_error(500, nil)
         end
       end
  
@@ -67,10 +36,6 @@ module Api
  
       def subscription_params
         params.permit(:stripe_source_id)
-      end
-  
-      def stripe_plan_id
-        ENV['STRIPE_PLAN_ID']
       end
       
     end
