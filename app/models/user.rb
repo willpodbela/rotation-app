@@ -15,12 +15,40 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   
   before_save :ensure_authentication_token
+  validate :did_not_attempt_invalid_referral_code_string
   
   after_save do |user|
     user.create_profile unless user.profile.present?
   end
   
   enum access_level: [ :waitlist, :standard, :admin ]
+  
+  attr_accessor :invalid_referral_code_string
+  
+  def initialize(attributes={})
+    super
+    @invalid_referral_code_string = false
+  end
+  
+  def referral_code=(value)
+    # Enable attribute to be set using String that represents the code for the ReferralCode object
+    @invalid_referral_code_string = false
+    if value.is_a? String
+      value = ReferralCode.find_by_code(value)
+      @invalid_referral_code_string = value.nil?
+    end
+    # If value is valid referral_code, take off waitlist
+    unless value.nil?
+      self.access_level = :standard if self.waitlist? && ReferralCode.exists?(value.id)
+    end
+    super(value)
+  end
+  
+  def did_not_attempt_invalid_referral_code_string
+    if @invalid_referral_code_string
+      errors.add(:referral_code, "That referral code is not valid. Please try again.")
+    end
+  end
   
   def ensure_authentication_token
     if authentication_token.blank?
