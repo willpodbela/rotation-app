@@ -34,7 +34,7 @@ module Api
       private
     
       def user_params
-        params.permit(:email,:password,:referral_code)
+        params.permit(:email,:password,:referral_code,:advertisement_code)
       end
 
       def query_params
