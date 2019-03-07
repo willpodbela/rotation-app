@@ -40,10 +40,7 @@ class ApplicationController < ActionController::Base
     if !session.has_key?(:advertisement_code) && params.has_key?(:campaign)
       code = params[:campaign]
       session[:advertisement_code] = code
-      a = AdvertisementCode.find_by_code(code)
-      unless a
-        a = AdvertisementCode.create(:description => "Auto-detected tracking code.", :code => code)
-      end
+      a = AdvertisementCode.create_with(description: "Auto-detected tracking code.").find_or_create_by(code: code)
       a.session_count = a.session_count + 1
       a.save
     end

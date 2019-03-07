@@ -43,7 +43,7 @@ class LandingController < ApplicationController
     else
       # Instantiate a new object using form parameters
       @user = User.new(user_params)
-      @user.advertisement_code = AdvertisementCode.find_by_code(session[:advertisement_code])
+      @user.advertisement_code = session[:advertisement_code]
       
       # Save the object
       if @user.save
