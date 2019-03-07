@@ -44,6 +44,14 @@ class User < ApplicationRecord
     super(value)
   end
   
+  def advertisement_code=(value)
+    # Enable attribute to be set using String that represents the code for the ReferralCode object
+    if value.is_a? String
+      value = AdvertisementCode.create_with(description: "Auto-detected tracking code.").find_or_create_by(code: value)
+    end
+    super(value)
+  end
+  
   def did_not_attempt_invalid_referral_code_string
     if @invalid_referral_code_string
       errors.add(:referral_code, "That referral code is not valid. Please try again.")
