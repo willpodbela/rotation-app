@@ -1,0 +1,36 @@
+<%= link_to("<< Back to List", self.send("#{@resource_name.pluralize}_path"), :class => 'back-link') %>
+
+<div class="#{@resource_name.pluralize} show">
+  <h2>Show Code</h2>
+
+  <table summary="Code detail view">
+    <tr>
+      <th>Code</th>
+      <td><%= @code.id %></td>
+    </tr>
+    <tr>
+      <th>Description</th>
+      <td><%= @code.description %></td>
+    </tr>
+    <tr>
+      <th>Active?</th>
+      <% if @code.active? %>
+        <td>&#10007;</td>
+      <% else %>
+        <td>&#10003;</td>
+      <% end %>
+    </tr>
+    <tr>
+      <th>Session Count</th>
+      <td><%= @code.session_count %></td>
+    </tr>
+    <tr>
+      <th>Users</th>
+      <td><%= @code.users.count %></td>
+    </tr>
+    <tr>
+      <th>Subscriptions</th>
+      <td><%= @code.users.paying_customers.count %></td>
+    </tr>
+  </table>
+</div>

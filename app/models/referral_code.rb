@@ -1,3 +1,3 @@
-class ReferralCode < ApplicationRecord
+class ReferralCode < Code
   has_many :users
 end
