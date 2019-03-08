@@ -21,7 +21,12 @@ class StripeService
       end
       
       # Create subscription
-      stripe_subscription_obj = customer.subscriptions.create({plan: ENV['STRIPE_PLAN_ID']})
+      params = {plan: ENV['STRIPE_PLAN_ID']}
+      if coupon = user.coupon
+        params[:coupon] = coupon.id
+      end
+            
+      stripe_subscription_obj = customer.subscriptions.create(params)
       response = ServiceResponse.new(stripe_subscription_obj)
       if response.success?
         subsciption = Subscription.new(
@@ -32,6 +37,8 @@ class StripeService
         unless subsciption.save
           # TODO: Log error - stripe succeeded but local obj could not be saved
         end
+        
+        user.update(has_used_promo: true) unless coupon.nil?
         
         return subsciption
       else
