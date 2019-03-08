@@ -31,10 +31,10 @@ class User < ApplicationRecord
   end
   
   def referral_code=(value)
-    # Enable attribute to be set using String that represents the code for the ReferralCode object
+    # Enable attribute to be set using String that represents the code (primary key) for the ReferralCode object
     @invalid_referral_code_string = false
     if value.is_a? String
-      value = ReferralCode.find_by_code(value)
+      value = ReferralCode.find_by_id(value)
       @invalid_referral_code_string = value.nil?
     end
     # If value is valid referral_code, take off waitlist
@@ -47,7 +47,7 @@ class User < ApplicationRecord
   def advertisement_code=(value)
     # Enable attribute to be set using String that represents the code for the ReferralCode object
     if value.is_a? String
-      value = AdvertisementCode.create_with(description: "Auto-detected tracking code.").find_or_create_by(code: value)
+      value = AdvertisementCode.create_with(description: "Auto-detected tracking code.").find_or_create_by(id: value)
     end
     super(value)
   end
@@ -85,6 +85,17 @@ class User < ApplicationRecord
   def est_delivery_date
     shipping_delay = defined?(self.shipping_delay) ? self.shipping_delay : 3
     Date.today+shipping_delay
+  end
+  
+  #returns coupon that is eligible to be applied to a subscription if one exists
+  def coupon
+    if has_used_promo?
+      return nil
+    elsif referral_code && (r = referral_code.coupon)
+      return r
+    elsif advertisement_code && (a = advertisement_code.coupon)
+      return a
+    end
   end
   
   # DEPRECATED: iOS app <= v1.1

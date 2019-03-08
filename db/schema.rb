@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190213074820) do
+ActiveRecord::Schema.define(version: 20190308014650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,18 @@ ActiveRecord::Schema.define(version: 20190213074820) do
     t.string "code", null: false
     t.integer "session_count", default: 0
     t.index ["code"], name: "index_advertisement_codes_on_code", unique: true
+  end
+
+  create_table "codes", id: false, force: :cascade do |t|
+    t.string "id", null: false
+    t.string "type", null: false
+    t.string "description"
+    t.boolean "has_stripe_coupon", default: false
+    t.integer "session_count", default: 0
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_codes_on_id", unique: true
   end
 
   create_table "devices", force: :cascade do |t|
@@ -126,8 +138,9 @@ ActiveRecord::Schema.define(version: 20190213074820) do
     t.datetime "updated_at", null: false
     t.integer "access_level", default: 0, null: false
     t.string "stripe_customer_id"
-    t.bigint "referral_code_id"
-    t.bigint "advertisement_code_id"
+    t.string "advertisement_code_id"
+    t.string "referral_code_id"
+    t.boolean "has_used_promo", default: false
     t.index ["advertisement_code_id"], name: "index_users_on_advertisement_code_id"
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
@@ -137,6 +150,4 @@ ActiveRecord::Schema.define(version: 20190213074820) do
     t.index ["stripe_customer_id"], name: "index_users_on_stripe_customer_id", unique: true
   end
 
-  add_foreign_key "users", "advertisement_codes"
-  add_foreign_key "users", "referral_codes"
 end

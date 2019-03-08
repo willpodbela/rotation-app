@@ -1,3 +1,3 @@
-class AdvertisementCode < ApplicationRecord
+class AdvertisementCode < Code
   has_many :users
 end

@@ -1,0 +1,28 @@
+<%= link_to("<< Back to List", self.send("#{@resource_name.pluralize}_path"), :class => 'back-link') %>
+
+<div class="#{@resource_name} edit">
+  <h2>Update Code</h2>
+  
+  <%= form_for(@code) do |f| %>
+    
+    <table summary="Code form fields">
+      <tr>
+        <th>Code</th>
+        <td><%= f.text_field(:id) %></td>
+      </tr>
+      <tr>
+        <th>Description</th>
+        <td><%= f.text_area(:description) %></td>
+      </tr>
+      <tr>
+        <th>Active?</th>
+        <td><%= f.check_box(:active) %></td>
+      </tr>
+    </table>
+
+    <div class="form-buttons">
+      <%= f.submit("Update Code") %>
+    </div>
+
+  <% end %>
+</div>

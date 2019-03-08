@@ -1,0 +1,51 @@
+<div class="#{@resource_name.pluralize} index">
+  <%= link_to("Back to Admin Home", admin_path, :class => 'back-link') %>
+  
+  <h2>Codes</h2>
+
+  <%= link_to("Add New Code", self.send("new_#{@resource_name}_path"), :class => 'action new') %>
+
+  <table class="listing admin_table" summary="Code list">
+    <tr class="header">
+      <th>Code</th>
+      <th>Desc</th>
+      <th>Active?</th>
+      <th>Sessions</th>
+      <th>Users</th>
+      <th>Subscriptions</th>
+      <th>Coupon</th>
+    </tr>
+    <% @codes.each do |code| %>
+    <tr>
+      <td><%= code.id %></td>
+      <td><%= code.description %></td>
+      <% if code.active? %>
+        <td>&#10003;</td>
+      <% else %>
+        <td>&#10007;</td>
+      <% end %>
+      <td><%= code.session_count %></td>
+      <td><%= code.users.count %></td>
+      <td><%= code.users.paying_customers.count %></td>
+      <td>
+        <% unless code.has_stripe_coupon? %>
+          <%= link_to("Setup Coupon", self.send("new_#{@resource_name}_coupon_path", code), :class => 'action new coupon') %>
+        <% else %>
+          <% coupon = code.coupon %>
+          <% if coupon %>
+            <% if discount = coupon.percent_off %>
+              <%= discount %> % off
+            <% elsif discount = coupon.amount_off %>
+              <%= discount %> $ off
+            <% end %>
+          <% end %>
+        <% end %>
+      </td>
+      <td class="actions">
+        <%= link_to("Show", self.send("#{@resource_name}_path", code), :class => 'action show') %>
+        <%= link_to("Edit", self.send("edit_#{@resource_name}_path", code), :class => 'action edit') %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>

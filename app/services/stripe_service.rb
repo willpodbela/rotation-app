@@ -21,7 +21,12 @@ class StripeService
       end
       
       # Create subscription
-      stripe_subscription_obj = customer.subscriptions.create({plan: ENV['STRIPE_PLAN_ID']})
+      params = {plan: ENV['STRIPE_PLAN_ID']}
+      if coupon = user.coupon
+        params[:coupon] = coupon.id
+      end
+            
+      stripe_subscription_obj = customer.subscriptions.create(params)
       response = ServiceResponse.new(stripe_subscription_obj)
       if response.success?
         subsciption = Subscription.new(
@@ -33,11 +38,50 @@ class StripeService
           # TODO: Log error - stripe succeeded but local obj could not be saved
         end
         
+        user.update(has_used_promo: true) unless coupon.nil?
+        
         return subsciption
       else
         # TODO: Log error from stripe
         raise StandardError.new("Unable to create subscription in Stripe")
       end
+    end
+    
+    def get_coupon(code)  
+      reraise_exception = nil
+        
+      Stripe.api_key = Rails.configuration.stripe[:secret_key]
+      begin      
+        coupon = Stripe::Coupon.retrieve(code.id)
+        
+        #Someone made the Coupon in the Stripe Web UI, thats cool but lets just note it on the model
+        unless code.has_stripe_coupon?
+          code.has_stripe_coupon = true
+          code.save
+        end
+        return coupon
+      rescue Stripe::InvalidRequestError => e
+        # If 404 does not exist, handle error, else re-raise error
+        if e.http_status == 404
+          code.update(has_stripe_coupon: false) if code.has_stripe_coupon?
+          return nil
+        else
+          reraise_exception = e
+        end
+      end
+      
+      raise e if reraise_exception.is_a? Stripe::InvalidRequestError
+    end
+  
+    def create_coupon(code, params)   
+      Stripe.api_key = Rails.configuration.stripe[:secret_key]
+      params[:id] = code.id
+      coupon = Stripe::Coupon.create(params)
+      
+      code.has_stripe_coupon = true
+      code.save
+    
+      return coupon
     end
     
   end

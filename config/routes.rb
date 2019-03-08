@@ -24,8 +24,12 @@ Rails.application.routes.draw do
     get "restore", on: :collection
   end
   
-  resources :referral_codes
-  resources :advertisement_codes
+  resources :referral_codes do
+    resource :coupon, only: [:new, :create, :show]
+  end
+  resources :advertisement_codes do
+    resource :coupon, only: [:new, :create, :show]
+  end
   
   namespace :api, defaults: {format: :json} do
     post "stripe", to: "stripe_webhook#stripe"

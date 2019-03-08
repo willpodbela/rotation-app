@@ -1,0 +1,29 @@
+<%= link_to("<< Back to List", self.send("#{@code.type.underscore.pluralize}_path"), :class => 'back-link') %>
+
+<div class="#{@resource_name.pluralize} new">
+  <h2>Create Coupon</h2>
+  
+  <%= form_for :coupon, url: "/#{@code.type.underscore.pluralize}/#{@code.id}/coupon" do |f| %>
+    
+    <table summary="Code form fields">
+      <tr>
+        <th>% Off</th>
+        <td><%= f.number_field(:percent_off) %></td>
+      </tr>
+      <tr>
+        <th>OR*</th>
+      </tr>
+      <tr>
+        <th>$ Off</th>
+        <td><%= f.number_field(:amount_off)  %></td>
+      </tr>
+    </table>
+
+    <div class="form-buttons">
+      <%= f.submit("Create Code") %>
+    </div>
+
+  <p>*only choose one</p>
+
+  <% end %>
+</div>
