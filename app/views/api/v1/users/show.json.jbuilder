@@ -7,4 +7,7 @@ json.user do
   json.profile do
     json.merge!             @user.profile.attributes
   end
+  if @user.coupon
+    json.coupon             @user.coupon
+  end
 end
