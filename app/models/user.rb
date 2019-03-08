@@ -91,7 +91,7 @@ class User < ApplicationRecord
   def coupon
     if has_used_promo?
       return nil
-    if referral_code && (r = referral_code.coupon)
+    elsif referral_code && (r = referral_code.coupon)
       return r
     elsif advertisement_code && (a = advertisement_code.coupon)
       return a
