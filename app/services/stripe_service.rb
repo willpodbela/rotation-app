@@ -40,5 +40,33 @@ class StripeService
       end
     end
     
+    def get_coupon(code)    
+      Stripe.api_key = Rails.configuration.stripe[:secret_key]
+      begin
+        coupon = Stripe::Coupon.retrieve(code.id)
+        
+        #Someone made the Coupon in the Stripe Web UI, thats cool but lets just note it on the model
+        unless code.has_stripe_coupon?
+          code.has_stripe_coupon = true
+          code.save
+        end
+        return coupon
+      rescue Stripe::InvalidRequestError => e
+        #Almost always 404 Not Found
+        return nil
+      end
+    end
+  
+    def create_coupon(code, params)      
+      Stripe.api_key = Rails.configuration.stripe[:secret_key]
+      params[:id] = code.id
+      coupon = Stripe::Coupon.create(params)
+      
+      code.has_stripe_coupon = true
+      code.save
+      
+      return coupon
+    end
+    
   end
 end

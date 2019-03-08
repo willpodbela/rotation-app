@@ -87,6 +87,14 @@ class User < ApplicationRecord
     Date.today+shipping_delay
   end
   
+  def coupon
+    if referral_code && (r = referral_code.coupon)
+      return r
+    elsif advertisement_code && (a = advertisement_code.coupon)
+      return a
+    end
+  end
+  
   # DEPRECATED: iOS app <= v1.1
   # We must provide a reservation period for legacy versions of the iOS app, as a stop gap
   # solution, we just take the estimated delivery date and add 30 days as the "end" of the
