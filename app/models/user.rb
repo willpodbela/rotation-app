@@ -87,7 +87,10 @@ class User < ApplicationRecord
     Date.today+shipping_delay
   end
   
+  #returns coupon that is eligible to be applied to a subscription if one exists
   def coupon
+    if has_used_promo?
+      return nil
     if referral_code && (r = referral_code.coupon)
       return r
     elsif advertisement_code && (a = advertisement_code.coupon)
