@@ -11,7 +11,7 @@ class CouponsController < ApplicationController
       StripeService.create_coupon(@code, coupon_params)
       redirect_to(self.send("#{@code.type.underscore.pluralize}_path"))
     rescue => e
-      print(e)
+      flash[:alert] = "Error: #{e.message}"
       render('new')
     end
   end

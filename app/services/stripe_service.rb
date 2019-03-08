@@ -47,9 +47,11 @@ class StripeService
       end
     end
     
-    def get_coupon(code)    
+    def get_coupon(code)  
+      reraise_exception = nil
+        
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
-      begin
+      begin      
         coupon = Stripe::Coupon.retrieve(code.id)
         
         #Someone made the Coupon in the Stripe Web UI, thats cool but lets just note it on the model
@@ -59,25 +61,26 @@ class StripeService
         end
         return coupon
       rescue Stripe::InvalidRequestError => e
-        if e.http_status == 404 && code.has_stripe_coupon?
-          code.has_stripe_coupon = false
-          code.save
+        # If 404 does not exist, handle error, else re-raise error
+        if e.http_status == 404
+          code.update(has_stripe_coupon: false) if code.has_stripe_coupon?
+          return nil
+        else
+          reraise_exception = e
         end
-        
-        return nil
       end
+      
+      raise e if reraise_exception.is_a? Stripe::InvalidRequestError
     end
   
     def create_coupon(code, params)   
-      print(params)
-             
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
       params[:id] = code.id
       coupon = Stripe::Coupon.create(params)
       
       code.has_stripe_coupon = true
       code.save
-      
+    
       return coupon
     end
     
