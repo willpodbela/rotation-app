@@ -39,7 +39,7 @@ class CodesController < ApplicationController
     if @code.update_attributes(code_params)
       # If save succeeds, redirect to the show action
       flash[:notice] = "#{resource_name} updated successfully."
-      redirect_to(advertisement_code_path(@code))
+      redirect_to(self.send("#{resource_name.pluralize}_path",@code))
     else
       # If save fails, redisplay the form so user can fix problems
       render('edit')
