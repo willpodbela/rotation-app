@@ -68,7 +68,9 @@ class StripeService
       end
     end
   
-    def create_coupon(code, params)      
+    def create_coupon(code, params)   
+      print(params)
+             
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
       params[:id] = code.id
       coupon = Stripe::Coupon.create(params)

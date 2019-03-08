@@ -13,6 +13,7 @@
       <th>Sessions</th>
       <th>Users</th>
       <th>Subscriptions</th>
+      <th>Coupon</th>
     </tr>
     <% @codes.each do |code| %>
     <tr>
@@ -26,8 +27,22 @@
       <td><%= code.session_count %></td>
       <td><%= code.users.count %></td>
       <td><%= code.users.paying_customers.count %></td>
+      <td>
+        <% unless code.has_stripe_coupon? %>
+          <%= link_to("Setup Coupon", self.send("new_#{@resource_name}_coupon_path", code), :class => 'action new coupon') %>
+        <% else %>
+          <% coupon = code.coupon %>
+          <% if coupon %>
+            <% if discount = coupon.percent_off %>
+              <%= discount %> % off
+            <% elsif discount = coupon.amount_off %>
+              <%= discount %> $ off
+            <% end %>
+          <% end %>
+        <% end %>
+      </td>
       <td class="actions">
-        <%= link_to("Show", self.send("#{@resource_name}_path", code), :class => 'action -show') %>
+        <%= link_to("Show", self.send("#{@resource_name}_path", code), :class => 'action show') %>
         <%= link_to("Edit", self.send("edit_#{@resource_name}_path", code), :class => 'action edit') %>
       </td>
     </tr>
