@@ -59,7 +59,11 @@ class StripeService
         end
         return coupon
       rescue Stripe::InvalidRequestError => e
-        #Almost always 404 Not Found
+        if e.http_status == 404 && code.has_stripe_coupon?
+          code.has_stripe_coupon = false
+          code.save
+        end
+        
         return nil
       end
     end
