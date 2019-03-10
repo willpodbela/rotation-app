@@ -36,7 +36,7 @@
             <% if discount = coupon.percent_off %>
               <%= discount %> % off
             <% elsif discount = coupon.amount_off %>
-              <%= discount %> $ off
+              <%= discount/100.0 %> $ off
             <% end %>
           <% end %>
         <% end %>

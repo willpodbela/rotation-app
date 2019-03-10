@@ -21,12 +21,12 @@ class CouponsController < ApplicationController
   def coupon_params
     params.require(:coupon).permit(:percent_off, :amount_off)
     ret = {:duration => "once"}
-    if i = params[:coupon][:percent_off].to_i
+    if i = params[:coupon][:percent_off].to_f
       ret[:percent_off] = i if i > 0 && i <= 100
     end
-    if i = params[:coupon][:amount_off].to_i
+    if i = params[:coupon][:amount_off].to_f
       if i > 0
-        ret[:amount_off] = i 
+        ret[:amount_off] = i*100
         ret[:currency] = 'usd'
       end
     end
