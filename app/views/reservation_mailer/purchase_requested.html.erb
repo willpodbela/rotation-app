@@ -1,0 +1,21 @@
+User has requested to purchase an item.
+
+<br/><br/>
+<u>Reservation</u><br/>
+<%= link_to("ID: #{@reservation.id}", item_reservation_path(@item, @reservation)) %><br/>
+
+<br/><br/>
+<u>Item</u><br/>
+ID: <%= @item.id %><br/>
+Brand: <%= @item.title %><br/>
+Name: <%= @item.subtitle %><br/>
+
+<br/><br/>
+<u>User</u><br/>
+ID: <%= @user.id %><br/>
+Email: <%= @user.email %><br/>
+Address Line 1: <%= @profile.address_line_one %><br/>
+Address Line 2: <%= @profile.address_line_two %><br/>
+Address City: <%= @profile.address_city %><br/>
+Address State: <%= @profile.address_state %><br/>
+Address Zip: <%= @profile.address_zip %><br/>

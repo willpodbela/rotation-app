@@ -49,6 +49,7 @@ Rails.application.routes.draw do
     
       resources :reservations do
         get 'info', on: :collection
+        post 'buy', on: :member
       end
       
       resources :subscriptions, only: [:create] do

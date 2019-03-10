@@ -2,7 +2,8 @@ module Api
     module V1
     class ReservationsController < Api::V1::BaseController
       before_action :validate_ownership, only: [:destroy, :show, :update]
-    
+      before_action :set_resource, only: [:buy]
+      
       def create
         unless Item.find_by_id(params[:item_id]).num_available > 0
           render_error(400, "Looks like this item is sold out right now. Please choose a different one.")
@@ -36,6 +37,11 @@ module Api
           :next_period => current_user.legacy_next_reservation_period,
           :est_delivery_date => current_user.est_delivery_date
         }
+      end
+      
+      def buy
+        # NOTE: Wizard-of-oz MVP -- Send request email to the team and manually engage customer on purchase
+        ReservationMailer.with(reservation: get_resource).purchase_requested.deliver
       end
     
       private

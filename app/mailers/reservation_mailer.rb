@@ -11,7 +11,6 @@ class ReservationMailer < ActionMailer::Base
     
     @subject = ENV["EMAIL_PREFIX"]
     @subject ||= ""
-    @subject += "Reservation #{@reservation.id}"
   end
   
   default to:       -> { 'support@therotation.club' },
@@ -19,10 +18,17 @@ class ReservationMailer < ActionMailer::Base
           subject:  -> { @subject }
   
   def reservation_created
+    @subject += "Reservation #{@reservation.id}"
     mail    
   end
   
   def reservation_cancelled
+    @subject += "Reservation #{@reservation.id}"
     mail  
+  end
+  
+  def purchase_requested
+    @subject += "Purchase Request by #{@user.email} for #{@item.subtitle}"
+    mail    
   end
 end
