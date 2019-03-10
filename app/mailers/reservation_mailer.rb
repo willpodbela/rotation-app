@@ -25,4 +25,8 @@ class ReservationMailer < ActionMailer::Base
   def reservation_cancelled
     mail  
   end
+  
+  def purchase_requested
+    mail    
+  end
 end
