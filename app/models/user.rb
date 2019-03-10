@@ -39,7 +39,11 @@ class User < ApplicationRecord
     end
     # If value is valid referral_code, take off waitlist
     unless value.nil?
-      self.access_level = :standard if self.waitlist? && ReferralCode.exists?(value.id)
+      if value.active?
+        self.access_level = :standard if self.waitlist? && ReferralCode.exists?(value.id)
+      else
+        @invalid_referral_code_string = true
+      end
     end
     super(value)
   end
