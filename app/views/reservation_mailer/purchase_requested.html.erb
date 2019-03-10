@@ -2,7 +2,7 @@ User has requested to purchase an item.
 
 <br/><br/>
 <u>Reservation</u><br/>
-ID: <%= @reservation.id %><br/>
+<%= link_to("ID: #{@reservation.id}", item_reservation_path(@item, @reservation)) %><br/>
 
 <br/><br/>
 <u>Item</u><br/>
