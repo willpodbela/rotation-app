@@ -26,7 +26,7 @@ class CouponsController < ApplicationController
     end
     if i = params[:coupon][:amount_off].to_f
       if i > 0
-        ret[:amount_off] = i*100
+        ret[:amount_off] = (i*100).to_i
         ret[:currency] = 'usd'
       end
     end
