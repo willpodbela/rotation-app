@@ -104,6 +104,7 @@ $("#landing-form").submit(function(event){
   var posting = $.post(url, term);
   posting
   .done(function(data){
+  	fbq('track', 'CompleteRegistration');
     if(data.redirect == null){
       window.location.replace("/status")
     }else{
