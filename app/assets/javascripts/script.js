@@ -96,8 +96,7 @@ $("form").submit(function(event){
 	}
 });
 
-$("#landing-form").submit(function(event){
-	fbq('track', 'CompleteRegistration'); 
+$("#landing-form").submit(function(event){ 
 	var form = $(this),
 		term = form.serialize(),
 		url = form.attr("action")
@@ -105,6 +104,7 @@ $("#landing-form").submit(function(event){
   var posting = $.post(url, term);
   posting
   .done(function(data){
+  	fbq('track', 'CompleteRegistration');
     if(data.redirect == null){
       window.location.replace("/status")
     }else{
