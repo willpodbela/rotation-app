@@ -2,9 +2,8 @@ class Reservation < ApplicationRecord
   belongs_to :item
   belongs_to :user
   
-  scope :for_user, ->(user) { where(user: user) }
   scope :live, -> { where(status: [:sent, :active, :returned]) }
-  scope :scheduled, -> { where(status: [:scheduled]) } 
+  scope :scheduled, -> { where(status: [:scheduled]) }
   
   enum status: [ :scheduled, :sent, :active, :returned, :ended, :cancelled ]
   

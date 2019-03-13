@@ -3,7 +3,7 @@ module Api
     class ItemsController < Api::V1::BaseController
       #http_basic_authenticate_with name:ENV["API_AUTH_NAME"], password:ENV["API_AUTH_PASSWORD"], only: [:create]
       skip_before_action :authenticate_user_from_token!, only: [:create]
-      before_action :set_current_user, except: [:create]
+      before_action :set_current_user, except: [:show, :index]
       
       #Failsafe: Override endpoints that we don't want to make available
       def destroy
@@ -96,10 +96,10 @@ module Api
         .per(page_params[:page_size])
       
         if display_params[:sort_by_section] == "true"
-          @my_rotation = Item.my_rotation(current_user)
-          @up_next = Item.up_next(current_user)
-          @catalog = Item.visible.catalog(current_user)
-        
+          @my_rotation = current_user.my_rotation_items
+          @up_next = current_user.up_next_items
+          @catalog = current_user.catalog_items
+          
           render :sorted_index
         else 
           render :index
@@ -131,6 +131,9 @@ module Api
       end
     
       def set_current_user
+        # Re-fetch current_user with eager_load
+        current_user = User.eager_load_all.order(:id).find(current_user.id)
+        # Set instance variable for use in views
         @current_user = current_user
       end
       

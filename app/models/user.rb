@@ -7,6 +7,12 @@ class User < ApplicationRecord
   belongs_to  :referral_code, optional: true
   belongs_to  :advertisement_code, optional: true
   
+  has_many :live_reservations, -> { live }, class_name: "Reservation"
+  has_many :scheduled_reservations, -> { scheduled }, class_name: "Reservation"
+  has_many :my_rotation_items, through: :live_reservations, source: :item
+  has_many :up_next_items, through: :scheduled_reservations, source: :item
+  
+  scope :eager_load_all, -> { eager_load(:up_next_items).eager_load(:my_rotation_items).eager_load(:live_reservations).eager_load(:scheduled_reservations) }
   scope :paying_customers, -> { joins(:subscriptions).merge(Subscription.valid) }
   
   # Include default devise modules. Others available are:
@@ -82,8 +88,14 @@ class User < ApplicationRecord
     self.subscriptions.current.valid.first
   end
   
+  # eager_load live_reservations and scheduled_reservations when planning to make this call
   def reservations_remaining
-    2 - self.reservations.live.size - self.reservations.scheduled.size
+    2 - self.live_reservations.size - self.scheduled_reservations.size
+  end
+  
+  # eager_load my_rotation_items and up_next_items when planning to make this call
+  def catalog_items
+    Item.all - self.my_rotation_items - self.up_next_items
   end
   
   def est_delivery_date

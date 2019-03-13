@@ -1,8 +1,12 @@
 class Item < ApplicationRecord
   has_many :reservations
   has_many :users, through: :reservations
-  scope :my_rotation, ->(user) { joins(:reservations).merge(Reservation.for_user(user).live) }
-  scope :up_next, ->(user) { joins(:reservations).merge(Reservation.for_user(user).scheduled) }
+  
+  has_many :live_reservations, -> { live }, class_name: "Reservation"
+  has_many :scheduled_reservations, -> { scheduled }, class_name: "Reservation"
+#   has_many :my_rotation_users, through: :live_reservations, source: :user
+#   has_many :up_next_users, through: :scheduled_reservations, source: :user
+  
   scope :visible, -> { where hidden: false }
   scope :company_owned, -> { where company_owned: true }
   scope :not_company_owned, -> { where company_owned: false }
@@ -53,40 +57,32 @@ class Item < ApplicationRecord
     @image_remote_url = url_value
   end
   
-  def my_rotation(user)
-    self.reservations.for_user(user).live
-  end
-
-  def up_next(user)
-    self.reservations.for_user(user).scheduled
-  end
-
   def user_has_reservation_now?(user)
-    self.my_rotation(user).size > 0
+    user.my_rotation_items.include? self
   end
 
   def my_rotation_reservation_id(user)
     if self.user_has_reservation_now?(user)
-      return self.my_rotation(user).first.id
+      return u.live_reservations.select {|s| s.item_id == i.id}.first
     else
       return nil
     end
   end
 
   def user_has_reservation_future?(user)
-    self.up_next(user).size > 0
+    user.up_next_items.include? self
   end
 
   def up_next_reservation_id(user)
     if self.user_has_reservation_future?(user)
-      return self.up_next(user).first.id
+      return u.scheduled_reservations.select {|s| s.item_id == i.id}.first
     else
       return nil
     end
   end
   
   def num_available
-    (company_owned ? self.quantity : 2) - self.reservations.live.size - self.reservations.scheduled.size
+    (company_owned ? self.quantity : 2) - self.live_reservations.size - self.scheduled_reservations.size
   end
 
   def self.catalog(user)
