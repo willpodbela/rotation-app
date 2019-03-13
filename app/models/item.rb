@@ -62,7 +62,7 @@ class Item < ApplicationRecord
   end
 
   def user_has_reservation_now?(user)
-    self.my_rotation(user).count > 0
+    self.my_rotation(user).size > 0
   end
 
   def my_rotation_reservation_id(user)
@@ -74,7 +74,7 @@ class Item < ApplicationRecord
   end
 
   def user_has_reservation_future?(user)
-    self.up_next(user).count > 0
+    self.up_next(user).size > 0
   end
 
   def up_next_reservation_id(user)
@@ -86,7 +86,7 @@ class Item < ApplicationRecord
   end
   
   def num_available
-    (company_owned ? self.quantity : 2) - self.reservations.live.count - self.reservations.scheduled.count
+    (company_owned ? self.quantity : 2) - self.reservations.live.size - self.reservations.scheduled.size
   end
 
   def self.catalog(user)

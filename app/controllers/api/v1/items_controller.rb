@@ -19,8 +19,8 @@ module Api
         all_items = Item.not_company_owned.all[0..-1]
         all_items.each{|i| i.hidden = true}
         
-        count_start = all_items.count
-        count_input = items_params[:items].count
+        count_start = all_items.size
+        count_input = items_params[:items].size
         
         # Step 2: Iterate over all scraped items
         items_params[:items].each { |item|
@@ -65,7 +65,7 @@ module Api
           end
         }
         
-        count_end = Item.not_company_owned.count
+        count_end = Item.not_company_owned.size
           
         render :status=>200, :json => { :counts => {
           :start => count_start,

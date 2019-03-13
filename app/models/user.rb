@@ -83,7 +83,7 @@ class User < ApplicationRecord
   end
   
   def reservations_remaining
-    2 - self.reservations.live.count - self.reservations.scheduled.count
+    2 - self.reservations.live.size - self.reservations.scheduled.size
   end
   
   def est_delivery_date
