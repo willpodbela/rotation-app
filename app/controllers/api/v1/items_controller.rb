@@ -107,12 +107,6 @@ module Api
       end
     
       private
-      
-      #TODO: pull down and store in AWS
-      def save_img(ssense_img_url)
-        aws_url = "" 
-        return aws_url
-      end
     
       def items_params
         params.permit(items: [:retail_value, :subtitle, :image_url, :title, :buyURL, :image_remote_url, :alternate_image_urls => []])
