@@ -61,7 +61,7 @@ class Item < ApplicationRecord
 
   def my_rotation_reservation_id(user)
     if self.user_has_reservation_now?(user)
-      return u.live_reservations.select {|s| s.item_id == i.id}.first
+      return user.live_reservations.select {|s| s.item_id == i.id}.first
     else
       return nil
     end
@@ -73,7 +73,7 @@ class Item < ApplicationRecord
 
   def up_next_reservation_id(user)
     if self.user_has_reservation_future?(user)
-      return u.scheduled_reservations.select {|s| s.item_id == i.id}.first
+      return user.scheduled_reservations.select {|s| s.item_id == i.id}.first
     else
       return nil
     end
