@@ -4,8 +4,6 @@ class Item < ApplicationRecord
   
   has_many :live_reservations, -> { live }, class_name: "Reservation"
   has_many :scheduled_reservations, -> { scheduled }, class_name: "Reservation"
-#   has_many :my_rotation_users, through: :live_reservations, source: :user
-#   has_many :up_next_users, through: :scheduled_reservations, source: :user
   
   scope :visible, -> { where hidden: false }
   scope :company_owned, -> { where company_owned: true }
