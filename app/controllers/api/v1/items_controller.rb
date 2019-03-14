@@ -126,7 +126,7 @@ module Api
     
       def set_current_user
         # Re-fetch current_user with eager_load
-        current_user = User.eager_load_all.order(:id).find(current_user.id)
+        current_user = User.eager_load(:up_next_items).eager_load(:my_rotation_items).eager_load(:live_reservations).eager_load(:scheduled_reservations).order(:id).find(current_user.id)
         # Set instance variable for use in views
         @current_user = current_user
       end

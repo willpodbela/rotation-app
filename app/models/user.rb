@@ -12,7 +12,6 @@ class User < ApplicationRecord
   has_many :my_rotation_items, through: :live_reservations, source: :item
   has_many :up_next_items, through: :scheduled_reservations, source: :item
   
-  scope :eager_load_all, -> { eager_load(:up_next_items).eager_load(:my_rotation_items).eager_load(:live_reservations).eager_load(:scheduled_reservations) }
   scope :paying_customers, -> { joins(:subscriptions).merge(Subscription.valid) }
   
   # Include default devise modules. Others available are:

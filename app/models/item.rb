@@ -50,35 +50,6 @@ class Item < ApplicationRecord
     end
   end
   
-  def image_remote_url=(url_value)
-    self.image = URI.parse(url_value)
-    @image_remote_url = url_value
-  end
-  
-  def user_has_reservation_now?(user)
-    user.my_rotation_items.include? self
-  end
-
-  def my_rotation_reservation_id(user)
-    if self.user_has_reservation_now?(user)
-      return user.live_reservations.select {|s| s.item_id == self.id}.first.id
-    else
-      return nil
-    end
-  end
-
-  def user_has_reservation_future?(user)
-    user.up_next_items.include? self
-  end
-
-  def up_next_reservation_id(user)
-    if self.user_has_reservation_future?(user)
-      return user.scheduled_reservations.select {|s| s.item_id == self.id}.first.id
-    else
-      return nil
-    end
-  end
-  
   def num_available
     (company_owned ? self.quantity : 2) - self.live_reservations.size - self.scheduled_reservations.size
   end
