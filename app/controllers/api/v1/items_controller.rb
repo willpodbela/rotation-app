@@ -3,7 +3,7 @@ module Api
     class ItemsController < Api::V1::BaseController
       #http_basic_authenticate_with name:ENV["API_AUTH_NAME"], password:ENV["API_AUTH_PASSWORD"], only: [:create]
       skip_before_action :authenticate_user_from_token!, only: [:create]
-      before_action :set_current_user, except: [:create]
+      before_action :set_current_user, except: [:show, :index]
       
       #Failsafe: Override endpoints that we don't want to make available
       def destroy
@@ -19,8 +19,8 @@ module Api
         all_items = Item.not_company_owned.all[0..-1]
         all_items.each{|i| i.hidden = true}
         
-        count_start = all_items.count
-        count_input = items_params[:items].count
+        count_start = all_items.size
+        count_input = items_params[:items].size
         
         # Step 2: Iterate over all scraped items
         items_params[:items].each { |item|
@@ -65,7 +65,7 @@ module Api
           end
         }
         
-        count_end = Item.not_company_owned.count
+        count_end = Item.not_company_owned.size
           
         render :status=>200, :json => { :counts => {
           :start => count_start,
@@ -96,10 +96,10 @@ module Api
         .per(page_params[:page_size])
       
         if display_params[:sort_by_section] == "true"
-          @my_rotation = Item.my_rotation(current_user)
-          @up_next = Item.up_next(current_user)
-          @catalog = Item.visible.catalog(current_user)
-        
+          @my_rotation = current_user.my_rotation_items
+          @up_next = current_user.up_next_items
+          @catalog = current_user.catalog_items
+          
           render :sorted_index
         else 
           render :index
@@ -107,12 +107,6 @@ module Api
       end
     
       private
-      
-      #TODO: pull down and store in AWS
-      def save_img(ssense_img_url)
-        aws_url = "" 
-        return aws_url
-      end
     
       def items_params
         params.permit(items: [:retail_value, :subtitle, :image_url, :title, :buyURL, :image_remote_url, :alternate_image_urls => []])
@@ -131,6 +125,9 @@ module Api
       end
     
       def set_current_user
+        # Re-fetch current_user with eager_load
+        current_user = User.eager_load(:up_next_items).eager_load(:my_rotation_items).eager_load(:live_reservations).eager_load(:scheduled_reservations).order(:id).find(current_user.id)
+        # Set instance variable for use in views
         @current_user = current_user
       end
       

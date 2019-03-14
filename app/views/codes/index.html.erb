@@ -25,8 +25,8 @@
         <td>&#10007;</td>
       <% end %>
       <td><%= code.session_count %></td>
-      <td><%= code.users.count %></td>
-      <td><%= code.users.paying_customers.count %></td>
+      <td><%= code.users.size %></td>
+      <td><%= code.users.paying_customers.size %></td>
       <td>
         <% unless code.has_stripe_coupon? %>
           <%= link_to("Setup Coupon", self.send("new_#{@resource_name}_coupon_path", code), :class => 'action new coupon') %>

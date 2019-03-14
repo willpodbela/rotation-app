@@ -1,8 +1,10 @@
 class Item < ApplicationRecord
   has_many :reservations
   has_many :users, through: :reservations
-  scope :my_rotation, ->(user) { joins(:reservations).merge(Reservation.for_user(user).live) }
-  scope :up_next, ->(user) { joins(:reservations).merge(Reservation.for_user(user).scheduled) }
+  
+  has_many :live_reservations, -> { live }, class_name: "Reservation"
+  has_many :scheduled_reservations, -> { scheduled }, class_name: "Reservation"
+  
   scope :visible, -> { where hidden: false }
   scope :company_owned, -> { where company_owned: true }
   scope :not_company_owned, -> { where company_owned: false }
@@ -48,45 +50,8 @@ class Item < ApplicationRecord
     end
   end
   
-  def image_remote_url=(url_value)
-    self.image = URI.parse(url_value)
-    @image_remote_url = url_value
-  end
-  
-  def my_rotation(user)
-    self.reservations.for_user(user).live
-  end
-
-  def up_next(user)
-    self.reservations.for_user(user).scheduled
-  end
-
-  def user_has_reservation_now?(user)
-    self.my_rotation(user).count > 0
-  end
-
-  def my_rotation_reservation_id(user)
-    if self.user_has_reservation_now?(user)
-      return self.my_rotation(user).first.id
-    else
-      return nil
-    end
-  end
-
-  def user_has_reservation_future?(user)
-    self.up_next(user).count > 0
-  end
-
-  def up_next_reservation_id(user)
-    if self.user_has_reservation_future?(user)
-      return self.up_next(user).first.id
-    else
-      return nil
-    end
-  end
-  
   def num_available
-    (company_owned ? self.quantity : 2) - self.reservations.live.count - self.reservations.scheduled.count
+    (company_owned ? self.quantity : 2) - self.live_reservations.size - self.scheduled_reservations.size
   end
 
   def self.catalog(user)
