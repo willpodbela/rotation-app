@@ -51,7 +51,14 @@ class Item < ApplicationRecord
   end
   
   def num_available
-    (company_owned ? self.quantity : 2) - self.live_reservations.size - self.scheduled_reservations.size
+    (company_owned ? self.quantity : 2) - live_reservations_counter_cache - scheduled_reservations_counter_cache
+  end
+  
+  # Reservation objects must call this method every time they change status, are create, or are deleted
+  def update_counter_cache
+    self.live_reservations_counter_cache = self.live_reservations.size
+    self.scheduled_reservations_counter_cache = self.scheduled_reservations.size
+    self.save
   end
 
   def self.catalog(user)
