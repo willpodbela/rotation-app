@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190308014650) do
+ActiveRecord::Schema.define(version: 20190315000830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(version: 20190308014650) do
     t.boolean "company_owned", default: true, null: false
     t.datetime "last_seen"
     t.text "alternate_image_urls", default: [], array: true
+    t.integer "live_reservations_counter_cache"
+    t.integer "scheduled_reservations_counter_cache"
   end
 
   create_table "profiles", force: :cascade do |t|

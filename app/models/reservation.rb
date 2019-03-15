@@ -16,12 +16,22 @@ class Reservation < ApplicationRecord
     reservation.end_date = Date.today if ((["scheduled", "sent", "active", "returned"].include? reservation.status_was) && (["ended", "cancelled"].include? reservation.status))
   end
   
-  # We'll use Active Record Callbacks to send fulfillment notification emails to the team
   after_create do |reservation|
+    # Call item to update_counter_cache
+    reservation.item.update_counter_cache
+    # We'll use Active Record Callbacks to send fulfillment notification emails to the team
     ReservationMailer.with(reservation: reservation).reservation_created.deliver
   end
   
   after_save do |reservation|
+    # If status changed call item to update_counter_cache
+    reservation.item.update_counter_cache if reservation.saved_change_to_status?
+    # We'll use Active Record Callbacks to send fulfillment notification emails to the team
     ReservationMailer.with(reservation: reservation).reservation_cancelled.deliver if reservation.cancelled?
+  end
+  
+  after_destroy do |reservation|
+    # Call item to update_counter_cache
+    reservation.item.update_counter_cache
   end
 end
