@@ -8,7 +8,9 @@ class StripeService
       
       # Set customer (retrive or create)
       if user.stripe_customer_id? 
-        customer = Stripe::Customer.retrieve(user.stripe_customer_id)
+        customer = Stripe::Customer.update(user.stripe_customer_id, {
+          source: stripe_source_id
+        })
       else
         customer = Stripe::Customer.create(
           :email => user.email,
