@@ -9,20 +9,20 @@
   <table class="listing admin_table" summary="Resevation list">
     <tr class="header">
       <th>#</th>
-      <th>User #</th>
-      <th>User Email</th>
-      <th>Start Date</th>
-      <th>End Date</th>
       <th>Status</th>
+      <th>User</th>
+      <th>Email</th>
+      <th>Address</th>
+      <th>Item</th>
     </tr>
     <% @reservations.each do |reservation| %>
     <tr>
       <td><%= reservation.id %></td>
-      <td><%= reservation.user.id %></td>
-      <td><%= reservation.user.email %></td>
-      <td><%= reservation.start_date %></td>
-      <td><%= reservation.end_date %></td>
       <td><%= reservation.status %></td>
+      <td><%= reservation.user.profile.full_name.empty? ? reservation.user_id : reservation.user.profile.full_name %></td>
+      <td><%= mail_to(reservation.user.email) %></td>
+      <td><%= reservation.user.profile.full_address %></td>
+      <td><%= link_to("#{reservation.item.title or ''} #{reservation.item.subtitle or ''}", item_path(reservation.item)) %></td>
       <td class="actions">
         <%= link_to("Show", reservation_path(reservation), :class => 'action -show') %>
         <%= link_to("Edit", edit_reservation_path(reservation), :class => 'action edit') %>

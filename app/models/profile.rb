@@ -37,4 +37,12 @@ class Profile < ApplicationRecord
       self.save
     end
   end
+  
+  def full_address
+    [address_line_one, address_line_two, address_city, address_state, address_zip].compact.join(", ")
+  end
+  
+  def full_name
+    [first_name, last_name].compact.join(" ")
+  end
 end
