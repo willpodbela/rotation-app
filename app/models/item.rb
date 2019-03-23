@@ -50,6 +50,10 @@ class Item < ApplicationRecord
     end
   end
   
+  after_create do
+    self.update_counter_cache
+  end
+  
   def num_available
     (company_owned ? self.quantity : 2) - live_reservations_counter_cache - scheduled_reservations_counter_cache
   end
