@@ -1,4 +1,5 @@
-<%= link_to("<< Back to List", item_reservations_path(@item), :class => 'back-link') %>
+<%= link_to("<< All Reservations", reservations_path, :class => 'back-link') %></br>
+<%= link_to("<< All Reservations for Item", item_reservations_path(@item), :class => 'back-link') %>
 
 <div class="reservations new">
   <h2>Create Reservation</h2>

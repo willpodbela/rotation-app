@@ -1,10 +1,10 @@
-<%= link_to("<< Back to Item", item_path(@item), :class => 'back-link') %>
+<%= link_to("<< Back to Item", item_path(@item), :class => 'back-link') unless @item.nil? %>
 
 <div class="reservations index">
-  <h2>Reservations for Item #<%= @item.id %>, <%= @item.title %></h2>
+  <h2>Reservations <% unless @item.nil? %> for Item #<%= @item.id %>, <%= @item.title %><% end %></h2>
 
-  <%= link_to("Add New Reservation", new_item_reservation_path(@item), :class => 'action new') %>
-
+  <%= link_to("Add New Reservation", new_item_reservation_path(@item), :class => 'action new') unless @item.nil? %>
+  
   <table class="listing admin_table" summary="Resevation list">
     <tr class="header">
       <th>#</th>
@@ -23,8 +23,8 @@
       <td><%= reservation.end_date %></td>
       <td><%= reservation.status %></td>
       <td class="actions">
-        <%= link_to("Show", item_reservation_path(@item, reservation), :class => 'action -show') %>
-        <%= link_to("Edit", edit_item_reservation_path(@item, reservation), :class => 'action edit') %>
+        <%= link_to("Show", reservation_path(reservation), :class => 'action -show') %>
+        <%= link_to("Edit", edit_reservation_path(reservation), :class => 'action edit') %>
       </td>
     </tr>
     <% end %>
