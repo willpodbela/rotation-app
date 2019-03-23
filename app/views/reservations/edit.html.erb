@@ -1,9 +1,10 @@
-<%= link_to("<< Back to List", item_reservations_path(@item), :class => 'back-link') %>
+<%= link_to("<< All Reservations", reservations_path, :class => 'back-link') %></br>
+<%= link_to("<< All Reservations for Item", item_reservations_path(@reservation.item_id), :class => 'back-link') %>
 
 <div class="reservations edit">
   <h2>Edit Reservation</h2>
 
-  <%= form_for([@item, @reservation]) do |f| %>
+  <%= form_for(@reservation) do |f| %>
 
     <table summary="Reservation form fields">
       <tr>

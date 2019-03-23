@@ -3,7 +3,7 @@ class ReservationsController < ApplicationController
   before_action :set_item
 
   def index
-    @reservations = @item.reservations
+    @reservations = Reservation.where(query_params).order(:status)
   end
 
   def show
@@ -36,12 +36,11 @@ class ReservationsController < ApplicationController
   def update
     # Find a new object using form parameters
     @reservation = Reservation.find(params[:id])
-    @reservation.item = @item
     # Update the object
     if @reservation.update_attributes(reservation_params)
       # If save succeeds, redirect to the show action
       flash[:notice] = "Reservation updated successfully."
-      redirect_to(item_reservation_path(@item, @reservation))
+      redirect_to(reservation_path(@reservation))
     else
       # If save fails, redisplay the form so user can fix problems
       render('edit')
@@ -58,7 +57,11 @@ class ReservationsController < ApplicationController
     params.require(:reservation).permit(:start_date, :end_date, :user_id, :status)
   end
   
+  def query_params
+    params.permit(:item_id, :status)
+  end
+  
   def set_item
-    @item = Item.find(params[:item_id])
+    @item = Item.find_by_id(params[:item_id]) 
   end
 end
