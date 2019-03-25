@@ -9,6 +9,7 @@
   <table class="listing admin_table" summary="Resevation list">
     <tr class="header">
       <th>#</th>
+      <th>Created</th>
       <th>Status</th>
       <th>User</th>
       <th>Email</th>
@@ -18,6 +19,7 @@
     <% @reservations.each do |reservation| %>
     <tr>
       <td><%= reservation.id %></td>
+      <td><%= reservation.created_at.strftime("%Y-%m-%d %H:%M") %></td>
       <td><%= reservation.status %></td>
       <td><%= reservation.user.profile.full_name.empty? ? reservation.user_id : reservation.user.profile.full_name %></td>
       <td><%= mail_to(reservation.user.email) %></td>
