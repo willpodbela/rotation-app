@@ -3,7 +3,7 @@ class ReservationsController < ApplicationController
   before_action :set_item
 
   def index
-    @reservations = Reservation.where(query_params).order(:status)
+    @reservations = Reservation.where(query_params).order(:status, :created_at)
   end
 
   def show
