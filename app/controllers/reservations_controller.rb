@@ -4,6 +4,12 @@ class ReservationsController < ApplicationController
 
   def index
     @reservations = Reservation.where(query_params).order(:status, :created_at)
+    
+    vals = []
+    @reservations.to_a.each do |r|
+      vals << (r.end_date - r.start_date)/1.day if r.ended?
+    end
+    @avg = vals.inject{ |sum, el| sum + el }.to_f / vals.size
   end
 
   def show
