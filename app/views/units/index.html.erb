@@ -28,8 +28,8 @@
       <td><%= unit.status %></td>
       <td><%= unit.supplier %></td>
       <td><%= unit.supplier_order_id %></td>
-      <td><%= unit.date_ordered.try(:strftime, "%Y-%m-%d") %></td>
-      <td><%= unit.date_retired.try(:strftime, "%Y-%m-%d") %></td>
+      <td><%= unit.order_date.try(:strftime, "%Y-%m-%d") %></td>
+      <td><%= unit.retire_date.try(:strftime, "%Y-%m-%d") %></td>
       <td><%= unit.cost %></td>
       <td class="actions">
         <%= link_to("Edit", edit_unit_path(unit), :class => 'action edit') %>

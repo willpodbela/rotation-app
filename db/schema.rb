@@ -126,11 +126,11 @@ ActiveRecord::Schema.define(version: 20190404023209) do
     t.string "supplier"
     t.string "supplier_order_id"
     t.decimal "cost"
-    t.date "date_ordered"
+    t.date "order_date"
     t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.date "date_retired"
+    t.date "retire_date"
   end
 
   create_table "users", force: :cascade do |t|

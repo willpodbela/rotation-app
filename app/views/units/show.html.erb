@@ -27,11 +27,11 @@
       </tr>
       <tr>
         <th>Date Ordered</th>
-        <td><%= @unit.date_ordered.try(:strftime, "%Y-%m-%d") %></td>
+        <td><%= @unit.order_date.try(:strftime, "%Y-%m-%d") %></td>
       </tr>
       <tr>
         <th>Date Retired</th>
-        <td><%= @unit.date_retired.try(:strftime, "%Y-%m-%d") %></td>
+        <td><%= @unit.retire_date.try(:strftime, "%Y-%m-%d") %></td>
       </tr>
       <tr>
         <th>Cost</th>

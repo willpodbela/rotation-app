@@ -3,7 +3,7 @@ class UnitsController < ApplicationController
   before_action :set_item
 
   def index
-    @units = Unit.where(query_params).order(:status, :date_ordered)
+    @units = Unit.where(query_params).order(:status, :order_date)
     @avg_cost = Unit.available_for_rent.average(:cost)
   end
 
@@ -55,7 +55,7 @@ class UnitsController < ApplicationController
   private
   
   def unit_params
-    params.require(:unit).permit(:item_id, :size, :supplier, :supplier_order_id, :cost, :date_ordered, :status)
+    params.require(:unit).permit(:item_id, :size, :supplier, :supplier_order_id, :cost, :order_date, :status)
   end
   
   def query_params

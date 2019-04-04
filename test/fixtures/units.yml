@@ -6,7 +6,7 @@ one:
   supplier: MyString
   supplier_order_id: MyString
   cost: 9.99
-  date_ordered: 2019-04-03
+  order_date: 2019-04-03
   status: 1
 
 two:
@@ -15,5 +15,5 @@ two:
   supplier: MyString
   supplier_order_id: MyString
   cost: 9.99
-  date_ordered: 2019-04-03
+  order_date: 2019-04-03
   status: 1

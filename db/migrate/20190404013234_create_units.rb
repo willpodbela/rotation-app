@@ -6,7 +6,7 @@ class CreateUnits < ActiveRecord::Migration[5.1]
       t.string :supplier
       t.string :supplier_order_id
       t.decimal :cost
-      t.date :date_ordered
+      t.date :order_date
       t.integer :status, default: 0, null: false
       
       t.timestamps
