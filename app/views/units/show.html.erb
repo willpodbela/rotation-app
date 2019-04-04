@@ -30,6 +30,10 @@
         <td><%= @unit.date_ordered.try(:strftime, "%Y-%m-%d") %></td>
       </tr>
       <tr>
+        <th>Date Retired</th>
+        <td><%= @unit.date_retired.try(:strftime, "%Y-%m-%d") %></td>
+      </tr>
+      <tr>
         <th>Cost</th>
         <td><%= @unit.cost %></td>
       </tr>      

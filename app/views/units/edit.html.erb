@@ -24,6 +24,10 @@
         <td><%= f.date_select :date_ordered, include_blank: true %></td>
       </tr>
       <tr>
+        <th>Date Retired</th>
+        <td><%= f.date_select :date_retired, include_blank: true %></td>
+      </tr>
+      <tr>
         <th>Cost</th>
         <td><%= f.number_field :cost, :step => 0.01 %></td>
       </tr>
