@@ -1,0 +1,38 @@
+<%= link_to("Back to Admin Home", admin_path, :class => 'back-link') %></br>
+<%= link_to("<< Back to Item", item_path(@item), :class => 'back-link') unless @item.nil? %>
+
+<div class="units index">
+  <h2>Units <% unless @item.nil? %> for Item #<%= @item.id %>, <%= @item.title %><% end %></h2>
+
+  <% if @item.nil? %>
+  <p>Average Cost: $<%= @avg_cost %></p>
+  <% end %>
+  
+  <%= link_to("Add New Unit", new_item_unit_path(@item), :class => 'action new') unless @item.nil? %>
+  
+  <table class="listing admin_table" summary="Resevation list">
+    <tr class="header">
+      <th>Item</th>
+      <th>Size</th>
+      <th>Status</th>
+      <th>Supplier</th>
+      <th>Order No.</th>
+      <th>Date Ordered</th>
+      <th>Cost</th>
+    </tr>
+    <% @units.each do |unit| %>
+    <tr>
+      <td><%= link_to("#{unit.item.title or ''} #{unit.item.subtitle or ''}", item_path(unit.item)) %></td>
+      <td><%= unit.size %></td>
+      <td><%= unit.status %></td>
+      <td><%= unit.supplier %></td>
+      <td><%= unit.supplier_order_id %></td>
+      <td><%= unit.date_ordered.try(:strftime, "%Y-%m-%d") %></td>
+      <td><%= unit.cost %></td>
+      <td class="actions">
+        <%= link_to("Edit", edit_unit_path(unit), :class => 'action edit') %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>
