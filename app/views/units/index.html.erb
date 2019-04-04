@@ -20,6 +20,7 @@
       <th>Date Ordered</th>
       <th>Date Retired</th>
       <th>Cost</th>
+      <th>Notes</th>
     </tr>
     <% @units.each do |unit| %>
     <tr>
@@ -31,6 +32,9 @@
       <td><%= unit.order_date.try(:strftime, "%Y-%m-%d") %></td>
       <td><%= unit.retire_date.try(:strftime, "%Y-%m-%d") %></td>
       <td><%= unit.cost %></td>
+      <td class="slim-text">
+        <%= unit.notes %>
+      </td>
       <td class="actions">
         <%= link_to("Edit", edit_unit_path(unit), :class => 'action edit') %>
       </td>

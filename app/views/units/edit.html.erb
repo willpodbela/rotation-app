@@ -35,6 +35,10 @@
         <th>Status</th>
         <td><%= f.collection_select :status, Unit.statuses.map{ |a| [a.first,a.first] },  :first, :second %></td>
       </tr>
+      <tr>
+        <th>Notes</th>
+        <td><%= f.text_field(:notes) %></td>
+      </tr>
     </table>
 
     <div class="form-buttons">

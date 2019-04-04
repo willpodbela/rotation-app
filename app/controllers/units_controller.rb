@@ -55,7 +55,7 @@ class UnitsController < ApplicationController
   private
   
   def unit_params
-    params.require(:unit).permit(:item_id, :size, :supplier, :supplier_order_id, :cost, :order_date, :status)
+    params.require(:unit).permit(:item_id, :size, :supplier, :supplier_order_id, :cost, :order_date, :status, :notes)
   end
   
   def query_params
