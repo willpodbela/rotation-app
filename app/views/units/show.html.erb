@@ -1,0 +1,45 @@
+<%= link_to("<< All Units", units_path, :class => 'back-link') %></br>
+<%= link_to("<< All Units for Item", item_units_path(@unit.item_id), :class => 'back-link') %>
+
+<div class="units show">
+  <h2>Show Unit</h2>
+
+  <table summary="Unit form fields">
+      <tr>
+        <th>Unit ID</th>
+        <td><%= @unit.id %></td>
+      </tr>
+      <tr>
+        <th>Status</th>
+        <td><%= @unit.size %></td>
+      </tr>
+      <tr>
+        <th>Status</th>
+        <td><%= @unit.status %></td>
+      </tr>
+      <tr>
+        <th>Supplier</th>
+        <td><%= @unit.supplier %></td>
+      </tr>
+      <tr>
+        <th>Order No.</th>
+        <td><%= @unit.supplier_order_id %></td>
+      </tr>
+      <tr>
+        <th>Date Ordered</th>
+        <td><%= @unit.order_date.try(:strftime, "%Y-%m-%d") %></td>
+      </tr>
+      <tr>
+        <th>Date Retired</th>
+        <td><%= @unit.retire_date.try(:strftime, "%Y-%m-%d") %></td>
+      </tr>
+      <tr>
+        <th>Cost</th>
+        <td><%= @unit.cost %></td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td><%= @unit.notes %></td>
+      </tr>
+    </table>
+</div>

@@ -15,8 +15,10 @@ Rails.application.routes.draw do
   devise_for :users
   
   resources :reservations, only: [:index]
+  resources :units, only: [:index]
   resources :items do
     resources :reservations, shallow: true
+    resources :units, shallow: true
     get 'image-matching-tool', on: :collection
   end
   

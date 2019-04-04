@@ -1,0 +1,49 @@
+<%= link_to("<< All Units", units_path, :class => 'back-link') %></br>
+<%= link_to("<< All Units for Item", item_units_path(@unit.item_id), :class => 'back-link') %>
+
+<div class="units edit">
+  <h2>Edit Unit</h2>
+
+  <%= form_for(@unit) do |f| %>
+
+    <table summary="Unit form fields">
+      <tr>
+        <th>Size</th>
+        <td><%= f.collection_select :size, Unit.sizes.map{ |a| [a.first,a.first] },  :first, :second %></td>
+      </tr>
+      <tr>
+        <th>Supplier</th>
+        <td><%= f.text_field(:supplier) %></td>
+      </tr>
+      <tr>
+        <th>Order No</th>
+        <td><%= f.text_field(:supplier_order_id) %></td>
+      </tr>
+      <tr>
+        <th>Date Ordered</th>
+        <td><%= f.date_select :order_date, include_blank: true %></td>
+      </tr>
+      <tr>
+        <th>Date Retired</th>
+        <td><%= f.date_select :retire_date, include_blank: true %></td>
+      </tr>
+      <tr>
+        <th>Cost</th>
+        <td><%= f.number_field :cost, :step => 0.01 %></td>
+      </tr>
+      <tr>
+        <th>Status</th>
+        <td><%= f.collection_select :status, Unit.statuses.map{ |a| [a.first,a.first] },  :first, :second %></td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td><%= f.text_field(:notes) %></td>
+      </tr>
+    </table>
+
+    <div class="form-buttons">
+      <%= f.submit("Update Unit") %>
+    </div>
+
+  <% end %>
+</div>
