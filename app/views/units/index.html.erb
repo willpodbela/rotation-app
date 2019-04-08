@@ -2,9 +2,10 @@
 <%= link_to("<< Back to Item", item_path(@item), :class => 'back-link') unless @item.nil? %>
 
 <div class="units index">
-  <h2>Units <% unless @item.nil? %> for Item #<%= @item.id %>, <%= @item.title %><% end %></h2>
+  <h2>Inventory <% unless @item.nil? %> for Item #<%= @item.id %>, <%= @item.title %><% end %></h2>
 
   <% if @item.nil? %>
+  <p>Total Cost: <%= number_to_currency(@total_cost) %></p>
   <p>Average Cost: <%= number_to_currency(@avg_cost) %></p>
   <% end %>
   

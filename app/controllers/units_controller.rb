@@ -5,6 +5,7 @@ class UnitsController < ApplicationController
   def index
     @units = Unit.where(query_params).order(:status, :order_date)
     @avg_cost = Unit.available_for_rent.average(:cost)
+    @total_cost = Unit.available_for_rent.sum(:cost)
   end
 
   def show
