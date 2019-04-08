@@ -5,8 +5,10 @@
   <h2>Inventory <% unless @item.nil? %> for Item #<%= @item.id %>, <%= @item.title %><% end %></h2>
 
   <% if @item.nil? %>
-  <p>Total Cost: <%= number_to_currency(@total_cost) %></p>
-  <p>Average Cost: <%= number_to_currency(@avg_cost) %></p>
+  <p>
+    Total Cost: <%= number_to_currency(@total_cost) %></br>
+    Average Cost: <%= number_to_currency(@avg_cost) %>
+  </p>
   <% end %>
   
   <%= link_to("Add New Unit", new_item_unit_path(@item), :class => 'action new') unless @item.nil? %>
