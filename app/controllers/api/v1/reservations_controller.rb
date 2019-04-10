@@ -4,7 +4,7 @@ module Api
       before_action :validate_ownership, only: [:destroy, :show, :update]
             
       def create
-        unless Item.find_by_id(params[:item_id]).num_available > 0
+        unless inventory.total_available(inventory) > 0
           render_error(400, "Looks like this item is sold out right now. Please choose a different one.")
         else
           super
