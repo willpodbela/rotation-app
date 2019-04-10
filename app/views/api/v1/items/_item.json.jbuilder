@@ -6,4 +6,5 @@ json.up_next_reservation_id       up_next_reservation_id(@current_user, item)
 json.image_url      item.image.url
 json.image_url_small      item.image.url(:small)
 json.image_url_large      item.image.url(:large)
-json.num_available  item.num_available
+json.num_available  @inventory.total_available(item)
+json.sizes          @inventory.size_availability(item)

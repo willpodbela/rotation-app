@@ -1,9 +1,12 @@
+include Queries
+
 module Api
     module V1
     class ItemsController < Api::V1::BaseController
       #http_basic_authenticate_with name:ENV["API_AUTH_NAME"], password:ENV["API_AUTH_PASSWORD"], only: [:create]
       skip_before_action :authenticate_user_from_token!, only: [:create]
       before_action :set_current_user, except: [:show, :index]
+      before_action :set_inventory, only: [:show, :index]
       
       #Failsafe: Override endpoints that we don't want to make available
       def destroy
@@ -129,6 +132,10 @@ module Api
         current_user = User.eager_load(:up_next_items).eager_load(:my_rotation_items).eager_load(:live_reservations).eager_load(:scheduled_reservations).order(:id).find(current_user.id)
         # Set instance variable for use in views
         @current_user = current_user
+      end
+      
+      def set_inventory
+        @inventory = Queries::Inventory.new
       end
       
     end
