@@ -65,8 +65,4 @@ class Item < ApplicationRecord
     self.scheduled_reservations_counter_cache = self.scheduled_reservations.size
     self.save
   end
-
-  def self.catalog(user)
-    Item.all - Item.my_rotation(user) - Item.up_next(user)
-  end
 end
