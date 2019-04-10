@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :enforce_access_control_admin!
 
   def index
-    @items = Item.all
+    @items = Item.where(query_params)
   end
   
   def image_matching_tool
@@ -61,5 +61,9 @@ class ItemsController < ApplicationController
   
   def item_params
     params.require(:item).permit(:title, :description, :quantity, :image_url, :image, :subtitle, :retail_value, :color, :hidden, :company_owned, :image_remote_url)
+  end
+  
+  def query_params
+    params.permit(:hidden, :company_owned)
   end
 end
