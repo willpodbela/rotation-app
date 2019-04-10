@@ -25,8 +25,8 @@
       <td><%= @item.color %></td>
     </tr>
     <tr>
-      <th>Quanity</th>
-      <td><%= @item.quantity %></td>
+      <th>Virtual Quanity</th>
+      <td><%= @item.virtual_qty %></td>
     </tr>
     <tr>
       <th>Visible?</th>
@@ -42,14 +42,6 @@
         <td><%= @item.last_seen %></td>
       <% else %>
         <td></td>
-      <% end %>
-    </tr>
-    <tr>
-      <th>Company Owned?</th>
-      <% if @item.company_owned %>
-        <td>&#10003;</td>
-      <% else %>
-        <td>&#10007;</td>
       <% end %>
     </tr>
     <tr>

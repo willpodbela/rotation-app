@@ -19,8 +19,8 @@ module Api
       # NOTE: Only to be called by our item scraper python script.
       def create  
         # Step 1: Set all existing items to hidden=ture WITHOUT saving to DB.
-        all_items = Item.not_company_owned.all[0..-1]
-        all_items.each{|i| i.hidden = true}
+        all_items = Item.all[0..-1]
+        all_items.each{|i| i.virtual_qty = 0}
         
         count_start = all_items.size
         count_input = items_params[:items].size
@@ -29,12 +29,11 @@ module Api
         items_params[:items].each { |item|
           if i = all_items.detect{|i| i.buyURL == item[:buyURL]}
             # This item already exists in DB, switch it back to hidden=false and log now as last_seen
-            i.hidden = false
+            i.virtual_qty = 0
             i.last_seen = DateTime.now
           else
             # This item is new, instantiate it to be inserted into the DB
             n = Item.new(item)
-            n.company_owned = false
             all_items << n
           end
         }
@@ -68,7 +67,7 @@ module Api
           end
         }
         
-        count_end = Item.not_company_owned.size
+        count_end = Item.all.size
           
         render :status=>200, :json => { :counts => {
           :start => count_start,

@@ -13,10 +13,9 @@
       <th>Retail Value</th>
       <th>Desc</th>
       <th>Color</th>
-      <th>Quantity</th>
+      <th>Virtual Quantity</th>
       <th>Visible?</th>
       <th>Last Seen</th>
-      <th>Company Owned?</th>
     </tr>
     <% @items.each do |item| %>
     <tr>
@@ -26,18 +25,13 @@
       <td><%= item.retail_value %></td>
       <td><%= item.description %></td>
       <td><%= item.color %></td>
-      <td><%= item.quantity %></td>
+      <td><%= item.virtual_qty %></td>
       <% if item.hidden %>
         <td>&#10007;</td>
         <td><%= item.last_seen %></td>
       <% else %>
         <td>&#10003;</td>
         <td></td>
-      <% end %>
-      <% if item.company_owned %>
-        <td>&#10003;</td>
-      <% else %>
-        <td>&#10007;</td>
       <% end %>
       <td class="actions">
         <%= link_to("Show", item_path(item), :class => 'action -show') %>
