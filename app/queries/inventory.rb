@@ -15,7 +15,7 @@ module Queries
       @sizes[item.id] || Hash.new
     end
 
-    def num_availabile(item, size)
+    def num_available(item, size)
       @sizes[item.id][size] || 0
     end
     
