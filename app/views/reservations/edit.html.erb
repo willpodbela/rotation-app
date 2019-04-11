@@ -16,6 +16,10 @@
         <td><%= @reservation.user.email %></td>
       </tr>
       <tr>
+        <th>Size</th>
+        <td><%= f.collection_select :size, Reservation.sizes.map{ |a| [a.first,a.first] },  :first, :second %></td>
+      </tr>
+      <tr>
         <th>Start Date</th>
         <td><%= f.date_select :start_date, include_blank: true %></td>
       </tr>
