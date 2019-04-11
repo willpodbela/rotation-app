@@ -72,6 +72,15 @@
         <th>Address Zip</th>
         <td><%= f.text_field(:address_zip) %></td>
       </tr>
+      
+      <tr>
+        <th>Preferred Size 1</th>
+        <td><%= f.text_field(:preferred_sizes, multiple: true, value: Unit.sizes.key(@profile.preferred_sizes[0])) %></td>
+      </tr>
+      <tr>
+        <th>Preferred Size 2</th>
+        <td><%= f.text_field(:preferred_sizes, multiple: true, value: Unit.sizes.key(@profile.preferred_sizes[1])) %></td>
+      </tr>
     </table>
 
     <div class="form-buttons">
