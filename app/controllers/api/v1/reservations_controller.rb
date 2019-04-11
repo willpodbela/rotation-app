@@ -53,7 +53,7 @@ module Api
     
       def reservation_params
         params[:reservation][:user_id] = current_user.id
-        params.require(:reservation).permit(:item_id, :user_id)
+        params.require(:reservation).permit(:item_id, :user_id, :size)
       end
 
       def query_params
