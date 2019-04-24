@@ -14,12 +14,17 @@ module Queries
       real_inventory_allocated = Hash.new       # Maps key=[item_id, size] to integer
       virtual_inventory_allocated = Hash.new    # Maps key=item_id to integer
       
+      total_unit_item_counts = Unit.group(:item_id).count  
       resourced_reservations = Reservation.live + Reservation.scheduled
       resourced_reservations.each do |reservation|
         size = reservation.size
         
         # NOTE: Short-term fix for size == nil, as there are some active reservations without sizes created by the legacy iOS application
-        
+        if size.nil?
+          # First see if there is real inventory and allocate that, else just go with small and it should take away virtual inv
+          size = reservation.item.units.first.size if total_unit_item_counts[reservation.item_id] > 0
+          size ||= :S
+        end
               
         # See if there is any real inventory left in that size
         real_qty_left = (available_sizes[[reservation.item_id, reservation.size]] || 0) - (real_inventory_allocated[[reservation.item_id, reservation.size]] || 0)
@@ -33,8 +38,7 @@ module Queries
         end
       end
       
-      # 3. For each item, determine number available for rent at this moment in each size
-      total_unit_item_counts = Unit.group(:item_id).count            
+      # 3. For each item, determine number available for rent at this moment in each size          
       Item.all.each do |item|
         # 3.a. Compute total qty of virtual inventory (allocated and unallocated)
         total_virtual_qty = item.virtual_qty - (total_unit_item_counts[item.id] || 0)
