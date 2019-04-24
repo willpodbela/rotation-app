@@ -22,7 +22,9 @@ module Queries
         # NOTE: Short-term fix for size == nil, as there are some active reservations without sizes created by the legacy iOS application
         if size.nil?
           # First see if there is real inventory and allocate that, else just go with small and it should take away virtual inv
-          size = reservation.item.units.first.size if total_unit_item_counts[reservation.item_id] > 0
+          if total_unit_item_counts[reservation.item_id] > 0:
+            size = reservation.item.units.first.size 
+          end
           size ||= :S
         end
               
