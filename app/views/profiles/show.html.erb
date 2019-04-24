@@ -66,6 +66,11 @@
         <th>Address Zip</th>
         <td><%= @profile.address_zip %></td>
       </tr>
+      
+      <tr>
+        <th>Preferred Sizes</th>
+        <td><%= (@profile.preferred_sizes.collect {|x| Unit.sizes.key(x) }).join(", ") %></td>
+      </tr>
     </table>
     
     <div class="form-buttons">

@@ -28,7 +28,10 @@ class ProfilesController < ApplicationController
   private
   
   def profile_params
-    params.require(:profile).permit(:first_name, :last_name, :address_line_one, :address_line_two, :address_city, :address_state, :address_zip)
+    unless params[:profile][:preferred_sizes].nil?
+      params[:profile][:preferred_sizes] = (params[:profile][:preferred_sizes].collect {|x| Unit.sizes[x] }).compact
+    end
+    params.require(:profile).permit(:first_name, :last_name, :address_line_one, :address_line_two, :address_city, :address_state, :address_zip, :preferred_sizes => [])
   end
   
   def set_user_and_create_profile

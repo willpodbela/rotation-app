@@ -10,9 +10,7 @@ ID: <%= @item.id %><br/>
 Brand: <%= @item.title %><br/>
 Name: <%= @item.subtitle %><br/>
 
-<% if @item.company_owned?  %>
-  Item is company owned.
-<% else %>
+<% unless @item.buyURL.nil?  %>
   <a href='<%= @item.buyURL %>'>Purchase Item</a>
 <% end %>
 

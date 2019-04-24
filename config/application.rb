@@ -15,5 +15,7 @@ module RotationApp
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.allow_unconfirmed_access_for = 100.years
+    
+    config.autoload_paths += [config.root.join('app')]
   end
 end

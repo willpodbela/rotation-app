@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190404025354) do
+ActiveRecord::Schema.define(version: 20190411032920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,7 +46,6 @@ ActiveRecord::Schema.define(version: 20190404025354) do
   create_table "items", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
-    t.integer "quantity", default: 0, null: false
     t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -59,11 +58,11 @@ ActiveRecord::Schema.define(version: 20190404025354) do
     t.string "color"
     t.string "buyURL"
     t.boolean "hidden", default: false
-    t.boolean "company_owned", default: true, null: false
     t.datetime "last_seen"
     t.text "alternate_image_urls", default: [], array: true
     t.integer "live_reservations_counter_cache"
     t.integer "scheduled_reservations_counter_cache"
+    t.integer "virtual_qty", default: 0, null: false
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -83,6 +82,7 @@ ActiveRecord::Schema.define(version: 20190404025354) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "preferred_sizes", default: [], array: true
     t.index ["user_id"], name: "index_profiles_on_user_id", unique: true
   end
 
@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(version: 20190404025354) do
     t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "size"
     t.index ["item_id", "user_id"], name: "index_reservations_on_item_id_and_user_id"
   end
 

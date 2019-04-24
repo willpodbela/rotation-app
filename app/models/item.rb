@@ -7,8 +7,6 @@ class Item < ApplicationRecord
   has_many :scheduled_reservations, -> { scheduled }, class_name: "Reservation"
   
   scope :visible, -> { where hidden: false }
-  scope :company_owned, -> { where company_owned: true }
-  scope :not_company_owned, -> { where company_owned: false }
   scope :with_images, -> { where('image_file_name IS NOT NULL') }
   scope :without_images, -> { where('image_file_name IS NULL') }
   scope :with_alternate_image_options, -> { where("alternate_image_urls != '{}'") }
@@ -55,18 +53,10 @@ class Item < ApplicationRecord
     self.update_counter_cache
   end
   
-  def num_available
-    (company_owned ? self.quantity : 2) - live_reservations_counter_cache - scheduled_reservations_counter_cache
-  end
-  
   # Reservation objects must call this method every time they change status, are create, or are deleted
   def update_counter_cache
     self.live_reservations_counter_cache = self.live_reservations.size
     self.scheduled_reservations_counter_cache = self.scheduled_reservations.size
     self.save
-  end
-
-  def self.catalog(user)
-    Item.all - Item.my_rotation(user) - Item.up_next(user)
   end
 end

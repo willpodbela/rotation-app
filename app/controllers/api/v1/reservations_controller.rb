@@ -1,10 +1,15 @@
+include Queries
+
 module Api
     module V1
     class ReservationsController < Api::V1::BaseController
       before_action :validate_ownership, only: [:destroy, :show, :update]
             
       def create
-        unless Item.find_by_id(params[:item_id]).num_available > 0
+        inventory = Queries::Inventory.new
+        item = Item.find_by_id(params[:item_id])
+      
+        unless inventory.total_available(item) > 0
           render_error(400, "Looks like this item is sold out right now. Please choose a different one.")
         else
           super
@@ -48,7 +53,7 @@ module Api
     
       def reservation_params
         params[:reservation][:user_id] = current_user.id
-        params.require(:reservation).permit(:item_id, :user_id)
+        params.require(:reservation).permit(:item_id, :user_id, :size)
       end
 
       def query_params

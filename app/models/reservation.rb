@@ -5,6 +5,7 @@ class Reservation < ApplicationRecord
   scope :live, -> { where(status: [:sent, :active, :returned]) }
   scope :scheduled, -> { where(status: [:scheduled]) }
   
+  enum size: [ :S, :M, :L, :XL ]
   enum status: [ :scheduled, :sent, :active, :returned, :ended, :cancelled ]
   
   before_create do |reservation|
