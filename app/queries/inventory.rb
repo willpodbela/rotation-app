@@ -14,7 +14,7 @@ module Queries
       real_inventory_allocated = Hash.new       # Maps key=[item_id, size] to integer
       virtual_inventory_allocated = Hash.new    # Maps key=item_id to integer
       
-      total_unit_item_counts = Unit.group(:item_id).count  
+      total_unit_item_counts = Unit.available_for_rent.group(:item_id).count    # Maps key=item_id to integer
       resourced_reservations = Reservation.live + Reservation.scheduled
       resourced_reservations.each do |reservation|
         size = reservation.size
