@@ -23,7 +23,7 @@ module Queries
         if size.nil?
           # First see if there is real inventory and allocate that, else just go with small and it should take away virtual inv
           if total_unit_item_counts[reservation.item_id] > 0:
-            size = reservation.item.units.first.size 
+            size = reservation.item.units.available_for_rent.first.size 
           end
           size ||= :S
         end
