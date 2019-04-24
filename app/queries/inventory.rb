@@ -8,7 +8,6 @@ module Queries
       @sizes = Hash.new
       
       Item.all.each do |item|
-        total = 0
         @sizes[item.id] = Hash.new if @sizes[item.id].nil?
         
         virtual_add = item.virtual_qty - (total_item_counts[item.id] || 0)
@@ -17,10 +16,9 @@ module Queries
         Unit.sizes.keys.each do |size|
           val = (available_sizes[[item.id, size]] || 0) + virtual_add
           @sizes[item.id][size] = val
-          total += val
         end
         
-        @total_count_by_item[item.id] = total
+        @total_count_by_item[item.id] = (total_item_counts[item.id] || 0) + virtual_add
       end
     end
 
