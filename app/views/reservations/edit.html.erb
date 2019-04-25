@@ -17,7 +17,7 @@
       </tr>
       <tr>
         <th>Size</th>
-        <td><%= f.collection_select :size, Reservation.sizes.map{ |a| [a.first,a.first] },  :first, :second %></td>
+        <td><%= f.collection_select :size, Reservation.sizes.map{ |a| [a.first,a.first] },  :first, :second, include_blank: true %></td>
       </tr>
       <tr>
         <th>Start Date</th>
@@ -29,7 +29,7 @@
       </tr>
       <tr>
         <th>Status</th>
-        <td><%=  f.collection_select :status, Reservation.statuses.map{ |a| [a.first,a.first] },  :first, :second %></td>
+        <td><%=  f.collection_select :status, Reservation.statuses.map{ |a| [a.first,a.first] },  :first, :second, include_blank: true %></td>
       </tr>
     </table>
 
