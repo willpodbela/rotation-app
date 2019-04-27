@@ -3,15 +3,20 @@ class ApplicationController < ActionController::Base
   before_action :generate_access_control_methods!
   before_action :authenticate_user!
   before_action :advertisement_tracking
+  before_action :login_redirect
   
   private
   
   #set devise to redirect to status after successful login
   def after_sign_in_path_for(resource)
-    if resource.admin?
-      admin_path
+    if session.has_key?(:redirect)
+      return self.send(session[:redirect].underscore+"_path")
     else
-      status_path
+      if resource.admin?
+        admin_path
+      else
+        status_path
+      end
     end
   end
   
@@ -43,6 +48,12 @@ class ApplicationController < ActionController::Base
       a = AdvertisementCode.create_with(description: "Auto-detected tracking code.").find_or_create_by(id: code)
       a.session_count = a.session_count + 1
       a.save
+    end
+  end
+  
+  def login_redirect
+    if params.has_key?(:redirect)
+      session[:redirect] = params[:redirect]
     end
   end
 end
