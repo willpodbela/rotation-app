@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: "landing#index"
   post "sign_up", to: "landing#sign_up"
   get "status", to: "landing#status"
+  get "update-payment", to: "landing#update_payment"
   get "admin", to: "landing#admin"
   get "download", to: "landing#download"
   get "privacy", to: "landing#privacy"
