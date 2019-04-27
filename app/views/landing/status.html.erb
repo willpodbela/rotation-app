@@ -21,7 +21,6 @@
       </div>
     <% elsif current_user.standard? || current_user.admin? %>
       <h1 class="text-center white font_second light font50">Welcome to the Rotation!</h1>
-      <% if @current_subscription %>
         <div class="max_width570 margin_auto white text-center light font22 text top30">
             <%= @current_subscription ? "Your Current Plan:" : "Purchase your membership below." %>
         </div>
@@ -29,12 +28,14 @@
           <div class="max_width570 margin_auto top55 padding_sides100 padding_top55 padding_bottom70 radius10 inner pricing_table_7">
             <div class="ubuntu light font28 dark_gray title">Founding Member</div>
             <div style="margin:30px;">Price: $<%= (@plan.amount / 100) %>/mo</div>
-            <% if @current_subscription.active? %>
-              <div style="margin:30px;">Next Billing: <%= @current_subscription.current_period_end.strftime("%b %d, %Y") %></div>
-              <%= link_to("Cancel Subscription", cancel_subscriptions_path, class: "min_width170 btn size60 transparent_blue border border_blue radius6 font16") %>
-            <% elsif @current_subscription.canceled? %>
-              <div style="margin:30px;">Your subscription ends on <%= @current_subscription.current_period_end.strftime("%b %d, %Y") %> and is not set to renew.</div>
-              <%= link_to("Restore Subscription", restore_subscriptions_path, class: "min_width170 btn size60 transparent_blue border border_blue radius6 font16") %>
+            <% if @current_subscription %>
+              <% if @current_subscription.active? %>
+                <div style="margin:30px;">Next Billing: <%= @current_subscription.current_period_end.strftime("%b %d, %Y") %></div>
+                <%= link_to("Cancel Subscription", cancel_subscriptions_path, class: "min_width170 btn size60 transparent_blue border border_blue radius6 font16") %>
+              <% elsif @current_subscription.canceled? %>
+                <div style="margin:30px;">Your subscription ends on <%= @current_subscription.current_period_end.strftime("%b %d, %Y") %> and is not set to renew.</div>
+                <%= link_to("Restore Subscription", restore_subscriptions_path, class: "min_width170 btn size60 transparent_blue border border_blue radius6 font16") %>
+              <% end %>
             <% end %>
             <div style="padding: 10px 0px;"></div>
             <%= form_tag (@current_subscription ? update_payment_subscriptions_path : subscriptions_path) do %>
@@ -52,7 +53,6 @@
             <% end %>
           </div>
         </div>
-      <% end %>
     <% end %>
     <% unless (@is_ios && current_user.waitlist?) %>
       <div class="text-center top165 block_with_button">
