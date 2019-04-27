@@ -13,13 +13,16 @@ class LandingController < ApplicationController
   def index
   end
   
-  # Displays waitlist status or download link to non-admin users.
   def status
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     @plan = Stripe::Plan.retrieve(stripe_plan_id)
     
     @current_subscription = current_user.current_subscription
     @is_ios = browser.platform.ios?
+  end
+  
+  # Slimed down version of status page with just button directing user to update card
+  def update_payment
   end
   
   # Admin Landing Page
@@ -69,6 +72,8 @@ class LandingController < ApplicationController
   def resolve_layout
     case action_name
     when "status"
+      "status"
+    when "update_payment"
       "status"
     else
       "landing"

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: "landing#index"
   post "sign_up", to: "landing#sign_up"
   get "status", to: "landing#status"
+  get "update-payment", to: "landing#update_payment"
   get "admin", to: "landing#admin"
   get "download", to: "landing#download"
   get "privacy", to: "landing#privacy"
@@ -25,6 +26,7 @@ Rails.application.routes.draw do
   resources :subscriptions, only: [:create] do
     get "cancel", on: :collection
     get "restore", on: :collection
+    post "update-payment", on: :collection
   end
   
   resources :referral_codes do

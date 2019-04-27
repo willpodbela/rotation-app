@@ -86,5 +86,16 @@ class StripeService
       return coupon
     end
     
+    def update_payment_method(user, stripe_source_id)
+      Stripe.api_key = Rails.configuration.stripe[:secret_key]
+      if user.stripe_customer_id? 
+        customer = Stripe::Customer.update(user.stripe_customer_id, {
+          source: stripe_source_id
+        })
+      else
+        raise StandardError.new("user.stripe_customer_id is nil. Most likely user has never had a subscription. Use create_monthly_subscription function instead.")
+      end
+    end
+    
   end
 end
