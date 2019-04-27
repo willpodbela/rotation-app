@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resources :subscriptions, only: [:create] do
     get "cancel", on: :collection
     get "restore", on: :collection
+    post "update-payment", on: :collection
   end
   
   resources :referral_codes do

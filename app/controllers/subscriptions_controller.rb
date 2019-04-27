@@ -16,6 +16,22 @@
     redirect_to status_path
   end
   
+  def update_payment
+    begin
+      StripeService.update_payment_method(current_user, subscription_params[:stripeToken])
+
+      flash[:notice] = 'You have successfully updated your card on file.'
+    rescue Stripe::CardError => e
+      # CardError; return the error message.
+      flash[:alert] = e.message
+    rescue => e
+      # Some other error
+      flash[:alert] = 'Ooops, something went wrong!'
+    end
+    
+    redirect_to status_path
+  end
+  
   def cancel
     loc_subscription = current_user.subscriptions.current.active.first
     if loc_subscription
