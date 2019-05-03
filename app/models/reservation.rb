@@ -1,6 +1,7 @@
 class Reservation < ApplicationRecord
   belongs_to :item
   belongs_to :user
+  belongs_to :unit, optional: true
   
   scope :live, -> { where(status: [:sent, :active, :returned]) }
   scope :scheduled, -> { where(status: [:scheduled]) }
@@ -34,5 +35,10 @@ class Reservation < ApplicationRecord
   after_destroy do |reservation|
     # Call item to update_counter_cache
     reservation.item.update_counter_cache
+  end
+  
+  # NOTE: If size is not set, will return nil -- size should always be set before this is used
+  def assignable_units
+    item.units.available_for_rent.where(size: size)
   end
 end
