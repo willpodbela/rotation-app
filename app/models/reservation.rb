@@ -3,11 +3,11 @@ class Reservation < ApplicationRecord
   belongs_to :user
   belongs_to :unit, optional: true
   
-  scope :live, -> { where(status: [:sent, :active, :returned]) }
+  scope :live, -> { where(status: [:processing, :active, :returned]) }
   scope :scheduled, -> { where(status: [:scheduled]) }
   
   enum size: [ :S, :M, :L, :XL ]
-  enum status: [ :scheduled, :sent, :active, :returned, :ended, :cancelled ]
+  enum status: [ :scheduled, :processing, :active, :returned, :ended, :cancelled ]
   
   before_create do |reservation|
     reservation.start_date = Date.today
@@ -15,7 +15,7 @@ class Reservation < ApplicationRecord
   
   before_save do |reservation|
     # If reservation is ended, set its end_date
-    reservation.end_date = Date.today if ((["scheduled", "sent", "active", "returned"].include? reservation.status_was) && (["ended", "cancelled"].include? reservation.status))
+    reservation.end_date = Date.today if ((["scheduled", "processing", "active", "returned"].include? reservation.status_was) && (["ended", "cancelled"].include? reservation.status))
   end
   
   after_create do |reservation|
