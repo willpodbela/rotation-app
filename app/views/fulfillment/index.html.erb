@@ -23,7 +23,7 @@
           </td>
           <td class="black-border-right">
             <%= form_for(reservation, remote: true) do |f| %>
-              <%= f.collection_select :size, Reservation.sizes.map{ |a| [a.first,a.first] },  :first, :second, include_blank: true %>
+              <%= f.collection_select :size, Reservation.sizes.map{ |a| [a.first,a.first] },  :first, :second, prompt: true %>
               <%= f.submit("Save") %>
             <% end %>
           </td>
@@ -42,7 +42,7 @@
             </td>
             <td class="black-border-right">
               <%= form_for(reservation, remote: true) do |f| %>
-                <%= f.collection_select :unit_id, owned_inventory.map{ |a| [a.id, "#{a.id}: #{a.size} - #{a.item.title or ''} #{a.item.subtitle or ''}"] },  :first, :second, include_blank: true %>
+                <%= f.collection_select :unit_id, owned_inventory.map{ |a| [a.id, "#{a.id}: #{a.size} - #{a.item.title or ''} #{a.item.subtitle or ''}"] },  :first, :second, prompt: true %>
                 <%= f.hidden_field :status, value: :processing %>
                 <%= f.submit("Save") %>
               <% end %>
