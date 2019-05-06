@@ -19,7 +19,7 @@
         <!-- A unit needs to be assigned, set up workflow -->
         <% if reservation.size.nil? %>
           <td>
-            <span style="color: red">Set size to see available inventory</span>
+            <span style="color: red">(!) Set size to see available inventory</span>
           </td>
           <td class="black-border-right">
             <%= form_for(reservation, remote: true) do |f| %>
@@ -31,14 +31,14 @@
           <% owned_inventory = reservation.units_available_for_fulfillment %>
           <% if owned_inventory.empty? %>
             <td>
-              <span style="color: blue">No inventory. Purchase and record details.</span>
+              <span style="color: orange">(1) No inventory. Purchase and record details.</span>
             </td>
             <td class="black-border-right">
-              <%= link_to("Add New Unit", new_item_unit_path(reservation.item), :class => 'action new') %>
+              <%= link_to("Add New Unit", new_item_unit_path(reservation.item), :class => 'action new', :style => 'padding: 1px 7px 2px 7px;') %>
             </td>
           <% else %>
             <td>
-              <span style="color: green">Existing inventory available:</span>
+              <span style="color: red">(!) Existing inventory available. Assign to proceed.</span>
             </td>
             <td class="black-border-right">
               <%= form_for(reservation, remote: true) do |f| %>
@@ -52,7 +52,7 @@
       <% else %>
         <% if reservation.unit.in_transit_from_supplier? %>
           <td>
-            <span style="color: purple">Inventory in transit from supplier</span>
+            <span style="color: purple">(2) Inventory in transit from supplier</span>
           </td>
           <td class="black-border-right">
             <%= form_for(reservation.unit, remote: true) do |f| %>
@@ -62,7 +62,7 @@
           </td>
         <% else %>
           <td>
-            <span style="color: red">Ship item</span>
+            <span style="color: blue">(3) Ship item</span>
           </td>
           <td class="black-border-right">
             <%= form_for(reservation, remote: true) do |f| %>
