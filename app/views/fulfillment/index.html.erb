@@ -3,11 +3,10 @@
 <div class="fulfillment index">
   <h2>Fulfillment Assistant</h2>
   
-  <h4>Outbound Coordination</h4>
   <table class="listing admin_table" summary="Outbound Fulfillment list">
     <tr class="header">
-      <th style="min-width: 200px;">Action Required</th>
-      <th class="black-border-right"></th>
+      <th style="min-width: 200px;">Detailed Status</th>
+      <th class="black-border-right">Action Required</th>
       <th>#</th>
       <th>Status</th>
       <th>Email</th>
@@ -22,9 +21,9 @@
           <% if reservation.size.nil? %>
             <td>
               <span style="color: red">Set size to see available inventory:</span>
-              <%= f.collection_select :size, Reservation.sizes.map{ |a| [a.first,a.first] },  :first, :second, include_blank: true %>
             </td>
             <td class="black-border-right">
+              <%= f.collection_select :size, Reservation.sizes.map{ |a| [a.first,a.first] },  :first, :second, include_blank: true %>
               <%= f.submit("Save") %>
             </td>
           <% else %>
@@ -39,9 +38,9 @@
             <% else %>
               <td>
                 <span style="color: green">Existing inventory available:</span>
-                <%= f.collection_select :unit_id, owned_inventory.map{ |a| [a.id, "#{a.id}: #{a.size} - #{a.item.title or ''} #{a.item.subtitle or ''}"] },  :first, :second, include_blank: true %>
               </td>
               <td class="black-border-right">
+                <%= f.collection_select :unit_id, owned_inventory.map{ |a| [a.id, "#{a.id}: #{a.size} - #{a.item.title or ''} #{a.item.subtitle or ''}"] },  :first, :second, include_blank: true %>
                 <%= f.hidden_field :status, value: :processing %>
                 <%= f.submit("Save") %>
               </td>
@@ -71,6 +70,30 @@
           </td>
         <% end %>
       <% end %>
+      <td><%= reservation.id %></td>
+      <td><%= reservation.status %></td>
+      <td><%= mail_to(reservation.user.email) %></td>
+      <td>
+        <%= link_to("#{reservation.unit.id}: #{reservation.unit.size} - #{reservation.unit.item.title or ''} #{reservation.unit.item.subtitle or ''}", unit_path(reservation.unit)) unless reservation.unit.nil? %>
+      </td>
+      <td><%= reservation.user.profile.full_address %></td>
+      <td class="actions">
+        <%= link_to("Show", reservation_path(reservation), :class => 'action -show') %>
+        <%= link_to("Edit", edit_reservation_path(reservation), :class => 'action edit') %>
+      </td>
+    </tr>
+    <% end %>
+    <% @active_reservations.each do |reservation| %>
+    <tr>
+      <td>
+        Customer has item
+      </td>
+      <td class="black-border-right">
+        <%= form_for(reservation, remote: true) do |f| %>
+          <%= f.hidden_field :status, value: :ended %>
+          <%= f.submit("Mark as Ended") %>
+        <% end %>
+      </td>
       <td><%= reservation.id %></td>
       <td><%= reservation.status %></td>
       <td><%= mail_to(reservation.user.email) %></td>
