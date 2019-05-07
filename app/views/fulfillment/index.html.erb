@@ -1,0 +1,99 @@
+<%= link_to("Back to Admin Home", admin_path, :class => 'back-link') %></br>
+
+<div class="fulfillment index">
+  <h2>Fulfillment Assistant</h2>
+  
+  <table class="listing admin_table" summary="Outbound Fulfillment list">
+    <tr class="header">
+      <th style="min-width: 200px;">Detailed Status</th>
+      <th class="black-border-right">Action Required</th>
+      <th>#</th>
+      <th>Status</th>
+      <th>Email</th>
+      <th>Assigned Inventory</th>
+      <th>Ship To</th>
+    </tr>
+    <% @reservations.each do |reservation| %>
+    <tr>
+      <% if reservation.active? || reservation.returned? %>
+        <td>
+          Customer has item
+        </td>
+        <td class="black-border-right">
+          <%= form_with(model: reservation, html: {'class' => 'throwaway-ajax'}) do |f| %>
+            <%= f.hidden_field :status, value: :ended %>
+            <%= f.submit("Mark as Ended") %>
+          <% end %>
+        </td>
+      <% elsif reservation.unit.nil? %>
+        <!-- A unit needs to be assigned, set up workflow -->
+        <% if reservation.size.nil? %>
+          <td>
+            <span style="color: red">(!) Set size to see available inventory</span>
+          </td>
+          <td class="black-border-right">
+            <%= form_with(model: reservation, html: {'class' => 'throwaway-ajax'}) do |f| %>
+              <%= f.collection_select :size, Reservation.sizes.map{ |a| [a.first,a.first] },  :first, :second, prompt: true %>
+              <%= f.submit("Save") %>
+            <% end %>
+          </td>
+        <% else %>
+          <% owned_inventory = reservation.units_available_for_fulfillment %>
+          <% if owned_inventory.empty? %>
+            <td>
+              <span style="color: orange">(1) No inventory. Purchase and record details.</span>
+            </td>
+            <td class="black-border-right">
+              <%= link_to("Add New Unit", new_item_unit_path(reservation.item), :class => 'action new', :style => 'padding: 1px 7px 2px 7px;') %>
+            </td>
+          <% else %>
+            <td>
+              <span style="color: red">(!) Existing inventory available. Assign to proceed.</span>
+            </td>
+            <td class="black-border-right">
+              <%= form_with(model: reservation, html: {'class' => 'throwaway-ajax'}) do |f| %>
+                <%= f.collection_select :unit_id, owned_inventory.map{ |a| [a.id, "#{a.id}: #{a.size} - #{a.item.title or ''} #{a.item.subtitle or ''}"] },  :first, :second, prompt: true %>
+                <%= f.hidden_field :status, value: :processing %>
+                <%= f.submit("Save") %>
+              <% end %>
+            </td>
+          <% end %>
+        <% end %>
+      <% else %>
+        <% if reservation.unit.in_transit_from_supplier? %>
+          <td>
+            <span style="color: purple">(2) Inventory in transit from supplier</span>
+          </td>
+          <td class="black-border-right">
+            <%= form_with(model: reservation.unit, html: {'class' => 'throwaway-ajax'}) do |f| %>
+              <%= f.hidden_field :status, value: :available %>
+              <%= f.submit("Mark Inventory as Arrived") %>
+            <% end %>
+          </td>
+        <% else %>
+          <td>
+            <span style="color: blue">(3) Ship item</span>
+          </td>
+          <td class="black-border-right">
+            <%= form_with(model: reservation, html: {'class' => 'throwaway-ajax'}) do |f| %>
+              <%= f.hidden_field :status, value: :active %>
+              <%= f.submit("Mark as Active") %>
+            <% end %>
+          </td>
+        <% end %>
+      <% end %>
+      <td><%= reservation.id %></td>
+      <td><%= reservation.status %></td>
+      <td><%= mail_to(reservation.user.email) %></td>
+      <td>
+        <%= link_to("#{reservation.unit.id}: #{reservation.unit.size} - #{reservation.unit.item.title or ''} #{reservation.unit.item.subtitle or ''}", unit_path(reservation.unit)) unless reservation.unit.nil? %>
+      </td>
+      <td><%= reservation.user.profile.full_address %></td>
+      <td class="actions">
+        <%= link_to("Show", reservation_path(reservation), :class => 'action -show') %>
+        <%= link_to("Edit", edit_reservation_path(reservation), :class => 'action edit') %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>

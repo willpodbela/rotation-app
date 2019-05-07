@@ -5,11 +5,13 @@ class Item < ApplicationRecord
   
   has_many :live_reservations, -> { live }, class_name: "Reservation"
   has_many :scheduled_reservations, -> { scheduled }, class_name: "Reservation"
-  
+    
   scope :visible, -> { where hidden: false }
   scope :with_images, -> { where('image_file_name IS NOT NULL') }
   scope :without_images, -> { where('image_file_name IS NULL') }
   scope :with_alternate_image_options, -> { where("alternate_image_urls != '{}'") }
+  
+  has_many :units_available_for_fulfillment, -> { available_for_rent.where(live_reservations_counter_cache: 0, scheduled_reservations_counter_cache: 0) }, class_name: "Unit"
   
   attr_reader :image_remote_url
   

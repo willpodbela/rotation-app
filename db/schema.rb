@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190424220640) do
+ActiveRecord::Schema.define(version: 20190506184836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,7 +104,9 @@ ActiveRecord::Schema.define(version: 20190424220640) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "size"
+    t.bigint "unit_id"
     t.index ["item_id", "user_id"], name: "index_reservations_on_item_id_and_user_id"
+    t.index ["unit_id"], name: "index_reservations_on_unit_id"
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -133,6 +135,8 @@ ActiveRecord::Schema.define(version: 20190424220640) do
     t.datetime "updated_at", null: false
     t.date "retire_date"
     t.string "notes"
+    t.integer "live_reservations_counter_cache", default: 0, null: false
+    t.integer "scheduled_reservations_counter_cache", default: 0, null: false
   end
 
   create_table "users", force: :cascade do |t|

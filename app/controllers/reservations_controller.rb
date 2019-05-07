@@ -43,13 +43,16 @@ class ReservationsController < ApplicationController
     # Find a new object using form parameters
     @reservation = Reservation.find(params[:id])
     # Update the object
-    if @reservation.update_attributes(reservation_params)
-      # If save succeeds, redirect to the show action
-      flash[:notice] = "Reservation updated successfully."
-      redirect_to(reservation_path(@reservation))
-    else
-      # If save fails, redisplay the form so user can fix problems
-      render('edit')
+    respond_to do |format|
+      if @reservation.update_attributes(reservation_params)
+        # If save succeeds, redirect to the show action
+        format.html { redirect_to @reservation, notice: 'Reservation updated successfully.' }
+        format.js
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { head :no_content }
+      end
     end
   end
   
@@ -60,7 +63,7 @@ class ReservationsController < ApplicationController
   private
   
   def reservation_params
-    params.require(:reservation).permit(:start_date, :end_date, :user_id, :status, :size)
+    params.require(:reservation).permit(:start_date, :end_date, :user_id, :status, :size, :unit_id)
   end
   
   def query_params
