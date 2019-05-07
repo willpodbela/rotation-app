@@ -22,7 +22,7 @@
             <span style="color: red">(!) Set size to see available inventory</span>
           </td>
           <td class="black-border-right">
-            <%= form_for(reservation, remote: true) do |f| %>
+            <%= form_with(model: reservation, html: {'class' => 'throwaway-ajax'}) do |f| %>
               <%= f.collection_select :size, Reservation.sizes.map{ |a| [a.first,a.first] },  :first, :second, prompt: true %>
               <%= f.submit("Save") %>
             <% end %>
@@ -41,7 +41,7 @@
               <span style="color: red">(!) Existing inventory available. Assign to proceed.</span>
             </td>
             <td class="black-border-right">
-              <%= form_for(reservation, remote: true) do |f| %>
+              <%= form_with(model: reservation, html: {'class' => 'throwaway-ajax'}) do |f| %>
                 <%= f.collection_select :unit_id, owned_inventory.map{ |a| [a.id, "#{a.id}: #{a.size} - #{a.item.title or ''} #{a.item.subtitle or ''}"] },  :first, :second, prompt: true %>
                 <%= f.hidden_field :status, value: :processing %>
                 <%= f.submit("Save") %>
@@ -55,7 +55,7 @@
             <span style="color: purple">(2) Inventory in transit from supplier</span>
           </td>
           <td class="black-border-right">
-            <%= form_for(reservation.unit, remote: true) do |f| %>
+            <%= form_with(model: reservation.unit, html: {'class' => 'throwaway-ajax'}) do |f| %>
               <%= f.hidden_field :status, value: :available %>
               <%= f.submit("Mark Inventory as Arrived") %>
             <% end %>
@@ -65,7 +65,7 @@
             <span style="color: blue">(3) Ship item</span>
           </td>
           <td class="black-border-right">
-            <%= form_for(reservation, remote: true) do |f| %>
+            <%= form_with(model: reservation, html: {'class' => 'throwaway-ajax'}) do |f| %>
               <%= f.hidden_field :status, value: :active %>
               <%= f.submit("Mark as Active") %>
             <% end %>
@@ -91,7 +91,7 @@
         Customer has item
       </td>
       <td class="black-border-right">
-        <%= form_for(reservation, remote: true) do |f| %>
+        <%= form_with(model: reservation, html: {'class' => 'throwaway-ajax'}) do |f| %>
           <%= f.hidden_field :status, value: :ended %>
           <%= f.submit("Mark as Ended") %>
         <% end %>
