@@ -19,6 +19,7 @@
       <th>Email</th>
       <th>Address</th>
       <th>Size</th>
+      <th>Assigned Inventory</th>
       <th>Item</th>
     </tr>
     <% @reservations.each do |reservation| %>
@@ -30,6 +31,7 @@
       <td><%= mail_to(reservation.user.email) %></td>
       <td><%= reservation.user.profile.full_address %></td>
       <td><%= reservation.size %></td>
+      <td><%= link_to("#{reservation.unit.id}: #{reservation.unit.size}", unit_path(reservation.unit)) unless reservation.unit.nil? %></td>
       <td><%= link_to("#{reservation.item.title or ''} #{reservation.item.subtitle or ''}", item_path(reservation.item)) %></td>
       <td class="actions">
         <%= link_to("Show", reservation_path(reservation), :class => 'action -show') %>
