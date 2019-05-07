@@ -5,6 +5,6 @@
 
 $(document).ready ->
   $("form.throwaway-ajax").on("ajax:success", (event) ->
-    window.location.reload()
+    window.location.reload(true)
   ).on "ajax:error", (event) ->
-    window.location.reload()
+    window.location.reload(true)
