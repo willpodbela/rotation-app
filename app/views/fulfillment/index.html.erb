@@ -13,9 +13,19 @@
       <th>Assigned Inventory</th>
       <th>Ship To</th>
     </tr>
-    <% @outbound_reservations.each do |reservation| %>
+    <% @reservations.each do |reservation| %>
     <tr>
-      <% if reservation.unit.nil? %>
+      <% if reservation.active? || reservation.returned? %>
+        <td>
+          Customer has item
+        </td>
+        <td class="black-border-right">
+          <%= form_with(model: reservation, html: {'class' => 'throwaway-ajax'}) do |f| %>
+            <%= f.hidden_field :status, value: :ended %>
+            <%= f.submit("Mark as Ended") %>
+          <% end %>
+        </td>
+      <% elsif reservation.unit.nil? %>
         <!-- A unit needs to be assigned, set up workflow -->
         <% if reservation.size.nil? %>
           <td>
@@ -72,30 +82,6 @@
           </td>
         <% end %>
       <% end %>
-      <td><%= reservation.id %></td>
-      <td><%= reservation.status %></td>
-      <td><%= mail_to(reservation.user.email) %></td>
-      <td>
-        <%= link_to("#{reservation.unit.id}: #{reservation.unit.size} - #{reservation.unit.item.title or ''} #{reservation.unit.item.subtitle or ''}", unit_path(reservation.unit)) unless reservation.unit.nil? %>
-      </td>
-      <td><%= reservation.user.profile.full_address %></td>
-      <td class="actions">
-        <%= link_to("Show", reservation_path(reservation), :class => 'action -show') %>
-        <%= link_to("Edit", edit_reservation_path(reservation), :class => 'action edit') %>
-      </td>
-    </tr>
-    <% end %>
-    <% @active_reservations.each do |reservation| %>
-    <tr>
-      <td>
-        Customer has item
-      </td>
-      <td class="black-border-right">
-        <%= form_with(model: reservation, html: {'class' => 'throwaway-ajax'}) do |f| %>
-          <%= f.hidden_field :status, value: :ended %>
-          <%= f.submit("Mark as Ended") %>
-        <% end %>
-      </td>
       <td><%= reservation.id %></td>
       <td><%= reservation.status %></td>
       <td><%= mail_to(reservation.user.email) %></td>
