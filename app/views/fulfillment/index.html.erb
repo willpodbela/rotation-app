@@ -1,5 +1,15 @@
 <%= link_to("Back to Admin Home", admin_path, :class => 'back-link') %></br>
 
+<script>
+$(document).ready(function(){
+	$('form.throwaway-ajax').on('ajax:success',function (e) {
+	    window.location.reload(true)
+	}).on('ajax:error',function (e) {
+	    window.location.reload(true)
+	});
+});
+</script>
+
 <div class="fulfillment index">
   <h2>Fulfillment Assistant</h2>
   
