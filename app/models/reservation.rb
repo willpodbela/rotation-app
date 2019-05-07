@@ -39,6 +39,18 @@ class Reservation < ApplicationRecord
         reservation.unit.update_counter_cache
       end
     end
+    # If unit was assigned or removed update_counter_cache
+    if reservation.saved_change_to_unit_id?
+      unit_was = Unit.find_by_id(reservation.unit_id_before_last_save)
+      unless unit_was.nil?
+        unit_was.update_counter_cache
+      end
+      
+      unit_curr = Unit.find_by_id(reservation.unit_id)
+      unless unit_curr.nil?
+        unit_curr.update_counter_cache
+      end
+    end
     # We'll use Active Record Callbacks to send fulfillment notification emails to the team
     ReservationMailer.with(reservation: reservation).reservation_cancelled.deliver if reservation.cancelled?
   end
