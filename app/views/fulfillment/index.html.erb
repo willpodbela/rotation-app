@@ -21,6 +21,7 @@ $(document).ready(function(){
       <th>Status</th>
       <th>Email</th>
       <th>Assigned Inventory</th>
+      <th>Inventory Notes</th>
       <th>Ship To</th>
     </tr>
     <% @reservations.each do |reservation| %>
@@ -97,6 +98,9 @@ $(document).ready(function(){
       <td><%= mail_to(reservation.user.email) %></td>
       <td>
         <%= link_to("#{reservation.unit.id}: #{reservation.unit.size} - #{reservation.unit.item.title or ''} #{reservation.unit.item.subtitle or ''}", unit_path(reservation.unit)) unless reservation.unit.nil? %>
+      </td>
+      <td>
+        <%= link_to("#{reservation.unit.notes or ''}", unit_path(reservation.unit)) unless reservation.unit.nil? %>
       </td>
       <td><%= reservation.user.profile.full_address %></td>
       <td class="actions">
