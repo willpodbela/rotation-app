@@ -31,7 +31,7 @@
       </tr>
       <tr>
         <th>Assigned Inventory</th>
-        <td><%= link_to("#{reservation.unit.id}: #{reservation.unit.size} - #{reservation.unit.item.title or ''} #{reservation.unit.item.subtitle or ''}", unit_path(reservation.unit)) unless reservation.unit.nil? %></td>
+        <td><%= link_to("#{@reservation.unit.id}: #{@reservation.unit.size} - #{@reservation.unit.item.title or ''} #{@reservation.unit.item.subtitle or ''}", unit_path(@reservation.unit)) unless @reservation.unit.nil? %></td>
       </tr>
     </table>
 
