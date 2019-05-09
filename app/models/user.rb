@@ -94,7 +94,7 @@ class User < ApplicationRecord
   
   # eager_load my_rotation_items and up_next_items when planning to make this call
   def catalog_items
-    Item.visible.with_images - self.my_rotation_items - self.up_next_items
+    Item.visible.with_images.order(created_at: :desc) - self.my_rotation_items - self.up_next_items
   end
   
   def est_delivery_date
