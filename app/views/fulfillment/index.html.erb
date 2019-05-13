@@ -23,6 +23,7 @@ $(document).ready(function(){
       <th><%= sort_link "created_at", "Created" %></th>
       <th>User</th>
       <th><%= sort_link "unit_id", "Assigned Inventory" %></th>
+      <th><%= sort_link "items.title", "Item" %></th>
       <th><%= sort_link "units.notes", "Inventory Notes" %></th>
       <th>Ship To</th>
       <th><%= sort_link "users.email", "Email" %></th>
@@ -66,7 +67,7 @@ $(document).ready(function(){
             </td>
             <td class="black-border-right">
               <%= form_with(model: reservation, html: {'class' => 'throwaway-ajax'}) do |f| %>
-                <%= f.collection_select :unit_id, owned_inventory.map{ |a| [a.id, "#{a.id}: #{a.size} - #{a.item.title or ''} #{a.item.subtitle or ''}"] },  :first, :second, prompt: true %>
+                <%= f.collection_select :unit_id, owned_inventory.map{ |a| [a.id, "#{a.id}: #{a.size}"] },  :first, :second, prompt: true %>
                 <%= f.hidden_field :status, value: :processing %>
                 <%= f.submit("Save") %>
               <% end %>
@@ -102,7 +103,10 @@ $(document).ready(function(){
       <td><%= reservation.created_at.strftime("%Y-%m-%d %H:%M") %></td>
       <td><%= reservation.user.profile.full_name.empty? ? reservation.user_id : reservation.user.profile.full_name %></td>
       <td>
-        <%= link_to("#{reservation.unit.id}: #{reservation.unit.size} - #{reservation.unit.item.title or ''} #{reservation.unit.item.subtitle or ''}", unit_path(reservation.unit)) unless reservation.unit.nil? %>
+        <%= link_to("#{reservation.unit.id}: #{reservation.unit.size}", unit_path(reservation.unit)) unless reservation.unit.nil? %>
+      </td>
+      <td>
+        <%= link_to("#{reservation.item.title or ''} #{reservation.item.subtitle or ''}", item_path(reservation.item)) %>
       </td>
       <td>
         <%= link_to("#{reservation.unit.notes or ''}", unit_path(reservation.unit)) unless reservation.unit.nil? %>
