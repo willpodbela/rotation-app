@@ -18,17 +18,20 @@ $(document).ready(function(){
       <th style="min-width: 200px;">Detailed Status</th>
       <th class="black-border-right">Action Required</th>
       <th>#</th>
+      <th>Res. Size</th>
       <th>Status</th>
-      <th>Email</th>
+      <th>Created</th>
+      <th>User</th>
       <th>Assigned Inventory</th>
       <th>Inventory Notes</th>
       <th>Ship To</th>
+      <th>Email</th>
     </tr>
     <% @reservations.each do |reservation| %>
     <tr>
       <% if reservation.active? || reservation.returned? %>
         <td>
-          Customer has item
+          (4) Customer
         </td>
         <td class="black-border-right">
           <%= form_with(model: reservation, html: {'class' => 'throwaway-ajax'}) do |f| %>
@@ -40,7 +43,7 @@ $(document).ready(function(){
         <!-- A unit needs to be assigned, set up workflow -->
         <% if reservation.size.nil? %>
           <td>
-            <span style="color: red">(!) Set size to see available inventory</span>
+            <span style="color: red">(!) Set Reservation Size</span>
           </td>
           <td class="black-border-right">
             <%= form_with(model: reservation, html: {'class' => 'throwaway-ajax'}) do |f| %>
@@ -52,14 +55,14 @@ $(document).ready(function(){
           <% owned_inventory = reservation.units_available_for_fulfillment %>
           <% if owned_inventory.empty? %>
             <td>
-              <span style="color: orange">(1) No inventory. Purchase and record details.</span>
+              <span style="color: orange">(1) Pending Purchase</span>
             </td>
             <td class="black-border-right">
               <%= link_to("Add New Unit", new_item_unit_path(reservation.item), :class => 'action new', :style => 'padding: 1px 7px 2px 7px;') %>
             </td>
           <% else %>
             <td>
-              <span style="color: red">(!) Existing inventory available. Assign to proceed.</span>
+              <span style="color: red">(!) Assign Inventory</span>
             </td>
             <td class="black-border-right">
               <%= form_with(model: reservation, html: {'class' => 'throwaway-ajax'}) do |f| %>
@@ -73,7 +76,7 @@ $(document).ready(function(){
       <% else %>
         <% if reservation.unit.in_transit_from_supplier? %>
           <td>
-            <span style="color: purple">(2) Inventory in transit from supplier</span>
+            <span style="color: purple">(2) Pending Supplier</span>
           </td>
           <td class="black-border-right">
             <%= form_with(model: reservation.unit, html: {'class' => 'throwaway-ajax'}) do |f| %>
@@ -83,7 +86,7 @@ $(document).ready(function(){
           </td>
         <% else %>
           <td>
-            <span style="color: blue">(3) Ship item</span>
+            <span style="color: blue">(3) Pending Shipment</span>
           </td>
           <td class="black-border-right">
             <%= form_with(model: reservation, html: {'class' => 'throwaway-ajax'}) do |f| %>
@@ -94,8 +97,10 @@ $(document).ready(function(){
         <% end %>
       <% end %>
       <td><%= reservation.id %></td>
+      <td><%= reservation.size unless reservation.size.nil? %></td>
       <td><%= reservation.status %></td>
-      <td><%= mail_to(reservation.user.email) %></td>
+      <td><%= reservation.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+      <td><%= reservation.user.profile.full_name.empty? ? reservation.user_id : reservation.user.profile.full_name %></td>
       <td>
         <%= link_to("#{reservation.unit.id}: #{reservation.unit.size} - #{reservation.unit.item.title or ''} #{reservation.unit.item.subtitle or ''}", unit_path(reservation.unit)) unless reservation.unit.nil? %>
       </td>
@@ -103,6 +108,7 @@ $(document).ready(function(){
         <%= link_to("#{reservation.unit.notes or ''}", unit_path(reservation.unit)) unless reservation.unit.nil? %>
       </td>
       <td><%= reservation.user.profile.full_address %></td>
+      <td><%= mail_to(reservation.user.email) %></td>
       <td class="actions">
         <%= link_to("Show", reservation_path(reservation), :class => 'action -show') %>
         <%= link_to("Edit", edit_reservation_path(reservation), :class => 'action edit') %>
