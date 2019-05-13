@@ -19,8 +19,8 @@ $(document).ready(function(){
       <th class="black-border-right">Action Required</th>
       <th>#</th>
       <th>Res. Size</th>
-      <th>Status</th>
-      <th>Created</th>
+      <th><%= sort_link "status" %></th>
+      <th><%= sort_link "created_at", "Created" %></th>
       <th>User</th>
       <th>Assigned Inventory</th>
       <th>Inventory Notes</th>
