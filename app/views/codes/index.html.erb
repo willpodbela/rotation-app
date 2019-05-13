@@ -11,8 +11,9 @@
       <th>Desc</th>
       <th>Active?</th>
       <th>Sessions</th>
-      <th>Users</th>
-      <th>Subscriptions</th>
+      <th>Sign-ups</th>
+      <th>Able to Subscribe*</th>
+      <th>Subscribers</th>
       <th>Coupon</th>
     </tr>
     <% @codes.each do |code| %>
@@ -26,6 +27,7 @@
       <% end %>
       <td><%= code.session_count %></td>
       <td><%= code.users.size %></td>
+      <td><%= code.users.standard.size %></td>
       <td><%= code.users.paying_customers.size %></td>
       <td>
         <% unless code.has_stripe_coupon? %>
@@ -48,4 +50,6 @@
     </tr>
     <% end %>
   </table>
+  </br>
+  <p><i>* = Users off waitlist (most likely auto-released based on location data)</i></p>
 </div>
