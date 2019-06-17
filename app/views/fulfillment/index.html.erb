@@ -35,7 +35,7 @@ $(document).ready(function(){
           (4) Customer
         </td>
         <td class="black-border-right">
-          <% if reservation.unit.offline? %>
+          <% if reservation.unit.nil? || reservation.unit.offline? %>
             <%= form_with(model: reservation, html: {'class' => 'throwaway-ajax'}) do |f| %>
               <%= f.hidden_field :status, value: :ended %>
               <%= f.submit("Mark as Ended") %>
