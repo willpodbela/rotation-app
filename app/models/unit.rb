@@ -3,12 +3,13 @@ class Unit < ApplicationRecord
   has_many   :reservations
   
   scope :available_for_rent, -> { where(status: [:in_transit_from_supplier, :available]) }
+  scope :owned, -> { where(status: [:in_transit_from_supplier, :available, :offline]) }
   
   has_many   :live_reservations, -> { live }, class_name: "Reservation"
   has_many   :scheduled_reservations, -> { scheduled }, class_name: "Reservation"
   
   enum size: [ :S, :M, :L, :XL ]
-  enum status: [ :pending, :in_transit_from_supplier, :available, :sold, :returned, :retired ]
+  enum status: [ :pending, :in_transit_from_supplier, :available, :sold, :returned, :retired, :offline ]
   
   before_save do |unit|
     # If unit is sold, returned, or retired, set its retire_date
