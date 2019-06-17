@@ -35,9 +35,16 @@ $(document).ready(function(){
           (4) Customer
         </td>
         <td class="black-border-right">
-          <%= form_with(model: reservation, html: {'class' => 'throwaway-ajax'}) do |f| %>
-            <%= f.hidden_field :status, value: :ended %>
-            <%= f.submit("Mark as Ended") %>
+          <% if reservation.unit.offline? %>
+            <%= form_with(model: reservation, html: {'class' => 'throwaway-ajax'}) do |f| %>
+              <%= f.hidden_field :status, value: :ended %>
+              <%= f.submit("Mark as Ended") %>
+            <% end %>
+          <% else %>
+            <%= form_with(model: reservation.unit, html: {'class' => 'throwaway-ajax'}) do |f| %>
+              <%= f.hidden_field :status, value: :offline %>
+              <%= f.submit("Take Inventory Offline for Cleaning") %>
+            <% end %>
           <% end %>
         </td>
       <% elsif reservation.unit.nil? %>
@@ -116,6 +123,37 @@ $(document).ready(function(){
       <td class="actions">
         <%= link_to("Show", reservation_path(reservation), :class => 'action -show') %>
         <%= link_to("Edit", edit_reservation_path(reservation), :class => 'action edit') %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+  
+  <h3>Offline Inventory</h3>
+  <p>Units that are out being cleaned or repaired. Bring them back online once ready to be rented again.</p>
+  <table class="listing admin_table" summary="Offline Units list">
+    <tr class="header">
+      <th class="black-border-right">Action Required</th>
+      <th>#</th>
+      <th>Item</th>
+      <th>Size</th>
+      <th>Notes</th>
+    </tr>
+    <% @offline_units.each do |unit| %>
+    <tr>
+      <td class="black-border-right">
+        <%= form_with(model: unit, html: {'class' => 'throwaway-ajax'}) do |f| %>
+          <%= f.hidden_field :status, value: :available %>
+          <%= f.submit("Bring Inventory Back Online") %>
+        <% end %>
+      </td>
+      <td><%= unit.id %></td>
+      <td><%= link_to("#{unit.item.title or ''} #{unit.item.subtitle or ''}", item_path(unit.item)) %></td>
+      <td><%= unit.size %></td>
+      <td class="slim-text">
+        <%= unit.notes %>
+      </td>
+      <td class="actions">
+        <%= link_to("Edit", edit_unit_path(unit), :class => 'action edit') %>
       </td>
     </tr>
     <% end %>

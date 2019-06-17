@@ -4,6 +4,8 @@ class FulfillmentController < AdminBaseController
     .includes(:unit, :user, :item)
     .where(status: [:scheduled, :processing, :active, :returned])
     .order("#{sort_column} #{sort_direction}")
+    
+    @offline_units = Unit.offline
   end
   
   private
