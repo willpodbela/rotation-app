@@ -3,6 +3,7 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.where(query_params)
+    @owned_inventory_counts = Unit.owned.group(:item_id, :size).count
   end
   
   def image_matching_tool

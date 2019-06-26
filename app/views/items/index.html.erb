@@ -14,6 +14,7 @@
       <th>Desc</th>
       <th>Color</th>
       <th>Max Virtual Quantity</th>
+      <th>Owned Inventory Summary</th>
       <th>Visible?</th>
       <th>Last Seen</th>
     </tr>
@@ -26,6 +27,14 @@
       <td><%= item.description %></td>
       <td><%= item.color %></td>
       <td><%= item.virtual_qty %></td>
+      <td>
+        <% Unit.sizes.keys.each do |size| %>
+          <% num = @owned_inventory_counts[[item.id, size]] %>
+          <% unless num.nil? %>
+            <%= "#{size}: #{num}; " %>
+          <% end %>
+        <% end %>
+      </td>
       <% if item.hidden %>
         <td>&#10007;</td>
         <td><%= item.last_seen %></td>
