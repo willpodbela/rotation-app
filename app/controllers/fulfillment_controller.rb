@@ -1,4 +1,6 @@
 class FulfillmentController < AdminBaseController
+  before_action :enforce_access_control_admin!
+  
   def index
     @reservations = Reservation
     .includes(:unit, :user, :item)
