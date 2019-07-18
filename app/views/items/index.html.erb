@@ -11,8 +11,6 @@
       <th>#</th>
       <th>Title</th>
       <th>Subtitle</th>
-      <th>Desc</th>
-      <th>Color</th>
       <th>Max V-Qty</th>
       <th>Owned Inventory</th>
       <th class="black-border-right">Visible?</th>
@@ -25,8 +23,6 @@
       <td><%= item.id %></td>
       <td><%= item.title %></td>
       <td><%= item.subtitle %></td>
-      <td><%= item.description %></td>
-      <td><%= item.color %></td>
       <td><%= item.virtual_qty %></td>
       <td>
         <% Unit.sizes.keys.each do |size| %>
