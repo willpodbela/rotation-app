@@ -1,9 +1,13 @@
-class UnitsController < ApplicationController
+class UnitsController < AdminBaseController
   before_action :enforce_access_control_admin!
   before_action :set_item
 
   def index
-    @units = Unit.where(query_params).order(:status, :order_date)
+    @units = Unit
+    .includes(:item)
+    .where(query_params)
+    .order("#{sort_column} #{sort_direction}")
+    
     @avg_cost = Unit.available_for_rent.average(:cost)
     @total_cost = Unit.available_for_rent.sum(:cost)
   end
@@ -68,5 +72,9 @@ class UnitsController < ApplicationController
   
   def set_item
     @item = Item.find_by_id(params[:item_id]) 
+  end
+  
+  def sortable_columns
+    ["size", "status", "supplier", "supplier_order_id", "order_date", "retire_date", "cost", "notes", "items.title"]
   end
 end
