@@ -12,6 +12,11 @@ class Reservation < ApplicationRecord
   enum size: [ :S, :M, :L, :XL ]
   enum status: [ :scheduled, :processing, :active, :returned, :ended, :cancelled ]
   
+  def days
+    d = end_date || Time.zone.now
+    (d - start_date).to_i/1.day
+  end
+  
   before_create do |reservation|
     reservation.start_date = Date.today
   end
