@@ -2,7 +2,10 @@ class ItemsController < ApplicationController
   before_action :enforce_access_control_admin!
 
   def index
-    @items = Item.where(query_params)
+    @items = Item
+    .includes(:not_cancelled_reservations)
+    .where(query_params)
+    
     @owned_inventory_counts = Unit.owned.group(:item_id, :size).count
   end
   

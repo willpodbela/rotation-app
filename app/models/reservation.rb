@@ -5,12 +5,18 @@ class Reservation < ApplicationRecord
   
   scope :live, -> { where(status: [:processing, :active, :returned]) }
   scope :scheduled, -> { where(status: [:scheduled]) }
-    
+  scope :not_cancelled, -> { where.not(status: :cancelled) }
+  
   # NOTE: If size is not set, will return nil -- size should always be set before this is used
   has_many :units_available_for_fulfillment, -> (object) { where(size: object.size) }, class_name: "Unit", through: :item, source: :units_available_for_fulfillment
   
   enum size: [ :S, :M, :L, :XL ]
   enum status: [ :scheduled, :processing, :active, :returned, :ended, :cancelled ]
+  
+  def days
+    d = end_date || Time.zone.now
+    (d - start_date).to_i/1.day
+  end
   
   before_create do |reservation|
     reservation.start_date = Date.today

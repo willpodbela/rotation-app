@@ -32,6 +32,10 @@
         <td><%= f.number_field :cost, :step => 0.01 %></td>
       </tr>
       <tr>
+        <th>Supplier Shipping Cost</th>
+        <td><%= f.number_field :supplier_shipping_cost, :step => 0.01 %></td>
+      </tr>
+      <tr>
         <th>Status</th>
         <td><%= f.collection_select :status, Unit.statuses.map{ |a| [a.first,a.first] },  :first, :second %></td>
       </tr>

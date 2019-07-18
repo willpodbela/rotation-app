@@ -11,6 +11,10 @@ class Unit < ApplicationRecord
   enum size: [ :S, :M, :L, :XL ]
   enum status: [ :pending, :in_transit_from_supplier, :available, :sold, :returned, :retired, :offline ]
   
+  def total_cost
+    (cost || 0) + (supplier_shipping_cost || 0)
+  end
+  
   before_save do |unit|
     # If unit is sold, returned, or retired, set its retire_date
     unit.retire_date = Date.today if ((["pending", "in_transit_from_supplier", "available"].include? unit.status_was) && (["sold", "returned", "retired"].include? unit.status))

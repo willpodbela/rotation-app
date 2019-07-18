@@ -5,6 +5,7 @@ class Item < ApplicationRecord
   
   has_many :live_reservations, -> { live }, class_name: "Reservation"
   has_many :scheduled_reservations, -> { scheduled }, class_name: "Reservation"
+  has_many :not_cancelled_reservations, -> { not_cancelled }, class_name: "Reservation"
     
   scope :visible, -> { where hidden: false }
   scope :with_images, -> { where('image_file_name IS NOT NULL') }
@@ -53,6 +54,25 @@ class Item < ApplicationRecord
   
   after_create do
     self.update_counter_cache
+  end
+  
+  # Rental stat functions
+  # All calculations output in days and do not include cancelled reservations.
+  # Controller should include/preload not_cancelled_reservations if using in UI
+  
+  # Total days rented across all reservations (active and ended)
+  def cum_days_rented
+    not_cancelled_reservations.to_a.sum(&:days)
+  end
+  
+  # Days since last rental ended. Will return 0 if there is an active rental. Will return
+  # nil if item has never been rented.
+  def days_since_last_rental
+    if not_cancelled_reservations.length == 0
+      return nil
+    else
+      (Time.zone.now - not_cancelled_reservations.to_a.map { |r| r.end_date || Time.zone.now } .max).to_i/1.days
+    end
   end
   
   # Reservation objects must call this method every time they change status, are create, or are deleted

@@ -2,6 +2,7 @@
   <%= link_to("Back to Admin Home", admin_path, :class => 'back-link') %>
   
   <h2>Items</h2>
+  <p>All rental stat calculations are in days and do not include cancelled reservations.</p>
 
   <%= link_to("Add New Item", new_item_path, :class => 'action new') %>
 
@@ -13,10 +14,12 @@
       <th>Retail Value</th>
       <th>Desc</th>
       <th>Color</th>
-      <th>Max Virtual Quantity</th>
-      <th>Owned Inventory Summary</th>
-      <th>Visible?</th>
-      <th>Last Seen</th>
+      <th>Max V-Qty</th>
+      <th>Owned Inventory</th>
+      <th class="black-border-right">Visible?</th>
+      <th>Rentals</th>
+      <th>Cumulative Days Rented</th>
+      <th>Days Since Last Rental</th>
     </tr>
     <% @items.each do |item| %>
     <tr>
@@ -35,13 +38,10 @@
           <% end %>
         <% end %>
       </td>
-      <% if item.hidden %>
-        <td>&#10007;</td>
-        <td><%= item.last_seen %></td>
-      <% else %>
-        <td>&#10003;</td>
-        <td></td>
-      <% end %>
+      <td class="black-border-right"><%= item.hidden ? '✗' : '✓' %></td>
+      <td><%= item.not_cancelled_reservations.length %></td>
+      <td><%= item.cum_days_rented %></td>
+      <td><%= item.days_since_last_rental || "N/A" %></td>
       <td class="actions">
         <%= link_to("Show", item_path(item), :class => 'action -show') %>
         <%= link_to("Edit", edit_item_path(item), :class => 'action edit') %>

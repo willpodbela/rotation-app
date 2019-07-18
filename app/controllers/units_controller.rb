@@ -1,11 +1,17 @@
-class UnitsController < ApplicationController
+class UnitsController < AdminBaseController
   before_action :enforce_access_control_admin!
   before_action :set_item
 
   def index
-    @units = Unit.where(query_params).order(:status, :order_date)
-    @avg_cost = Unit.available_for_rent.average(:cost)
-    @total_cost = Unit.available_for_rent.sum(:cost)
+    @units = Unit
+    .includes(:item)
+    .where(query_params)
+    .order("#{sort_column} #{sort_direction}")
+    
+    arr = Unit.available_for_rent.to_a
+    arr_total_costs = arr.map(&:total_cost)
+    @avg_cost = arr_total_costs.inject{ |sum, el| sum + el } / arr_total_costs.size
+    @total_cost = arr.sum(&:total_cost)
   end
 
   def show
@@ -59,7 +65,7 @@ class UnitsController < ApplicationController
   private
   
   def unit_params
-    params.require(:unit).permit(:item_id, :size, :supplier, :supplier_order_id, :cost, :order_date, :retire_date, :status, :notes)
+    params.require(:unit).permit(:item_id, :size, :supplier, :supplier_order_id, :cost, :supplier_shipping_cost, :order_date, :retire_date, :status, :notes)
   end
   
   def query_params
@@ -68,5 +74,9 @@ class UnitsController < ApplicationController
   
   def set_item
     @item = Item.find_by_id(params[:item_id]) 
+  end
+  
+  def sortable_columns
+    ["size", "status", "supplier", "supplier_order_id", "order_date", "retire_date", "cost", "supplier_shipping_cost", "notes", "items.title"]
   end
 end

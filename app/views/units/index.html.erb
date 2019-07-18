@@ -13,17 +13,18 @@
   
   <%= link_to("Add New Unit", new_item_unit_path(@item), :class => 'action new') unless @item.nil? %>
   
-  <table class="listing admin_table" summary="Resevation list">
+  <table class="listing admin_table" summary="Unit list">
     <tr class="header">
-      <th>Item</th>
-      <th>Size</th>
-      <th>Status</th>
-      <th>Supplier</th>
-      <th>Order No.</th>
-      <th>Date Ordered</th>
-      <th>Date Retired</th>
-      <th>Cost</th>
-      <th>Notes</th>
+      <th><%= sort_link "items.title", "Item" %></th>
+      <th><%= sort_link "size" %></th>
+      <th><%= sort_link "status" %></th>
+      <th><%= sort_link "supplier" %></th>
+      <th><%= sort_link "supplier_order_id", "Order No." %></th>
+      <th><%= sort_link "order_date", "Date Ordered" %></th>
+      <th><%= sort_link "retire_date", "Date Retired" %></th>
+      <th><%= sort_link "cost" %></th>
+      <th><%= sort_link "supplier_shipping_cost" %></th>
+      <th><%= sort_link "notes" %></th>
     </tr>
     <% @units.each do |unit| %>
     <tr>
@@ -35,6 +36,7 @@
       <td><%= unit.order_date.try(:strftime, "%Y-%m-%d") %></td>
       <td><%= unit.retire_date.try(:strftime, "%Y-%m-%d") %></td>
       <td><%= unit.cost %></td>
+      <td><%= unit.supplier_shipping_cost %></td>
       <td class="slim-text">
         <%= unit.notes %>
       </td>
