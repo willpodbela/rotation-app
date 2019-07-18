@@ -23,6 +23,7 @@
       <th><%= sort_link "order_date", "Date Ordered" %></th>
       <th><%= sort_link "retire_date", "Date Retired" %></th>
       <th><%= sort_link "cost" %></th>
+      <th><%= sort_link "supplier_shipping_cost" %></th>
       <th><%= sort_link "notes" %></th>
     </tr>
     <% @units.each do |unit| %>
@@ -35,6 +36,7 @@
       <td><%= unit.order_date.try(:strftime, "%Y-%m-%d") %></td>
       <td><%= unit.retire_date.try(:strftime, "%Y-%m-%d") %></td>
       <td><%= unit.cost %></td>
+      <td><%= unit.supplier_shipping_cost %></td>
       <td class="slim-text">
         <%= unit.notes %>
       </td>

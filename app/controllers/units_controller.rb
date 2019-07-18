@@ -8,8 +8,10 @@ class UnitsController < AdminBaseController
     .where(query_params)
     .order("#{sort_column} #{sort_direction}")
     
-    @avg_cost = Unit.available_for_rent.average(:cost)
-    @total_cost = Unit.available_for_rent.sum(:cost)
+    arr = Unit.available_for_rent.to_a
+    arr_total_costs = arr.map(&:total_cost)
+    @avg_cost = arr_total_costs.inject{ |sum, el| sum + el } / arr_total_costs.size
+    @total_cost = arr.sum(&:total_cost)
   end
 
   def show
@@ -63,7 +65,7 @@ class UnitsController < AdminBaseController
   private
   
   def unit_params
-    params.require(:unit).permit(:item_id, :size, :supplier, :supplier_order_id, :cost, :order_date, :retire_date, :status, :notes)
+    params.require(:unit).permit(:item_id, :size, :supplier, :supplier_order_id, :cost, :supplier_shipping_cost, :order_date, :retire_date, :status, :notes)
   end
   
   def query_params
@@ -75,6 +77,6 @@ class UnitsController < AdminBaseController
   end
   
   def sortable_columns
-    ["size", "status", "supplier", "supplier_order_id", "order_date", "retire_date", "cost", "notes", "items.title"]
+    ["size", "status", "supplier", "supplier_order_id", "order_date", "retire_date", "cost", "supplier_shipping_cost", "notes", "items.title"]
   end
 end
