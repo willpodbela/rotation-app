@@ -5,7 +5,8 @@ class Reservation < ApplicationRecord
   
   scope :live, -> { where(status: [:processing, :active, :returned]) }
   scope :scheduled, -> { where(status: [:scheduled]) }
-    
+  scope :not_cancelled, -> { where.not(status: :cancelled) }
+  
   # NOTE: If size is not set, will return nil -- size should always be set before this is used
   has_many :units_available_for_fulfillment, -> (object) { where(size: object.size) }, class_name: "Unit", through: :item, source: :units_available_for_fulfillment
   

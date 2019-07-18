@@ -17,6 +17,9 @@
       <th>Owned Inventory Summary</th>
       <th>Visible?</th>
       <th>Last Seen</th>
+      <th>Rentals</th>
+      <th>Cumulative Days Rented</th>
+      <th>Days Since Last Rental</th>
     </tr>
     <% @items.each do |item| %>
     <tr>
@@ -42,6 +45,9 @@
         <td>&#10003;</td>
         <td></td>
       <% end %>
+      <td><%= item.not_cancelled_reservations.length %></td>
+      <td><%= item.cum_days_rented %></td>
+      <td><%= item.days_since_last_rental || "N/A" %></td>
       <td class="actions">
         <%= link_to("Show", item_path(item), :class => 'action -show') %>
         <%= link_to("Edit", edit_item_path(item), :class => 'action edit') %>
