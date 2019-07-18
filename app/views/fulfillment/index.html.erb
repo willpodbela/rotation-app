@@ -43,7 +43,7 @@ $(document).ready(function(){
           <% else %>
             <%= form_with(model: reservation.unit, html: {'class' => 'throwaway-ajax'}) do |f| %>
               <%= f.hidden_field :status, value: :offline %>
-              <%= f.submit("Take Inventory Offline for Cleaning") %>
+              <%= f.submit("Mark Offline for Cleaning") %>
             <% end %>
           <% end %>
         </td>
