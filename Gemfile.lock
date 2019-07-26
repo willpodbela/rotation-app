@@ -98,6 +98,9 @@ GEM
     ffi (1.9.18)
     font-awesome-rails (4.7.0.4)
       railties (>= 3.2, < 6.0)
+    gibbon (3.2.0)
+      faraday (>= 0.9.1)
+      multi_json (>= 1.11.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     highline (1.7.10)
@@ -286,6 +289,7 @@ DEPENDENCIES
   devise (= 4.4.0)
   dotenv-rails
   font-awesome-rails
+  gibbon (~> 3.2)
   houston
   http
   jbuilder (~> 2.5)

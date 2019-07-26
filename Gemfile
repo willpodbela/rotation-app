@@ -55,6 +55,9 @@ gem 'houston'
 # For detecting browser
 gem 'browser'
 
+# For integration with Mail Chimp
+gem 'gibbon', '~> 3.2'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
