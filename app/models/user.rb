@@ -24,6 +24,7 @@ class User < ApplicationRecord
   
   after_save do |user|
     user.create_profile unless user.profile.present?
+    MailChimpService.sync_and_tag(user)
   end
   
   enum access_level: [ :waitlist, :standard, :admin ]
