@@ -53,8 +53,22 @@ class MailChimpService
     # This is the business logic to compute the exhaustive and complete list of tags a 
     # user should be associated with at this given point in time.
     def compute_appropriate_tags(user)
-      # TODO
-      ["test-active"]
+      tags = []
+      tags << "access-level-#{user.access_level}"
+      tags << "referral-code-#{user.referral_code.id}" unless user.referral_code.nil?
+      tags << "advertisement-code-#{user.advertisement_code.id}" unless user.advertisement_code.nil?
+      
+      subscription_tag = ""
+      if user.current_subscription.nil?
+        if user.subscriptions.empty?
+          subscription_tag = "none"
+        else
+          subscription_tag = "churned"
+        end
+      else
+        subscription_tag = "current-#{user.current_subscription.status}"
+      end
+      tags << "subscription-#{subscription_tag}"
     end
     
     # Use this function to list out any tags that should not be altered. These are usually
