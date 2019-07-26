@@ -2,6 +2,9 @@ class Profile < ApplicationRecord
   belongs_to :user
 
   after_save :async_fetch_instagram_data_if_needed
+  after_save do |profile|
+    MailChimpService.sync_and_tag(profile.user)
+  end
   
   before_save do |profile|
     if (limit = Integer(ENV['USER_AUTOENROLL_LIMIT']) rescue false) && (zip = Integer(profile.address_zip) rescue false)
@@ -39,7 +42,7 @@ class Profile < ApplicationRecord
   end
   
   def full_address
-    [address_line_one, address_line_two, address_city, address_state, address_zip].compact.join(", ")
+    [address_line_one, address_line_two, address_city, address_state, address_zip].compact.split("").flatten.join(", ")
   end
   
   def full_name
