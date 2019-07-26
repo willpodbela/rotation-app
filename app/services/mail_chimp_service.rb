@@ -3,6 +3,8 @@ class MailChimpService
     
     # Should be called when profile information is updated or re-tagging is needed
     def sync_and_tag(user)
+      # Compile profile info and subscribe user to list
+      
       merge_fields = {}
       prof = user.profile
       unless prof.nil?
@@ -24,9 +26,44 @@ class MailChimpService
       end
       
       gibbon_req.lists(list_id).members(subscriber_hash(user)).upsert(body: {email_address: user.email, status: "subscribed", merge_fields: merge_fields})
+    
+      # Recompute and set tags
+      
+      current_state = get_mailchimp_tags(user)
+      future_state = compute_appropriate_tags(user)
+      
+      to_add = future_state - current_state
+      to_remove = current_state - future_state - ignore_tags
+      
+      tag_params = []
+      for tag in to_add do 
+        tag_params << { name: tag, status: :active }
+      end
+      for tag in to_remove do 
+        tag_params << { name: tag, status: :inactive }
+      end
+      
+      gibbon_req.lists(list_id).members(subscriber_hash(user)).tags.create(body: {tags: tag_params})
     end
     
-    #private
+    private
+    
+    ## These first two functions hold the business logic for tagging users in MailChimp
+    
+    # This is the business logic to compute the exhaustive and complete list of tags a 
+    # user should be associated with at this given point in time.
+    def compute_appropriate_tags(user)
+      # TODO
+      ["test-active"]
+    end
+    
+    # Use this function to list out any tags that should not be altered. These are usually
+    # the tags that are set manually via the online dashboard.
+    def ignore_tags
+      ["investor"]
+    end
+    
+    ## Helper methods
     
     def gibbon_req
       Gibbon::Request.new(api_key: ENV["MAIL_CHIMP_API_KEY"])
@@ -40,19 +77,15 @@ class MailChimpService
     def subscriber_hash(user)
       Digest::MD5.hexdigest user.email.downcase
     end
-    
-    #wip
-    
-    def get_tags(user)
-      gibbon_req.lists(list_id).members(subscriber_hash(user)).tags.retrieve
-    end
-    
-    def add_tags(user, tags=[])
-    
-    end
-    
-    def remove_tags(user, tags=[])
-    
+        
+    def get_mailchimp_tags(user)
+      res = gibbon_req.lists(list_id).members(subscriber_hash(user)).tags.retrieve
+      
+      ret = []
+      for tag_hash in res.body["tags"]
+        ret << tag_hash["name"]
+      end
+      return ret
     end
     
   end
