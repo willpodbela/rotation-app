@@ -3,47 +3,51 @@ class MailChimpService
     
     # Should be called when profile information is updated or re-tagging is needed
     def sync_and_tag(user)
-      # Compile profile info and subscribe user to list
+      Thread.new do
+        Rails.application.executor.wrap do
+          # Compile profile info and subscribe user to list
       
-      merge_fields = {}
-      prof = user.profile
-      unless prof.nil?
-        unless prof.first_name.nil?
-          merge_fields[:FNAME] = prof.first_name
-        end
-        unless prof.last_name.nil?
-          merge_fields[:LNAME] = prof.last_name
-        end
-        unless prof.full_address.empty?
-          merge_fields[:ADDRESS] = {}
-          merge_fields[:ADDRESS][:addr1] = (prof.address_line_one || "")
-          merge_fields[:ADDRESS][:addr2] = (prof.address_line_two || "")
-          merge_fields[:ADDRESS][:city] = (prof.address_city || "")
-          merge_fields[:ADDRESS][:state] = (prof.address_state || "")
-          merge_fields[:ADDRESS][:zip] = (prof.address_zip || "")
-          merge_fields[:ADDRESS][:country] = "USA"
-        end
-      end
+          merge_fields = {}
+          prof = user.profile
+          unless prof.nil?
+            unless prof.first_name.nil?
+              merge_fields[:FNAME] = prof.first_name
+            end
+            unless prof.last_name.nil?
+              merge_fields[:LNAME] = prof.last_name
+            end
+            unless prof.full_address.empty?
+              merge_fields[:ADDRESS] = {}
+              merge_fields[:ADDRESS][:addr1] = (prof.address_line_one || "")
+              merge_fields[:ADDRESS][:addr2] = (prof.address_line_two || "")
+              merge_fields[:ADDRESS][:city] = (prof.address_city || "")
+              merge_fields[:ADDRESS][:state] = (prof.address_state || "")
+              merge_fields[:ADDRESS][:zip] = (prof.address_zip || "")
+              merge_fields[:ADDRESS][:country] = "USA"
+            end
+          end
       
-      gibbon_req.lists(list_id).members(subscriber_hash(user)).upsert(body: {email_address: user.email, status_if_new: "subscribed", merge_fields: merge_fields})
+          gibbon_req.lists(list_id).members(subscriber_hash(user)).upsert(body: {email_address: user.email, status_if_new: "subscribed", merge_fields: merge_fields})
     
-      # Recompute and set tags
+          # Recompute and set tags
       
-      current_state = get_mailchimp_tags(user)
-      future_state = compute_appropriate_tags(user)
+          current_state = get_mailchimp_tags(user)
+          future_state = compute_appropriate_tags(user)
       
-      to_add = future_state - current_state
-      to_remove = current_state - future_state - ignore_tags
+          to_add = future_state - current_state
+          to_remove = current_state - future_state - ignore_tags
       
-      tag_params = []
-      for tag in to_add do 
-        tag_params << { name: tag, status: :active }
+          tag_params = []
+          for tag in to_add do 
+            tag_params << { name: tag, status: :active }
+          end
+          for tag in to_remove do 
+            tag_params << { name: tag, status: :inactive }
+          end
+      
+          gibbon_req.lists(list_id).members(subscriber_hash(user)).tags.create(body: {tags: tag_params})
+        end
       end
-      for tag in to_remove do 
-        tag_params << { name: tag, status: :inactive }
-      end
-      
-      gibbon_req.lists(list_id).members(subscriber_hash(user)).tags.create(body: {tags: tag_params})
     end
     
     private
