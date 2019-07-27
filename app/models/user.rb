@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :scheduled_reservations, -> { scheduled }, class_name: "Reservation"
   has_many :my_rotation_items, through: :live_reservations, source: :item
   has_many :up_next_items, through: :scheduled_reservations, source: :item
+  has_many  :current_valid_subscriptions, -> { current.valid }, class_name: "Subscription"
   
   scope :paying_customers, -> { joins(:subscriptions).merge(Subscription.valid) }
   
@@ -24,6 +25,7 @@ class User < ApplicationRecord
   
   after_save do |user|
     user.create_profile unless user.profile.present?
+    MailChimpService.sync_and_tag(user)
   end
   
   enum access_level: [ :waitlist, :standard, :admin ]
@@ -84,7 +86,7 @@ class User < ApplicationRecord
   end
   
   def current_subscription
-    self.subscriptions.current.valid.first
+    self.current_valid_subscriptions.first
   end
   
   # eager_load live_reservations and scheduled_reservations when planning to make this call

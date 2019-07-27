@@ -37,6 +37,9 @@
     "LANG": {
       "required": true
     },
+    "MAIL_CHIMP_API_KEY": {
+      "required": true
+    },
     "RACK_ENV": {
       "required": true
     },

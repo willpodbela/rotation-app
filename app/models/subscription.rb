@@ -32,6 +32,10 @@ class Subscription < ApplicationRecord
     end
   end
   
+  after_save do |subscription|
+    MailChimpService.sync_and_tag(subscription.user)
+  end
+  
   class << self
     #Class Method for updating Subscription objects with stripe webhooks
     def process_stripe_webhook(subscription_id, params)
