@@ -25,7 +25,7 @@ class MailChimpService
         end
       end
       
-      gibbon_req.lists(list_id).members(subscriber_hash(user)).upsert(body: {email_address: user.email, status: "subscribed", merge_fields: merge_fields})
+      gibbon_req.lists(list_id).members(subscriber_hash(user)).upsert(body: {email_address: user.email, status_if_new: "subscribed", merge_fields: merge_fields})
     
       # Recompute and set tags
       
