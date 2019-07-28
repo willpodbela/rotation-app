@@ -1,11 +1,18 @@
 class MailChimpService
   require 'concurrent'
   
+  def gibbon_req
+    Gibbon::Request.new(api_key: ENV["MAIL_CHIMP_API_KEY"])
+  end
+  
   ## Singleton Init
   # Uses Singleton patten so that requests can be dispatched and managed on a single Queue
-
+  
   def initialize
     @thread_pool = Concurrent::FixedThreadPool.new(2)
+    
+    res = gibbon_req.lists.retrieve
+    @list_id = res.body["lists"].first["id"]
   end
 
   @@instance = MailChimpService.new
@@ -52,7 +59,7 @@ class MailChimpService
         end
       end
   
-      gibbon_req.lists(list_id).members(subscriber_hash(user)).upsert(body: {email_address: user.email, status_if_new: "subscribed", merge_fields: merge_fields})
+      gibbon_req.lists(@list_id).members(subscriber_hash(user)).upsert(body: {email_address: user.email, status_if_new: "subscribed", merge_fields: merge_fields})
 
       # Recompute and set tags
   
@@ -70,7 +77,7 @@ class MailChimpService
         tag_params << { name: tag, status: :inactive }
       end
   
-      gibbon_req.lists(list_id).members(subscriber_hash(user)).tags.create(body: {tags: tag_params})
+      gibbon_req.lists(@list_id).members(subscriber_hash(user)).tags.create(body: {tags: tag_params})
     end
   end
   
@@ -107,21 +114,12 @@ class MailChimpService
   
   ## Helper methods
   
-  def gibbon_req
-    Gibbon::Request.new(api_key: ENV["MAIL_CHIMP_API_KEY"])
-  end
-  
-  def list_id
-    res = gibbon_req.lists.retrieve
-    res.body["lists"].first["id"]
-  end
-  
   def subscriber_hash(user)
     Digest::MD5.hexdigest user.email.downcase
   end
       
   def get_mailchimp_tags(user)
-    res = gibbon_req.lists(list_id).members(subscriber_hash(user)).tags.retrieve
+    res = gibbon_req.lists(@list_id).members(subscriber_hash(user)).tags.retrieve
     
     ret = []
     for tag_hash in res.body["tags"]
