@@ -58,6 +58,9 @@ gem 'browser'
 # For integration with Mail Chimp
 gem 'gibbon', '~> 3.2'
 
+# For concurency and mulit-threading
+gem 'concurrent-ruby', require: 'concurrent'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

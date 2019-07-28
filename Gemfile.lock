@@ -286,6 +286,7 @@ DEPENDENCIES
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
+  concurrent-ruby
   devise (= 4.4.0)
   dotenv-rails
   font-awesome-rails
