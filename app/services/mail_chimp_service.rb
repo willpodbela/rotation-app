@@ -5,7 +5,7 @@ class MailChimpService
   # Uses Singleton patten so that requests can be dispatched and managed on a single Queue
 
   def initialize
-    @thread_pool = Concurrent::FixedThreadPool.new(9)
+    @thread_pool = Concurrent::FixedThreadPool.new(2)
   end
 
   @@instance = MailChimpService.new
