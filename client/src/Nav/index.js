@@ -1,6 +1,5 @@
 import React from "react"
 import { Link } from "react-router-dom"
-// import "../App.css"
 
 const Nav = props => {
     return (
@@ -9,7 +8,7 @@ const Nav = props => {
           <nav className="navigation_6 padding_top30 padding_bottom60 line_height40 transparent top30">
             <div className="container nopadding">
               <div className="float_left nav_logo">
-                {/* <%= link_to("the rotation", root_path, style: "text-decoration: none; color: black;") %> */}
+                <a href="/" style={{textDecoration: "none", color: "black"}}>the rotation</a>
               </div>
               <div className="float_right">
                 {/* <% if user_signed_in? %>

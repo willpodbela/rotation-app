@@ -1,5 +1,7 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
+import Rotation1x from "../images/rotation-app@1x.png"
+import Rotation2x from "../images/rotation-app@2x.png"
 
 class LandingPage extends Component {
   constructor(props){
@@ -10,6 +12,8 @@ class LandingPage extends Component {
   }
 
   render(){
+    // const rotation1x = "../images/rotation-app@1x.png"
+    // const rotation2x = "../images/rotation-app@2x.png"
     return (
       <div className="LandingPage">
         <header className="header_11">
@@ -31,7 +35,7 @@ class LandingPage extends Component {
                 {/* <% end <%> */}
               </div>
             </div>
-            {/* <img style="top: 0px;" srcset="<%= asset_path 'rotation-app@1x.png' <%> 1x, <%= asset_path 'rotation-app@2x.png' <%> 2x" src="<%= asset_path 'rotation-app@1x.png' <%>" className="left470 bg" alt="" /> */}
+            <img style={{top: "0px"}} srcSet={`${Rotation1x} 1x, ${Rotation2x} 2x`} src={Rotation1x} className="left470 bg" alt="" />
           </div>
         </header>
 
