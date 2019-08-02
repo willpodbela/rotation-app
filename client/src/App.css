@@ -1,6 +1,9 @@
 @charset "UTF-8";
 /* Line 7244 */
 /* Admin Page CSS */
+a{
+  text-decoration: none;
+}
 div.edit td, div.edit th,
 div.new td, div.new th,
 .admin_table {

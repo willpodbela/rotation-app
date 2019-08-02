@@ -1,5 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const Nav = props => {
     return (
@@ -11,6 +12,8 @@ const Nav = props => {
                 <a href="/" style={{textDecoration: "none", color: "black"}}>the rotation</a>
               </div>
               <div className="float_right">
+                <a href="#" className="link dark_gray right30">Logout</a>
+                <a href="#" className="link dark_gray right30">Check Status</a>
                 {/* <% if user_signed_in? %>
                   <%= link_to("Logout", destroy_user_session_path, method: :delete, class: "link dark_gray right30") %>
                   <%= link_to("Check Status", status_path, class: "link dark_gray right30") %>
@@ -19,7 +22,7 @@ const Nav = props => {
                   <%= link_to("Sign up", new_user_registration_path, class: "link dark_gray right30") %>
                 <% end %>
                 <%= link_to(download_path, class:"btn black size40 padding_sides20 right30") do %> */}
-                  <i className="fab fa-apple right10"></i>Download App
+                <a href="#" className="btn black size40 padding_sides20 right30"><FontAwesomeIcon className="fa right10" icon={["fab", "apple"]} />Download App</a>
                 {/* <% end %> */}
               </div>
             </div>

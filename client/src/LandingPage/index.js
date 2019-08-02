@@ -1,7 +1,29 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
-import Rotation1x from "../images/rotation-app@1x.png"
-import Rotation2x from "../images/rotation-app@2x.png"
+import Rotation1 from "../images/rotation-app@1x.png"
+import Rotation2 from "../images/rotation-app@2x.png"
+import Acne1 from "../images/Acne_Studios_logo@0,5x.png"
+import Acne2 from "../images/Acne_Studios_logo.png"
+import Apc1 from "../images/apc@0,5x.png"
+import Apc2 from "../images/apc.png"
+import Bape1 from "../images/bape@0,5x.png"
+import Bape2 from "../images/bape.png"
+import FearOfGod1 from "../images/fearofgod_logo@0,5x.png"
+import FearOfGod2 from "../images/fearofgod_logo.png"
+import OffWhite1 from "../images/offwhite@0,5x.png"
+import OffWhite2 from "../images/offwhite.png"
+import Palace1 from "../images/palace@0,5x.png"
+import Palace2 from "../images/palace.png"
+import Raf1 from "../images/raf@0,5x.png"
+import Raf2 from "../images/raf.png"
+import StoneIsland1 from "../images/stone-island@0,5x.png"
+import StoneIsland2 from "../images/stone-island.png"
+import Supreme1 from "../images/supreme@0,5x.png"
+import Supreme2 from "../images/supreme.png"
+import Yeezy1 from "../images/Yeezy-Logo@1x.png"
+import Yeezy2 from "../images/Yeezy-Logo@2x.png"
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 class LandingPage extends Component {
   constructor(props){
@@ -12,8 +34,6 @@ class LandingPage extends Component {
   }
 
   render(){
-    // const rotation1x = "../images/rotation-app@1x.png"
-    // const rotation2x = "../images/rotation-app@2x.png"
     return (
       <div className="LandingPage">
         <header className="header_11">
@@ -24,6 +44,12 @@ class LandingPage extends Component {
                 This is The Rotation. A members-only club that gives you access to an extensive designer wardrobe, for a fraction of the price. Everything you could want, right at your fingertips.
               </div>
               <div className="max_width570 left_block">
+                <form id="landing-form" className="max_width470 text_center top80 header_3_form">
+                  <input id="email" name="email" type="email" className="width_full radius6" placeholder="Email Address" required/>
+                  <input id="password" name="password" type="password" className="width_full radius6 top30" placeholder="Password" required/>
+                  <input id="password_confirmation" name="password_confirmation" type="password" className="width_full radius6 top30" placeholder="Confirm" required/>
+                  <button type="submit" className="btn width_full size60 blue radius6 top30">Create an Account</button>
+                </form>
                 {/* <%= form_tag(sign_up_path, id: "landing-form", remote: true, class: "max_width470 text_center top80 header_3_form") do <%>
                   <%= email_field_tag("email", nil, id: "email", class: "width_full radius6", placeholder: "Email Address", required: "required") =<%>
                   <%= password_field_tag("password", nil, id: "password", class: "width_full radius6 top30", placeholder: "Password", required: "required") =<%>
@@ -35,7 +61,7 @@ class LandingPage extends Component {
                 {/* <% end <%> */}
               </div>
             </div>
-            <img style={{top: "0px"}} srcSet={`${Rotation1x} 1x, ${Rotation2x} 2x`} src={Rotation1x} className="left470 bg" alt="" />
+            <img style={{top: "0px"}} srcSet={`${Rotation1} 1x, ${Rotation2} 2x`} src={Rotation1} className="left470 bg" alt="" />
           </div>
         </header>
 
@@ -46,7 +72,7 @@ class LandingPage extends Component {
             <h2 className="font42 ubuntu light dark_gray text_center">How It Works</h2>
             <div className="top70 inner">
               <div className="col-sm-4 text_center bottom50 block">
-                <i className="fa fa-shopping-bag font60 light_gray"></i>
+                <FontAwesomeIcon className="fa font60 light_gray" icon="shopping-bag" />
                 <div className="top20 font28 light dark_gray title">Rent 2 Items
                   <br />At a Time</div>
                 <div className="top30 font18 light dark_blue text">
@@ -55,7 +81,7 @@ class LandingPage extends Component {
                 </div>
               </div>
               <div className="col-sm-4 text_center bottom50 block">
-                <i className="fa fa-box-open font60 light_gray"></i>
+                <FontAwesomeIcon className="fa font60 light_gray" icon="box-open" />
                 <div className="top20 font28 light dark_gray title">Delivered to
                   <br />Your Home</div>
                 <div className="top30 font18 light dark_blue text">
@@ -63,7 +89,7 @@ class LandingPage extends Component {
                 </div>
               </div>
               <div className="col-sm-4 text_center bottom50 block">
-                <i className="fa fa-recycle font60 light_gray"></i>
+                <FontAwesomeIcon className="fa font60 light_gray" icon="recycle" />
                 <div className="top20 font28 light dark_gray title">Unlimited
                   <br />Exchanges</div>
                 <div className="top30 font18 light dark_blue text">
@@ -76,7 +102,6 @@ class LandingPage extends Component {
 
         {/* Content 35 */}
         <hr width="50%" />
-
         <section className="content_35 padding_bottom50">
           <div className="container nopadding">
             <div className="text_center max_width970 margin_auto">
@@ -85,34 +110,34 @@ class LandingPage extends Component {
                 <h2 className="font42 black top30 light ubuntu">From Traditional Designers <br />to Modern Streetwear</h2>
               </div>
               <div className="inline_block bottom50 width190 text_left">
-                {/* <img srcset="<%= asset_path 'Acne_Studios_logo@0,5x.png' <%> 1x, <%= asset_path 'Acne_Studios_logo.png' <%> 2x" src="<%= asset_path 'Acne_Studios_logo@0,5x.png' <%>" className="max_width_full" alt="" /> */}
+                <img srcSet={`${Acne1} 1x, ${Acne2} 2x`} src={Acne1} className="max_width_full" alt="" />
               </div>
               <div className="inline_block margin_auto bottom50 width190 text_center">
-                {/* <img srcset="<%= asset_path 'apc@0,5x.png' <%> 1x, <%= asset_path 'apc.png' <%> 2x" src="<%= asset_path 'apc@0,5x.png' <%>" className="max_width_full" alt="" /> */}
+                <img srcSet={`${Apc1} 1x, ${Apc2} 2x`} src={Apc1} className="max_width_full" alt="" />
               </div>
               <div className="inline_block margin_auto bottom50 width190 text_center">
-                {/* <img srcset="<%= asset_path 'bape@0,5x.png' <%> 1x, <%= asset_path 'bape.png' <%> 2x" src="<%= asset_path 'bape@0,5x.png' <%>" className="max_width_full" alt="" /> */}
+                <img srcSet={`${Bape1} 1x, ${Bape2} 2x`} src={Bape1} className="max_width_full" alt="" />
               </div>
               <div className="inline_block margin_auto bottom50 width190 text_center">
-                {/* <img srcset="<%= asset_path 'fearofgod_logo@0,5x.png' <%> 1x, <%= asset_path 'fearofgod_logo.png' <%> 2x" src="<%= asset_path 'fearofgod_logo@0,5x.png' <%>" className="max_width_full" alt="" /> */}
+                <img srcSet={`${FearOfGod1} 1x, ${FearOfGod2} 2x`} src={FearOfGod1} className="max_width_full" alt="" />
               </div>
               <div className="inline_block margin_auto bottom50 width190 text_right">
-                {/* <img srcset="<%= asset_path 'offwhite@0,5x.png' <%> 1x, <%= asset_path 'offwhite.png' <%> 2x" src="<%= asset_path 'offwhite@0,5x.png' <%>" className="max_width_full" alt="" /> */}
+                <img srcSet={`${OffWhite1} 1x, ${OffWhite2} 2x`} src={OffWhite1} className="max_width_full" alt="" />
               </div>
               <div className="inline_block margin_auto bottom50 width190 text_left">
-                {/* <img srcset="<%= asset_path 'palace@0,5x.png' <%> 1x, <%= asset_path 'palace.png' <%> 2x" src="<%= asset_path 'palace@0,5x.png' <%>" className="max_width_full" alt="" /> */}
+                <img srcSet={`${Palace1} 1x, ${Palace2} 2x`} src={Palace1} className="max_width_full" alt="" />
               </div>
               <div className="inline_block margin_auto bottom50 width190 text_center">
-                {/* <img srcset="<%= asset_path 'raf@0,5x.png' <%> 1x, <%= asset_path 'raf.png' <%> 2x" src="<%= asset_path 'raf@0,5x.png' <%>" className="max_width_full" alt="" /> */}
+                <img srcSet={`${Raf1} 1x, ${Raf2} 2x`} src={Raf1} className="max_width_full" alt="" />
               </div>
               <div className="inline_block margin_auto bottom50 width190 text_center">
-                {/* <img srcset="<%= asset_path 'stone-island@0,5x.png' <%> 1x, <%= asset_path 'stone-island.png' <%> 2x" src="<%= asset_path 'stone-island@0,5x.png' <%>" className="max_width_full" alt="" /> */}
+                <img srcSet={`${StoneIsland1} 1x, ${StoneIsland2} 2x`} src={StoneIsland1} className="max_width_full" alt="" />
               </div>
               <div className="inline_block margin_auto bottom50 width190 text_center">
-                {/* <img srcset="<%= asset_path 'supreme@0,5x.png' <%> 1x, <%= asset_path 'supreme.png' <%> 2x" src="<%= asset_path 'supreme@0,5x.png' <%>" className="max_width_full" alt="" /> */}
+                <img srcSet={`${Supreme1} 1x, ${Supreme2} 2x`} src={Supreme1} className="max_width_full" alt="" />
               </div>
               <div className="inline_block margin_auto bottom50 width190 text_right">
-                {/* <img srcset="<%= asset_path 'Yeezy-Logo@1x.png' <%> 1x, <%= asset_path 'Yeezy-Logo@2x.png' <%> 2x" src="<%= asset_path 'Yeezy-Logo@1x.png' <%>" className="max_width_full" alt="" /> */}
+                <img srcSet={`${Yeezy1} 1x, ${Yeezy2} 2x`} src={Yeezy1} className="max_width_full" alt="" />
               </div>
             </div>
           </div>
@@ -133,6 +158,7 @@ class LandingPage extends Component {
               <div className="top30 light font16 text">
                 Be the first to sign up for The Rotation and receive a special price.
               </div>
+              <a id="price-btn" href="#" className="top45 min_width170 btn size60 transparent_blue border border_blue radius6 font16">Try for $49/mo</a>
               {/* <% if user_signed_in? <%>
                   <%= link_to("Try for $49/mo", status_path, class: "top45 min_width170 btn size60 transparent_blue border border_blue radius6 font16") <%>
                 <% else <%>
