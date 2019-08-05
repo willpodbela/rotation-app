@@ -127,6 +127,7 @@ module Api
       
       def set_inventory
         @inventory = Queries::Inventory.new
+        @favorite_item_ids = current_user.favorite_items.map(&:item_id)
       end
       
     end
