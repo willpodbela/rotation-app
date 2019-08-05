@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Rotation1 from "../images/rotation-app@1x.png"
 import Rotation2 from "../images/rotation-app@2x.png"
 import Acne1 from "../images/Acne_Studios_logo@0,5x.png"
@@ -23,14 +24,30 @@ import Supreme2 from "../images/supreme.png"
 import Yeezy1 from "../images/Yeezy-Logo@1x.png"
 import Yeezy2 from "../images/Yeezy-Logo@2x.png"
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-
 class LandingPage extends Component {
   constructor(props){
     super(props)
-    // this.state = {
-    //   results: []
-    // }
+    this.state = {
+      items: []
+    }
+  }
+
+  componentDidMount(){
+    fetch("/api/v1/items", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Token 194d0e44fa01fd4c0e3ed1520a876368"
+        // "Authorization": `Token ${Auth.getToken()}`,
+        // token: Auth.getToken()
+      }
+    }).then(results => {
+      results.json()
+        .then(results => {
+          this.setState({items: results.items})
+          console.log(this.state.items)
+        })
+    })
   }
 
   render(){
@@ -57,7 +74,7 @@ class LandingPage extends Component {
                   <%= button_tag(type: "submit", class: "btn width_full size60 blue radius6 top30") do <%>
                     Create an Account
                   <% end <%> */}
-                  <div className="top30 medium_gray text">By signing up, you agree to the <a href="#">Terms of Service</a></div>
+                  <div className="top30 medium_gray text">By signing up, you agree to the <Link to="/">Terms of Service</Link></div>
                 {/* <% end <%> */}
               </div>
             </div>
@@ -65,8 +82,23 @@ class LandingPage extends Component {
           </div>
         </header>
 
-        {/* Feature 1 */}
+        {/* What's in store section */}
+        <section>
+          <h2>What's In Store</h2>
+          <div>
+          {this.state.items.map((item, index) => {
+            return (
+              <div key={index}>
+                {/* <img src={item.image_url} alt="" /> */}
+                <h5>Title: {item.title}</h5>
+                <h5>Description: {item.description}</h5>
+              </div>
+            )
+          })}
+          </div>
+        </section>
 
+        {/* Feature 1 */}
         <section className="feature_1 padding_top80 padding_bottom50">
           <div className="container nopadding max_width970">
             <h2 className="font42 ubuntu light dark_gray text_center">How It Works</h2>
@@ -143,9 +175,9 @@ class LandingPage extends Component {
           </div>
         </section>
 
-        {/* Pricing Table 7 */}
         <hr width="50%" />
 
+        {/* Pricing Table 7 */}
         <section className="pricing_table_7 padding_top70 padding_bottom110">
           <div className="container nopadding dark_blue text_center">
             <h2 className="font42 ubuntu light dark_gray">How much for no limits?</h2>
@@ -158,7 +190,7 @@ class LandingPage extends Component {
               <div className="top30 light font16 text">
                 Be the first to sign up for The Rotation and receive a special price.
               </div>
-              <a id="price-btn" href="#" className="top45 min_width170 btn size60 transparent_blue border border_blue radius6 font16">Try for $49/mo</a>
+              <Link to="/status" id="price-btn" className="top45 min_width170 btn size60 transparent_blue border border_blue radius6 font16">Try for $49/mo</Link>
               {/* <% if user_signed_in? <%>
                   <%= link_to("Try for $49/mo", status_path, class: "top45 min_width170 btn size60 transparent_blue border border_blue radius6 font16") <%>
                 <% else <%>
