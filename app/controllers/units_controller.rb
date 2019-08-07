@@ -7,10 +7,10 @@ class UnitsController < AdminBaseController
     .includes(:item)
     .where(query_params)
     .order("#{sort_column} #{sort_direction}")
-    
+
     arr = Unit.available_for_rent.to_a
     arr_total_costs = arr.map(&:total_cost)
-    @avg_cost = arr_total_costs.inject{ |sum, el| sum + el } / arr_total_costs.size
+    @avg_cost = arr_total_costs.empty? ? 0 : arr_total_costs.inject{ |sum, el| sum + el } / arr_total_costs.size
     @total_cost = arr.sum(&:total_cost)
   end
 
@@ -21,7 +21,7 @@ class UnitsController < AdminBaseController
   def new
     @unit = Unit.new(:item_id => @item_id)
   end
-  
+
   def create
     # Instantiate a new object using form parameters
     @unit = Unit.new(unit_params)
@@ -40,7 +40,7 @@ class UnitsController < AdminBaseController
   def edit
     @unit = Unit.find(params[:id])
   end
-  
+
   def update
     # Find a new object using form parameters
     @unit = Unit.find(params[:id])
@@ -57,25 +57,25 @@ class UnitsController < AdminBaseController
       end
     end
   end
-  
+
   def destroy
     # TODO render 404.
   end
-  
+
   private
-  
+
   def unit_params
     params.require(:unit).permit(:item_id, :size, :supplier, :supplier_order_id, :cost, :supplier_shipping_cost, :order_date, :retire_date, :status, :notes)
   end
-  
+
   def query_params
     params.permit(:item_id, :status)
   end
-  
+
   def set_item
-    @item = Item.find_by_id(params[:item_id]) 
+    @item = Item.find_by_id(params[:item_id])
   end
-  
+
   def sortable_columns
     ["size", "status", "supplier", "supplier_order_id", "order_date", "retire_date", "cost", "supplier_shipping_cost", "notes", "items.title"]
   end

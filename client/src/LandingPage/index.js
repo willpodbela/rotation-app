@@ -1,53 +1,25 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import Rotation1 from "../images/rotation-app@1x.png"
-import Rotation2 from "../images/rotation-app@2x.png"
-import Acne1 from "../images/Acne_Studios_logo@0,5x.png"
-import Acne2 from "../images/Acne_Studios_logo.png"
-import Apc1 from "../images/apc@0,5x.png"
-import Apc2 from "../images/apc.png"
-import Bape1 from "../images/bape@0,5x.png"
-import Bape2 from "../images/bape.png"
-import FearOfGod1 from "../images/fearofgod_logo@0,5x.png"
-import FearOfGod2 from "../images/fearofgod_logo.png"
-import OffWhite1 from "../images/offwhite@0,5x.png"
-import OffWhite2 from "../images/offwhite.png"
-import Palace1 from "../images/palace@0,5x.png"
-import Palace2 from "../images/palace.png"
-import Raf1 from "../images/raf@0,5x.png"
-import Raf2 from "../images/raf.png"
-import StoneIsland1 from "../images/stone-island@0,5x.png"
-import StoneIsland2 from "../images/stone-island.png"
-import Supreme1 from "../images/supreme@0,5x.png"
-import Supreme2 from "../images/supreme.png"
-import Yeezy1 from "../images/Yeezy-Logo@1x.png"
-import Yeezy2 from "../images/Yeezy-Logo@2x.png"
 
 class LandingPage extends Component {
   constructor(props){
     super(props)
     this.state = {
-      items: []
+      featuredItems: []
     }
   }
 
   componentDidMount(){
-    fetch("/api/v1/items", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Token 194d0e44fa01fd4c0e3ed1520a876368"
-        // "Authorization": `Token ${Auth.getToken()}`,
-        // token: Auth.getToken()
-      }
-    }).then(results => {
-      results.json()
-        .then(results => {
-          this.setState({items: results.items})
-          console.log(this.state.items)
-        })
-    })
+    fetch("/api/v1/all_items")
+      .then(results => {
+        results.json()
+          .then(results => {
+            // const featuredItems = results.items.filter(result => result.isFeatured)
+            // this.setState({featuredItems: featuredItems})
+            this.setState({featuredItems: results.items})
+          })
+      })
   }
 
   render(){
@@ -67,36 +39,29 @@ class LandingPage extends Component {
                   <input id="password_confirmation" name="password_confirmation" type="password" className="width_full radius6 top30" placeholder="Confirm" required/>
                   <button type="submit" className="btn width_full size60 blue radius6 top30">Create an Account</button>
                 </form>
-                {/* <%= form_tag(sign_up_path, id: "landing-form", remote: true, class: "max_width470 text_center top80 header_3_form") do <%>
-                  <%= email_field_tag("email", nil, id: "email", class: "width_full radius6", placeholder: "Email Address", required: "required") =<%>
-                  <%= password_field_tag("password", nil, id: "password", class: "width_full radius6 top30", placeholder: "Password", required: "required") =<%>
-                  <%= password_field_tag("password_confirmation", nil, id: "password_confirmation", class: "width_full radius6 top30", placeholder: "Confirm", required: "required") <%>
-                  <%= button_tag(type: "submit", class: "btn width_full size60 blue radius6 top30") do <%>
-                    Create an Account
-                  <% end <%> */}
                   <div className="top30 medium_gray text">By signing up, you agree to the <Link to="/">Terms of Service</Link></div>
-                {/* <% end <%> */}
               </div>
             </div>
-            <img style={{top: "0px"}} srcSet={`${Rotation1} 1x, ${Rotation2} 2x`} src={Rotation1} className="left470 bg" alt="" />
+            <img style={{top: "0px"}} srcSet={"../images/rotation-app@1x.png 1x, ../images/rotation-app@2x.png 2x"} src={"../images/rotation-app@1x.png"} className="left470 bg" alt="" />
           </div>
         </header>
 
-        {/* What's in store section */}
-        <section>
-          <h2>What's In Store</h2>
-          <div>
-          {this.state.items.map((item, index) => {
-            return (
-              <div key={index}>
-                {/* <img src={item.image_url} alt="" /> */}
-                <h5>Title: {item.title}</h5>
-                <h5>Description: {item.description}</h5>
-              </div>
-            )
-          })}
+        <section className="feature_1 padding_top80 padding_bottom50">
+          <h2 className="font42 ubuntu light dark_gray text_center padding_bottom50">What's In Store</h2>
+          <div style={{display: "flex", justifyContent: "space-around"}}>
+            {this.state.featuredItems.map((item, index) => {
+              return (
+                <div style={{padding: "5px", width: "150px"}} key={index}>
+                  <img src={`../images/testing-images/${item.image_file_name}`} style={{maxWidth: "150px"}} alt="" />
+                  <h5>{item.title}</h5>
+                  <p>{item.description.toLowerCase()}</p>
+                </div>
+              )
+            })}
           </div>
         </section>
+
+        <hr width="50%" />
 
         {/* Feature 1 */}
         <section className="feature_1 padding_top80 padding_bottom50">
@@ -132,8 +97,9 @@ class LandingPage extends Component {
           </div>
         </section>
 
-        {/* Content 35 */}
         <hr width="50%" />
+
+        {/* Content 35 */}
         <section className="content_35 padding_bottom50">
           <div className="container nopadding">
             <div className="text_center max_width970 margin_auto">
@@ -142,34 +108,34 @@ class LandingPage extends Component {
                 <h2 className="font42 black top30 light ubuntu">From Traditional Designers <br />to Modern Streetwear</h2>
               </div>
               <div className="inline_block bottom50 width190 text_left">
-                <img srcSet={`${Acne1} 1x, ${Acne2} 2x`} src={Acne1} className="max_width_full" alt="" />
+                <img srcSet={"../images/Acne_Studios_logo@0,5x.png 1x, ../images/Acne_Studios_logo.png 2x"} src={"../images/Acne_Studios_logo@0,5x.png"} className="max_width_full" alt="" />
               </div>
               <div className="inline_block margin_auto bottom50 width190 text_center">
-                <img srcSet={`${Apc1} 1x, ${Apc2} 2x`} src={Apc1} className="max_width_full" alt="" />
+                <img srcSet={"../images/apc@0,5x.png 1x, ../images/apc.png 2x"} src={"../images/apc@0,5x.png"} className="max_width_full" alt="" />
               </div>
               <div className="inline_block margin_auto bottom50 width190 text_center">
-                <img srcSet={`${Bape1} 1x, ${Bape2} 2x`} src={Bape1} className="max_width_full" alt="" />
+                <img srcSet={"../images/bape@0,5x.png 1x, ../images/bape.png 2x"} src={"../images/bape@0,5x.png"} className="max_width_full" alt="" />
               </div>
               <div className="inline_block margin_auto bottom50 width190 text_center">
-                <img srcSet={`${FearOfGod1} 1x, ${FearOfGod2} 2x`} src={FearOfGod1} className="max_width_full" alt="" />
+                <img srcSet={"../images/fearofgod_logo@0,5x.png 1x, ../images/fearofgod_logo.png 2x"} src={"../images/fearofgod_logo@0,5x.png"} className="max_width_full" alt="" />
               </div>
               <div className="inline_block margin_auto bottom50 width190 text_right">
-                <img srcSet={`${OffWhite1} 1x, ${OffWhite2} 2x`} src={OffWhite1} className="max_width_full" alt="" />
+                <img srcSet={"../images/offwhite@0,5x.png 1x, ../images/offwhite.png 2x"} src={"../images/offwhite@0,5x.png"} className="max_width_full" alt="" />
               </div>
               <div className="inline_block margin_auto bottom50 width190 text_left">
-                <img srcSet={`${Palace1} 1x, ${Palace2} 2x`} src={Palace1} className="max_width_full" alt="" />
+                <img srcSet={"../images/palace@0,5x.png 1x, ../images/palace.png 2x"} src={"../images/palace@0,5x.png"} className="max_width_full" alt="" />
               </div>
               <div className="inline_block margin_auto bottom50 width190 text_center">
-                <img srcSet={`${Raf1} 1x, ${Raf2} 2x`} src={Raf1} className="max_width_full" alt="" />
+                <img srcSet={"../images/raf@0,5x.png 1x, ../images/raf.png 2x"} src={"../images/raf@0,5x.png"} className="max_width_full" alt="" />
               </div>
               <div className="inline_block margin_auto bottom50 width190 text_center">
-                <img srcSet={`${StoneIsland1} 1x, ${StoneIsland2} 2x`} src={StoneIsland1} className="max_width_full" alt="" />
+                <img srcSet={"../images/stone-island@0,5x.png 1x, ../images/stone-island.png 2x"} src={"../images/stone-island@0,5x.png"} className="max_width_full" alt="" />
               </div>
               <div className="inline_block margin_auto bottom50 width190 text_center">
-                <img srcSet={`${Supreme1} 1x, ${Supreme2} 2x`} src={Supreme1} className="max_width_full" alt="" />
+                <img srcSet={"../images/supreme@0,5x.png 1x, ../images/supreme.png 2x"} src={"../images/supreme@0,5x.png"} className="max_width_full" alt="" />
               </div>
               <div className="inline_block margin_auto bottom50 width190 text_right">
-                <img srcSet={`${Yeezy1} 1x, ${Yeezy2} 2x`} src={Yeezy1} className="max_width_full" alt="" />
+                <img srcSet={"../images/Yeezy-Logo@1x.png 1x, ../images/Yeezy-Logo@2x.png 2x"} src={"../images/Yeezy-Logo@1x.png"} className="max_width_full" alt="" />
               </div>
             </div>
           </div>
@@ -191,11 +157,6 @@ class LandingPage extends Component {
                 Be the first to sign up for The Rotation and receive a special price.
               </div>
               <Link to="/status" id="price-btn" className="top45 min_width170 btn size60 transparent_blue border border_blue radius6 font16">Try for $49/mo</Link>
-              {/* <% if user_signed_in? <%>
-                  <%= link_to("Try for $49/mo", status_path, class: "top45 min_width170 btn size60 transparent_blue border border_blue radius6 font16") <%>
-                <% else <%>
-                  <a id="price-btn" href="#" className="top45 min_width170 btn size60 transparent_blue border border_blue radius6 font16">Try for $49/mo</a>
-                <% end <%> */}
             </div>
           </div>
         </section>
