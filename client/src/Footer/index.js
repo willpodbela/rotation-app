@@ -1,12 +1,13 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import "./style.css"
 
 const Footer = props => {
     return (
       <div className="Footer">
         <footer className="footer_8 bg_dark_gray padding_top40 padding_bottom20">
-          <div className="container nopadding">
+          <div className="container padding_sides50">
             <div className="flex justify_between inner">
               <div className="top10 bottom30 block block_left text-center text-lg-left">
                 <Link to="/" className="ubuntu font20 font_second white">the rotation</Link>

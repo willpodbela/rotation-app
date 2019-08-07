@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import "./style.css"
 
 class LandingPage extends Component {
   constructor(props){
@@ -11,6 +12,7 @@ class LandingPage extends Component {
   }
 
   componentDidMount(){
+    window.scrollTo(0, 0)
     fetch("/api/v1/all_items")
       .then(results => {
         results.json()
@@ -26,7 +28,7 @@ class LandingPage extends Component {
     return (
       <div className="LandingPage">
         <header className="header_11">
-          <div style={{paddingBottom: "148px"}} className="container nopadding">
+          <div className="container padding_sides50">
             <div className="max_width470 inner">
               <h1 className="ubuntu font62 dark_gray">Welcome<br /> to a closet without boundaries</h1>
               <div className="font22 light dark_blue top50 text">
@@ -48,12 +50,12 @@ class LandingPage extends Component {
 
         <section className="feature_1 padding_top80 padding_bottom50">
           <h2 className="font42 ubuntu light dark_gray text_center padding_bottom50">What's In Store</h2>
-          <div style={{display: "flex", justifyContent: "space-around"}}>
+          <div className="flex justify_around">
             {this.state.featuredItems.map((item, index) => {
               return (
-                <div style={{padding: "5px", width: "150px"}} key={index}>
-                  <img src={`../images/testing-images/${item.image_file_name}`} style={{maxWidth: "150px"}} alt="" />
-                  <h5>{item.title}</h5>
+                <div className="padding_sides5 width150" key={index}>
+                  <img className="max_width150" src={`../images/testing-images/${item.image_file_name}`}  alt="" />
+                  <h3>{item.title}</h3>
                   <p>{item.description.toLowerCase()}</p>
                 </div>
               )
@@ -67,8 +69,8 @@ class LandingPage extends Component {
         <section className="feature_1 padding_top80 padding_bottom50">
           <div className="container nopadding max_width970">
             <h2 className="font42 ubuntu light dark_gray text_center">How It Works</h2>
-            <div className="top70 inner">
-              <div className="col-sm-4 text_center bottom50 block">
+            <div className="top70 inner flex justify_center">
+              <div className="col-sm-4 text_center bottom50 block width300">
                 <FontAwesomeIcon className="fa font60 light_gray" icon="shopping-bag" />
                 <div className="top20 font28 light dark_gray title">Rent 2 Items
                   <br />At a Time</div>
@@ -77,7 +79,7 @@ class LandingPage extends Component {
                   <br />100+ top brands.
                 </div>
               </div>
-              <div className="col-sm-4 text_center bottom50 block">
+              <div className="col-sm-4 text_center bottom50 block width300">
                 <FontAwesomeIcon className="fa font60 light_gray" icon="box-open" />
                 <div className="top20 font28 light dark_gray title">Delivered to
                   <br />Your Home</div>
@@ -85,7 +87,7 @@ class LandingPage extends Component {
                   Add a piece to your "rotation" and we'll notify you when it's at your door.
                 </div>
               </div>
-              <div className="col-sm-4 text_center bottom50 block">
+              <div className="col-sm-4 text_center bottom50 block width300">
                 <FontAwesomeIcon className="fa font60 light_gray" icon="recycle" />
                 <div className="top20 font28 light dark_gray title">Unlimited
                   <br />Exchanges</div>
