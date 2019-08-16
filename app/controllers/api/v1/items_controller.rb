@@ -3,9 +3,9 @@ include Queries
 module Api
     module V1
     class ItemsController < Api::V1::BaseController
-      #http_basic_authenticate_with name:ENV["API_AUTH_NAME"], password:ENV["API_AUTH_PASSWORD"], only: [:create]
-      skip_before_action :authenticate_user_from_token!, only: [:create]
-      before_action :set_inventory, only: [:show, :index]
+      http_basic_authenticate_with name:ENV["API_AUTH_NAME"], password:ENV["API_AUTH_PASSWORD"], only: [:list]
+      skip_before_action :authenticate_user_from_token!, only: [:list]
+      before_action :set_inventory, only: [:show, :index, :list]
       
       #Failsafe: Override endpoints that we don't want to make available
       def destroy
@@ -14,70 +14,12 @@ module Api
       def update
         render_error(405)
       end
+      def create
+        render_error(405)
+      end
       
-      # NOTE: Only to be called by our item scraper python script.
-      def create  
-        # Step 1: Set all existing items to hidden=ture WITHOUT saving to DB.
-        all_items = Item.all[0..-1]
-        all_items.each{|i| i.virtual_qty = 0}
-        
-        count_start = all_items.size
-        count_input = items_params[:items].size
-        
-        # Step 2: Iterate over all scraped items
-        items_params[:items].each { |item|
-          if i = all_items.detect{|i| i.buyURL == item[:buyURL]}
-            # This item already exists in DB, switch it back to hidden=false and log now as last_seen
-            i.virtual_qty = 0
-            i.last_seen = DateTime.now
-          else
-            # This item is new, instantiate it to be inserted into the DB
-            n = Item.new(item)
-            all_items << n
-          end
-        }
-        
-        # Step 3: Save all to DB and return response
-        
-        # Monitoring / stats reporting counters
-        count_added = 0
-        count_removed = 0
-        count_readded = 0
-        count_success = 0
-        count_failure = 0
-
-        all_items.each{|i|
-          if i.changed?
-            if i.new_record?
-              count_added += 1
-            else
-              if i.hidden
-                count_removed += 1
-              else
-                count_readded += 1
-              end
-            end
-            
-            if i.save
-              count_success += 1
-            else
-              count_failure += 1
-            end
-          end
-        }
-        
-        count_end = Item.all.size
-          
-        render :status=>200, :json => { :counts => {
-          :start => count_start,
-          :input => count_input,
-          :added => count_added,
-          :removed => count_removed,
-          :readded => count_readded,
-          :success => count_success,
-          :failure => count_failure,
-          :end => count_end
-        }}
+      def list
+        common_index
       end
     
       # Override: GET /api/{plural_resource_name}
@@ -91,23 +33,32 @@ module Api
         }
         @current_subscription = current_user.current_subscription
         
-        # Items logic
-        @items = Item.visible.with_images.where(query_params)
-        .page(page_params[:page])
-        .per(page_params[:page_size])
-      
+        
         if display_params[:sort_by_section] == "true"
+          common_index(:sorted_index)
+        else 
+          common_index(:index)
+        end
+      end
+      
+      private
+      
+      def common_index(render_template = :list)
+        # Items logic
+        if (current_user.nil?)
+          @items = Item.visible.with_images.where(query_params)
+          .page(page_params[:page])
+          .per(page_params[:page_size])
+        else
           @my_rotation = current_user.my_rotation_items
           @up_next = current_user.up_next_items
           @catalog = current_user.catalog_items
           
-          render :sorted_index
-        else 
-          render :index
+          @items = @my_rotation + @up_next + @catalog
         end
+        
+        render render_template
       end
-    
-      private
     
       def items_params
         params.permit(items: [:retail_value, :subtitle, :image_url, :title, :buyURL, :image_remote_url, :alternate_image_urls => []])
