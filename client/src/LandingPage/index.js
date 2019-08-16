@@ -55,7 +55,7 @@ class LandingPage extends Component {
         
         <section className="feature_1 padding_top80 padding_bottom50">
           <h2 className="font42 ubuntu light dark_gray text_center padding_bottom50">What's In Store</h2>
-          <div className="scrolling-wrapper-flexbox">
+          <div className="scrolling-wrapper">
             <div className="padding_left50"></div>
             {this.state.items.map((item, index) => {
               return (
