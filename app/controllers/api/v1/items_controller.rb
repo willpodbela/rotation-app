@@ -92,17 +92,14 @@ module Api
         @current_subscription = current_user.current_subscription
         
         # Items logic
-        @items = Item.visible.with_images.where(query_params)
-        .page(page_params[:page])
-        .per(page_params[:page_size])
+        @my_rotation = current_user.my_rotation_items
+        @up_next = current_user.up_next_items
+        @catalog = current_user.catalog_items
       
-        if display_params[:sort_by_section] == "true"
-          @my_rotation = current_user.my_rotation_items
-          @up_next = current_user.up_next_items
-          @catalog = current_user.catalog_items
-          
+        if display_params[:sort_by_section] == "true"          
           render :sorted_index
         else 
+          @items = @my_rotation + @up_next + @catalog
           render :index
         end
       end
