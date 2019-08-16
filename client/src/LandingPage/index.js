@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Auth from "../modules/Auth"
 
 class LandingPage extends Component {
   constructor(props){
@@ -13,13 +14,9 @@ class LandingPage extends Component {
   componentDidMount(){
     window.scrollTo(0, 0)
         
-    let username = process.env.REACT_APP_API_AUTH_NAME;
-    let password = process.env.REACT_APP_API_AUTH_PASSWORD;
-        
+    let headers = Auth.basicAuthHeader()
     fetch("/api/v1/items/list", {
-      headers: {
-        "Authorization": `Basic ${Buffer.from(username + ":" + password).toString('base64')}`
-      }
+      headers: headers,
     })
       .then(results => {
         results.json()
