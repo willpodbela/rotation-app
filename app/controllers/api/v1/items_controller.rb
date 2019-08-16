@@ -4,7 +4,7 @@ module Api
     module V1
     class ItemsController < Api::V1::BaseController
       #http_basic_authenticate_with name:ENV["API_AUTH_NAME"], password:ENV["API_AUTH_PASSWORD"], only: [:create]
-      skip_before_action :authenticate_user_from_token!, only: [:create, :unauth_index]
+      skip_before_action :authenticate_user_from_token!, only: [:create]
       before_action :set_inventory, only: [:show, :index]
       
       #Failsafe: Override endpoints that we don't want to make available
@@ -16,7 +16,7 @@ module Api
       end
       
       # NOTE: Only to be called by our item scraper python script.
-      def create
+      def create  
         # Step 1: Set all existing items to hidden=ture WITHOUT saving to DB.
         all_items = Item.all[0..-1]
         all_items.each{|i| i.virtual_qty = 0}
@@ -85,7 +85,7 @@ module Api
         # Pass reservation info and user subscription info along with call
         # FIXME: We should dry this up later as it was copy pasted directly from ReservationsController
         @reservation_info = {
-          :reservations_remaining => current_user.reservations_remaining,
+          :reservations_remaining => current_user.reservations_remaining, 
           :next_period => current_user.legacy_next_reservation_period, #DEPRECATED as of iOS <= v1.1, replaced with :est_delivery_date
           :est_delivery_date => current_user.est_delivery_date
         }
@@ -102,7 +102,7 @@ module Api
           @catalog = current_user.catalog_items
           
           render :sorted_index
-        else
+        else 
           render :index
         end
       end
