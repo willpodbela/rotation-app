@@ -51,7 +51,9 @@ Rails.application.routes.draw do
         resource :profile, only: [:show, :update]
       end
     
-      resources :items, only: [:index, :show]
+      resources :items, only: [:index, :show] do
+        get "list", on: :collection
+      end
     
       resources :reservations do
         get 'info', on: :collection

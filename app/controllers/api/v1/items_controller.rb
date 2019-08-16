@@ -3,8 +3,9 @@ include Queries
 module Api
     module V1
     class ItemsController < Api::V1::BaseController
-      skip_before_action :authenticate_user_from_token!, only: [:create]
-      before_action :set_inventory, only: [:show, :index]
+      http_basic_authenticate_with name:ENV["API_AUTH_NAME"], password:ENV["API_AUTH_PASSWORD"], only: [:list]
+      skip_before_action :authenticate_user_from_token!, only: [:list]
+      before_action :set_inventory, only: [:show, :index, :list]
       
       #Failsafe: Override endpoints that we don't want to make available
       def destroy
@@ -15,6 +16,10 @@ module Api
       end
       def create
         render_error(405)
+      end
+      
+      def list
+        common_index
       end
     
       # Override: GET /api/{plural_resource_name}
@@ -28,23 +33,32 @@ module Api
         }
         @current_subscription = current_user.current_subscription
         
-        # Items logic
-        @items = Item.visible.with_images.where(query_params)
-        .page(page_params[:page])
-        .per(page_params[:page_size])
         
         if display_params[:sort_by_section] == "true"
+          common_index(:sorted_index)
+        else 
+          common_index(:index)
+        end
+      end
+      
+      private
+      
+      def common_index(render_template = :list)
+        # Items logic
+        if (current_user.nil?)
+          @items = Item.visible.with_images.where(query_params)
+          .page(page_params[:page])
+          .per(page_params[:page_size])
+        else
           @my_rotation = current_user.my_rotation_items
           @up_next = current_user.up_next_items
           @catalog = current_user.catalog_items
           
-          render :sorted_index
-        else 
-          render :index
+          @items = @my_rotation + @up_next + @catalog
         end
+        
+        render render_template
       end
-    
-      private
     
       def items_params
         params.permit(items: [:retail_value, :subtitle, :image_url, :title, :buyURL, :image_remote_url, :alternate_image_urls => []])
