@@ -51,14 +51,16 @@ Rails.application.routes.draw do
         resource :profile, only: [:show, :update]
       end
 
-      resources :items
+      resources :items do
+        get 'unauth_index', on: :collection
+      end
 
       resources :reservations do
         get 'info', on: :collection
         post 'buy', on: :member
       end
 
-      resources :subscriptions, only: [:create] do
+      resources :subscriptions, only: [:create, :index] do
         get "cancel", on: :collection
         get "restore", on: :collection
       end

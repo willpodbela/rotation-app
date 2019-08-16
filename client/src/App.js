@@ -15,10 +15,6 @@ import Footer from "./Footer"
 library.add(fab, fas)
 
 class App extends Component {
-  constructor(props){
-    super(props)
-  }
-
   render(){
     return (
       <Router>

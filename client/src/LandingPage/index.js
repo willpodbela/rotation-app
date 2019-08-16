@@ -1,13 +1,12 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import "./style.css"
 
 class LandingPage extends Component {
   constructor(props){
     super(props)
     this.state = {
-      featuredItems: []
+      items: []
     }
   }
 
@@ -17,9 +16,7 @@ class LandingPage extends Component {
       .then(results => {
         results.json()
           .then(results => {
-            // const featuredItems = results.items.filter(result => result.isFeatured)
-            // this.setState({featuredItems: featuredItems})
-            this.setState({featuredItems: results.items})
+            this.setState({items: results.items})
           })
       })
   }
@@ -36,30 +33,34 @@ class LandingPage extends Component {
               </div>
               <div className="max_width570 left_block">
                 <form id="landing-form" className="max_width470 text_center top80 header_3_form">
-                  <input id="email" name="email" type="email" className="width_full radius6" placeholder="Email Address" required/>
-                  <input id="password" name="password" type="password" className="width_full radius6 top30" placeholder="Password" required/>
-                  <input id="password_confirmation" name="password_confirmation" type="password" className="width_full radius6 top30" placeholder="Confirm" required/>
+                  <input id="email" name="email" type="email" className="input width_full size60 radius6" placeholder="Email Address" required/>
+                  <input id="password" name="password" type="password" className="input width_full size60 radius6 top30" placeholder="Password" required/>
+                  <input id="password_confirmation" name="password_confirmation" type="password" className="input width_full size60 radius6 top30" placeholder="Confirm" required/>
                   <button type="submit" className="btn width_full size60 blue radius6 top30">Create an Account</button>
                 </form>
-                  <div className="top30 medium_gray text">By signing up, you agree to the <Link to="/">Terms of Service</Link></div>
+                  <div className="top30 medium_gray text text_center">By signing up, you agree to the <Link to="/">Terms of Service</Link></div>
               </div>
             </div>
             <img style={{top: "0px"}} srcSet={"../images/rotation-app@1x.png 1x, ../images/rotation-app@2x.png 2x"} src={"../images/rotation-app@1x.png"} className="left470 bg" alt="" />
           </div>
         </header>
-
+        
         <section className="feature_1 padding_top80 padding_bottom50">
           <h2 className="font42 ubuntu light dark_gray text_center padding_bottom50">What's In Store</h2>
-          <div className="flex justify_around">
-            {this.state.featuredItems.map((item, index) => {
+          <div className="scrolling-wrapper-flexbox">
+            <div className="padding_left50"></div>
+            {this.state.items.map((item, index) => {
               return (
-                <div className="padding_sides5 width150" key={index}>
-                  <img className="max_width150" src={`../images/testing-images/${item.image_file_name}`}  alt="" />
-                  <h3>{item.title}</h3>
-                  <p>{item.description.toLowerCase()}</p>
+                <div key={index} className="card max_width150 padding_sides20">
+                  <div className="item_card flex align_center justify_center">
+                    <img className="max_width130 item_image" src={item.image_url} alt="" />
+                  </div>
+                  <div className="brand padding_top10">{item.title}</div>
+                  <div className="description padding_top5">{item.description.toLowerCase()}</div>
                 </div>
               )
             })}
+            <div className="padding_right50"></div>
           </div>
         </section>
 
@@ -67,9 +68,9 @@ class LandingPage extends Component {
 
         {/* Feature 1 */}
         <section className="feature_1 padding_top80 padding_bottom50">
-          <div className="container nopadding max_width970">
+          <div className="container max_width970 margin_auto">
             <h2 className="font42 ubuntu light dark_gray text_center">How It Works</h2>
-            <div className="top70 inner flex justify_center">
+            <div className="top70 inner flex justify_around">
               <div className="col-sm-4 text_center bottom50 block width300">
                 <FontAwesomeIcon className="fa font60 light_gray" icon="shopping-bag" />
                 <div className="top20 font28 light dark_gray title">Rent 2 Items
@@ -109,34 +110,34 @@ class LandingPage extends Component {
                 <div className="font14 dark_blue semibold uppercase pretitle spacing17">OUR CATALOG</div>
                 <h2 className="font42 black top30 light ubuntu">From Traditional Designers <br />to Modern Streetwear</h2>
               </div>
-              <div className="inline_block bottom50 width190 text_left">
+              <div className="inline_block bottom50 width190 text_left vertical_middle">
                 <img srcSet={"../images/Acne_Studios_logo@0,5x.png 1x, ../images/Acne_Studios_logo.png 2x"} src={"../images/Acne_Studios_logo@0,5x.png"} className="max_width_full" alt="" />
               </div>
-              <div className="inline_block margin_auto bottom50 width190 text_center">
+              <div className="inline_block margin_auto bottom50 width190 text_center vertical_middle">
                 <img srcSet={"../images/apc@0,5x.png 1x, ../images/apc.png 2x"} src={"../images/apc@0,5x.png"} className="max_width_full" alt="" />
               </div>
-              <div className="inline_block margin_auto bottom50 width190 text_center">
+              <div className="inline_block margin_auto bottom50 width190 text_center vertical_middle">
                 <img srcSet={"../images/bape@0,5x.png 1x, ../images/bape.png 2x"} src={"../images/bape@0,5x.png"} className="max_width_full" alt="" />
               </div>
-              <div className="inline_block margin_auto bottom50 width190 text_center">
+              <div className="inline_block margin_auto bottom50 width190 text_center vertical_middle">
                 <img srcSet={"../images/fearofgod_logo@0,5x.png 1x, ../images/fearofgod_logo.png 2x"} src={"../images/fearofgod_logo@0,5x.png"} className="max_width_full" alt="" />
               </div>
-              <div className="inline_block margin_auto bottom50 width190 text_right">
+              <div className="inline_block margin_auto bottom50 width190 text_right vertical_middle">
                 <img srcSet={"../images/offwhite@0,5x.png 1x, ../images/offwhite.png 2x"} src={"../images/offwhite@0,5x.png"} className="max_width_full" alt="" />
               </div>
-              <div className="inline_block margin_auto bottom50 width190 text_left">
+              <div className="inline_block margin_auto bottom50 width190 text_left vertical_middle">
                 <img srcSet={"../images/palace@0,5x.png 1x, ../images/palace.png 2x"} src={"../images/palace@0,5x.png"} className="max_width_full" alt="" />
               </div>
-              <div className="inline_block margin_auto bottom50 width190 text_center">
+              <div className="inline_block margin_auto bottom50 width190 text_center vertical_middle">
                 <img srcSet={"../images/raf@0,5x.png 1x, ../images/raf.png 2x"} src={"../images/raf@0,5x.png"} className="max_width_full" alt="" />
               </div>
-              <div className="inline_block margin_auto bottom50 width190 text_center">
+              <div className="inline_block margin_auto bottom50 width190 text_center vertical_middle">
                 <img srcSet={"../images/stone-island@0,5x.png 1x, ../images/stone-island.png 2x"} src={"../images/stone-island@0,5x.png"} className="max_width_full" alt="" />
               </div>
-              <div className="inline_block margin_auto bottom50 width190 text_center">
+              <div className="inline_block margin_auto bottom50 width190 text_center vertical_middle">
                 <img srcSet={"../images/supreme@0,5x.png 1x, ../images/supreme.png 2x"} src={"../images/supreme@0,5x.png"} className="max_width_full" alt="" />
               </div>
-              <div className="inline_block margin_auto bottom50 width190 text_right">
+              <div className="inline_block margin_auto bottom50 width190 text_right vertical_middle">
                 <img srcSet={"../images/Yeezy-Logo@1x.png 1x, ../images/Yeezy-Logo@2x.png 2x"} src={"../images/Yeezy-Logo@1x.png"} className="max_width_full" alt="" />
               </div>
             </div>

@@ -6,8 +6,7 @@ module Api
       skip_before_action :authenticate_user_from_token!
 
       def index
-        # render json: { items: Item.visible.with_images.where(query_params) }
-        render json: { items: Item.all }
+        @items = Item.visible.with_images.where(query_params)
       end
 
       private
