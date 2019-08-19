@@ -14,10 +14,7 @@ class LandingPage extends Component {
   componentDidMount(){
     window.scrollTo(0, 0)
         
-    let headers = Auth.basicAuthHeader()
-    fetch("/api/v1/items/list", {
-      headers: headers,
-    })
+    fetch("/api/v1/items/list")
       .then(results => {
         results.json()
           .then(results => {
