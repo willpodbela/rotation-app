@@ -34,8 +34,7 @@ module Api
       def sign_up
         # Check if user exists
         if User.find_by_email(user_params[:email])
-          link = view_context.link_to "Click here to Log In.", new_user_session_path
-          render :status=>400, :json => { "message":("The email is already registered. " + link) }
+          render :status=>400, :json => { :message => "The email is already registered. ", :link => { :message => "Click here to Log In.", :url => "/login" } }
         else
           # Instantiate a new object using form parameters
           @user = User.new(user_params)
@@ -43,13 +42,7 @@ module Api
           
           # Save the object
           if @user.save
-            # If save succeeds, sign them in and return 200
-            sign_in(@user)
-            if browser.platform.ios?
-              render :status=>200, :json => { "redirect":"/download" }
-            else
-              render :status=>200, :json => { "redirect":"/status" }
-            end
+            render :show
           else
             render :status=>400, :json => { "message": @user.errors.full_messages.first }
           end
@@ -59,7 +52,7 @@ module Api
       private
     
       def user_params
-        params.permit(:email,:password,:referral_code,:advertisement_code)
+        params.permit(:email,:password,:password_confirmation, :referral_code,:advertisement_code)
       end
 
       def query_params
