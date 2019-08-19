@@ -19,6 +19,12 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
+<% if notice %>
+              <p id="notice" style="display: none;"><%= notice %></p>
+            <% end %>
+            <% if alert %>
+              <p id="alert" style="display: none;"><%= alert %></p>
+            <% end %>
           <Nav />
           <Route exact path="/" component={LandingPage} />
           <Route path="/login" exact component={LoginPage} />

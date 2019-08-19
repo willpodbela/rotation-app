@@ -2,7 +2,7 @@ module Api
   module V1
     class UsersController < Api::V1::BaseController
       http_basic_authenticate_with name:ENV["API_AUTH_NAME"], password:ENV["API_AUTH_PASSWORD"], only: [:create]
-      skip_before_action :authenticate_user_from_token!, only: [:create]
+      skip_before_action :authenticate_user_from_token!, only: [:create, :sign_up]
     
       #Failsafe: Override endpoints that we don't want to make available
       def destroy
@@ -29,6 +29,31 @@ module Api
       
         params[:password] = decrypted_pass
         super
+      end
+      
+      def sign_up
+        # Check if user exists
+        if User.find_by_email(user_params[:email])
+          link = view_context.link_to "Click here to Log In.", new_user_session_path
+          render :status=>400, :json => { "message":("The email is already registered. " + link) }
+        else
+          # Instantiate a new object using form parameters
+          @user = User.new(user_params)
+          @user.advertisement_code = session[:advertisement_code]
+          
+          # Save the object
+          if @user.save
+            # If save succeeds, sign them in and return 200
+            sign_in(@user)
+            if browser.platform.ios?
+              render :status=>200, :json => { "redirect":"/download" }
+            else
+              render :status=>200, :json => { "redirect":"/status" }
+            end
+          else
+            render :status=>400, :json => { "message": @user.errors.full_messages.first }
+          end
+        end
       end
     
       private
