@@ -82,14 +82,14 @@ module Api
     
       # Override: GET /api/{plural_resource_name}
       def index
-        # Pass reservation info and user subscription info along with call
-        # FIXME: We should dry this up later as it was copy pasted directly from ReservationsController
+        #DEPRECATED as of iOS <= v1.1.7, this data is now passed with the user object in users#show
         @reservation_info = {
           :reservations_remaining => current_user.reservations_remaining, 
-          :next_period => current_user.legacy_next_reservation_period, #DEPRECATED as of iOS <= v1.1, replaced with :est_delivery_date
+          :next_period => current_user.legacy_next_reservation_period,
           :est_delivery_date => current_user.est_delivery_date
         }
         @current_subscription = current_user.current_subscription
+        #END DEPRECATED
         
         # Items logic
         @my_rotation = current_user.my_rotation_items
