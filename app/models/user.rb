@@ -4,6 +4,8 @@ class User < ApplicationRecord
   has_one  :profile
   has_many :devices
   has_many :subscriptions
+  has_many :favorites
+  has_many :favorite_items, through: :favorites, source: :item
   belongs_to  :referral_code, optional: true
   belongs_to  :advertisement_code, optional: true
   

@@ -82,27 +82,24 @@ module Api
     
       # Override: GET /api/{plural_resource_name}
       def index
-        # Pass reservation info and user subscription info along with call
-        # FIXME: We should dry this up later as it was copy pasted directly from ReservationsController
+        #DEPRECATED as of iOS <= v1.1.7, this data is now passed with the user object in users#show
         @reservation_info = {
           :reservations_remaining => current_user.reservations_remaining, 
-          :next_period => current_user.legacy_next_reservation_period, #DEPRECATED as of iOS <= v1.1, replaced with :est_delivery_date
+          :next_period => current_user.legacy_next_reservation_period,
           :est_delivery_date => current_user.est_delivery_date
         }
         @current_subscription = current_user.current_subscription
+        #END DEPRECATED
         
         # Items logic
-        @items = Item.visible.with_images.where(query_params)
-        .page(page_params[:page])
-        .per(page_params[:page_size])
+        @my_rotation = current_user.my_rotation_items
+        @up_next = current_user.up_next_items
+        @catalog = current_user.catalog_items
       
-        if display_params[:sort_by_section] == "true"
-          @my_rotation = current_user.my_rotation_items
-          @up_next = current_user.up_next_items
-          @catalog = current_user.catalog_items
-          
+        if display_params[:sort_by_section] == "true"          
           render :sorted_index
         else 
+          @items = @my_rotation + @up_next + @catalog
           render :index
         end
       end
@@ -127,6 +124,7 @@ module Api
       
       def set_inventory
         @inventory = Queries::Inventory.new
+        @favorite_item_ids = current_user.favorite_items.map(&:id)
       end
       
     end

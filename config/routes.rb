@@ -51,7 +51,9 @@ Rails.application.routes.draw do
         resource :profile, only: [:show, :update]
       end
     
-      resources :items
+      resources :items do
+        resource :favorite, only: [:create, :destroy]
+      end
     
       resources :reservations do
         get 'info', on: :collection
