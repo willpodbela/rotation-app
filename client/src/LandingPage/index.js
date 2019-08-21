@@ -13,14 +13,7 @@ class LandingPage extends Component {
   componentDidMount(){
     window.scrollTo(0, 0)
         
-    let username = process.env.REACT_APP_API_AUTH_NAME;
-    let password = process.env.REACT_APP_API_AUTH_PASSWORD;
-        
-    fetch("/api/v1/items/list", {
-      headers: {
-        "Authorization": `Basic ${Buffer.from(username + ":" + password).toString('base64')}`
-      }
-    })
+    fetch("/api/v1/items/list")
       .then(results => {
         results.json()
           .then(results => {
