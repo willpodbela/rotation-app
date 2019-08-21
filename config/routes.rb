@@ -68,8 +68,6 @@ Rails.application.routes.draw do
       
       post 'devices/:token', to: 'devices#create'
       delete 'devices/:token', to: 'devices#destroy'
-      
-      resources :all_items, only: [:index]
     end
   end
 end
