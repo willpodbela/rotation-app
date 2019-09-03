@@ -11,6 +11,7 @@ class LandingController < ApplicationController
   
   # Home Page
   def index
+    @items = Item.visible.with_images
   end
   
   def status
