@@ -11,7 +11,7 @@ class LandingController < ApplicationController
   
   # Home Page
   def index
-    @items = Item.visible.with_images
+    @items = Item.visible.with_images.order(created_at: :desc)
   end
   
   def status

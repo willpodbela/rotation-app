@@ -51,7 +51,7 @@ Rails.application.routes.draw do
         resource :profile, only: [:show, :update]
       end
     
-      resources :items do
+      resources :items, only: [:index, :show] do
         resource :favorite, only: [:create, :destroy]
       end
     
