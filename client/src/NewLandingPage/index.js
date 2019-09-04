@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 // import { Link } from "react-router-dom"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 class NewLandingPage extends Component {
   constructor(props){
@@ -31,7 +30,8 @@ class NewLandingPage extends Component {
   render(){
     return (
       <div className="NewLandingPage">
-        <header className="background_image flex align_center">
+        <header>
+          <img src={"../images/landing-bg.jpg"} className="background_image" alt="" />
           <div className="welcome_elements">
             <div className="welcome_to_a_closet padding_bottom25">
               Welcome to a closet without boundaries.
@@ -41,10 +41,9 @@ class NewLandingPage extends Component {
             </div>
             <div className="sign_up_box flex align_center justify_center">
               <div className="sign_up">
-                SIGN UP
+                Sign Up
               </div>
             </div>
-            {/* <img src={"../images/landing-bg.jpg"} className="bg" alt="" /> */}
           </div>
         </header>
         
@@ -78,9 +77,9 @@ class NewLandingPage extends Component {
           </div>
         </section>
         
-        <section className="padding_bottom50">
+        <section className="padding_bottom100">
           <h2 className="padding_left50 padding_bottom35 section_header">What's In Store</h2>
-          <div className="scrolling-wrapper">
+          <div className="scrolling_wrapper">
             <div className="padding_left30"></div>
             {this.state.items.map((item, index) => {
               return (
@@ -94,6 +93,40 @@ class NewLandingPage extends Component {
               )
             })}
             <div className="padding_right30"></div>
+          </div>
+        </section>
+        
+        <section className="padding_bottom100">
+          <h2 className="padding_left50 padding_bottom35 section_header">Featured Brands</h2>
+          
+        </section>
+        
+        <section className="padding_bottom100 text_center">
+          <div className="plan_pricing padding_bottom15">PLAN + PRICING</div>
+          <div className="subscribe_to_the_closet padding_bottom15">Subscribe to the closet of your future</div>
+          <div className="padding_bottom15 flex justify_center align_center">
+            <div className="pricing_rectangle">
+              <div>2</div>
+              <div>Pieces at a Time</div>
+            </div>
+            <div className="pricing_rectangle black_bg">
+              <div>$49</div>
+              <div>Per Month</div>
+            </div>
+          </div>
+          <div>
+            <div>
+              <div>
+                
+              </div>
+              <div>
+                
+              </div>
+              <div>
+                
+              </div>
+            </div>
+              
           </div>
         </section>
       </div>

@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Hind&display=swap');
-@import url("https://use.typekit.net/ffx7ipy.css");
 @font-face {
   font-family: "Druk Text Wide";
   src: url("./fonts/DrukTextWide-Medium.otf") format('otf');
@@ -9,7 +8,7 @@
   font-family: "Druk Text Wide Bold";
   src: url("./fonts/DrukTextWide-Bold.otf") format('otf');
 }
-@charset "UTF-8";
+/* @charset "UTF-8"; */
 /* Line 7244 */
 a{
   text-decoration: none;
@@ -32,11 +31,12 @@ a{
   border-radius: 20.5px;
 }
 .background_image{
-  background-color: #f0f2f5;
-  height: calc(100vw * 0.65)
+  max-width: 100%;
 }
 .welcome_elements{
-  padding-left: 14.4%;
+  position: absolute;
+  top: 20%;
+  left: 14.4%;
 }
 .welcome_to_a_closet{
   width: 388px;
@@ -117,19 +117,19 @@ a{
 }
 .brand{
   color: #333333;
-  font-family: Helvetica;
+  font-family: "Proxima Nova";
   font-size: 12px;
-  font-weight: bold;
-  letter-spacing: -0.3px;
+  font-weight: 600;
+  line-height: 15px;
 }
 .description{
   opacity: 0.7;
   color: #333333;
-  font-family: adobe-garamond-pro;
+  font-family: "Proxima Nova";
   font-size: 12px;
-  font-style: italic;
+  line-height: 19px;
 }
-.scrolling-wrapper{
+.scrolling_wrapper{
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
@@ -140,6 +140,29 @@ a{
 }
 ::-webkit-scrollbar {
   display: none;
+}
+.plan_pricing{
+  color: #333333;
+  font-family: "Proxima Nova";
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 15px;
+}
+.subscribe_to_the_closet{
+  color: #333333;
+  font-family: "Druk Text Wide";
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 29px;
+}
+.pricing_rectangle{
+  display: inline-block;
+  height: 114px;
+  width: 173px;
+}
+.black_bg{
+  background-color: #333333;
 }
 /* Dynamic nav */
 @media only screen and (max-width: 500px) {
