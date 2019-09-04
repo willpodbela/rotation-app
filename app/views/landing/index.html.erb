@@ -52,6 +52,7 @@
       </div>
     </div>
   </section>
+  
   <section class="padding_bottom50">
     <h2 class="padding_left50 padding_bottom35 section_header">What's In Store</h2>
     <div class="scrolling-wrapper">
@@ -59,13 +60,46 @@
       <% @items.each_with_index do |item, index| %>
         <div key="<%= index %>" class="card max_width150 padding_sides20">
           <div class="item_card flex align_center justify_center">
-            <img class="max_width130 item_image" src="<%= item.image.url %>" alt="" />
+            <img class="item_image" src="<%= item.image.url %>" alt="" />
           </div>
           <div class="brand padding_top10"><%= item.title %></div>
           <div class="description padding_top5"><%= item.subtitle %></div>
         </div>
       <% end %> 
       <div class="padding_right30"></div>
+    </div>
+  </section>
+  
+  <section className="padding_bottom100">
+    <h2 className="padding_left50 padding_bottom35 section_header">Featured Brands</h2>
+  </section>
+  
+  <section className="padding_bottom100 text_center">
+    <div className="plan_pricing padding_bottom15">PLAN + PRICING</div>
+    <div className="subscribe_to_the_closet padding_bottom15">Subscribe to the closet of your future</div>
+    <div className="padding_bottom15 flex justify_center align_center">
+      <div className="pricing_rectangle">
+        <div>2</div>
+        <div>Pieces at a Time</div>
+      </div>
+      <div className="pricing_rectangle black_bg">
+        <div>$49</div>
+        <div>Per Month</div>
+      </div>
+    </div>
+    <div>
+      <div>
+        <div>
+          
+        </div>
+        <div>
+          
+        </div>
+        <div>
+          
+        </div>
+      </div>
+        
     </div>
   </section>
 </div>
