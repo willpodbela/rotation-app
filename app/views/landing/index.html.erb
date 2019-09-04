@@ -57,9 +57,9 @@
     <div class="scrolling-wrapper">
       <div class="padding_left30"></div>
       <% @items.each_with_index do |item, index| %>
-        <div key={index} class="card max_width150 padding_sides20">
+        <div key="<%= index %>" class="card max_width150 padding_sides20">
           <div class="item_card flex align_center justify_center">
-            <img class="max_width130 item_image" src=<%= item.image.url %> alt="" />
+            <img class="max_width130 item_image" src="<%= item.image.url %>" alt="" />
           </div>
           <div class="brand padding_top10"><%= item.title %></div>
           <div class="description padding_top5"><%= item.subtitle %></div>
