@@ -2,17 +2,17 @@
 <div class="navigation_mobile type1">
   <a class="close_menu white"><i class="fa fa-close"></i></a>
   <div class="padding_sides40 padding_top60 padding_bottom60 inner">
-    <div class="nav_logo white bottom30">the rotation</div>
-    <div><%= link_to("Home", root_path, class: "ubuntu font22 link white bottom20") %></div>
+    <div class="druk_wide_logo white bottom30">The Rotation</div>
+    <div><%= link_to("Home", root_path, class: "nav_elem_hamberger font22 link white bottom20") %></div>
     <% if user_signed_in? %>
-      <div><%= link_to("Logout", destroy_user_session_path, method: :delete, class: "ubuntu font22 link white bottom20") %></div>
-      <div><%= link_to("Check Status", status_path, class: "ubuntu font22 link white bottom20") %></div>
+      <div><%= link_to("Logout", destroy_user_session_path, method: :delete, class: "nav_elem_hamberger font22 link white bottom20") %></div>
+      <div><%= link_to("Check Status", status_path, class: "nav_elem_hamberger font22 link white bottom20") %></div>
     <% else %>
-      <div><%= link_to("Log in", new_user_session_path, class: "ubuntu font22 link white bottom20") %></div>
-      <div><%= link_to("Sign up", new_user_registration_path, class: "ubuntu font22 link white bottom20") %></div>
+      <div><%= link_to("Log in", new_user_session_path, class: "nav_elem_hamberger font22 link white bottom20") %></div>
+      <div><%= link_to("Sign up", new_user_registration_path, class: "nav_elem_hamberger font22 link white bottom20") %></div>
     <% end %>
     <div>
-      <%= link_to(download_path, class:"ubuntu font22 link white bottom20") do %>
+      <%= link_to(download_path, class:"nav_elem_hamberger font22 link white bottom20") do %>
         <i class="fab fa-apple right10"></i>Download App
       <% end %>
     </div>

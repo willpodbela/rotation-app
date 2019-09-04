@@ -1,17 +1,23 @@
-<footer class="footer_8 bg_dark_gray padding_top40 padding_bottom20">
-  <div class="container nopadding">
+<footer class="padding_top40 padding_bottom20">
+  <div class="footer-container">
     <div class="flex justify_between inner">
-      <div class="top10 bottom30 block block_left text-center text-lg-left">
-        <%= link_to("the rotation", root_path, class: "ubuntu font20 font_second white") %>
+      <div class="width200 flex justify_left justify_center_under_960">
+        <div class="top10 bottom30 block block_left text-center text-lg-left">
+          <%= link_to("The Rotation", root_path, class: "druk_wide_logo font20 font_second white") %>
+        </div>
       </div>
-      <div class="top10 bottom30 block block_center text-center">
-        <%= link_to("Privacy", privacy_path, class: "font12 uppercase spacing15 link white sides15") %>
-        <%= render('shared/links/contact') %>
+      <div class="width200">
+        <div class="top10 bottom30 block block_center text-center">
+          <%= link_to("Privacy", privacy_path, class: "font12 uppercase spacing15 link white sides15") %>
+          <%= render('shared/links/contact') %>
+        </div>
       </div>
-      <div class="top10 bottom30 block block_right text-center text-lg-right">
-        <a href="#" class="link white text-center left10"><i class="fab fa-twitter line_height50"></i></a>
-        <a href="#" class="link white text-center left10"><i class="fab fa-facebook line_height50"></i></a>
-        <a href="#" class="link white text-center left10"><i class="fab fa-instagram line_height50"></i></a>
+      <div class="width200 flex justify_right justify_center_under_960">
+        <div class="top10 bottom30 block block_right text-center text-lg-right">
+          <a href="#" class="link white text-center left10"><i class="fab fa-twitter line_height50"></i></a>
+          <a href="#" class="link white text-center left10"><i class="fab fa-facebook line_height50"></i></a>
+          <a href="#" class="link white text-center left10"><i class="fab fa-instagram line_height50"></i></a>
+        </div>
       </div>
     </div>
   </div>

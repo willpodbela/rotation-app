@@ -1,225 +1,72 @@
-<header class="header_11">
-  <div style="padding-bottom: 148px;" class="container nopadding">
-    <div class="max_width470 inner">
-      <h1 class="ubuntu font62 dark_gray">Welcome<br /> to a closet without boundaries</h1>
-      <div class="font22 light dark_blue top50 text">
+<style>
+* {
+  box-sizing: content-box;
+}
+</style>
+
+<div class="NewLandingPage">
+  <header class="background flex">
+    <div class="welcome_elements">
+      <div class="welcome_to_a_closet padding_bottom25">
+        Welcome to a closet without boundaries.
+      </div>
+      <div class="welcome_description padding_bottom25">
         This is The Rotation. A members-only club that gives you access to an extensive designer wardrobe, for a fraction of the price. Everything you could want, right at your fingertips.
       </div>
-      <div class="max_width570 left_block">
-        <%= form_tag(sign_up_path, id: "landing-form", remote: true, class: "max_width470 text_center top80 header_3_form") do %>
-          <%= email_field_tag("email", nil, id: "email", class: "width_full radius6", placeholder: "Email Address", required: "required") =%>
-          <%= password_field_tag("password", nil, id: "password", class: "width_full radius6 top30", placeholder: "Password", required: "required") =%>
-          <%= password_field_tag("password_confirmation", nil, id: "password_confirmation", class: "width_full radius6 top30", placeholder: "Confirm", required: "required") %>
-          <%= button_tag(type: "submit", class: "btn width_full size60 blue radius6 top30") do %>
-            Create an Account
-          <% end %>
-					<div class="top30 medium_gray text">By signing up, you agree to the <a href="#">Terms of Service</a></div>
+      <div class="sign_up_box flex align_center justify_center">
+        <%= link_to(new_user_registration_path) do %>
+          <div class="sign_up">
+            SIGN UP
+          </div>
         <% end %>
       </div>
     </div>
-    <img style="top: 0px;" srcset="<%= asset_path 'rotation-app@1x.png' %> 1x, <%= asset_path 'rotation-app@2x.png' %> 2x" src="<%= asset_path 'rotation-app@1x.png' %>" class="left470 bg" alt="" />
-  </div>
-</header>
-
-<!-- Feature 1 -->
-
-<section class="feature_1 padding_top80 padding_bottom50">
-  <div class="container nopadding max_width970">
-    <h2 class="font42 ubuntu light dark_gray text_center">How It Works</h2>
-    <div class="top70 inner">
-      <div class="col-sm-4 text_center bottom50 block">
-        <i class="fa fa-shopping-bag font60 light_gray"></i>
-        <div class="top20 font28 light dark_gray title">Rent 2 Items
-          <br />At a Time</div>
-        <div class="top30 font18 light dark_blue text">
-          Choose the latest styles from
-          <br />100+ top brands.
-        </div>
+  </header>
+  
+  <section class="how_it_works padding_bottom100 flex justify_evenly">
+    <div class="step_box">
+      <div class="large_number inline_block top10 padding_sides40">1.</div>
+      <div class="step_title inline_block">
+        Select your pieces
       </div>
-      <div class="col-sm-4 text_center bottom50 block">
-        <i class="fa fa-box-open font60 light_gray"></i>
-        <div class="top20 font28 light dark_gray title">Delivered to
-          <br />Your Home</div>
-        <div class="top30 font18 light dark_blue text">
-          Add a piece to your "rotation" and we'll notify you when it's at your door.
-        </div>
-      </div>
-      <div class="col-sm-4 text_center bottom50 block">
-        <i class="fa fa-recycle font60 light_gray"></i>
-        <div class="top20 font28 light dark_gray title">Unlimited
-          <br />Exchanges</div>
-        <div class="top30 font18 light dark_blue text">
-          Send your pieces back dirty at any time using our pre-paid shipping label.
-        </div>
+      <div class="step_description top30 margin_auto">
+        Browse our curated catalog from the world’s most coveted designers. We'll deliver it straight to your door with a pre-paid return shipping label.
       </div>
     </div>
-  </div>
-</section>
-
-<!-- Content 35 -->
-<hr width="50%">
-
-<section class="content_35 padding_bottom50">
-  <div class="container nopadding">
-    <div class="text_center max_width970 margin_auto">
-      <div class="top100 bottom100 text_center inner">
-        <div class="font14 dark_blue semibold uppercase pretitle spacing17">OUR CATALOG</div>
-        <h2 class="font42 black top30 light ubuntu">From Traditional Designers <br />to Modern Streetwear</h2>
+    <div class="step_box">
+      <div class="large_number inline_block top10 padding_sides40">2.</div>
+      <div class="step_title inline_block">
+        Rotate without limits
       </div>
-      <div class="inline_block bottom50 width190 text_left">
-        <img srcset="<%= asset_path 'Acne_Studios_logo@0,5x.png' %> 1x, <%= asset_path 'Acne_Studios_logo.png' %> 2x" src="<%= asset_path 'Acne_Studios_logo@0,5x.png' %>" class="max_width_full" alt="" />
-      </div>
-      <div class="inline_block margin_auto bottom50 width190 text_center">
-        <img srcset="<%= asset_path 'apc@0,5x.png' %> 1x, <%= asset_path 'apc.png' %> 2x" src="<%= asset_path 'apc@0,5x.png' %>" class="max_width_full" alt="" />
-      </div>
-      <div class="inline_block margin_auto bottom50 width190 text_center">
-        <img srcset="<%= asset_path 'bape@0,5x.png' %> 1x, <%= asset_path 'bape.png' %> 2x" src="<%= asset_path 'bape@0,5x.png' %>" class="max_width_full" alt="" />
-      </div>
-      <div class="inline_block margin_auto bottom50 width190 text_center">
-        <img srcset="<%= asset_path 'fearofgod_logo@0,5x.png' %> 1x, <%= asset_path 'fearofgod_logo.png' %> 2x" src="<%= asset_path 'fearofgod_logo@0,5x.png' %>" class="max_width_full" alt="" />
-      </div>
-      <div class="inline_block margin_auto bottom50 width190 text_right">
-        <img srcset="<%= asset_path 'offwhite@0,5x.png' %> 1x, <%= asset_path 'offwhite.png' %> 2x" src="<%= asset_path 'offwhite@0,5x.png' %>" class="max_width_full" alt="" />
-      </div>
-      <div class="inline_block margin_auto bottom50 width190 text_left">
-        <img srcset="<%= asset_path 'palace@0,5x.png' %> 1x, <%= asset_path 'palace.png' %> 2x" src="<%= asset_path 'palace@0,5x.png' %>" class="max_width_full" alt="" />
-      </div>
-      <div class="inline_block margin_auto bottom50 width190 text_center">
-        <img srcset="<%= asset_path 'raf@0,5x.png' %> 1x, <%= asset_path 'raf.png' %> 2x" src="<%= asset_path 'raf@0,5x.png' %>" class="max_width_full" alt="" />
-      </div>
-      <div class="inline_block margin_auto bottom50 width190 text_center">
-        <img srcset="<%= asset_path 'stone-island@0,5x.png' %> 1x, <%= asset_path 'stone-island.png' %> 2x" src="<%= asset_path 'stone-island@0,5x.png' %>" class="max_width_full" alt="" />
-      </div>
-      <div class="inline_block margin_auto bottom50 width190 text_center">
-        <img srcset="<%= asset_path 'supreme@0,5x.png' %> 1x, <%= asset_path 'supreme.png' %> 2x" src="<%= asset_path 'supreme@0,5x.png' %>" class="max_width_full" alt="" />
-      </div>
-      <div class="inline_block margin_auto bottom50 width190 text_right">
-        <img srcset="<%= asset_path 'Yeezy-Logo@1x.png' %> 1x, <%= asset_path 'Yeezy-Logo@2x.png' %> 2x" src="<%= asset_path 'Yeezy-Logo@1x.png' %>" class="max_width_full" alt="" />
+      <div class="step_description top30 margin_auto">
+        Whether its a special ocassion or your next daily wear, The Rotation holds no limits above your head. Wear, purchase, or rotate amongst our catalog as you see fit.
       </div>
     </div>
-  </div>
-</section>
-
-<!-- Showcase 4 -->
-
-<!--  <section class="showcase_4 padding_top80 padding_bottom120">
-  <div class="container nopadding text_center white">
-    <h2 class="font42 light ubuntu">More than 150 components.</h2>
-    <div class="margin_auto top30 bottom75 max_width770 font22 light opacity7 text">
-      Many carefully crafted components to present your business.
-    </div>
-    <div class="row">
-      <div class="col-sm-4">
-        <div class="margin_auto bottom30 max_width370 block">
-          <a href="#">
-            <img srcset="<%= asset_path 'demo_images/showcase_4_foto1.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto1_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto1.jpg' %>" class="radius8 width_full" alt="" />
-          </a>
-        </div>
-        <div class="margin_auto bottom15 max_width370 block">
-          <a href="#">
-            <img srcset="<%= asset_path 'demo_images/showcase_4_foto2.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto2_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto2.jpg' %>" class="radius8 width_full" alt="" />
-          </a>
-        </div>
-        <div class="margin_auto bottom30 max_width370 block">
-          <a href="#">
-            <img srcset="<%= asset_path 'demo_images/showcase_4_foto3.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto3_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto3.jpg' %>" class="radius8 width_full" alt="" />
-          </a>
-        </div>
-        <div class="margin_auto bottom30 max_width370 block">
-          <a href="#">
-            <img srcset="<%= asset_path 'demo_images/showcase_4_foto4.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto4_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto4.jpg' %>" class="radius8 width_full" alt="" />
-          </a>
-        </div>
-        <div class="margin_auto bottom30 max_width370 block">
-          <a href="#">
-            <img srcset="<%= asset_path 'demo_images/showcase_4_foto5.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto5_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto5.jpg' %>" class="radius8 width_full" alt="" />
-          </a>
-        </div>
+    <div class="step_box">
+      <div class="large_number inline_block top10 padding_sides40">3.</div>
+      <div class="step_title_wide inline_block">
+        We'll take care of the rest
       </div>
-      <div class="col-sm-4">
-        <div class="margin_auto bottom30 max_width370 block">
-          <a href="#">
-            <img srcset="<%= asset_path 'demo_images/showcase_4_foto6.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto6_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto6.jpg' %>" class="radius8 width_full" alt="" />
-          </a>
-        </div>
-        <div class="margin_auto bottom30 max_width370 block">
-          <a href="#">
-            <img srcset="<%= asset_path 'demo_images/showcase_4_foto7.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto7_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto7.jpg' %>" class="radius8 width_full" alt="" />
-          </a>
-        </div>
-        <div class="margin_auto bottom30 max_width370 block">
-          <a href="#">
-            <img srcset="<%= asset_path 'demo_images/showcase_4_foto8.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto8_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto8.jpg' %>" class="radius8 width_full" alt="" />
-          </a>
-        </div>
-        <div class="margin_auto bottom30 max_width370 block">
-          <a href="#">
-            <img srcset="<%= asset_path 'demo_images/showcase_4_foto9.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto9_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto9.jpg' %>" class="radius8 width_full" alt="" />
-          </a>
-        </div>
-        <div class="margin_auto bottom30 max_width370 block">
-          <a href="#">
-            <img srcset="<%= asset_path 'demo_images/showcase_4_foto10.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto10_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto10.jpg' %>" class="radius8 width_full" alt="" />
-          </a>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="margin_auto bottom30 max_width370 block">
-          <a href="#">
-            <img srcset="<%= asset_path 'demo_images/showcase_4_foto11.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto11_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto11.jpg' %>" class="radius8 width_full" alt="" />
-          </a>
-        </div>
-        <div class="margin_auto bottom30 max_width370 block">
-          <a href="#">
-            <img srcset="<%= asset_path 'demo_images/showcase_4_foto12.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto12_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto12.jpg' %>" class="radius8 width_full" alt="" />
-          </a>
-        </div>
-        <div class="margin_auto bottom30 max_width370 block">
-          <a href="#">
-            <img srcset="<%= asset_path 'demo_images/showcase_4_foto13.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto13_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto13.jpg' %>" class="radius8 width_full" alt="" />
-          </a>
-        </div>
-        <div class="margin_auto bottom30 max_width370 block">
-          <a href="#">
-            <img srcset="<%= asset_path 'demo_images/showcase_4_foto14.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto14_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto14.jpg' %>" class="radius8 width_full" alt="" />
-          </a>
-        </div>
-        <div class="margin_auto bottom30 max_width370 block">
-          <a href="#">
-            <img srcset="<%= asset_path 'demo_images/showcase_4_foto15.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto15_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto15.jpg' %>" class="radius8 width_full" alt="" />
-          </a>
-        </div>
-        <div class="margin_auto bottom30 max_width370 block">
-          <a href="#">
-            <img srcset="<%= asset_path 'demo_images/showcase_4_foto16.jpg' %> 1x, <%= asset_path 'demo_images/showcase_4_foto16_2x.jpg' %> 2x" src="<%= asset_path 'demo_images/showcase_4_foto16.jpg' %>" class="radius8 width_full" alt="" />
-          </a>
-        </div>
+      <div class="step_description top30 margin_auto">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
       </div>
     </div>
-    <a href="#" class="top35 btn size50 transparent_green border border_green radius6 font16 padding_sides20">View all components</a>
-  </div>
-</section> -->
-
-<!-- Pricing Table 7 -->
-<hr width="50%">
-
-<section class="pricing_table_7 padding_top70 padding_bottom110">
-  <div class="container nopadding dark_blue text_center">
-    <h2 class="font42 ubuntu light dark_gray">How much for no limits?</h2>
-    <div class="max_width570 margin_auto top15 font18 light">
-      Become a member of The Rotation for a low monthly fee.
+  </section>
+  
+  <section class="padding_bottom50">
+    <h2 class="padding_left50 padding_bottom35 section_header">What's In Store</h2>
+    <div class="scrolling-wrapper">
+      <div class="padding_left30"></div>
+      <% @items.each_with_index do |item, index| %>
+        <div key="<%= index %>" class="card max_width150 padding_sides20">
+          <div class="item_card flex align_center justify_center">
+            <img class="item_image" src="<%= item.image.url %>" alt="" />
+          </div>
+          <div class="brand padding_top10"><%= item.title %></div>
+          <div class="description padding_top5"><%= item.subtitle %></div>
+        </div>
+      <% end %> 
+      <div class="padding_right30"></div>
     </div>
-    <div class="max_width570 margin_auto top55 padding_sides100 padding_top55 padding_bottom70 radius10 inner">
-      <div class="ubuntu light font28 dark_gray title">Founding Member</div>
-      <div class="top25 font14 uppercase semibold spacing20">100 SPOTS</div>
-      <div class="top30 light font16 text">
-        Be the first to sign up for The Rotation and receive a special price.
-      </div>
-      <% if user_signed_in? %>
-          <%= link_to("Try for $49/mo", status_path, class: "top45 min_width170 btn size60 transparent_blue border border_blue radius6 font16") %>
-        <% else %>
-          <a id="price-btn" href="#" class="top45 min_width170 btn size60 transparent_blue border border_blue radius6 font16">Try for $49/mo</a>
-        <% end %>
-    </div>
-  </div>
-</section>
+  </section>
+</div>
