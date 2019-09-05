@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 // import { Link } from "react-router-dom"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 class NewLandingPage extends Component {
   constructor(props){
@@ -103,30 +104,52 @@ class NewLandingPage extends Component {
         
         <section className="padding_bottom100 text_center">
           <div className="plan_pricing padding_bottom15">PLAN + PRICING</div>
-          <div className="subscribe_to_the_closet padding_bottom15">Subscribe to the closet of your future</div>
-          <div className="padding_bottom15 flex justify_center align_center">
-            <div className="pricing_rectangle">
-              <div>2</div>
-              <div>Pieces at a Time</div>
+          <div className="subscribe_to_the_closet padding_bottom15 margin_auto">Subscribe to the closet of your future</div>
+          <div className="padding_bottom30 flex justify_center">
+            <div className="pricing_rectangle flex align_center justify_center">
+              <div>
+                <div className="subscribe_to_the_closet">2</div>
+                <div className="brand letter_spacing1">PIECES AT A TIME</div>
+              </div>
             </div>
-            <div className="pricing_rectangle black_bg">
-              <div>$49</div>
-              <div>Per Month</div>
+            <div className="pricing_rectangle flex align_center justify_center black_bg">
+              <div>
+                <div className="subscribe_to_the_closet white_text">$49</div>
+                <div className="brand letter_spacing1 white_text">PER MONTH</div>
+              </div>
             </div>
           </div>
-          <div>
-            <div>
-              <div>
-                
+          <div className="padding_bottom30">
+            <div className="padding_bottom15 height60">
+              <div className="inline_block height40 padding_right20">
+                <FontAwesomeIcon className="checkbox_icon padding_right15" icon="check-square" />
+                <div className="inline_block checkbox_description">Founder pricing for first 100 members only.</div>
               </div>
-              <div>
-                
-              </div>
-              <div>
-                
+              <div className="inline_block height40">
+                <FontAwesomeIcon className="checkbox_icon padding_right15" icon="check-square" />
+                <div className="inline_block checkbox_description">We handle the dry-cleaning.</div>
               </div>
             </div>
-              
+            <div className="padding_bottom15 height60">
+              <div className="inline_block height40 padding_right20">
+                <FontAwesomeIcon className="checkbox_icon padding_right15" icon="check-square" />
+                <div className="inline_block checkbox_description">Swap individual pieces anytime.</div>
+              </div>
+              <div className="inline_block height40">
+                <FontAwesomeIcon className="checkbox_icon padding_right15" icon="check-square" />
+                <div className="inline_block checkbox_description">New drops every 2 weeks.</div>
+              </div>
+            </div>
+            <div className="padding_bottom15 height60">
+              <div className="inline_block height40 padding_right20">
+                <FontAwesomeIcon className="checkbox_icon padding_right15" icon="check-square" />
+                <div className="inline_block checkbox_description">Choose pieces from the world’s top men’s designer brands.</div>
+              </div>
+              <div className="inline_block height40">
+                <FontAwesomeIcon className="checkbox_icon padding_right15" icon="check-square" />
+                <div className="inline_block checkbox_description">Keep pieces for as long or as little as you want.</div>
+              </div>
+            </div>
           </div>
         </section>
       </div>

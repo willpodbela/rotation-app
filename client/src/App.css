@@ -8,7 +8,6 @@
   font-family: "Druk Text Wide Bold";
   src: url("./fonts/DrukTextWide-Bold.otf") format('otf');
 }
-/* @charset "UTF-8"; */
 /* Line 7244 */
 a{
   text-decoration: none;
@@ -150,6 +149,7 @@ a{
   line-height: 15px;
 }
 .subscribe_to_the_closet{
+  width: 355px;
   color: #333333;
   font-family: "Druk Text Wide";
   font-size: 24px;
@@ -160,10 +160,41 @@ a{
   display: inline-block;
   height: 114px;
   width: 173px;
+  border: 2px solid #333333;
 }
 .black_bg{
   background-color: #333333;
 }
+.white_text{
+  color: #FFFFFF !important;
+}
+.letter_spacing1{
+  letter-spacing: 1px;
+}
+.checkbox_icon{
+  font-size: 27px;
+  /* padding-bottom: 5px; */
+}
+.checkbox_description{
+  text-align: left;
+  width: 250px;
+  /* height: 40px; */
+  color: #4A4A4A;
+  font-family: "Proxima Nova";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+}
+/* .row{
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.column{
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+} */
 /* Dynamic nav */
 @media only screen and (max-width: 500px) {
   .nav_link{
