@@ -9,11 +9,18 @@ module Api
       def update
         render_error(405)
       end
-      def index
-        render_error(405)
-      end
       def show
         render_error(405)
+      end
+      
+      def index
+        Stripe.api_key = Rails.configuration.stripe[:secret_key]
+        @plan = Stripe::Plan.retrieve(stripe_plan_id)
+
+        @current_subscription = current_user.current_subscription
+        @is_ios = browser.platform.ios?
+
+        render :status=>status, :json=>{:plan => @plan, :current_subscription => @current_subscription, :is_ios => @is_ios}
       end
       
       def create                
@@ -32,6 +39,10 @@ module Api
       end
  
       private
+ 
+      def stripe_plan_id
+        ENV['STRIPE_PLAN_ID']
+      end
  
       def subscription_params
         params.permit(:stripe_source_id)

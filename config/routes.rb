@@ -49,10 +49,12 @@ Rails.application.routes.draw do
     
       resources :users, only: [:create, :show, :update] do
         resource :profile, only: [:show, :update]
+        post "sign_up", on: :collection
       end
     
       resources :items, only: [:index, :show] do
         resource :favorite, only: [:create, :destroy]
+        get "list", on: :collection
       end
     
       resources :reservations do
@@ -60,7 +62,7 @@ Rails.application.routes.draw do
         post 'buy', on: :member
       end
       
-      resources :subscriptions, only: [:create] do
+      resources :subscriptions, only: [:create, :index] do
         get "cancel", on: :collection
         get "restore", on: :collection
       end
