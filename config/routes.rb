@@ -53,6 +53,7 @@ Rails.application.routes.draw do
       end
     
       resources :items, only: [:index, :show] do
+        resource :favorite, only: [:create, :destroy]
         get "list", on: :collection
       end
     

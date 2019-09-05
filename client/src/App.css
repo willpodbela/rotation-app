@@ -1,12 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Hind&display=swap');
+@import url("https://use.typekit.net/ffx7ipy.css");
 @font-face {
   font-family: "Druk Text Wide";
-  src: url("./fonts/DrukTextWide-Medium.otf") format('otf');
+  src: font-url("./fonts/DrukTextWide-Medium.otf") format('opentype');
 }
 @font-face {
-  font-family: "Druk Text Wide Bold";
-  src: url("./fonts/DrukTextWide-Bold.otf") format('otf');
+  font-family: "Druk Wide Medium";
+  src: font-url("./fonts/DrukWide-Medium.otf") format('opentype');
+}
+@font-face {
+  font-family: "Proxima Nova";
+  src: font-url("./fonts/ProximaNova-Regular.ttf") format('truetype');
+}
+@font-face {
+  font-family: "Proxima Nova Semibold";
+  src: font-url("./fonts/ProximaNova-Semibold.ttf") format('truetype');
 }
 /* Line 7244 */
 a{
@@ -23,34 +32,45 @@ a{
   font-size: 11px;
   font-weight: bold;
 }
+.nav_right_elems {
+  display: flex;
+}
+.nav_elem_hamberger {
+  font-family: "Helvetica Neue";
+  font-size: 18px;
+}
 .download_app_btn{
   height: 39px;
   width: 147px;
   border: 1px solid #4A4A4A;
   border-radius: 20.5px;
 }
-.background_image{
-  max-width: 100%;
+.background {
+  background-color: #F1F2F2;
+  height: calc(100vw * 0.65);
+  background-image: url("./img/landing-bg-desktop.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  align-items: center;
 }
 .welcome_elements{
-  position: absolute;
-  top: 20%;
-  left: 14.4%;
+  padding-left: 14.4%;
 }
 .welcome_to_a_closet{
   width: 388px;
   color: #333333;
-  font-family: "Druk Text Wide Bold";
+  font-family: "Druk Text Wide";
   font-size: 36px;
   line-height: 39px;
 }
 .welcome_description{
   width: 388px;
-  opacity: 0.7;
   color: #333333;
   font-family: "Proxima Nova";
   font-size: 18px;
   line-height: 28px;
+  display: block;
 }
 .sign_up_box{
   height: 55px;
@@ -59,9 +79,12 @@ a{
 }
 .sign_up{
   color: #333333;
-  font-family: "Proxima Nova";
+  font-family: "Proxima Nova Semibold";
   font-size: 12px;
   line-height: 10px;
+}
+.how_it_works {
+  padding-top: 70px;
 }
 .step_box{
   height: 320px;
@@ -72,6 +95,7 @@ a{
   width: 61px;
   color: #1A1A1A;
   font-family: "Proxima Nova";
+  font-weight: 500;
   font-size: 72px;
   font-weight: bold;
 }
@@ -112,21 +136,25 @@ a{
   background-color: #f0f2f5;
 }
 .item_image{
+  width: 163px;
   mix-blend-mode: multiply;
+}
+.item_card {
+  overflow: hidden;
 }
 .brand{
   color: #333333;
-  font-family: "Proxima Nova";
+  font-family: Helvetica;
   font-size: 12px;
-  font-weight: 600;
-  line-height: 15px;
+  font-weight: bold;
+  letter-spacing: -0.3px;
 }
 .description{
   opacity: 0.7;
   color: #333333;
-  font-family: "Proxima Nova";
+  font-family: adobe-garamond-pro;
   font-size: 12px;
-  line-height: 19px;
+  font-style: italic;
 }
 .scrolling_wrapper{
   display: flex;
@@ -137,8 +165,12 @@ a{
     flex: 0 0 auto;
   }
 }
-::-webkit-scrollbar {
-  display: none;
+footer {
+  background: #141414;
+}
+.footer-container {
+  width: auto;
+  margin: 0px 130px;
 }
 .plan_pricing{
   color: #333333;
@@ -162,8 +194,53 @@ a{
   width: 173px;
   border: 2px solid #333333;
 }
-.black_bg{
-  background-color: #333333;
+::-webkit-scrollbar {
+  display: none;
+}
+@media (max-width: 640px) {
+    .background {
+      height: calc(100vh - 138px);
+      background-image: url("./img/landing-bg-mobile.png");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: top;
+      align-items: flex-end;
+      padding-bottom: 50px;
+    }
+    .welcome_description{
+      display: none;
+    }
+    .how_it_works {
+      padding-top: 0px;
+    }
+}
+@media (max-width: 960px) {
+    .welcome_to_a_closet{
+      width: 311px;
+      color: #333333;
+      font-size: 24px;
+      line-height: 29px;
+    }
+    .welcome_description{
+      width: 311px;
+      color: #333333;
+      font-family: "Proxima Nova";
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 21px;
+    }
+    .footer-container {
+      width: 200px;
+      margin: auto;
+    }
+    .justify_center_under_960 {
+      justify-content: center !important;
+    }
+}
+@media (max-width: 1200px) {
+    .nav_right_elems {
+      display: none !important;
+    }
 }
 .white_text{
   color: #FFFFFF !important;
@@ -16660,6 +16737,9 @@ b {
 
 .ubuntu {
   font-family: 'Ubuntu', sans-serif; }
+
+.druk_wide_logo {
+  font-family: 'Druk Wide Medium', sans-serif; }
 
 .uppercase {
   text-transform: uppercase; }
