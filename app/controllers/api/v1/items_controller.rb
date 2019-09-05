@@ -76,7 +76,7 @@ module Api
       
       def set_inventory
         @inventory = Queries::Inventory.new
-        @favorite_item_ids = current_user.favorite_items.map(&:id)
+        @favorite_item_ids = current_user.favorite_items.map(&:id) unless current_user.nil? 
       end
       
     end
