@@ -136,7 +136,7 @@ a{
   width: 163px;
   background-color: #f0f2f5;
 }
-.item_image {
+.item_image{
   width: 163px;
   mix-blend-mode: multiply;
 }
@@ -157,7 +157,7 @@ a{
   font-size: 12px;
   font-style: italic;
 }
-.scrolling-wrapper{
+.scrolling_wrapper{
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
@@ -172,6 +172,26 @@ footer {
 .footer-container {
   width: auto;
   margin: 0px 130px;
+}
+.plan_pricing{
+  color: #333333;
+  font-family: "Proxima Nova";
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 15px;
+}
+.subscribe_to_the_closet{
+  color: #333333;
+  font-family: "Druk Text Wide";
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 29px;
+}
+.pricing_rectangle{
+  display: inline-block;
+  height: 114px;
+  width: 173px;
 }
 ::-webkit-scrollbar {
   display: none;
