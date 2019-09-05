@@ -9,16 +9,22 @@ const NewNav = props => {
         <Link to="/" className="flex align_center">
           <img srcSet={"../images/The-Rotation.png 1x, ../images/The-Rotation@2x.png 2x"} src={"../images/The-Rotation.png"} className="max_width_full" alt="" />
         </Link>
-        <div className="flex align_center">
-          <div className="nav_elem padding_right20">
-            <Link to="/">FAQ</Link>
-          </div>
-          <div className="nav_elem padding_sides20">
-            <Link to="/">Clothing</Link>
-          </div>
-          <div className="nav_elem padding_sides20">
-            <Link to="/">Designers</Link>
-          </div>
+        <div className="nav_right_elems flex align_center">
+          <!-- if user_signed_in? -->
+            <div className="nav_elem padding_right20">
+              <Link to="/">Logout</Link>
+            </div>
+            <div className="nav_elem padding_right20">
+              <Link to="/">Check Status</Link>
+            </div>
+          <!-- else -->
+            <div className="nav_elem padding_right20">
+              <Link to="/">Log In</Link>
+            </div>
+            <div className="nav_elem padding_right20">
+              <Link to="/">Sign Up</Link>
+            </div>
+          <!-- end -->
           <div className="padding_left20">
             <div className="download_app_btn flex align_center justify_center">
               <div className="nav_elem">

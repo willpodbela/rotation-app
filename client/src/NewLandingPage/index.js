@@ -30,8 +30,7 @@ class NewLandingPage extends Component {
   render(){
     return (
       <div className="NewLandingPage">
-        <header>
-          <img src={"../images/landing-bg.jpg"} className="background_image" alt="" />
+        <header className="background flex">
           <div className="welcome_elements">
             <div className="welcome_to_a_closet padding_bottom25">
               Welcome to a closet without boundaries.
@@ -47,14 +46,14 @@ class NewLandingPage extends Component {
           </div>
         </header>
         
-        <section className="padding_top70 padding_bottom100 flex justify_evenly">
+        <section className="how_it_works padding_bottom100 flex justify_evenly">
           <div className="step_box">
             <div className="large_number inline_block top10 padding_sides40">1.</div>
             <div className="step_title inline_block">
               Select your pieces
             </div>
             <div className="step_description top30 margin_auto">
-              Browse our curated catalog from the world’s most coveted designers. We'll deliver it straight to your door with a pre-paid return shipping label.
+              Browse our curated catalog from the world’s most coveted designers. New items are added every two weeks, ensuring you always have access to the freshest closet.
             </div>
           </div>
           <div className="step_box">
@@ -63,7 +62,7 @@ class NewLandingPage extends Component {
               Rotate without limits
             </div>
             <div className="step_description top30 margin_auto">
-              Whether its a special ocassion or your next daily wear, The Rotation holds no limits above your head. Wear, purchase, or rotate amongst our catalog as you see fit.
+              Whether it's a special occasion or your next daily wear, The Rotation holds no limits above your head. Wear, purchase, or exchange amongst our catalog as much as you like.
             </div>
           </div>
           <div className="step_box">
@@ -72,7 +71,7 @@ class NewLandingPage extends Component {
               We'll take care of the rest
             </div>
             <div className="step_description top30 margin_auto">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+              When you're ready for something new, send your pieces back dirty using the provided pre-paid shipping label.
             </div>
           </div>
         </section>
