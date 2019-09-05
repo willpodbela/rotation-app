@@ -1,6 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Hind&display=swap');
-@import url("https://use.typekit.net/ffx7ipy.css");
 @font-face {
   font-family: "Druk Text Wide";
   src: font-url("./fonts/DrukTextWide-Medium.otf") format('opentype');
@@ -17,7 +14,6 @@
   font-family: "Proxima Nova Semibold";
   src: font-url("./fonts/ProximaNova-Semibold.ttf") format('truetype');
 }
-/* Line 7244 */
 a{
   text-decoration: none;
 }
@@ -28,15 +24,12 @@ a{
 }
 .nav_elem{
   color: #333333;
-  font-family: "Helvetica Neue";
+  font-family: "Proxima Nova";
   font-size: 11px;
   font-weight: bold;
 }
-.nav_right_elems {
-  display: flex;
-}
 .nav_elem_hamberger {
-  font-family: "Helvetica Neue";
+  font-family: "Proxima Nova";
   font-size: 18px;
 }
 .download_app_btn{
@@ -144,17 +137,17 @@ a{
 }
 .brand{
   color: #333333;
-  font-family: Helvetica;
+  font-family: "Proxima Nova";
   font-size: 12px;
-  font-weight: bold;
-  letter-spacing: -0.3px;
+  font-weight: 600;
+  line-height: 15px;
 }
 .description{
   opacity: 0.7;
   color: #333333;
-  font-family: adobe-garamond-pro;
+  font-family: "Proxima Nova";
   font-size: 12px;
-  font-style: italic;
+  line-height: 19px;
 }
 .scrolling_wrapper{
   display: flex;
@@ -187,6 +180,13 @@ footer {
   font-size: 24px;
   font-weight: 500;
   line-height: 29px;
+}
+.brand{
+  color: #333333;
+  font-family: "Proxima Nova";
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px;
 }
 .pricing_rectangle{
   display: inline-block;
@@ -242,56 +242,60 @@ footer {
       display: none !important;
     }
 }
+.dark_bg{
+  background-color: #333333;
+}
 .white_text{
   color: #FFFFFF !important;
 }
-.letter_spacing1{
+.pricing_box_description{
+  color: #333333;
+  font-family: "Proxima Nova";
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px;
   letter-spacing: 1px;
 }
 .checkbox_icon{
   font-size: 27px;
-  /* padding-bottom: 5px; */
+  padding-top: 6.75px;
+  padding-left: 8px;
 }
 .checkbox_description{
   text-align: left;
   width: 250px;
-  /* height: 40px; */
   color: #4A4A4A;
   font-family: "Proxima Nova";
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
 }
-/* .row{
-  flex-direction: row;
-  flex-wrap: wrap;
+.join_waitlist_btn{
+  height: 55px;
+  width: 178px;
+  background-color: #333333;
 }
-.column{
-  display: flex;
-  flex-direction: column;
-  flex-basis: 100%;
-  flex: 1;
-} */
-/* Dynamic nav */
-@media only screen and (max-width: 500px) {
-  .nav_link{
-    margin: 0 10px !important;
+.join_waitlist{
+  color: #FFFFFF;
+  font-family: "Proxima Nova";
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 10px;
+}
+.icon_wrapper{
+  height: 40px;
+  width: 40px;
+}
+@media (max-width: 620px) {
+  .pricing_row{
+    display: block !important;
+    padding-bottom: 30px !important;
   }
-}
-
-@media only screen and (max-width: 450px) {
-  .nav_link{
-    margin: 0 5px !important;
-  }
-}
-
-@media only screen and (max-width: 420px) {
-  .nav2{
-    position: absolute;
-    width: 100vw;
-    left: 0;
-    display: flex;
-    justify-content: space-around;
+  .pricing_col{
+    width: 320px !important;
+    margin: 0 auto !important;
+    padding-right: 0px !important;
   }
 }
 .vertical_middle{
