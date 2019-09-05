@@ -2,6 +2,7 @@ class Item < ApplicationRecord
   has_many :reservations
   has_many :users, through: :reservations
   has_many :units
+  has_many :favorites
   
   has_many :live_reservations, -> { live }, class_name: "Reservation"
   has_many :scheduled_reservations, -> { scheduled }, class_name: "Reservation"

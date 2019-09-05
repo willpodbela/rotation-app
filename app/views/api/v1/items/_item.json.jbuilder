@@ -3,6 +3,7 @@ json.my_rotation                  @current_user.my_rotation_items.include? item
 json.my_rotation_reservation_id   my_rotation_reservation_id(@current_user, item)
 json.up_next                      @current_user.up_next_items.include? item
 json.up_next_reservation_id       up_next_reservation_id(@current_user, item)
+json.is_favorite                  @favorite_item_ids.include? item.id
 json.reservation do
   json.merge!                       reservation(@current_user, item)
 end
