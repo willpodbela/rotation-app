@@ -84,7 +84,7 @@ class NewLandingPage extends Component {
               return (
                 <div key={index} className="card max_width150 padding_sides20">
                   <div className="item_card flex align_center justify_center">
-                    <img className="max_width130 item_image" src={item.image_url} alt="" />
+                    <img className="item_image" src={item.image_url} alt="" />
                   </div>
                   <div className="brand padding_top10">{item.title}</div>
                   <div className="description padding_top5">{item.description.toLowerCase()}</div>
