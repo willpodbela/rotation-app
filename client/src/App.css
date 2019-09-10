@@ -362,6 +362,23 @@ footer {
   font-size: 20px;
   padding-right: 10px;
 }
+@media (max-width: 500px) {
+  .invite_friends_title{
+    width: 250px;
+  }
+  .invite_friends_description{
+    width: 250px;
+  }
+  .invite_friends_right{
+    width: 250px;
+  }
+  .share_link_row{
+    padding-bottom: 0px !important;
+  }
+  .share_link{
+    margin: 12.5px auto;
+  }
+}
 .vertical_middle{
   vertical-align: middle;
 }
