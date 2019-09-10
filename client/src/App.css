@@ -362,7 +362,7 @@ footer {
   font-size: 20px;
   padding-right: 10px;
 }
-@media (max-width: 500px) {
+@media (max-width: 499px) {
   .invite_friends_title{
     width: 250px;
   }
