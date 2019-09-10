@@ -298,6 +298,70 @@ footer {
     padding-right: 0px !important;
   }
 }
+.InviteFriendsPage{
+  background: #333333;
+}
+.rotation_logo{
+  box-sizing: border-box;
+  height: 51.75px;
+  width: 51.75px;
+}
+.invite_friends_title{
+  width: 388px;
+  color: #FFFFFF;
+  font-family: "Druk Text Wide";
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 38px;
+}
+.invite_friends_description{
+  width: 388px;
+  color: #FFFFFF;
+  font-family: "Proxima Nova";
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 27px;
+}
+.invite_friends_right{
+  width: 388px;
+}
+.personal_link{
+  color: #FFFFFF;
+  font-family: "Proxima Nova";
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 10px;
+}
+.link_box{
+  height: 60px;
+  width: 100%;
+  background-color: #FFFFFF;
+}
+.link_text{
+  overflow: hidden;
+  white-space: nowrap;
+  color: #333333;
+  font-family: "Proxima Nova";
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+}
+.share_link{
+	height: 55px;
+  width: 178px;
+  background-color: #FFFFFF;
+  color: #333333;
+  font-family: "Proxima Nova";
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 10px;
+}
+.invite_friends_icon{
+  font-size: 20px;
+  padding-right: 10px;
+}
 .vertical_middle{
   vertical-align: middle;
 }
