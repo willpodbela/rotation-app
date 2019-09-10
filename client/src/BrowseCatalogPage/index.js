@@ -53,7 +53,6 @@ class BrowseCatalogPage extends Component {
             })}
           </div>
         </div>
-        
         <div className="catalog flex width720">
           {this.state.items.map((item, index) => {
             return (
@@ -67,7 +66,6 @@ class BrowseCatalogPage extends Component {
             )
           })}
         </div>
-        
       </div>
     )
   }
