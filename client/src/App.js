@@ -10,6 +10,7 @@ import SignUpPage from "./SignUpPage"
 import StatusPage from "./StatusPage"
 import PrivacyPage from "./PrivacyPage"
 import InviteFriendsPage from "./InviteFriendsPage"
+import BrowseCatalogPage from "./BrowseCatalogPage"
 import Nav from "./Nav"
 import Footer from "./Footer"
 
@@ -27,6 +28,7 @@ class App extends Component {
           <Route path="/status" exact component={StatusPage} />
           <Route path="/privacy" exact component={PrivacyPage} />
           <Route path="/invite" exact component={InviteFriendsPage} />
+          <Route path="/catalog" exact component={BrowseCatalogPage} />
           <Footer />
         </div>
       </Router>

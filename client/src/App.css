@@ -128,6 +128,14 @@ a{
   width: 163px;
   background-color: #f0f2f5;
 }
+.item_card_large{
+  height: 273.66px;
+  width: 216px;
+  background-color: #f0f2f5;
+}
+.card_large{
+  max-width: 216px;
+}
 .item_image{
   width: 163px;
   mix-blend-mode: multiply;
@@ -381,6 +389,46 @@ footer {
 }
 .vertical_middle{
   vertical-align: middle;
+}
+.BrowseCatalogPage{
+  border: 1px solid #EBEBEB;
+}
+.filters_title{
+  color: #333333;
+  font-family: "Druk Text Wide";
+  font-size: 14px;
+  font-weight: 500;
+}
+.filters_subtitle{
+  color: #333333;
+  font-family: "Proxima Nova";
+  font-size: 12px;
+  line-height: 15px;
+}
+@media (max-width: 1000px) {
+  .catalog{
+    width: 500px !important;
+  }
+}
+@media (max-width: 800px) {
+  .filters_and_designers{
+    padding-right: 30px !important;
+  }
+}
+@media (max-width: 700px) {
+  .filters_and_designers{
+    padding-right: 0px !important;
+  }
+}
+@media (max-width: 651px) {
+  .catalog{
+    width: 250px !important;
+  }
+}
+@media (max-width: 420px) {
+  .filters_and_designers{
+    display: none;
+  }
 }
 /* Admin Page CSS */
 div.edit td, div.edit th,
