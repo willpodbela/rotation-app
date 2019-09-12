@@ -426,16 +426,15 @@ footer {
 .rewards_box{
   height: 19px;
   width: 194px;
-  border-top: 2px solid #FFFFFF;
-  border-bottom: 2px solid #FFFFFF;
+  /* border-top: 2px solid #FFFFFF;
+  border-bottom: 2px solid #FFFFFF; */
+  background-color: #333333 !important;
+  border-radius: 0px !important;
 }
 .rewards_divider{
   height: 40px;
   width: 2px;
-  background-color: #FFFFFF;
-}
-.white_bg{
-  background-color: #FFFFFF;
+  background-color: #F9F9F9;
 }
 .rewards_bar_vertical{
   display: none;
