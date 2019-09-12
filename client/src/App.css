@@ -402,8 +402,15 @@ footer {
   font-weight: 500;
   line-height: 27px;
 }
-.rewards_druk_text{
+@media (max-width: 420px) {
+  .rewards_description{
+    width: 300px;
+  }
+}
+.height38{
   height: 38px;
+}
+.rewards_druk_text{
   color: #FFFFFF;
   font-family: "Druk Text Wide";
   font-size: 18px;
@@ -430,6 +437,9 @@ footer {
 .white_bg{
   background-color: #FFFFFF;
 }
+.rewards_bar_vertical{
+  display: none;
+}
 @media (max-width: 1000px) {
   .rewards_box{
     width: 125px;
@@ -440,6 +450,25 @@ footer {
   .rewards_text{
     font-size: 10px;
   }
+}
+@media (max-width: 650px) {
+  .rewards_bar_horizontal{
+    display: none !important;
+  }
+  .rewards_bar_vertical{
+    display: block !important;
+  }
+}
+.rewards_box_vertical{
+  height: 194px;
+  width: 19px;
+  border-left: 2px solid #FFFFFF;
+  border-right: 2px solid #FFFFFF;
+}
+.rewards_divider_vertical{
+  height: 2px;
+  width: 40px;
+  background-color: #FFFFFF;
 }
 .vertical_middle{
   vertical-align: middle;
