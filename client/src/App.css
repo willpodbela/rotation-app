@@ -298,12 +298,13 @@ footer {
 @media (max-width: 620px) {
   .pricing_row{
     display: block !important;
-    padding-bottom: 30px !important;
+    padding-bottom: 60px !important;
   }
   .pricing_col{
     width: 320px !important;
     margin: 0 auto !important;
     padding-right: 0px !important;
+    padding-bottom: 15px !important;
   }
 }
 .InviteFriendsPage{
