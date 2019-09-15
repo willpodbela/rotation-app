@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import logo from "../img/rotation-logo.png"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import "bootstrap/dist/css/bootstrap.min.css"
 import ProgressBar from "react-bootstrap/ProgressBar"
 
 class InviteFriendsPage extends Component {
