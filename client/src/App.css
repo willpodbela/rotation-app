@@ -426,15 +426,15 @@ footer {
 .rewards_box{
   height: 19px;
   width: 194px;
-  border-top: 2px solid #F8F9FA;
-  border-bottom: 2px solid #F8F9FA;
+  border-top: 2px solid #FFFFFF;
+  border-bottom: 2px solid #FFFFFF;
   background-color: #333333 !important;
   border-radius: 0px !important;
 }
 .rewards_divider{
   height: 40px;
   width: 2px;
-  background-color: #F8F9FA;
+  background-color: #FFFFFF;
 }
 .rewards_bar_vertical{
   display: none;
@@ -458,12 +458,20 @@ footer {
     display: block !important;
   }
 }
-@media (max-width: 365px) {
+@media (max-width: 405px) {
   .rewards_druk_text{
     width: 90px !important;
   }
   .rewards_text{
     width: 90px !important;
+  }
+}
+@media (max-width: 345px) {
+  .rewards_druk_text{
+    width: 75px !important;
+  }
+  .rewards_text{
+    width: 75px !important;
   }
 }
 .rewards_row{
@@ -476,7 +484,7 @@ footer {
 .rewards_divider_vertical{
   height: 2px;
   width: 40px;
-  background-color: #F8F9FA;
+  background-color: #FFFFFF;
 }
 .vertical_middle{
   vertical-align: middle;

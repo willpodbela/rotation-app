@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import logo from "../img/rotation-logo.png"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import "bootstrap/dist/css/bootstrap.min.css"
+import "./bootstrap-progress-bar.css"
 import ProgressBar from "react-bootstrap/ProgressBar"
 
 class InviteFriendsPage extends Component {
@@ -44,25 +44,25 @@ class InviteFriendsPage extends Component {
         <div className="rewards_bar_horizontal flex justify_center align_center padding_bottom100">
           <div>
             <div className="rewards_druk_text height38 flex align_end padding_bottom20">Friends Joined</div>
-            <ProgressBar className="rewards_box" variant="light" now={100} />
+            <ProgressBar className="rewards_box" variant="white" now={100} />
             <div className="rewards_druk_text height38 padding_top20">Reward Won</div>
           </div>
           <div className="rewards_divider"></div>
           <div>
             <div className="rewards_druk_text height38 flex align_end justify_center padding_bottom20">1</div>
-            <ProgressBar className="rewards_box" variant="light" min="0" max="1" now={numFriendsConfirmed} />
+            <ProgressBar className="rewards_box" variant="white" min="0" max="1" now={numFriendsConfirmed} />
             <div className="rewards_text padding_top20 text_center">$20</div>
           </div>
           <div className="rewards_divider"></div>
           <div>
             <div className="rewards_druk_text height38 flex align_end justify_center padding_bottom20">5</div>
-            <ProgressBar className="rewards_box" variant="light" min="1" max="5" now={numFriendsConfirmed} />
+            <ProgressBar className="rewards_box" variant="white" min="1" max="5" now={numFriendsConfirmed} />
             <div className="rewards_text padding_top20 text_center">$80</div>
           </div>
           <div className="rewards_divider"></div>
           <div>
             <div className="rewards_druk_text height38 flex align_end justify_center padding_bottom20">20</div>
-            <ProgressBar className="rewards_box" variant="light" min="5" max="20" now={numFriendsConfirmed} />
+            <ProgressBar className="rewards_box" variant="white" min="5" max="20" now={numFriendsConfirmed} />
             <div className="rewards_text padding_top20 text_center">
               <div>$150</div>
               <div>+</div>
@@ -73,7 +73,7 @@ class InviteFriendsPage extends Component {
           <div className="rewards_divider"></div>
           <div>
             <div className="rewards_druk_text height38 flex align_end justify_center padding_bottom20">50</div>
-            <ProgressBar className="rewards_box" variant="light" min="20" max="50" now={numFriendsConfirmed} />
+            <ProgressBar className="rewards_box" variant="white" min="20" max="50" now={numFriendsConfirmed} />
             <div className="rewards_text padding_top20 text_center">
               <div>$150</div>
               <div>+</div>
@@ -89,37 +89,37 @@ class InviteFriendsPage extends Component {
         <div className="rewards_bar_vertical padding_bottom50">
           <div className="rewards_row flex justify_center align_center">
             <div className="rewards_druk_text width120 text_center padding_left20">Friends Joined</div>
-            <ProgressBar className="rewards_box vertical" variant="light" now={100} />
+            <ProgressBar className="rewards_box vertical" variant="white" now={100} />
             <div className="rewards_druk_text width120 text_center padding_right20">Rewards Won</div>
           </div>
           <div className="rewards_divider_vertical margin_auto"></div>
           <div className="rewards_row flex justify_center align_center">
             <div className="rewards_druk_text width120 text_center padding_left20">1</div>
-            <ProgressBar className="rewards_box vertical" variant="light" min="0" max="1" now={numFriendsConfirmed} />
+            <ProgressBar className="rewards_box vertical" variant="white" min="0" max="1" now={numFriendsConfirmed} />
             <div className="rewards_text width120 flex justify_center align_center padding_right20">$20</div>
           </div>
           <div className="rewards_divider_vertical margin_auto"></div>
           <div className="rewards_row flex justify_center align_center">
             <div className="rewards_druk_text width120 text_center padding_left20">5</div>
-            <ProgressBar className="rewards_box vertical" variant="light" min="1" max="5" now={numFriendsConfirmed} />
+            <ProgressBar className="rewards_box vertical" variant="white" min="1" max="5" now={numFriendsConfirmed} />
             <div className="rewards_text width120 flex justify_center align_center padding_right20">$80</div>
           </div>
           <div className="rewards_divider_vertical margin_auto"></div>
           <div className="rewards_row flex justify_center align_center">
             <div className="rewards_druk_text width120 text_center padding_left20">20</div>
-            <ProgressBar className="rewards_box vertical" variant="light" min="5" max="20" now={numFriendsConfirmed} />
+            <ProgressBar className="rewards_box vertical" variant="white" min="5" max="20" now={numFriendsConfirmed} />
             <div className="rewards_text width120 flex justify_center align_center padding_right20 text_center">$150 + Limited Run TR Tee</div>
           </div>
           <div className="rewards_divider_vertical margin_auto"></div>
           <div className="rewards_row flex justify_center align_center">
             <div className="rewards_druk_text width120 text_center padding_left20">50</div>
-            <ProgressBar className="rewards_box vertical" variant="light" min="20" max="50" now={numFriendsConfirmed} />
+            <ProgressBar className="rewards_box vertical" variant="white" min="20" max="50" now={numFriendsConfirmed} />
             <div className="rewards_text width120 text_center flex justify_center align_center padding_right20">$150 + Limited Run TR Tee + Limited TR Sling Bag</div>
           </div>
           <div className="rewards_divider_vertical margin_auto"></div>
         </div>
         
-        <div className="rewards_text text_center"><strong>{numFriendsConfirmed}</strong> friends have joined</div>
+        <div className="rewards_text text_center margin_auto"><strong>{numFriendsConfirmed}</strong> friends have joined</div>
       </div>
     )
   }
