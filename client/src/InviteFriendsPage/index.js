@@ -10,8 +10,8 @@ class InviteFriendsPage extends Component {
   }
   
   render(){
-    // const numFriendsInvited = 3
-    const numFriendsConfirmed = 4
+    const numFriendsInvited = 4
+    const numFriendsConfirmed = 3
     return (
       <div className="InviteFriendsPage padding_bottom170">
         <div className="text_center padding_top170 padding_bottom75"><img src={logo} className="rotation_logo" /></div>
@@ -50,19 +50,40 @@ class InviteFriendsPage extends Component {
           <div className="rewards_divider"></div>
           <div>
             <div className="rewards_druk_text height38 flex align_end justify_center padding_bottom20">1</div>
-            <ProgressBar className="rewards_box" variant="white" min="0" max="1" now={numFriendsConfirmed} />
+            <ProgressBar className="rewards_box">
+              <ProgressBar variant="white" min="0" max="1" now={numFriendsConfirmed} />
+              {numFriendsConfirmed < 0 ? (
+                <ProgressBar variant="white" min="0" max="1" now={numFriendsInvited} animated />
+              ) : (
+                <ProgressBar variant="white" min={numFriendsConfirmed} max="1" now={numFriendsInvited} animated />
+              )}
+            </ProgressBar>
             <div className="rewards_text padding_top20 text_center">$20</div>
           </div>
           <div className="rewards_divider"></div>
           <div>
             <div className="rewards_druk_text height38 flex align_end justify_center padding_bottom20">5</div>
-            <ProgressBar className="rewards_box" variant="white" min="1" max="5" now={numFriendsConfirmed} />
+            <ProgressBar className="rewards_box">
+              <ProgressBar variant="white" min="1" max="5" now={numFriendsConfirmed} />
+              {numFriendsConfirmed < 1 ? (
+                <ProgressBar variant="white" min="1" max="5" now={numFriendsInvited} animated />
+              ) : (
+                <ProgressBar variant="white" min={numFriendsConfirmed} max="5" now={numFriendsInvited} animated />
+              )}
+            </ProgressBar>
             <div className="rewards_text padding_top20 text_center">$80</div>
           </div>
           <div className="rewards_divider"></div>
           <div>
             <div className="rewards_druk_text height38 flex align_end justify_center padding_bottom20">20</div>
-            <ProgressBar className="rewards_box" variant="white" min="5" max="20" now={numFriendsConfirmed} />
+            <ProgressBar className="rewards_box">
+              <ProgressBar variant="white" min="5" max="20" now={numFriendsConfirmed} />
+              {numFriendsConfirmed < 5 ? (
+                <ProgressBar variant="white" min="5" max="20" now={numFriendsInvited} animated />
+              ) : (
+                <ProgressBar variant="white" min={numFriendsConfirmed} max="20" now={numFriendsInvited} animated />
+              )}
+            </ProgressBar>
             <div className="rewards_text padding_top20 text_center">
               <div>$150</div>
               <div>+</div>
@@ -73,7 +94,14 @@ class InviteFriendsPage extends Component {
           <div className="rewards_divider"></div>
           <div>
             <div className="rewards_druk_text height38 flex align_end justify_center padding_bottom20">50</div>
-            <ProgressBar className="rewards_box" variant="white" min="20" max="50" now={numFriendsConfirmed} />
+            <ProgressBar className="rewards_box">
+              <ProgressBar variant="white" min="20" max="50" now={numFriendsConfirmed} />
+              {numFriendsConfirmed < 20 ? (
+                <ProgressBar variant="white" min="20" max="50" now={numFriendsInvited} animated />
+              ) : (
+                <ProgressBar variant="white" min={numFriendsConfirmed} max="50" now={numFriendsInvited} animated />
+              )}
+            </ProgressBar>
             <div className="rewards_text padding_top20 text_center">
               <div>$150</div>
               <div>+</div>
@@ -120,6 +148,7 @@ class InviteFriendsPage extends Component {
         </div>
         
         <div className="rewards_text text_center margin_auto"><strong>{numFriendsConfirmed}</strong> friends have joined</div>
+        <div className="rewards_text text_center margin_auto"><strong>{numFriendsInvited - numFriendsConfirmed}</strong> have not confirmed emails</div>
       </div>
     )
   }
