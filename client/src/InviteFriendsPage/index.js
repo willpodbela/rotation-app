@@ -50,7 +50,7 @@ class InviteFriendsPage extends Component {
           <div className="rewards_divider"></div>
           <div>
             <div className="rewards_druk_text height38 flex align_end justify_center padding_bottom20">1</div>
-            <ProgressBar className="rewards_box" variant="danger" min="0" max="1" striped animated now={numFriendsConfirmed} />
+            <ProgressBar className="rewards_box" variant="white" min="0" max="1" now={numFriendsConfirmed} />
             <div className="rewards_text padding_top20 text_center">$20</div>
           </div>
           <div className="rewards_divider"></div>
