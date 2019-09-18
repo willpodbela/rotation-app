@@ -34,6 +34,11 @@ class BrowseCatalogPage extends Component {
     this.setState({designers: designers})
   }
   
+  filterDesigners(e){
+    let designer = e.target.innerHTML
+    console.log(designer)
+  }
+  
   render(){
     return (
       <div className="BrowseCatalogPage padding_top25 flex justify_center">
@@ -48,7 +53,7 @@ class BrowseCatalogPage extends Component {
             <div className="filters_title padding_bottom5">Designers</div>
             {this.state.designers.map((designer, index) => {
               return (
-                <div key={index} className="filters_subtitle padding_bottom5">{designer.toUpperCase()}</div>
+                <div key={index} onClick={this.filterDesigners} className="filters_subtitle padding_bottom5">{designer.toUpperCase()}</div>
               )
             })}
           </div>
