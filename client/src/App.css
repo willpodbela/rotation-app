@@ -457,10 +457,17 @@ footer {
   .rewards_bar_vertical{
     display: block !important;
   }
+  .rewards_druk_text{
+    font-size: 18px !important;
+  }
+  .rewards_text{
+    font-size: 14px !important;
+  }
 }
 @media (max-width: 405px) {
   .rewards_druk_text{
     width: 90px !important;
+    font-size: 14px !important;
   }
   .rewards_text{
     width: 90px !important;
