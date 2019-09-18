@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get "download", to: "landing#download"
   get "privacy", to: "landing#privacy"
   
-  resource :prelaunch, only: [:create, :show]
+  resource :prelauncher, only: [:create, :show]
   
   resources "users", only: :index do
     resource :profile, only: [:show, :edit, :update]

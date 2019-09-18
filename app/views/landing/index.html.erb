@@ -14,10 +14,14 @@
         This is The Rotation. A members-only club that gives you access to an extensive designer wardrobe, for a fraction of the price. Everything you could want, right at your fingertips.
       </div>
       <div class="sign_up_box flex align_center justify_center">
-        <%= link_to(new_user_registration_path) do %>
-          <div class="sign_up">
-            SIGN UP
+        <%= form_for(@prelaunch_user, :url => prelauncher_path) do |f| %>
+          <div class="padding_bottom25">
+            <div class="link_box flex align_center">
+              <%= f.text_field(:email, :class => "link_text padding_left15") %>
+            </div>
           </div>
+          
+          <%= f.hidden_field(:inviter_id) %>
         <% end %>
       </div>
     </div>

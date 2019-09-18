@@ -1,2 +1,121 @@
-<h1>Prelaunchers#show</h1>
-<p>Find me in app/views/prelaunchers/show.html.erb</p>
+<div class="InviteFriendsPage padding_bottom170">
+  <div class="text_center padding_top170 padding_bottom75"><!-- TODO put logo img tag here --></div>
+  <div class="flex justify_evenly padding_bottom130">
+    <div class="padding_bottom75">
+      <div class="invite_friends_title flex">Invite friends and earn up to $200 in rewards.</div>
+      <div class="invite_friends_description padding_top20 flex">Use your very own link to spread the word about The Rotation. You’ll get cash to spend with us for every friend that signs up.</div>
+    </div>
+    <div class="invite_friends_right">
+      <div class="personal_link padding_bottom25">YOUR PERSONAL LINK:</div>
+      <div class="padding_bottom25">
+        <div class="link_box flex align_center">
+          <div class="link_text padding_left15"><%= root_url(:ref => @prelaunch_user.invite_code) %></div>
+        </div>
+      </div>
+      <div>
+        <div class="flex justify_between padding_bottom25 share_link_row">
+          <div class="share_link flex justify_center align_center">COPY LINK</div>
+          <div class="share_link flex justify_center align_center"><i class="fab fa-envelope line_height50 invite_friends_icon"></i>EMAIL</div>
+        </div>
+        <div class="flex justify_between">
+          <div class="share_link flex justify_center align_center"><i class="fab fa-comment line_height50 invite_friends_icon"></i>SEND SMS</div>
+          <div class="share_link flex justify_center align_center"><i class="fab fa-facebook fa-twitter line_height50 invite_friends_icon"></i>SHARE</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rewards_title text_center padding_bottom20">Keep Track of Your Rewards</div>
+  <div class="rewards_description text_center margin_auto padding_bottom50">Return here to view your progress and see your rewards anytime. Don’t worry, we’ll email you a link.</div>
+  <div class="rewards_bar_horizontal flex justify_center align_center padding_bottom100">
+    <div>
+      <div class="rewards_druk_text height38 flex align_end padding_bottom20">Friends Joined</div>
+      <progress class="rewards_box" variant="white" now="100" />
+      </progress>
+      <div class="rewards_druk_text height38 padding_top20">Reward Won</div>
+    </div>
+    <div class="rewards_divider"></div>
+    <div>
+      <div class="rewards_druk_text height38 flex align_end justify_center padding_bottom20">1</div>
+      <progress class="rewards_box">
+        <progress variant="white" min="0" max="1" now="<%= @friend_count %>" />
+        </progress>
+      </progress>
+      <div class="rewards_text padding_top20 text_center">$20</div>
+    </div>
+    <div class="rewards_divider"></div>
+    <div>
+      <div class="rewards_druk_text height38 flex align_end justify_center padding_bottom20">5</div>
+      <progress class="rewards_box">
+        <progress variant="white" min="1" max="5" now="<%= @friend_count %>" />
+        </progress>
+      </progress>
+      <div class="rewards_text padding_top20 text_center">$80</div>
+    </div>
+    <div class="rewards_divider"></div>
+    <div>
+      <div class="rewards_druk_text height38 flex align_end justify_center padding_bottom20">20</div>
+      <progress class="rewards_box">
+        <progress variant="white" min="5" max="20" now="<%= @friend_count %>" />
+        </progress>
+      </progress>
+      <div class="rewards_text padding_top20 text_center">
+        <div>$150</div>
+        <div>+</div>
+        <div>Limited Run</div>
+        <div>TR Tee</div>
+      </div>
+    </div>
+    <div class="rewards_divider"></div>
+    <div>
+      <div class="rewards_druk_text height38 flex align_end justify_center padding_bottom20">50</div>
+      <progress class="rewards_box">
+        <progress variant="white" min="20" max="50" now="<%= @friend_count %>" />
+        </progress>
+      </progress>
+      <div class="rewards_text padding_top20 text_center">
+        <div>$150</div>
+        <div>+</div>
+        <div>Limited Run</div>
+        <div>TR Tee</div>
+        <div>+</div>
+        <div>Limited TR Sling Bag</div>
+      </div>
+    </div>
+    <div class="rewards_divider"></div>
+  </div>
+  
+  <div class="rewards_bar_vertical padding_bottom50">
+    <div class="rewards_row flex justify_center align_center">
+      <div class="rewards_druk_text width120 text_center padding_left20">Friends Joined</div>
+      <ProgressBar class="rewards_box vertical" variant="white" now={100} />
+      <div class="rewards_druk_text width120 text_center padding_right20">Rewards Won</div>
+    </div>
+    <div class="rewards_divider_vertical margin_auto"></div>
+    <div class="rewards_row flex justify_center align_center">
+      <div class="rewards_druk_text width120 text_center padding_left20">1</div>
+      <ProgressBar class="rewards_box vertical" variant="white" min="0" max="1" now={numFriendsConfirmed} />
+      <div class="rewards_text width120 flex justify_center align_center padding_right20">$20</div>
+    </div>
+    <div class="rewards_divider_vertical margin_auto"></div>
+    <div class="rewards_row flex justify_center align_center">
+      <div class="rewards_druk_text width120 text_center padding_left20">5</div>
+      <ProgressBar class="rewards_box vertical" variant="white" min="1" max="5" now={numFriendsConfirmed} />
+      <div class="rewards_text width120 flex justify_center align_center padding_right20">$80</div>
+    </div>
+    <div class="rewards_divider_vertical margin_auto"></div>
+    <div class="rewards_row flex justify_center align_center">
+      <div class="rewards_druk_text width120 text_center padding_left20">20</div>
+      <ProgressBar class="rewards_box vertical" variant="white" min="5" max="20" now={numFriendsConfirmed} />
+      <div class="rewards_text width120 flex justify_center align_center padding_right20 text_center">$150 + Limited Run TR Tee</div>
+    </div>
+    <div class="rewards_divider_vertical margin_auto"></div>
+    <div class="rewards_row flex justify_center align_center">
+      <div class="rewards_druk_text width120 text_center padding_left20">50</div>
+      <ProgressBar class="rewards_box vertical" variant="white" min="20" max="50" now={numFriendsConfirmed} />
+      <div class="rewards_text width120 text_center flex justify_center align_center padding_right20">$150 + Limited Run TR Tee + Limited TR Sling Bag</div>
+    </div>
+    <div class="rewards_divider_vertical margin_auto"></div>
+  </div>
+  
+  <div class="rewards_text text_center margin_auto"><strong><%= @friend_count %></strong> friends have joined</div>
+</div>

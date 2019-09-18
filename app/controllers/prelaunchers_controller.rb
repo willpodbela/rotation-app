@@ -19,7 +19,11 @@ class PrelaunchersController < ApplicationController
   def show
     # Validate prelaunch_user has been set, otherwise return to landing page
     @prelaunch_user = PrelaunchUser.find_by_email(cookies[:prelaunch_email])
-    redirect_to root_path if @user.nil?
+    if @prelaunch_user.nil?
+      redirect_to root_path
+    else
+      @friend_count = @prelaunch_user.invited_users.count
+    end
   end
   
   private
@@ -29,7 +33,7 @@ class PrelaunchersController < ApplicationController
   end
   
   def prelaunch_user_success(prelaunch_user)
-    cookies.permanent[:prelaunch_email] = @user.email
-    redirect_to(prelaunch_path)
+    cookies.permanent[:prelaunch_email] = prelaunch_user.email
+    redirect_to(prelauncher_path)
   end
 end
