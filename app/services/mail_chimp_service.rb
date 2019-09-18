@@ -25,9 +25,13 @@ class MailChimpService
       return @@instance
     end
     
-    # Convenience method for one and only instance method on Singleton
+    # Convenience methods for instance methods on Singleton
     def sync_and_tag(user)
       instance.sync_and_tag(user)
+    end
+    
+    def register_prelauncher_user(user)
+      instance.register_prelauncher_user(user)
     end
     
   end
