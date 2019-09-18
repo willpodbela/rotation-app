@@ -1,26 +1,27 @@
 class PrelaunchersController < ApplicationController
   skip_before_action :authenticate_user!
 
-  # Landing POST Email
   def create
-    cookies.permanent[:prelaunch_email] = prelauncher_params[:prelaunch_user][:email]
-    redirect_to(prelaunch_path)
+    @prelaunch_user = PrelaunchUser.new(prelaunch_user_params)
+    if @prelaunch_user.save
+      cookies.permanent[:prelaunch_email] = @user.email
+      redirect_to(prelaunch_path)
+    else
+      # If save fails, redisplay the form so user can fix problems
+      render('landing/index')
+    end
   end
   
-  # Invite Page
   def show
     # Validate prelaunch_user has been set, otherwise return to landing page
-    unless cookies[:prelaunch_email].present?
-      redirect_to root_path
-    else
-      @user = PrelaunchUser.find_or_create_by(email: cookies[:prelaunch_email])
-    end
+    @prelaunch_user = PrelaunchUser.find_by_email(cookies[:prelaunch_email])
+    redirect_to root_path if @user.nil?
   end
   
   private
   
-  def prelauncher_params
-    params.require(:prelaunch_user).permit(:email)
+  def prelaunch_user_params
+    params.require(:prelaunch_user).permit(:email, :inviter_id)
   end
   
 end
