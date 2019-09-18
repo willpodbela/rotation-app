@@ -27,7 +27,7 @@ class PrelaunchUser < ApplicationRecord
   def generate_invite_code
     loop do
       code = SecureRandom.hex(5)
-      break code unless self.class.where(referral_code: code).exists?
+      break code unless self.class.where(invite_code: code).exists?
     end
   end
 end
