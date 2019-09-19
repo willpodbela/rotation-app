@@ -1,0 +1,108 @@
+<div class="InviteFriendsPage padding_bottom170">
+  <div class="text_center padding_top170 padding_bottom75"><!-- TODO put logo img tag here --></div>
+  <div class="flex justify_evenly padding_bottom130">
+    <div class="padding_bottom75">
+      <div class="invite_friends_title flex">Invite friends and earn up to $200 in rewards.</div>
+      <div class="invite_friends_description padding_top20 flex">Use your very own link to spread the word about The Rotation. You’ll get cash to spend with us for every friend that signs up.</div>
+    </div>
+    <div class="invite_friends_right">
+      <div class="personal_link padding_bottom25">YOUR PERSONAL LINK:</div>
+      <div class="padding_bottom25">
+        <div class="link_box flex align_center">
+          <div class="link_text padding_left15"><%= root_url(:ref => @prelaunch_user.invite_code) %></div>
+        </div>
+      </div>
+      <div>
+        <div class="flex justify_between padding_bottom25 share_link_row">
+          <div class="share_link flex justify_center align_center">COPY LINK</div>
+          <div class="share_link flex justify_center align_center"><i class="fab fa-envelope line_height50 invite_friends_icon"></i>EMAIL</div>
+        </div>
+        <div class="flex justify_between">
+          <div class="share_link flex justify_center align_center"><i class="fab fa-comment line_height50 invite_friends_icon"></i>SEND SMS</div>
+          <div class="share_link flex justify_center align_center"><i class="fab fa-facebook fa-twitter line_height50 invite_friends_icon"></i>SHARE</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rewards_title text_center padding_bottom20">Keep Track of Your Rewards</div>
+  <div class="rewards_description text_center margin_auto padding_bottom50">Return here to view your progress and see your rewards anytime. Don’t worry, we’ll email you a link.</div>
+  <div class="rewards_bar_horizontal flex justify_center align_center padding_bottom100">
+    <div>
+      <div class="rewards_druk_text height38 flex align_end padding_bottom20">Friends Joined</div>
+      <%= progress_bar(0, 1, 1) %>
+      <div class="rewards_druk_text height38 padding_top20">Reward Won</div>
+    </div>
+    <div class="rewards_divider"></div>
+    <div>
+      <div class="rewards_druk_text height38 flex align_end justify_center padding_bottom20">1</div>
+      <%= progress_bar(0, 1, @friend_count) %>
+      <div class="rewards_text padding_top20 text_center">$20</div>
+    </div>
+    <div class="rewards_divider"></div>
+    <div>
+      <div class="rewards_druk_text height38 flex align_end justify_center padding_bottom20">5</div>
+      <%= progress_bar(1, 5, @friend_count) %>
+      <div class="rewards_text padding_top20 text_center">$80</div>
+    </div>
+    <div class="rewards_divider"></div>
+    <div>
+      <div class="rewards_druk_text height38 flex align_end justify_center padding_bottom20">20</div>
+      <%= progress_bar(5, 20, @friend_count) %>
+      <div class="rewards_text padding_top20 text_center">
+        <div>$150</div>
+        <div>+</div>
+        <div>Limited Run</div>
+        <div>TR Tee</div>
+      </div>
+    </div>
+    <div class="rewards_divider"></div>
+    <div>
+      <div class="rewards_druk_text height38 flex align_end justify_center padding_bottom20">50</div>
+      <%= progress_bar(20, 50, @friend_count) %>
+      <div class="rewards_text padding_top20 text_center">
+        <div>$150</div>
+        <div>+</div>
+        <div>Limited Run</div>
+        <div>TR Tee</div>
+        <div>+</div>
+        <div>Limited TR Sling Bag</div>
+      </div>
+    </div>
+    <div class="rewards_divider"></div>
+  </div>
+  
+  <div class="rewards_bar_vertical padding_bottom50">
+    <div class="rewards_row flex justify_center align_center">
+      <div class="rewards_druk_text flex text_center justify_center padding_left20">Friends Joined</div>
+      <%= progress_bar(0, 1, 1, ["vertical"]) %>
+      <div class="rewards_druk_text flex text_center justify_center padding_right20">Rewards Won</div>
+    </div>
+    <div class="rewards_divider_vertical margin_auto"></div>
+    <div class="rewards_row flex justify_center align_center">
+      <div class="rewards_druk_text flex text_center justify_center align_center padding_left20">1</div>
+      <%= progress_bar(0, 1, @friend_count, ["vertical"]) %>
+      <div class="rewards_text flex text_center justify_center align_center padding_right20">$20</div>
+    </div>
+    <div class="rewards_divider_vertical margin_auto"></div>
+    <div class="rewards_row flex justify_center align_center">
+      <div class="rewards_druk_text flex text_center justify_center align_center padding_left20">5</div>
+      <%= progress_bar(1, 5, @friend_count, ["vertical"]) %>
+      <div class="rewards_text flex text_center justify_center align_center padding_right20">$80</div>
+    </div>
+    <div class="rewards_divider_vertical margin_auto"></div>
+    <div class="rewards_row flex justify_center align_center">
+      <div class="rewards_druk_text flex text_center justify_center align_center padding_left20">20</div>
+      <%= progress_bar(5, 20, @friend_count, ["vertical"]) %>
+      <div class="rewards_text flex text_center justify_center align_center padding_right20">$150</br>+</br>Limited Run TR Tee</div>
+    </div>
+    <div class="rewards_divider_vertical margin_auto"></div>
+    <div class="rewards_row flex justify_center align_center">
+      <div class="rewards_druk_text flex text_center justify_center align_center padding_left20">50</div>
+      <%= progress_bar(20, 50, @friend_count, ["vertical"]) %>
+      <div class="rewards_text flex text_center justify_center align_center padding_right20">$150 + Tee</br>+</br>Limited TR Sling Bag</div>
+    </div>
+    <div class="rewards_divider_vertical margin_auto"></div>
+  </div>
+  
+  <div class="rewards_text text_center margin_auto"><strong><%= @friend_count %></strong> friends have joined</div>
+</div>
