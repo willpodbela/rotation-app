@@ -499,6 +499,9 @@ footer {
 .BrowseCatalogPage{
   border: 1px solid #EBEBEB;
 }
+.fixed_position{
+  position: fixed;
+}
 .filters_title{
   color: #333333;
   font-family: "Druk Text Wide";

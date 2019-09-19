@@ -1,18 +1,21 @@
 import React, { Component } from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 class BrowseCatalogPage extends Component {
   constructor(props){
     super(props)
     this.state = {
       items: [],
-      designers: []
+      designers: [],
+      showFilters: true,
+      showDesigners: true
     }
   }
   
   componentDidMount(){
     window.scrollTo(0, 0)
-    let username = process.env.REACT_APP_API_AUTH_NAME;
-    let password = process.env.REACT_APP_API_AUTH_PASSWORD;
+    let username = process.env.REACT_APP_API_AUTH_NAME
+    let password = process.env.REACT_APP_API_AUTH_PASSWORD
         
     fetch("/api/v1/items/list", {
       headers: {
@@ -39,25 +42,45 @@ class BrowseCatalogPage extends Component {
     console.log(designer)
   }
   
+  showHideFilters(e){
+    this.state.showFilters ? this.setState({showFilters: false}) : this.setState({showFilters: true})
+  }
+  
+  showHideDesigners(e){
+    this.state.showDesigners ? this.setState({showDesigners: false}) : this.setState({showDesigners: true})
+  }
+  
   render(){
     return (
       <div className="BrowseCatalogPage padding_top25 flex justify_center">
         <div className="filters_and_designers width150 padding_right100 padding_left10">
-          <div className="filters">
-            <div className="filters_title padding_bottom5">Filters</div>
-            <div className="filters_subtitle padding_bottom5">TEES</div>
-            <div className="filters_subtitle padding_bottom5">JACKETS</div>
-            <div className="filters_subtitle padding_bottom30">ACCESSORIES</div>
-          </div>
-          <div className="designers">
-            <div className="filters_title padding_bottom5">Designers</div>
-            {this.state.designers.map((designer, index) => {
-              return (
-                <div key={index} onClick={this.filterDesigners} className="filters_subtitle padding_bottom5">{designer.toUpperCase()}</div>
-              )
-            })}
+          <div className="fixed_position width150">
+            <div className="filters">
+              <div className="filters_title padding_bottom5">Filters <FontAwesomeIcon className="float_right" onClick={(e) => this.showHideFilters(e)} icon="plus-circle" /></div>
+              
+              {this.state.showFilters &&
+                <div>
+                  <div className="filters_subtitle padding_bottom5">TEES</div>
+                  <div className="filters_subtitle padding_bottom5">JACKETS</div>
+                  <div className="filters_subtitle padding_bottom30">ACCESSORIES</div>
+                </div>
+              }
+            </div>
+            <div className="designers">
+              <div className="filters_title padding_bottom5">Designers <FontAwesomeIcon className="float_right" onClick={(e) => this.showHideDesigners(e)} icon="plus-circle" /></div>
+              {this.state.showDesigners &&
+                <div>
+                  {this.state.designers.map((designer, index) => {
+                    return (
+                      <div key={index} onClick={(e) => this.filterDesigners(e)} className="filters_subtitle padding_bottom5">{designer.toUpperCase()}</div>
+                    )
+                  })}
+                </div>
+              }
+            </div>
           </div>
         </div>
+        
         <div className="catalog flex width720">
           {this.state.items.map((item, index) => {
             return (
