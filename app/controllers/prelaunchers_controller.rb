@@ -23,7 +23,7 @@ class PrelaunchersController < ApplicationController
     # If user signed in, use that for invite page
     if user_signed_in?
       @prelaunch_user = PrelaunchUser.find_or_create_by(email: current_user.email)
-      cookies.permanent[:prelaunch_email] = prelaunch_user.email
+      cookies.permanent[:prelaunch_email] = @prelaunch_user.email
     end
     
     # If prelaunch_user is still nil, try to load prelaunch_user from cookie
