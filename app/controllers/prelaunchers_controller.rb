@@ -1,5 +1,6 @@
 class PrelaunchersController < ApplicationController
   skip_before_action :authenticate_user!
+  layout "landing"
 
   def create
     @prelaunch_user = PrelaunchUser.find_by_email(prelaunch_user_params[:email])

@@ -29,35 +29,25 @@
   <div class="rewards_bar_horizontal flex justify_center align_center padding_bottom100">
     <div>
       <div class="rewards_druk_text height38 flex align_end padding_bottom20">Friends Joined</div>
-      <progress class="rewards_box" variant="white" now="100" />
-      </progress>
+      <%= progress_bar(0, 1, 1) %>
       <div class="rewards_druk_text height38 padding_top20">Reward Won</div>
     </div>
     <div class="rewards_divider"></div>
     <div>
       <div class="rewards_druk_text height38 flex align_end justify_center padding_bottom20">1</div>
-      <progress class="rewards_box">
-        <progress variant="white" min="0" max="1" now="<%= @friend_count %>" />
-        </progress>
-      </progress>
+      <%= progress_bar(0, 1, @friend_count) %>
       <div class="rewards_text padding_top20 text_center">$20</div>
     </div>
     <div class="rewards_divider"></div>
     <div>
       <div class="rewards_druk_text height38 flex align_end justify_center padding_bottom20">5</div>
-      <progress class="rewards_box">
-        <progress variant="white" min="1" max="5" now="<%= @friend_count %>" />
-        </progress>
-      </progress>
+      <%= progress_bar(1, 5, @friend_count) %>
       <div class="rewards_text padding_top20 text_center">$80</div>
     </div>
     <div class="rewards_divider"></div>
     <div>
       <div class="rewards_druk_text height38 flex align_end justify_center padding_bottom20">20</div>
-      <progress class="rewards_box">
-        <progress variant="white" min="5" max="20" now="<%= @friend_count %>" />
-        </progress>
-      </progress>
+      <%= progress_bar(5, 20, @friend_count) %>
       <div class="rewards_text padding_top20 text_center">
         <div>$150</div>
         <div>+</div>
@@ -68,10 +58,7 @@
     <div class="rewards_divider"></div>
     <div>
       <div class="rewards_druk_text height38 flex align_end justify_center padding_bottom20">50</div>
-      <progress class="rewards_box">
-        <progress variant="white" min="20" max="50" now="<%= @friend_count %>" />
-        </progress>
-      </progress>
+      <%= progress_bar(20, 50, @friend_count) %>
       <div class="rewards_text padding_top20 text_center">
         <div>$150</div>
         <div>+</div>
@@ -86,33 +73,33 @@
   
   <div class="rewards_bar_vertical padding_bottom50">
     <div class="rewards_row flex justify_center align_center">
-      <div class="rewards_druk_text width120 text_center padding_left20">Friends Joined</div>
-      <ProgressBar class="rewards_box vertical" variant="white" now={100} />
-      <div class="rewards_druk_text width120 text_center padding_right20">Rewards Won</div>
+      <div class="rewards_druk_text flex text_center justify_center padding_left20">Friends Joined</div>
+      <%= progress_bar(0, 1, 1, ["vertical"]) %>
+      <div class="rewards_druk_text flex text_center justify_center padding_right20">Rewards Won</div>
     </div>
     <div class="rewards_divider_vertical margin_auto"></div>
     <div class="rewards_row flex justify_center align_center">
-      <div class="rewards_druk_text width120 text_center padding_left20">1</div>
-      <ProgressBar class="rewards_box vertical" variant="white" min="0" max="1" now={numFriendsConfirmed} />
-      <div class="rewards_text width120 flex justify_center align_center padding_right20">$20</div>
+      <div class="rewards_druk_text flex text_center justify_center align_center padding_left20">1</div>
+      <%= progress_bar(0, 1, @friend_count, ["vertical"]) %>
+      <div class="rewards_text flex text_center justify_center align_center padding_right20">$20</div>
     </div>
     <div class="rewards_divider_vertical margin_auto"></div>
     <div class="rewards_row flex justify_center align_center">
-      <div class="rewards_druk_text width120 text_center padding_left20">5</div>
-      <ProgressBar class="rewards_box vertical" variant="white" min="1" max="5" now={numFriendsConfirmed} />
-      <div class="rewards_text width120 flex justify_center align_center padding_right20">$80</div>
+      <div class="rewards_druk_text flex text_center justify_center align_center padding_left20">5</div>
+      <%= progress_bar(1, 5, @friend_count, ["vertical"]) %>
+      <div class="rewards_text flex text_center justify_center align_center padding_right20">$80</div>
     </div>
     <div class="rewards_divider_vertical margin_auto"></div>
     <div class="rewards_row flex justify_center align_center">
-      <div class="rewards_druk_text width120 text_center padding_left20">20</div>
-      <ProgressBar class="rewards_box vertical" variant="white" min="5" max="20" now={numFriendsConfirmed} />
-      <div class="rewards_text width120 flex justify_center align_center padding_right20 text_center">$150 + Limited Run TR Tee</div>
+      <div class="rewards_druk_text flex text_center justify_center align_center padding_left20">20</div>
+      <%= progress_bar(5, 20, @friend_count, ["vertical"]) %>
+      <div class="rewards_text flex text_center justify_center align_center padding_right20">$150</br>+</br>Limited Run TR Tee</div>
     </div>
     <div class="rewards_divider_vertical margin_auto"></div>
     <div class="rewards_row flex justify_center align_center">
-      <div class="rewards_druk_text width120 text_center padding_left20">50</div>
-      <ProgressBar class="rewards_box vertical" variant="white" min="20" max="50" now={numFriendsConfirmed} />
-      <div class="rewards_text width120 text_center flex justify_center align_center padding_right20">$150 + Limited Run TR Tee + Limited TR Sling Bag</div>
+      <div class="rewards_druk_text flex text_center justify_center align_center padding_left20">50</div>
+      <%= progress_bar(20, 50, @friend_count, ["vertical"]) %>
+      <div class="rewards_text flex text_center justify_center align_center padding_right20">$150 + Tee</br>+</br>Limited TR Sling Bag</div>
     </div>
     <div class="rewards_divider_vertical margin_auto"></div>
   </div>
