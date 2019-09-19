@@ -40,6 +40,9 @@
     "MAIL_CHIMP_API_KEY": {
       "required": true
     },
+    "PRICING_SECTION_ENABLED": {
+      "required": true
+    },
     "RACK_ENV": {
       "required": true
     },

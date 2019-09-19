@@ -17,6 +17,7 @@ class LandingController < ApplicationController
 		end
   
     @items = Item.visible.with_images.order(created_at: :desc)
+    @show_pricing = (ENV["PRICING_SECTION_ENABLED"] == "true")
   end
   
   def status
