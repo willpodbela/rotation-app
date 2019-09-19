@@ -13,7 +13,7 @@ class LandingController < ApplicationController
   def index
     @prelaunch_user = PrelaunchUser.new()
     if params.has_key?(:ref) && PrelaunchUser.where(invite_code: params[:ref]).any?
-			@prelaunch_user[:inviter_id] = User.find_by(invite_code: params[:ref]).id
+			@prelaunch_user[:inviter_id] = PrelaunchUser.find_by(invite_code: params[:ref]).id
 		end
   
     @items = Item.visible.with_images.order(created_at: :desc)
