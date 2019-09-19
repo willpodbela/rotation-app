@@ -460,7 +460,8 @@ footer {
     font-size: 18px !important;
   }
   .rewards_text{
-    font-size: 14px !important;
+    font-size: 11.5px !important;
+    height: auto;
   }
 }
 @media (max-width: 405px) {

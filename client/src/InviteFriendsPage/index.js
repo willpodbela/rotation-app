@@ -107,13 +107,26 @@ class InviteFriendsPage extends Component {
           <div className="rewards_row flex justify_center align_center">
             <div className="rewards_druk_text width120 text_center padding_left20">20</div>
             <ProgressBar className="rewards_box vertical" variant="white" min="5" max="20" now={numFriends} />
-            <div className="rewards_text width120 flex justify_center align_center padding_right20 text_center">$150 + Limited Run TR Tee</div>
+            <div className="rewards_text width120 padding_right20 text_center">
+              <div>$150</div>
+              <div>+</div>
+              <div>Limited Run</div>
+              <div>TR Tee</div>
+            </div>
           </div>
           <div className="rewards_divider_vertical margin_auto"></div>
           <div className="rewards_row flex justify_center align_center">
             <div className="rewards_druk_text width120 text_center padding_left20">50</div>
             <ProgressBar className="rewards_box vertical" variant="white" min="20" max="50" now={numFriends} />
-            <div className="rewards_text width120 text_center flex justify_center align_center padding_right20">$150 + Limited Run TR Tee + Limited TR Sling Bag</div>
+            <div className="rewards_text width120 padding_right20 text_center">
+              <div>$150</div>
+              <div>+</div>
+              <div>Limited Run</div>
+              <div>TR Tee</div>
+              <div>+</div>
+              <div>Limited TR</div>
+              <div>Sling Bag</div>
+            </div>
           </div>
           <div className="rewards_divider_vertical margin_auto"></div>
         </div>
