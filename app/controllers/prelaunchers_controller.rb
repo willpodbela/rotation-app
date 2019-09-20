@@ -2,18 +2,22 @@ class PrelaunchersController < ApplicationController
   skip_before_action :authenticate_user!
   layout "landing"
 
-  def create
-    
-    
+  def create    
     @prelaunch_user = PrelaunchUser.find_by_email(prelaunch_user_params[:email])
     unless @prelaunch_user.nil?
       create_success(@prelaunch_user)
     else
       @prelaunch_user = PrelaunchUser.new(prelaunch_user_params)
+      @prelaunch_user.ip_address = request.remote_ip
       if @prelaunch_user.save
         create_success(@prelaunch_user)
       else
         # If save fails, redisplay the form so user can fix problems
+        flash[:alert] = "An error occurred. Please check your email and try again."
+        
+        @items = Item.landing_featured.with_images.order(created_at: :desc)
+        @show_pricing = (ENV["PRICING_SECTION_ENABLED"] == "true")
+        
         render('landing/index')
       end
     end
@@ -34,7 +38,7 @@ class PrelaunchersController < ApplicationController
       redirect_to root_path
     else
       # Else, prelaunch user is set, continue with render of invite page
-      @friend_count = @prelaunch_user.invited_users.count
+      @friend_count = @prelaunch_user.valid_invited_users_count
       @invite_url = root_url(:ref => @prelaunch_user.invite_code)
     end
   end
