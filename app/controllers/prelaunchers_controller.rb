@@ -48,8 +48,8 @@ class PrelaunchersController < ApplicationController
   def create_success(prelaunch_user)
     cookies.permanent[:prelaunch_email] = prelaunch_user.email
     
-    # This is the result of a click on submit on the landing form, so if user is signed in, sign them out.
-    if user_signed_in?
+    # This is the result of a click on submit on the landing form, so if user is signed in to a different email, sign them out.
+    if user_signed_in? && (current_user.email != prelaunch_user.email)
       sign_out current_user
     end
     
