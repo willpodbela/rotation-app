@@ -3,7 +3,7 @@ class PrelaunchersController < ApplicationController
   layout "landing"
 
   def create    
-    @prelaunch_user = PrelaunchUser.find_by_email(prelaunch_user_params[:email])
+    @prelaunch_user = PrelaunchUser.find_by_email(prelaunch_user_params[:email].downcase)
     unless @prelaunch_user.nil?
       create_success(@prelaunch_user)
     else
@@ -26,7 +26,7 @@ class PrelaunchersController < ApplicationController
   def show
     # If user signed in, use that for invite page
     if user_signed_in?
-      @prelaunch_user = PrelaunchUser.find_or_create_by(email: current_user.email)
+      @prelaunch_user = PrelaunchUser.find_or_create_by(email: current_user.email.downcase)
       cookies.permanent[:prelaunch_email] = @prelaunch_user.email
     end
     
@@ -50,7 +50,7 @@ class PrelaunchersController < ApplicationController
   end
   
   def create_success(prelaunch_user)
-    cookies.permanent[:prelaunch_email] = prelaunch_user.email
+    cookies.permanent[:prelaunch_email] = prelaunch_user.email.downcase
     
     # This is the result of a click on submit on the landing form, so if user is signed in to a different email, sign them out.
     if user_signed_in? && (current_user.email != prelaunch_user.email)
