@@ -64,7 +64,7 @@ class ItemsController < ApplicationController
   private
   
   def item_params
-    params.require(:item).permit(:title, :description, :image_url, :image, :subtitle, :retail_value, :color, :hidden, :image_remote_url, :virtual_qty)
+    params.require(:item).permit(:title, :description, :image_url, :image, :subtitle, :retail_value, :color, :hidden, :image_remote_url, :virtual_qty, :landing_featured)
   end
   
   def query_params
