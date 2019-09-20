@@ -1,5 +1,5 @@
 <div class="InviteFriendsPage padding_bottom170">
-  <div class="text_center padding_top170 padding_bottom75"><!-- TODO put logo img tag here --></div>
+  <div class="text_center padding_top170 padding_bottom75 rewards_rotation_logo_container"><%= image_tag("Logo-white.png", srcset: "#{asset_path("Logo-white@2x.png")} 2x, #{asset_path("Logo-white.png")} 1x", class: "rotation_logo") %></div>
   <div class="flex justify_evenly padding_bottom130">
     <div class="padding_bottom75">
       <div class="invite_friends_title flex">Invite friends and earn up to $200 in rewards.</div>
@@ -15,8 +15,8 @@
       <div>
         <div class="flex justify_between padding_bottom25 share_link_row">
           <button class="share_link flex justify_center align_center clipboard-btn" data-clipboard-action="copy" data-clipboard-target="#invite-link">COPY LINK</button>
-          <%= mail_to("", :body => @invite_url) do %> 
-            <div class="share_link flex justify_center align_center"><i class="fa fa-envelope line_height50 invite_friends_icon"></i>EMAIL</div>
+          <%= mail_to("", :body => @invite_url, :class => "share_link flex justify_center align_center") do %> 
+            <i class="fa fa-envelope line_height50 invite_friends_icon"></i>EMAIL
           <% end %>
         </div>
         <div class="flex justify_between">

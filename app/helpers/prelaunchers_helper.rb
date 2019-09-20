@@ -13,14 +13,14 @@ module PrelaunchersHelper
   end
   
   def twitter_share_button(text, invite_url)
-    "<a href='http://twitter.com/share?url=#{URI.encode(invite_url)}&text=#{URI.encode(text)}'>
-            <div class='share_link flex justify_center align_center'><i class='fab fa-twitter line_height50 invite_friends_icon'></i>SHARE</div>
+    "<a href='http://twitter.com/share?url=#{URI.encode(invite_url)}&text=#{URI.encode(text)}' class='share_link flex justify_center align_center'>
+      <i class='fab fa-twitter line_height50 invite_friends_icon'></i>SHARE
     </a>".html_safe
   end
   
   def sms_share_button(text, invite_url)
-    "<a href='sms:+1&body=#{URI.encode([text, invite_url].compact.join(" "))}'>
-      <div class='share_link flex justify_center align_center'><i class='fa fa-comment line_height50 invite_friends_icon'></i>SEND SMS</div>
+    "<a href='sms:+1&body=#{URI.encode([text, invite_url].compact.join(" "))}' class='share_link flex justify_center align_center'>
+      <i class='fa fa-comment line_height50 invite_friends_icon'></i>SEND SMS
     </a>".html_safe
   end
 end
