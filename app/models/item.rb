@@ -9,6 +9,7 @@ class Item < ApplicationRecord
   has_many :not_cancelled_reservations, -> { not_cancelled }, class_name: "Reservation"
     
   scope :visible, -> { where hidden: false }
+  scope :landing_featured, -> { where landing_featured: true }
   scope :with_images, -> { where('image_file_name IS NOT NULL') }
   scope :without_images, -> { where('image_file_name IS NULL') }
   scope :with_alternate_image_options, -> { where("alternate_image_urls != '{}'") }

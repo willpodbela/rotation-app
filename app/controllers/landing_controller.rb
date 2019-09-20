@@ -16,7 +16,7 @@ class LandingController < ApplicationController
 			@prelaunch_user[:inviter_id] = PrelaunchUser.find_by(invite_code: params[:ref]).id
 		end
   
-    @items = Item.visible.with_images.order(created_at: :desc)
+    @items = Item.visible.landing_featured.with_images.order(created_at: :desc)
     @show_pricing = (ENV["PRICING_SECTION_ENABLED"] == "true")
   end
   
