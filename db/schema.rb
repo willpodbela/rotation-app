@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190918161537) do
+ActiveRecord::Schema.define(version: 20190920193228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20190918161537) do
     t.integer "live_reservations_counter_cache"
     t.integer "scheduled_reservations_counter_cache"
     t.integer "virtual_qty", default: 1, null: false
+    t.boolean "landing_featured", default: false, null: false
   end
 
   create_table "prelaunch_users", force: :cascade do |t|
@@ -80,6 +81,7 @@ ActiveRecord::Schema.define(version: 20190918161537) do
     t.string "ip_address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "bounced", default: false, null: false
     t.index ["email"], name: "index_prelaunch_users_on_email", unique: true
     t.index ["inviter_id"], name: "index_prelaunch_users_on_inviter_id"
     t.index ["ip_address"], name: "index_prelaunch_users_on_ip_address"
