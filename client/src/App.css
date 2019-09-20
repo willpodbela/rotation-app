@@ -524,17 +524,12 @@ footer {
     padding-right: 30px !important;
   }
 }
-@media (max-width: 700px) {
-  .filters_and_designers{
-    padding-right: 0px !important;
-  }
-}
-@media (max-width: 651px) {
+@media (max-width: 691px) {
   .catalog{
     width: 250px !important;
   }
 }
-@media (max-width: 420px) {
+@media (max-width: 441px) {
   .filters_and_designers{
     display: none;
   }

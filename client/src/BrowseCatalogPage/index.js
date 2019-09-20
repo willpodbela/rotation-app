@@ -1,5 +1,7 @@
 import React, { Component } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Collapse from 'react-bootstrap/Collapse'
+import "./bootstrap-collapse-show.css"
 
 class BrowseCatalogPage extends Component {
   constructor(props){
@@ -57,18 +59,17 @@ class BrowseCatalogPage extends Component {
           <div className="fixed_position width150">
             <div className="filters">
               <div className="filters_title padding_bottom5">Filters <FontAwesomeIcon className="float_right" onClick={(e) => this.showHideFilters(e)} icon="plus-circle" /></div>
-              
-              {this.state.showFilters &&
+              <Collapse in={this.state.showFilters}>
                 <div>
                   <div className="filters_subtitle padding_bottom5">TEES</div>
                   <div className="filters_subtitle padding_bottom5">JACKETS</div>
                   <div className="filters_subtitle padding_bottom30">ACCESSORIES</div>
                 </div>
-              }
+              </Collapse>
             </div>
             <div className="designers">
               <div className="filters_title padding_bottom5">Designers <FontAwesomeIcon className="float_right" onClick={(e) => this.showHideDesigners(e)} icon="plus-circle" /></div>
-              {this.state.showDesigners &&
+              <Collapse in={this.state.showDesigners}>
                 <div>
                   {this.state.designers.map((designer, index) => {
                     return (
@@ -76,7 +77,7 @@ class BrowseCatalogPage extends Component {
                     )
                   })}
                 </div>
-              }
+              </Collapse>
             </div>
           </div>
         </div>
