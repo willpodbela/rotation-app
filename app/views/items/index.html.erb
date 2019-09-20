@@ -13,7 +13,8 @@
       <th>Subtitle</th>
       <th>Max V-Qty</th>
       <th>Owned Inventory</th>
-      <th class="black-border-right">Visible?</th>
+      <th>Visible?</th>
+      <th class="black-border-right">Featured?</th>
       <th>Rentals</th>
       <th>Cumulative Days Rented</th>
       <th>Days Since Last Rental</th>
@@ -32,7 +33,8 @@
           <% end %>
         <% end %>
       </td>
-      <td class="black-border-right"><%= item.hidden ? '✗' : '✓' %></td>
+      <td><%= item.hidden ? '✗' : '✓' %></td>
+      <td class="black-border-right"><%= item.landing_featured ? '✗' : '✓' %></td>
       <td><%= item.not_cancelled_reservations.length %></td>
       <td><%= item.cum_days_rented %></td>
       <td><%= item.days_since_last_rental || "N/A" %></td>
