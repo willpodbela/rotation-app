@@ -3,6 +3,7 @@ class PrelaunchUser < ApplicationRecord
   belongs_to :invited_by_user, class_name: "PrelaunchUser", foreign_key: :inviter_id, optional: true
 
   before_create :ensure_invite_code
+  before_save { email.downcase! }
   
   after_create do |user|
     MailChimpService.register_prelauncher_user(user)
