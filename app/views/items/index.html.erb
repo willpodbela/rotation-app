@@ -34,7 +34,7 @@
         <% end %>
       </td>
       <td><%= item.hidden ? '✗' : '✓' %></td>
-      <td class="black-border-right"><%= item.landing_featured ? '✗' : '✓' %></td>
+      <td class="black-border-right"><%= item.landing_featured ? '✓' : '✗'  %></td>
       <td><%= item.not_cancelled_reservations.length %></td>
       <td><%= item.cum_days_rented %></td>
       <td><%= item.days_since_last_rental || "N/A" %></td>
