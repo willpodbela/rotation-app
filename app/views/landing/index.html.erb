@@ -16,7 +16,7 @@
       <%= form_for(@prelaunch_user, :url => prelauncher_path) do |f| %>
         <%= f.hidden_field(:inviter_id) %>
         <div class="sign_up_box flex align_center flex_start">
-          <%= f.text_field(:email, :class => "sign_up_text link_text padding_left15") %>
+          <%= f.text_field(:email, :class => "sign_up_text link_text padding_left15", :placeholder => "mason@ramsey.com") %>
           <%= f.submit("SIGN UP", :class => "sign_up") %>
         </div>
       <% end %>
@@ -59,8 +59,7 @@
       <div class="padding_left30"></div>
       <% @items.each_with_index do |item, index| %>
         <div key="<%= index %>" class="card max_width150 padding_sides20">
-          <div class="item_card flex align_center justify_center">
-            <img class="item_image" src="<%= item.image.url %>" alt="" />
+          <div class="item_card flex align_center justify_center" style="background-image: url('<%= item.image.url %>');">
           </div>
           <div class="brand padding_top10"><%= item.title %></div>
           <div class="description padding_top5"><%= item.subtitle %></div>
