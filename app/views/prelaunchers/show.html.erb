@@ -9,17 +9,19 @@
       <div class="personal_link padding_bottom25">YOUR PERSONAL LINK:</div>
       <div class="padding_bottom25">
         <div class="link_box flex align_center">
-          <div class="link_text padding_left15"><%= root_url(:ref => @prelaunch_user.invite_code) %></div>
+          <div id="invite-link" class="link_text padding_left15"><%= @invite_url %></div>
         </div>
       </div>
       <div>
         <div class="flex justify_between padding_bottom25 share_link_row">
-          <div class="share_link flex justify_center align_center">COPY LINK</div>
-          <div class="share_link flex justify_center align_center"><i class="fab fa-envelope line_height50 invite_friends_icon"></i>EMAIL</div>
+          <button class="share_link flex justify_center align_center clipboard-btn" data-clipboard-action="copy" data-clipboard-target="#invite-link">COPY LINK</button>
+          <%= mail_to("", :body => @invite_url) do %> 
+            <div class="share_link flex justify_center align_center"><i class="fa fa-envelope line_height50 invite_friends_icon"></i>EMAIL</div>
+          <% end %>
         </div>
         <div class="flex justify_between">
-          <div class="share_link flex justify_center align_center"><i class="fab fa-comment line_height50 invite_friends_icon"></i>SEND SMS</div>
-          <div class="share_link flex justify_center align_center"><i class="fab fa-facebook fa-twitter line_height50 invite_friends_icon"></i>SHARE</div>
+          <%= sms_share_button("Use my invite to join The Rotation and get free streetwear!", @invite_url) %>
+          <%= twitter_share_button("Cant wait for @therotation to launch. Catch me rocking the latest #streetwear for free.", @invite_url) %>
         </div>
       </div>
     </div>

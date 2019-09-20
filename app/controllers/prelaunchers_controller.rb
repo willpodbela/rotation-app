@@ -35,6 +35,7 @@ class PrelaunchersController < ApplicationController
     else
       # Else, prelaunch user is set, continue with render of invite page
       @friend_count = @prelaunch_user.invited_users.count
+      @invite_url = root_url(:ref => @prelaunch_user.invite_code)
     end
   end
   

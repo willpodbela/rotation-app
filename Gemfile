@@ -64,12 +64,13 @@ gem 'concurrent-ruby', require: 'concurrent'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-# Gems for Startup Framework II
+# Javascript Library Gems
   gem 'jquery-rails'
   gem 'therubyracer'
 	gem 'less-rails-bootstrap'
 	gem 'font-awesome-rails'
 	gem 'jquery-easing-rails'
+	gem 'clipboard-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

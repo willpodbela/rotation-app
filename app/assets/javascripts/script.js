@@ -21,6 +21,12 @@ $( document ).ready(function() {
     }
 });
 
+// Clipboard.js
+
+$(document).ready(function(){  
+  var clipboard = new Clipboard('.clipboard-btn');	
+});
+
 // Scroll.js
 
 $(document).ready(function(){
