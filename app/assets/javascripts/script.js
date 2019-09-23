@@ -1,9 +1,5 @@
 // Custom JS
 
-$(function() {
-    $('.lazy').lazy();
-});
-
 $("#price-btn").click(function() {
     $('html,body').animate({
         scrollTop: ($("#landing-form").offset().top - 100)},
