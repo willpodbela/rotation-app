@@ -1,11 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  # Additional Caching Settings for Heroku compatibility
-  config.serve_static_assets = true
-  config.static_cache_control = "public, max-age=2592000"
-  config.assets.digest = true
-  
   # Code is not reloaded between requests.
   config.cache_classes = true
 
