@@ -31,7 +31,12 @@ Rails.application.configure do
   config.assets.compile = false
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
-
+  
+  # Set Cache-Control header
+  config.public_file_server.headers = {
+    'Cache-Control' => 'public, max-age=31536000'
+  }
+  
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   if ENV['CLOUDFRONT_DISTRIBUTION_URL'].present?
     config.action_controller.asset_host = ENV['CLOUDFRONT_DISTRIBUTION_URL']
