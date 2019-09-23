@@ -7,6 +7,8 @@ end
 
 # Use Rack-CORS for handling Cross-Origin Resource Sharing
 gem 'rack-cors'
+# Use Rack::Cache for adding Cache Control Headers
+gem 'rack-cache'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
