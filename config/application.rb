@@ -17,17 +17,5 @@ module RotationApp
     config.allow_unconfirmed_access_for = 100.years
     
     config.autoload_paths += [config.root.join('app')]
-    
-    config.middleware.insert_before 0, Rack::Cors do
-        allow do
-            origins %w[
-                https://therotation.club
-                 http://therotation.club
-                https://www.therotation.club
-                 http://www.therotation.club
-            ]
-            resource '/assets/*'
-        end
-    end
   end
 end
