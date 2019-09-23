@@ -35,18 +35,6 @@ Rails.application.configure do
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   if ENV['CLOUDFRONT_DISTRIBUTION_URL'].present?
     config.action_controller.asset_host = ENV['CLOUDFRONT_DISTRIBUTION_URL']
-    
-    config.middleware.insert_before 0, Rack::Cors do
-        allow do
-            origins %w[
-                https://therotation.club
-                 http://therotation.club
-                https://www.therotation.club
-                 http://www.therotation.club
-            ]
-            resource '/assets/*'
-        end
-    end
   end
 
   # Specifies the header that your server uses for sending files.
