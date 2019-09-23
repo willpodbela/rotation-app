@@ -17,12 +17,5 @@ module RotationApp
     config.allow_unconfirmed_access_for = 100.years
     
     config.autoload_paths += [config.root.join('app')]
-    
-    config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        origins '*'
-        resource '*', headers: :any, methods: [:get, :post, :options]
-      end
-    end
   end
 end
