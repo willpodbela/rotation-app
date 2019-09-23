@@ -59,7 +59,7 @@
       <div class="padding_left30"></div>
       <% @items.each_with_index do |item, index| %>
         <div key="<%= index %>" class="card max_width150 padding_sides20">
-          <div class="item_card flex align_center justify_center" style="background-image: url('<%= item.image.url %>');">
+          <div class="item_card flex align_center justify_center lazy" data-src="<%= item.image.url %>");">
           </div>
           <div class="brand padding_top10"><%= item.title %></div>
           <div class="description padding_top5"><%= item.subtitle %></div>
