@@ -2,6 +2,10 @@
 <html>
   <head>
     <title>The Rotation</title>
+    <% ["DrukTextWide-Medium.otf", "DrukWide-Medium.otf", "ProximaNova-Regular.ttf", "ProximaNova-Semibold.ttf"].each do |font| %>
+      <link rel="preload" href="<%= font_url(font) %>" as="font" type="<%= (font.include? ".otf") ? "font/opentype" : "font/truetype" %>" />
+    <% end %>
+    
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= render 'layouts/analytics' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
