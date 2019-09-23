@@ -33,6 +33,7 @@ Rails.application.configure do
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
   
   # Set Cache-Control header
+  config.assets.digest = true
   config.public_file_server.headers = {
     'Cache-Control' => 'public, max-age=31536000'
   }
