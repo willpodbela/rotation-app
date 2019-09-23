@@ -13,6 +13,9 @@ Rails.application.configure do
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
+  config.assets.digest = true
+  config.serve_static_assets = true
+  config.static_cache_control = 'public, max-age=2592000'
 
   # Attempt to read encrypted secrets from `config/secrets.yml.enc`.
   # Requires an encryption key in `ENV["RAILS_MASTER_KEY"]` or
@@ -34,10 +37,6 @@ Rails.application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   if ENV['CLOUDFRONT_DISTRIBUTION_URL'].present?
-    config.assets.digest = true
-    config.serve_static_assets = true
-    config.static_cache_control = 'public, max-age=2592000'
-  
     config.action_controller.asset_host = ENV['CLOUDFRONT_DISTRIBUTION_URL']
     
     config.middleware.insert_before 0, Rack::Cors do
