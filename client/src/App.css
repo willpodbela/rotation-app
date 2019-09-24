@@ -513,6 +513,7 @@ footer {
   font-family: "Proxima Nova";
   font-size: 12px;
   line-height: 15px;
+  cursor: pointer;
 }
 @media (max-width: 1000px) {
   .catalog{

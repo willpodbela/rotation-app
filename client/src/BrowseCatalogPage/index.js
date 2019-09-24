@@ -8,7 +8,6 @@ class BrowseCatalogPage extends Component {
     super(props)
     this.state = {
       items: [],
-      designers: [],
       showFilters: true,
       showDesigners: true
     }
@@ -27,21 +26,24 @@ class BrowseCatalogPage extends Component {
       .then(results => {
         results.json()
           .then(results => {
-            this.setState({items: results.items})
-            this.populateDesigners()
+            let items = results.items
+            items.map(item => {
+              item.title = {value: item.title, selected: false}
+            })
+            this.setState({items: items})
           })
       })
   }
   
-  populateDesigners(){
-    let designers = this.state.items.map(item => item.title)
-    designers = designers.filter((designer, index) => designers.indexOf(designer) === index)
-    this.setState({designers: designers})
-  }
-  
-  filterDesigners(e){
-    let designer = e.target.innerHTML
-    console.log(designer)
+  filterItems(e){
+    let designerClicked = e.target.innerHTML
+    let itemsCopy = JSON.parse(JSON.stringify(this.state.items))
+    this.state.items.forEach((item, index) => {
+      if(item.title.value.toUpperCase() === designerClicked){
+        itemsCopy[index].title.selected ? itemsCopy[index].title.selected = false : itemsCopy[index].title.selected = true
+      }
+    })
+    this.setState({items: itemsCopy})
   }
   
   showHideFilters(e){
@@ -53,6 +55,11 @@ class BrowseCatalogPage extends Component {
   }
   
   render(){
+    let designers = this.state.items.map(item => item.title)
+    designers = Array.from(new Set(designers.map(designer => designer.value))).map(value => {
+      return designers.find(designer => designer.value === value)
+    })
+    
     return (
       <div className="BrowseCatalogPage padding_top25 flex justify_center">
         <div className="filters_and_designers width150 padding_right100 padding_left10">
@@ -71,9 +78,9 @@ class BrowseCatalogPage extends Component {
               <div className="filters_title padding_bottom5">Designers <FontAwesomeIcon className="float_right" onClick={(e) => this.showHideDesigners(e)} icon="plus-circle" /></div>
               <Collapse in={this.state.showDesigners}>
                 <div>
-                  {this.state.designers.map((designer, index) => {
+                  {designers.map((designer, index) => {
                     return (
-                      <div key={index} onClick={(e) => this.filterDesigners(e)} className="filters_subtitle padding_bottom5">{designer.toUpperCase()}</div>
+                      <div key={index} onClick={(e) => this.filterItems(e)} className="filters_subtitle padding_bottom5" style={{fontWeight: designer.selected ? "bold" : "normal"}}>{designer.value.toUpperCase()}</div>
                     )
                   })}
                 </div>
@@ -81,19 +88,34 @@ class BrowseCatalogPage extends Component {
             </div>
           </div>
         </div>
-        
         <div className="catalog flex width720">
-          {this.state.items.map((item, index) => {
-            return (
-              <div key={index} className="card_large padding_sides10 padding_bottom25">
-                <div className="item_card_large flex align_center justify_center">
-                  <img className="item_image" src={item.image_url} alt="" />
+          {this.state.items.map(item => item.title.selected).includes(true) ? (
+            this.state.items.map((item, index) => {
+              if(item.title.selected){
+                return (
+                  <div key={index} className="card_large padding_sides10 padding_bottom25">
+                    <div className="item_card_large flex align_center justify_center">
+                      <img className="item_image" src={item.image_url} alt="" />
+                    </div>
+                    <div className="brand padding_top10">{item.title.value.toUpperCase()}</div>
+                    <div className="description padding_top5">{item.description.toLowerCase()}</div>
+                  </div>
+                )
+              }
+            })
+          ) : (
+            this.state.items.map((item, index) => {
+              return (
+                <div key={index} className="card_large padding_sides10 padding_bottom25">
+                  <div className="item_card_large flex align_center justify_center">
+                    <img className="item_image" src={item.image_url} alt="" />
+                  </div>
+                  <div className="brand padding_top10">{item.title.value.toUpperCase()}</div>
+                  <div className="description padding_top5">{item.description.toLowerCase()}</div>
                 </div>
-                <div className="brand padding_top10">{item.title}</div>
-                <div className="description padding_top5">{item.description.toLowerCase()}</div>
-              </div>
-            )
-          })}
+              )
+            })
+          )}
         </div>
       </div>
     )
