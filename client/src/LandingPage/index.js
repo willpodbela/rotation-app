@@ -30,7 +30,7 @@ class LandingPage extends Component {
 
   render(){
     return (
-      <div className="NewLandingPage">
+      <div className="LandingPage">
         <header className="background flex">
           <div className="welcome_elements">
             <div className="welcome_to_a_closet padding_bottom25">
@@ -55,7 +55,7 @@ class LandingPage extends Component {
               Browse our curated catalog from the world’s most coveted designers. New items are added every two weeks, ensuring you always have access to the freshest closet.
             </div>
           </div>
-          <div className="step_box">
+          <div className="step_box only_border_sides">
             <div className="large_number inline_block top10 padding_sides40">2.</div>
             <div className="step_title inline_block">
               Rotate without limits
@@ -79,17 +79,17 @@ class LandingPage extends Component {
           <h2 className="padding_left50 padding_bottom35 section_header">What's In Store</h2>
           <div className="scrolling_wrapper">
             <div className="padding_left30"></div>
-            {this.state.items.map((item, index) => {
-              return (
-                <div key={index} className="card max_width150 padding_sides20">
-                  <div className="item_card flex align_center justify_center">
-                    <img className="item_image" src={item.image_url} alt="" />
+              {this.state.items.map((item, index) => {
+                return (
+                  <div key={index} className="card max_width150 padding_sides20">
+                    <div className="item_card flex align_center justify_center">
+                      <img className="item_image" src={item.image_url} alt="" />
+                    </div>
+                    <div className="brand padding_top10">{item.title}</div>
+                    <div className="description padding_top5">{item.description.toLowerCase()}</div>
                   </div>
-                  <div className="brand padding_top10">{item.title}</div>
-                  <div className="description padding_top5">{item.description.toLowerCase()}</div>
-                </div>
-              )
-            })}
+                )
+              })}
             <div className="padding_right30"></div>
           </div>
         </section>

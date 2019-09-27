@@ -5,15 +5,11 @@ import "./bootstrap-progress-bar.css"
 import ProgressBar from "react-bootstrap/ProgressBar"
 
 class InviteFriendsPage extends Component {
-  constructor(props){
-    super(props)
-  }
-  
   render(){
     const numFriends = 5
     return (
       <div className="InviteFriendsPage padding_bottom170">
-        <div className="text_center padding_top170 padding_bottom75"><img src={logo} className="rotation_logo" /></div>
+        <div className="text_center padding_top170 padding_bottom75"><img src={logo} className="rotation_logo" alt="" /></div>
         <div className="flex justify_evenly padding_bottom130">
           <div className="padding_bottom75">
             <div className="invite_friends_title flex">Invite friends and earn up to $200 in rewards.</div>

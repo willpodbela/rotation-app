@@ -84,6 +84,12 @@ a{
   width: 386px;
   border: 1px solid #DBDBDB;
 }
+@media (max-width: 775px) {
+  .only_border_sides{
+    border-top: none;
+    border-bottom: none;
+  }
+}
 .large_number{
   width: 61px;
   color: #1A1A1A;

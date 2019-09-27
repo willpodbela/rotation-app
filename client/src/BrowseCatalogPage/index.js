@@ -27,7 +27,7 @@ class BrowseCatalogPage extends Component {
         results.json()
           .then(results => {
             let items = results.items
-            items.map(item => {
+            items.forEach(item => {
               item.title = {value: item.title, selected: false}
             })
             this.setState({items: items})
@@ -62,7 +62,7 @@ class BrowseCatalogPage extends Component {
     
     return (
       <div className="BrowseCatalogPage padding_top25 flex justify_center">
-        <div className="filters_and_designers width150 padding_right100 padding_left10">
+        <div className="filters_and_designers width150 padding_right80 padding_left10">
           <div className="fixed_position width150">
             <div className="filters">
               <div className="filters_title padding_bottom5">Filters <FontAwesomeIcon className="float_right" onClick={(e) => this.showHideFilters(e)} icon="plus-circle" /></div>
@@ -101,6 +101,8 @@ class BrowseCatalogPage extends Component {
                     <div className="description padding_top5">{item.description.toLowerCase()}</div>
                   </div>
                 )
+              }else{
+                return null
               }
             })
           ) : (
