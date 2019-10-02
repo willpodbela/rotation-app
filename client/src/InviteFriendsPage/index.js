@@ -6,13 +6,13 @@ import ProgressBar from "react-bootstrap/ProgressBar"
 
 class InviteFriendsPage extends Component {
   render(){
-    const numFriends = 5
+    const numFriends = 4
     return (
       <div className="InviteFriendsPage padding_bottom170">
         <div className="text_center padding_top170 padding_bottom75"><img src={logo} className="rotation_logo" alt="" /></div>
         <div className="flex justify_evenly padding_bottom130">
           <div className="padding_bottom75">
-            <div className="invite_friends_title flex">Invite friends and earn up to $200 in rewards.</div>
+            <div className="invite_friends_title flex">Invite friends and earn up to a free year.</div>
             <div className="invite_friends_description padding_top20 flex">Use your very own link to spread the word about The Rotation. You’ll get cash to spend with us for every friend that signs up.</div>
           </div>
           <div className="invite_friends_right">
@@ -35,8 +35,8 @@ class InviteFriendsPage extends Component {
           </div>
         </div>
         <div className="rewards_title text_center padding_bottom20">Keep Track of Your Rewards</div>
-        <div className="rewards_description text_center margin_auto padding_bottom50">Return here to view your progress and see your rewards anytime. Don’t worry, we’ll email you a link.</div>
-        <div className="rewards_bar_horizontal flex justify_center align_center padding_bottom100">
+        <div className="rewards_description text_center margin_auto padding_bottom50">Return here to view your progress and see your rewards anytime. Your rewards are attached to your email.</div>
+        <div className="rewards_bar_horizontal flex justify_center align_center padding_bottom70">
           <div>
             <div className="rewards_druk_text height38 flex align_end padding_bottom20">Friends Joined</div>
             <ProgressBar className="rewards_box" variant="white" now={100} />
@@ -46,37 +46,25 @@ class InviteFriendsPage extends Component {
           <div>
             <div className="rewards_druk_text height38 flex align_end justify_center padding_bottom20">1</div>
             <ProgressBar className="rewards_box" variant="white" min="0" max="1" now={numFriends} />
-            <div className="rewards_text padding_top20 text_center">$20</div>
+            <div className="rewards_text padding_top20 text_center">$50</div>
           </div>
           <div className="rewards_divider"></div>
           <div>
             <div className="rewards_druk_text height38 flex align_end justify_center padding_bottom20">5</div>
             <ProgressBar className="rewards_box" variant="white" min="1" max="5" now={numFriends} />
-            <div className="rewards_text padding_top20 text_center">$80</div>
+            <div className="rewards_text padding_top20 text_center">$90</div>
           </div>
           <div className="rewards_divider"></div>
           <div>
             <div className="rewards_druk_text height38 flex align_end justify_center padding_bottom20">20</div>
             <ProgressBar className="rewards_box" variant="white" min="5" max="20" now={numFriends} />
-            <div className="rewards_text padding_top20 text_center">
-              <div>$150</div>
-              <div>+</div>
-              <div>Limited Run</div>
-              <div>TR Tee</div>
-            </div>
+            <div className="rewards_text padding_top20 text_center">3 Months Free</div>
           </div>
           <div className="rewards_divider"></div>
           <div>
             <div className="rewards_druk_text height38 flex align_end justify_center padding_bottom20">50</div>
             <ProgressBar className="rewards_box" variant="white" min="20" max="50" now={numFriends} />
-            <div className="rewards_text padding_top20 text_center">
-              <div>$150</div>
-              <div>+</div>
-              <div>Limited Run</div>
-              <div>TR Tee</div>
-              <div>+</div>
-              <div>Limited TR Sling Bag</div>
-            </div>
+            <div className="rewards_text padding_top20 text_center">1 Year Free</div>
           </div>
           <div className="rewards_divider"></div>
         </div>
@@ -91,38 +79,25 @@ class InviteFriendsPage extends Component {
           <div className="rewards_row flex justify_center align_center">
             <div className="rewards_druk_text width120 text_center padding_left20">1</div>
             <ProgressBar className="rewards_box vertical" variant="white" min="0" max="1" now={numFriends} />
-            <div className="rewards_text width120 flex justify_center align_center padding_right20">$20</div>
+            <div className="rewards_text width120 flex justify_center align_center padding_right20">$50</div>
           </div>
           <div className="rewards_divider_vertical margin_auto"></div>
           <div className="rewards_row flex justify_center align_center">
             <div className="rewards_druk_text width120 text_center padding_left20">5</div>
             <ProgressBar className="rewards_box vertical" variant="white" min="1" max="5" now={numFriends} />
-            <div className="rewards_text width120 flex justify_center align_center padding_right20">$80</div>
+            <div className="rewards_text width120 flex justify_center align_center padding_right20">$90</div>
           </div>
           <div className="rewards_divider_vertical margin_auto"></div>
           <div className="rewards_row flex justify_center align_center">
             <div className="rewards_druk_text width120 text_center padding_left20">20</div>
             <ProgressBar className="rewards_box vertical" variant="white" min="5" max="20" now={numFriends} />
-            <div className="rewards_text width120 padding_right20 text_center">
-              <div>$150</div>
-              <div>+</div>
-              <div>Limited Run</div>
-              <div>TR Tee</div>
-            </div>
+            <div className="rewards_text width120 flex justify_center align_center padding_right20">3 Months Free</div>
           </div>
           <div className="rewards_divider_vertical margin_auto"></div>
           <div className="rewards_row flex justify_center align_center">
             <div className="rewards_druk_text width120 text_center padding_left20">50</div>
             <ProgressBar className="rewards_box vertical" variant="white" min="20" max="50" now={numFriends} />
-            <div className="rewards_text width120 padding_right20 text_center">
-              <div>$150</div>
-              <div>+</div>
-              <div>Limited Run</div>
-              <div>TR Tee</div>
-              <div>+</div>
-              <div>Limited TR</div>
-              <div>Sling Bag</div>
-            </div>
+            <div className="rewards_text width120 flex justify_center align_center padding_right20">1 Year Free</div>
           </div>
           <div className="rewards_divider_vertical margin_auto"></div>
         </div>

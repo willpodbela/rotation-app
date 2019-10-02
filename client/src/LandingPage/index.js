@@ -92,7 +92,7 @@ class LandingPage extends Component {
                     <div className="item_card flex align_center justify_center">
                       <img className="item_image" src={item.image_url} alt="" />
                     </div>
-                    <div className="brand padding_top10">{item.title}</div>
+                    <div className="brand padding_top10">{item.title.toUpperCase()}</div>
                     <div className="description padding_top5">{item.description.toLowerCase()}</div>
                   </div>
                 )
