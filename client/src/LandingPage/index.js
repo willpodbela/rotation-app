@@ -32,7 +32,7 @@ class LandingPage extends Component {
     return (
       <div className="LandingPage">
         <header className="background flex">
-          <div className="welcome_elements">
+          <div className="left15pct">
             <div className="welcome_to_a_closet padding_bottom25">
               Welcome to a closet without boundaries.
             </div>
@@ -45,29 +45,36 @@ class LandingPage extends Component {
           </div>
         </header>
         
-        <section className="how_it_works padding_bottom100 flex justify_evenly">
+        <section className="padding_top70 padding_bottom100 flex justify_evenly">
           <div className="step_box">
-            <div className="large_number inline_block top10 padding_sides40">1.</div>
-            <div className="step_title inline_block">
-              Select your pieces
+            <div className="flex justify_evenly align_center top10">
+              <div className="large_number inline_block">1.</div>
+              <div className="step_title inline_block">
+                Select your pieces
+              </div>
             </div>
+            
             <div className="step_description top30 margin_auto">
               Browse our curated catalog from the world’s most coveted designers. New items are added every two weeks, ensuring you always have access to the freshest closet.
             </div>
           </div>
           <div className="step_box only_border_sides">
-            <div className="large_number inline_block top10 padding_sides40">2.</div>
-            <div className="step_title inline_block">
-              Rotate without limits
+            <div className="flex justify_evenly align_center top10">
+              <div className="large_number inline_block">2.</div>
+              <div className="step_title inline_block">
+                Rotate without limits
+              </div>
             </div>
             <div className="step_description top30 margin_auto">
               Whether it's a special occasion or your next daily wear, The Rotation holds no limits above your head. Wear, purchase, or exchange amongst our catalog as much as you like.
             </div>
           </div>
           <div className="step_box">
-            <div className="large_number inline_block top10 padding_sides40">3.</div>
-            <div className="step_title_wide inline_block">
-              We'll take care of the rest
+            <div className="flex justify_evenly align_center top10">
+              <div className="large_number inline_block">3.</div>
+              <div className="step_title title_wide inline_block">
+                We'll take care of the rest
+              </div>
             </div>
             <div className="step_description top30 margin_auto">
               When you're ready for something new, send your pieces back dirty using the provided pre-paid shipping label.

@@ -17,10 +17,17 @@
 a{
   text-decoration: none;
 }
-.NewNav{
+.Nav{
   height: 88px;
   background: #ffffff;
   overflow: hidden;
+}
+@media (max-width: 640px) {
+  .nav_elements{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    justify-content: space-around !important;
+  }
 }
 .nav_elem{
   color: #333333;
@@ -47,8 +54,19 @@ a{
   background-position: center;
   align-items: center;
 }
-.welcome_elements{
-  padding-left: 14.4%;
+.left15pct{
+  margin-left: 15%;
+}
+.sides15pct{
+  margin-left: 15%;
+  margin-right: 15%;
+}
+.left7pct{
+  margin-left: 7%;
+}
+.sides7pct{
+  margin-left: 3%;
+  margin-right: 3%;
 }
 .welcome_to_a_closet{
   width: 388px;
@@ -76,9 +94,6 @@ a{
   font-size: 12px;
   line-height: 10px;
 }
-.how_it_works {
-  padding-top: 70px;
-}
 .step_box{
   height: 320px;
   width: 386px;
@@ -91,7 +106,6 @@ a{
   }
 }
 .large_number{
-  width: 61px;
   color: #1A1A1A;
   font-family: "Proxima Nova";
   font-weight: 500;
@@ -106,13 +120,8 @@ a{
   letter-spacing: -0.4px;
   line-height: 29px;
 }
-.step_title_wide{
-  width: 223px;
-  color: #333333;
-  font-family: "Druk Text Wide";
-  font-size: 22px;
-  letter-spacing: -0.4px;
-  line-height: 29px;
+.title_wide{
+  width: 223px !important;
 }
 .step_description{
   width: 316px;

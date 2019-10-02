@@ -3,8 +3,8 @@ import { Link } from "react-router-dom"
 
 const Nav = props => {
   return (
-    <div className="NewNav flex align_center">
-      <nav className="flex justify_around align_center">
+    <div className="Nav flex align_center">
+      <nav className="nav_elements flex justify_between align_center sides15pct">
         <Link to="/" className="flex align_center">
           <img srcSet={"../images/The-Rotation.png 1x, ../images/The-Rotation@2x.png 2x"} src={"../images/The-Rotation.png"} className="max_width_full" alt="" />
         </Link>
@@ -24,7 +24,7 @@ const Nav = props => {
               <Link to="/">Sign Up</Link>
             </div>
           {/* end  */}
-          <div className="padding_left20">
+          <div>
             <div className="download_app_btn flex align_center justify_center">
               <div className="nav_elem">
                 <a href="https://apps.apple.com/us/app/com-rotationinc-rotation/id1404678165">Download App</a>
