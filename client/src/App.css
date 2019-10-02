@@ -201,7 +201,6 @@ footer {
 }
 .footer-container {
   width: auto;
-  margin: 0px 130px;
 }
 .plan_pricing{
   color: #333333;
@@ -527,6 +526,9 @@ footer {
   vertical-align: middle;
 }
 .BrowseCatalogPage{
+  border: 1px solid #EBEBEB;
+}
+.PrivacyPage{
   border: 1px solid #EBEBEB;
 }
 .fixed_position{

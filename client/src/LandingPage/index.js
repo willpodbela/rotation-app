@@ -69,18 +69,17 @@ class LandingPage extends Component {
         <section className="padding_bottom100 left13pct">
           <h2 className="padding_bottom35 section_header">What's In Store</h2>
           <div className="scrolling_wrapper">
-              {this.state.items.map((item, index) => {
-                return (
-                  <div key={index} className="card max_width150 padding_right40">
-                    <div className="item_card flex align_center justify_center">
-                      <img className="item_image" src={item.image_url} alt="" />
-                    </div>
-                    <div className="brand padding_top10">{item.title.toUpperCase()}</div>
-                    <div className="description padding_top5">{item.description.toLowerCase()}</div>
+            {this.state.items.map((item, index) => {
+              return (
+                <div key={index} className="card max_width150 padding_right40">
+                  <div className="item_card flex align_center justify_center">
+                    <img className="item_image" src={item.image_url} alt="" />
                   </div>
-                )
-              })}
-            <div className="padding_right30"></div>
+                  <div className="brand padding_top10">{item.title.toUpperCase()}</div>
+                  <div className="description padding_top5">{item.description.toLowerCase()}</div>
+                </div>
+              )
+            })}
           </div>
         </section>
         

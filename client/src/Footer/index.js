@@ -1,12 +1,13 @@
-import React from "react"
+import React, { Component }  from "react"
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-const Footer = props => {
+class Footer extends Component {
+  render(){
     return (
       <div className="Footer">
         <footer className="padding_top40 padding_bottom20">
-          <div className="footer-container">
+          <div className="footer-container sides13pct">
             <div className="flex justify_between inner">
               <div className="width200 flex justify_left justify_center_under_960">
                 <div className="top10 bottom30 block block_left text-center text-lg-left">
@@ -30,9 +31,8 @@ const Footer = props => {
           </div>
         </footer>
       </div>
-      
-        
     )
+  }
 }
 
 export default Footer

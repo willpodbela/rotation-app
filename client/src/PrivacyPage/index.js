@@ -8,8 +8,8 @@ class PrivacyPage extends Component {
   render(){
     return (
       <div className="PrivacyPage">
-        <section className="feature_9 bg_white padding_top110 padding_bottom80">
-        	<div className="container padding_sides50">
+        <section className="feature_9 bg_white padding_top25 padding_bottom80 sides13pct">
+        	<div>
         		<h2 className="font42 font_second light dark_gray bottom20">Privacy Policy</h2>
         		<div className="top10 font18 light dark_blue text text1">
               Protecting your private information is our priority. This Statement of Privacy applies to www.therotation.club and Rotation Inc. and governs data collection and usage. For the purposes of this Privacy Policy, unless otherwise noted, all references to Rotation Inc. include www.therotation.club and Rotation. The Rotation website is a ecommerce site. By using the Rotation website, you consent to the data practices described in this statement.
