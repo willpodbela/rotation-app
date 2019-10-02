@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 const Nav = props => {
   return (
     <div className="Nav flex align_center">
-      <nav className="nav_elements flex justify_between align_center sides15pct">
+      <nav className="nav_elements flex justify_between align_center sides13pct">
         <Link to="/" className="flex align_center">
           <img srcSet={"../images/The-Rotation.png 1x, ../images/The-Rotation@2x.png 2x"} src={"../images/The-Rotation.png"} className="max_width_full" alt="" />
         </Link>

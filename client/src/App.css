@@ -54,19 +54,12 @@ a{
   background-position: center;
   align-items: center;
 }
-.left15pct{
-  margin-left: 15%;
+.left13pct{
+  margin-left: 13%;
 }
-.sides15pct{
-  margin-left: 15%;
-  margin-right: 15%;
-}
-.left7pct{
-  margin-left: 7%;
-}
-.sides7pct{
-  margin-left: 3%;
-  margin-right: 3%;
+.sides13pct{
+  margin-left: 13%;
+  margin-right: 13%;
 }
 .welcome_to_a_closet{
   width: 388px;
@@ -83,23 +76,45 @@ a{
   line-height: 28px;
   display: block;
 }
-.sign_up_box{
+.sign_up{
   height: 55px;
-  width: 178px;
+  width: 311px;
+}
+.sign_up_box{
+  width: 223px;
   background-color: #FFFFFF;
 }
-.sign_up{
+.email_input{
+  opacity: 0.7;
   color: #333333;
-  font-family: "Proxima Nova Semibold";
+  font-family: "Proxima Nova";
   font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
   line-height: 10px;
 }
+.i_want_in{
+  width: 88px;
+  color: #FFFFFF;
+  font-family: "Proxima Nova";
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 10px;
+  background-color: #333333;
+}
 .step_box{
-  height: 320px;
-  width: 386px;
+  height: 240px;
+  width: 290px;
   border: 1px solid #DBDBDB;
 }
-@media (max-width: 775px) {
+@media (max-width: 1183px) {
+    .three_steps{
+      margin: 0 !important;
+      justify-content: space-evenly !important;
+    }
+}
+@media (max-width: 583px) {
   .only_border_sides{
     border-top: none;
     border-bottom: none;
@@ -109,27 +124,27 @@ a{
   color: #1A1A1A;
   font-family: "Proxima Nova";
   font-weight: 500;
-  font-size: 72px;
+  font-size: 54px;
   font-weight: bold;
 }
 .step_title{
-  width: 198px;
+  width: 149px;
   color: #333333;
   font-family: "Druk Text Wide";
-  font-size: 22px;
+  font-size: 17px;
   letter-spacing: -0.4px;
-  line-height: 29px;
+  line-height: 22px;
 }
 .title_wide{
-  width: 223px !important;
+  width: 167px !important;
 }
 .step_description{
-  width: 316px;
+  width: 237px;
   color: #333333;
   font-family: "Proxima Nova";
-  font-size: 18px;
+  font-size: 14px;
   letter-spacing: -0.3px;
-  line-height: 25px;
+  line-height: 19px;
 }
 .section_header{
   color: #333333;

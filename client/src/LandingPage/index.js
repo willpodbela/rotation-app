@@ -32,63 +32,46 @@ class LandingPage extends Component {
     return (
       <div className="LandingPage">
         <header className="background flex">
-          <div className="left15pct">
-            <div className="welcome_to_a_closet padding_bottom25">
-              Welcome to a closet without boundaries.
-            </div>
-            <div className="welcome_description padding_bottom25">
-              This is The Rotation. A members-only club that gives you access to an extensive designer wardrobe, for a fraction of the price. Everything you could want, right at your fingertips.
-            </div>
-            <div className="sign_up_box flex align_center justify_center">
-              <div className="sign_up">SIGN UP</div>
+          <div className="left13pct">
+            <div className="welcome_to_a_closet padding_bottom25">Welcome to a closet without boundaries.</div>
+            <div className="welcome_description padding_bottom25">Rent unlimited streetwear, for one low monthly price. Choose from our massive catalog and swap items whenever you want. We curate the latest in style and keep your closet in season so you don’t have to.</div>
+            <div className="flex sign_up">
+              <div className="sign_up_box flex justify_center align_center"><input className="email_input" placeholder="mason@ramsey.com"></input></div>
+              <div className="i_want_in flex justify_center align_center">I WANT IN</div>
             </div>
           </div>
         </header>
         
-        <section className="padding_top70 padding_bottom100 flex justify_evenly">
+        <section className="three_steps padding_top70 padding_bottom100 flex justify_between sides13pct">
           <div className="step_box">
             <div className="flex justify_evenly align_center top10">
               <div className="large_number inline_block">1.</div>
-              <div className="step_title inline_block">
-                Select your pieces
-              </div>
+              <div className="step_title inline_block">Select your pieces</div>
             </div>
-            
-            <div className="step_description top30 margin_auto">
-              Browse our curated catalog from the world’s most coveted designers. New items are added every two weeks, ensuring you always have access to the freshest closet.
-            </div>
+            <div className="step_description top30 margin_auto">Browse our curated catalog from the world’s most coveted designers. New items are added every two weeks, ensuring you always have access to the freshest closet.</div>
           </div>
           <div className="step_box only_border_sides">
             <div className="flex justify_evenly align_center top10">
               <div className="large_number inline_block">2.</div>
-              <div className="step_title inline_block">
-                Rotate without limits
-              </div>
+              <div className="step_title inline_block">Rotate without limits</div>
             </div>
-            <div className="step_description top30 margin_auto">
-              Whether it's a special occasion or your next daily wear, The Rotation holds no limits above your head. Wear, purchase, or exchange amongst our catalog as much as you like.
-            </div>
+            <div className="step_description top30 margin_auto">Whether it's a special occasion or your next daily wear, The Rotation holds no limits above your head. Wear, purchase, or exchange amongst our catalog as much as you like.</div>
           </div>
           <div className="step_box">
             <div className="flex justify_evenly align_center top10">
               <div className="large_number inline_block">3.</div>
-              <div className="step_title title_wide inline_block">
-                We'll take care of the rest
-              </div>
+              <div className="step_title title_wide inline_block">We'll take care of the rest</div>
             </div>
-            <div className="step_description top30 margin_auto">
-              When you're ready for something new, send your pieces back dirty using the provided pre-paid shipping label.
-            </div>
+            <div className="step_description top30 margin_auto">When you're ready for something new, send your pieces back dirty using the provided pre-paid shipping label.</div>
           </div>
         </section>
         
-        <section className="padding_bottom100">
-          <h2 className="padding_left50 padding_bottom35 section_header">What's In Store</h2>
+        <section className="padding_bottom100 left13pct">
+          <h2 className="padding_bottom35 section_header">What's In Store</h2>
           <div className="scrolling_wrapper">
-            <div className="padding_left30"></div>
               {this.state.items.map((item, index) => {
                 return (
-                  <div key={index} className="card max_width150 padding_sides20">
+                  <div key={index} className="card max_width150 padding_right40">
                     <div className="item_card flex align_center justify_center">
                       <img className="item_image" src={item.image_url} alt="" />
                     </div>
