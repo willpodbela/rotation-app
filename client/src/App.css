@@ -400,6 +400,11 @@ footer {
   font-size: 20px;
   padding-right: 10px;
 }
+@media (max-width: 1048px) {
+  .invite_friends{
+    justify-content: center !important;
+  }
+}
 @media (max-width: 499px) {
   .invite_friends_title{
     width: 250px;
@@ -545,6 +550,8 @@ footer {
   font-family: "Proxima Nova";
   font-size: 12px;
   line-height: 15px;
+}
+.cursor_pointer{
   cursor: pointer;
 }
 .catalog{

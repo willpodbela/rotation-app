@@ -66,22 +66,22 @@ class BrowseCatalogPage extends Component {
           <div className="filters_and_designers width150 padding_right10">
             <div className="fixed_position width150">
               <div className="filters">
-                <div className="filters_title padding_bottom5">Filters <FontAwesomeIcon className="float_right" onClick={(e) => this.showHideFilters(e)} icon="plus-circle" /></div>
+                <div className="filters_title padding_bottom5">Filters <FontAwesomeIcon className="float_right cursor_pointer" onClick={(e) => this.showHideFilters(e)} icon="plus-circle" /></div>
                 <Collapse in={this.state.showFilters}>
                   <div>
-                    <div className="filters_subtitle padding_bottom5">TEES</div>
-                    <div className="filters_subtitle padding_bottom5">JACKETS</div>
-                    <div className="filters_subtitle padding_bottom30">ACCESSORIES</div>
+                    <div className="filters_subtitle cursor_pointer padding_bottom5">TEES</div>
+                    <div className="filters_subtitle cursor_pointer padding_bottom5">JACKETS</div>
+                    <div className="filters_subtitle cursor_pointer padding_bottom30">ACCESSORIES</div>
                   </div>
                 </Collapse>
               </div>
               <div className="designers">
-                <div className="filters_title padding_bottom5">Designers <FontAwesomeIcon className="float_right" onClick={(e) => this.showHideDesigners(e)} icon="plus-circle" /></div>
+                <div className="filters_title padding_bottom5">Designers <FontAwesomeIcon className="float_right cursor_pointer" onClick={(e) => this.showHideDesigners(e)} icon="plus-circle" /></div>
                 <Collapse in={this.state.showDesigners}>
                   <div>
                     {designers.map((designer, index) => {
                       return (
-                        <div key={index} onClick={(e) => this.filterItems(e)} className="filters_subtitle padding_bottom5" style={{fontWeight: designer.selected ? "bold" : "normal"}}>{designer.value.toUpperCase()}</div>
+                        <div key={index} onClick={(e) => this.filterItems(e)} className="filters_subtitle cursor_pointer padding_bottom5" style={{fontWeight: designer.selected ? "bold" : "normal"}}>{designer.value.toUpperCase()}</div>
                       )
                     })}
                   </div>

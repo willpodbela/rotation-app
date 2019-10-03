@@ -10,7 +10,7 @@ class InviteFriendsPage extends Component {
     return (
       <div className="InviteFriendsPage padding_bottom170">
         <div className="text_center padding_top170 padding_bottom75"><img src={logo} className="rotation_logo" alt="" /></div>
-        <div className="flex justify_evenly padding_bottom130">
+        <div className="flex justify_between sides13pct padding_bottom130 invite_friends">
           <div className="padding_bottom75">
             <div className="invite_friends_title flex">Invite friends and earn up to a free year.</div>
             <div className="invite_friends_description padding_top20 flex">Use your very own link to spread the word about The Rotation. You’ll get cash to spend with us for every friend that signs up.</div>
