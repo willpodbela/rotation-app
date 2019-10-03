@@ -526,10 +526,10 @@ footer {
   vertical-align: middle;
 }
 .BrowseCatalogPage{
-  border: 1px solid #EBEBEB;
+  border-top: 1px solid #EBEBEB;
 }
 .PrivacyPage{
-  border: 1px solid #EBEBEB;
+  border-top: 1px solid #EBEBEB;
 }
 .fixed_position{
   position: fixed;
@@ -547,24 +547,37 @@ footer {
   line-height: 15px;
   cursor: pointer;
 }
-@media (max-width: 1000px) {
+.catalog{
+  width: 708px;
+}
+@media (max-width: 1174px) {
   .catalog{
-    width: 500px !important;
+    width: 472px !important;
   }
 }
-@media (max-width: 800px) {
-  .filters_and_designers{
-    padding-right: 30px !important;
-  }
-}
-@media (max-width: 691px) {
+@media (max-width: 856px) {
   .catalog{
-    width: 250px !important;
+    width: 236px !important;
   }
 }
-@media (max-width: 441px) {
+@media (max-width: 538px) {
+  .catalog_wrapper{
+    margin-left: 5% !important;
+    margin-right: 5% !important;
+  }
+}
+@media (max-width: 440px) {
   .filters_and_designers{
     display: none;
+  }
+  .catalog_wrapper{
+    justify-content: center !important;
+  }
+  .catalog{
+    justify-content: center !important;
+  }
+  .card_large{
+    padding-left: 0 !important;
   }
 }
 /* Admin Page CSS */

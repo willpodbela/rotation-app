@@ -61,39 +61,55 @@ class BrowseCatalogPage extends Component {
     })
     
     return (
-      <div className="BrowseCatalogPage padding_top25 flex justify_center">
-        <div className="filters_and_designers width150 padding_right80 padding_left10">
-          <div className="fixed_position width150">
-            <div className="filters">
-              <div className="filters_title padding_bottom5">Filters <FontAwesomeIcon className="float_right" onClick={(e) => this.showHideFilters(e)} icon="plus-circle" /></div>
-              <Collapse in={this.state.showFilters}>
-                <div>
-                  <div className="filters_subtitle padding_bottom5">TEES</div>
-                  <div className="filters_subtitle padding_bottom5">JACKETS</div>
-                  <div className="filters_subtitle padding_bottom30">ACCESSORIES</div>
-                </div>
-              </Collapse>
-            </div>
-            <div className="designers">
-              <div className="filters_title padding_bottom5">Designers <FontAwesomeIcon className="float_right" onClick={(e) => this.showHideDesigners(e)} icon="plus-circle" /></div>
-              <Collapse in={this.state.showDesigners}>
-                <div>
-                  {designers.map((designer, index) => {
-                    return (
-                      <div key={index} onClick={(e) => this.filterItems(e)} className="filters_subtitle padding_bottom5" style={{fontWeight: designer.selected ? "bold" : "normal"}}>{designer.value.toUpperCase()}</div>
-                    )
-                  })}
-                </div>
-              </Collapse>
+      <div className="BrowseCatalogPage">
+        <div className="catalog_wrapper padding_top25 flex justify_between sides13pct">
+          <div className="filters_and_designers width150 padding_right10">
+            <div className="fixed_position width150">
+              <div className="filters">
+                <div className="filters_title padding_bottom5">Filters <FontAwesomeIcon className="float_right" onClick={(e) => this.showHideFilters(e)} icon="plus-circle" /></div>
+                <Collapse in={this.state.showFilters}>
+                  <div>
+                    <div className="filters_subtitle padding_bottom5">TEES</div>
+                    <div className="filters_subtitle padding_bottom5">JACKETS</div>
+                    <div className="filters_subtitle padding_bottom30">ACCESSORIES</div>
+                  </div>
+                </Collapse>
+              </div>
+              <div className="designers">
+                <div className="filters_title padding_bottom5">Designers <FontAwesomeIcon className="float_right" onClick={(e) => this.showHideDesigners(e)} icon="plus-circle" /></div>
+                <Collapse in={this.state.showDesigners}>
+                  <div>
+                    {designers.map((designer, index) => {
+                      return (
+                        <div key={index} onClick={(e) => this.filterItems(e)} className="filters_subtitle padding_bottom5" style={{fontWeight: designer.selected ? "bold" : "normal"}}>{designer.value.toUpperCase()}</div>
+                      )
+                    })}
+                  </div>
+                </Collapse>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="catalog flex width720">
-          {this.state.items.map(item => item.title.selected).includes(true) ? (
-            this.state.items.map((item, index) => {
-              if(item.title.selected){
+          <div className="catalog flex">
+            {this.state.items.map(item => item.title.selected).includes(true) ? (
+              this.state.items.map((item, index) => {
+                if(item.title.selected){
+                  return (
+                    <div key={index} className="card_large padding_left20 padding_bottom25">
+                      <div className="item_card_large flex align_center justify_center">
+                        <img className="item_image" src={item.image_url} alt="" />
+                      </div>
+                      <div className="brand padding_top10">{item.title.value.toUpperCase()}</div>
+                      <div className="description padding_top5">{item.description.toLowerCase()}</div>
+                    </div>
+                  )
+                }else{
+                  return null
+                }
+              })
+            ) : (
+              this.state.items.map((item, index) => {
                 return (
-                  <div key={index} className="card_large padding_sides10 padding_bottom25">
+                  <div key={index} className="card_large padding_left20 padding_bottom25">
                     <div className="item_card_large flex align_center justify_center">
                       <img className="item_image" src={item.image_url} alt="" />
                     </div>
@@ -101,23 +117,9 @@ class BrowseCatalogPage extends Component {
                     <div className="description padding_top5">{item.description.toLowerCase()}</div>
                   </div>
                 )
-              }else{
-                return null
-              }
-            })
-          ) : (
-            this.state.items.map((item, index) => {
-              return (
-                <div key={index} className="card_large padding_sides10 padding_bottom25">
-                  <div className="item_card_large flex align_center justify_center">
-                    <img className="item_image" src={item.image_url} alt="" />
-                  </div>
-                  <div className="brand padding_top10">{item.title.value.toUpperCase()}</div>
-                  <div className="description padding_top5">{item.description.toLowerCase()}</div>
-                </div>
-              )
-            })
-          )}
+              })
+            )}
+          </div>
         </div>
       </div>
     )
