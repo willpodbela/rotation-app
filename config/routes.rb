@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "admin", to: "landing#admin"
   get "download", to: "landing#download"
   get "privacy", to: "landing#privacy"
+  get "terms", to: "landing#terms"
   
   resource :prelauncher, only: [:create, :show]
   

@@ -1,5 +1,5 @@
 class LandingController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :sign_up, :download, :privacy]
+  skip_before_action :authenticate_user!, only: [:index, :sign_up, :download, :privacy, :terms]
   before_action :enforce_access_control_admin!, only: [:admin]
   layout :resolve_layout
   
@@ -42,6 +42,10 @@ class LandingController < ApplicationController
   
   # Privacy Page
   def privacy
+  end
+  
+  # Terms Page
+  def terms
   end
   
   # AJAX endpoint for sign-up form on Home Page to call
