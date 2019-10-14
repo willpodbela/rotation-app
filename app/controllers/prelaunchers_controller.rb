@@ -50,8 +50,6 @@ class PrelaunchersController < ApplicationController
   end
   
   def create_success(prelaunch_user)
-    CustomerFeedbackMailer.with(user: prelaunch_user).founder_hello.deliver_later(wait_until: CustomerFeedbackMailer.preferred_time)
-  
     cookies.permanent[:prelaunch_email] = prelaunch_user.email.downcase
     
     # This is the result of a click on submit on the landing form, so if user is signed in to a different email, sign them out.
