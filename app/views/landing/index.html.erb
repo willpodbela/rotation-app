@@ -17,7 +17,7 @@
         <%= f.hidden_field(:inviter_id) %>
         <div class="sign_up_box flex align_center flex_start">
           <%= f.text_field(:email, :class => "sign_up_text link_text padding_left15", :placeholder => "mason@ramsey.com") %>
-          <%= f.submit("I WANT IN", :class => "sign_up") %>
+          <%= f.submit("I WANT IN", :class => "sign_up", :onclick => 'fbq("track", "Lead")') %>
         </div>
       <% end %>
     </div>
