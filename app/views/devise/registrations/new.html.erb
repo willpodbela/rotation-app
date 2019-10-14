@@ -5,7 +5,7 @@
     <%= f.email_field :email, autofocus: true, class: "width_full radius6", placeholder: "Email Address", :required => "required"  %>
     <%= f.password_field :password, class: "width_full radius6 top30", placeholder: "Password", :required => "required" %>
     <%= f.password_field :password_confirmation, class: "width_full radius6 top30", placeholder: "Confirm", :required => "required"  %>
-    <%= f.button "Sign up", type: :submit, class: "btn width_full size60 blue radius6 top30" %>
+    <%= f.button "Sign up", type: :submit, class: "btn width_full size60 blue radius6 top30", onclick: 'fbq("track", "CompleteRegistration")' %>
     <p class="top10" style="font-size: 14px">By registering, I accept the <%= link_to "Terms of Service", terms_path %> and <%= link_to "Privacy Policy", privacy_path %>.</p>
   <% end %>
   <div class="top10">

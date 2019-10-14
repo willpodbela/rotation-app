@@ -1,12 +1,5 @@
 // Custom JS
 
-$("#price-btn").click(function() {
-    $('html,body').animate({
-        scrollTop: ($("#landing-form").offset().top - 100)},
-        'fast');
-    $('#email').focus();
-});
-
 var pageInitialized = false;
 $( document ).ready(function() {
     if(pageInitialized) return;
@@ -127,31 +120,6 @@ $("form").submit(function(event){
 		event.preventDefault()
 		event.stopImmediatePropagation()
 	}
-});
-
-$("#landing-form").submit(function(event){ 
-	var form = $(this),
-		term = form.serialize(),
-		url = form.attr("action")
-		
-  var posting = $.post(url, term);
-  posting
-  .done(function(data){
-  	fbq('track', 'CompleteRegistration');
-    if(data.redirect == null){
-      window.location.replace("/status")
-    }else{
-      window.location.replace(data.redirect)
-    }
-  })
-  .fail(function(data){
-    if(data.responseJSON.message){
-      $(".alert-form-error > .content").html(data.responseJSON.message)
-    }else{
-      $(".alert-form-error > .content").text("An unknown error occurred. Please try again later.")
-    }
-    $(".alert-form-error").fadeIn(200).delay(5000).fadeOut(200);
-  });
 });
 
 // Function to add style to form, when user clicks to input inside it
