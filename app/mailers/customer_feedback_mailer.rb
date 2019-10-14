@@ -1,5 +1,5 @@
 class CustomerFeedbackMailer < ApplicationMailer
-  default from: 'zach@therotation.club'
+  default from: 'Zach Podbela <zach@therotation.club>'
   layout 'customer_feedback_mailer'
   
   def founder_hello
