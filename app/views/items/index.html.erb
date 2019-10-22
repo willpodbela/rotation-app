@@ -8,13 +8,13 @@
 
   <table class="listing admin_table" summary="Item list">
     <tr class="header">
-      <th>#</th>
-      <th>Title</th>
-      <th>Subtitle</th>
-      <th>Max V-Qty</th>
+      <th><%= sort_link "id", "#" %></th>
+      <th><%= sort_link "title" %></th>
+      <th><%= sort_link "subtitle" %></th>
+      <th><%= sort_link "virtual_qty", "Max V-Qty" %></th>
       <th>Owned Inventory</th>
-      <th>Visible?</th>
-      <th class="black-border-right">Featured?</th>
+      <th><%= sort_link "hidden", "Visible?" %></th>
+      <th class="black-border-right"><%= sort_link "landing_featured", "Featured?" %></th>
       <th>Rentals</th>
       <th>Cumulative Days Rented</th>
       <th>Days Since Last Rental</th>
