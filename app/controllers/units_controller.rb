@@ -69,7 +69,7 @@ class UnitsController < AdminBaseController
   end
   
   def query_params
-    params.permit(:item_id, :status)
+    params.permit(:item_id, :status, :size, :supplier)
   end
   
   def set_item
