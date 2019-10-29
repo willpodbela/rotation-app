@@ -17,6 +17,6 @@ class JobsController < ApplicationController
   private
   
   def set_jobs
-    @jobs = {"buyer" => "Lead Buyer and Planner"}
+    @jobs = {"buyer" => "👕 Lead Buyer and Planner"}
   end
 end
