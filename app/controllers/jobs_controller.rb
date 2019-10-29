@@ -7,7 +7,7 @@ class JobsController < ApplicationController
   end
 
   def show
-    if @jobs.include? params[:id]
+    if @jobs.keys.include? params[:id]
       render(params[:id])
     else
       raise ActionController::RoutingError.new('Not Found')
@@ -17,6 +17,6 @@ class JobsController < ApplicationController
   private
   
   def set_jobs
-    @jobs = ['buyer']
+    @jobs = {"buyer" => "Lead Buyer and Planner"}
   end
 end

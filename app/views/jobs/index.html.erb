@@ -1,6 +1,10 @@
-<h1>Jobs#index</h1>
-<p>Find me in app/views/jobs/index.html.erb</p>
-
-<% @jobs.each do |job| %>
-  <%= link_to("#{job.titleize}", job_path(job)) %>
-<% end %>
+<section class="feature_9 bg_white padding_top110 padding_bottom80">
+	<div class="container nopadding">
+    <div class="items index">
+      <h2 class="font42 font_second light dark_gray bottom20">Open Positions in NYC</h2>
+      <% @jobs.each do |path, name| %>
+        <h3><%= link_to(name, job_path(path)) %></h3>
+      <% end %>
+    </div>
+  </div>
+</section>
