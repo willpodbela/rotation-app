@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  
-  get 'prelaunchers/show'
-
   root to: "landing#index"
   post "sign_up", to: "landing#sign_up"
   get "status", to: "landing#status"
@@ -12,6 +9,7 @@ Rails.application.routes.draw do
   get "terms", to: "landing#terms"
   
   resource :prelauncher, only: [:create, :show]
+  resources :jobs, only: [:index, :show]
   
   resources "users", only: :index do
     resource :profile, only: [:show, :edit, :update]
