@@ -1,6 +1,7 @@
 class JobsController < ApplicationController
   skip_before_action :authenticate_user!
   before_action :set_jobs
+  layout 'landing'
   
   def index
   end
