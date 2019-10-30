@@ -98,10 +98,14 @@ class User < ApplicationRecord
   
   # eager_load my_rotation_items and up_next_items when planning to make this call
   def catalog_items
-    unless current_user.referral_code.id == "FIRSTIN"
-      items = Item.visible.with_images.order(created_at: :desc)
-    else
-      items = Item.visible.with_images.or(Item.special).order(created_at: :desc)
+    items = Item.visible.with_images.order(created_at: :desc)
+
+    if (r = ReferralCode.find_by_id("FIRSTIN"))
+      if current_user.referral_code == r
+        items = Item.visible.with_images.or(Item.where(special: true)).order(created_at: :desc)
+      end
+    end
+    
     end
     items - self.my_rotation_items - self.up_next_items
   end
