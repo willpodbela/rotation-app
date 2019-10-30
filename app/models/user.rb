@@ -101,7 +101,7 @@ class User < ApplicationRecord
     items = Item.visible.with_images.order(created_at: :desc)
 
     if (r = ReferralCode.find_by_id("FIRSTIN"))
-      if current_user.referral_code == r
+      if self.referral_code == r
         items = Item.visible.with_images.or(Item.where(special: true)).order(created_at: :desc)
       end
     end
