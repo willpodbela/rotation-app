@@ -64,7 +64,7 @@ class ItemsController < AdminBaseController
   private
   
   def item_params
-    params.require(:item).permit(:title, :description, :image_url, :image, :subtitle, :retail_value, :color, :hidden, :image_remote_url, :virtual_qty, :landing_featured)
+    params.require(:item).permit(:title, :description, :image_url, :image, :subtitle, :retail_value, :color, :hidden, :image_remote_url, :virtual_qty, :landing_featured, :special)
   end
   
   def query_params
@@ -72,6 +72,6 @@ class ItemsController < AdminBaseController
   end
   
   def sortable_columns
-    ["id", "title", "subtitle", "virtual_qty", "hidden", "landing_featured"]
+    ["id", "title", "subtitle", "virtual_qty", "hidden", "landing_featured", "special"]
   end
 end

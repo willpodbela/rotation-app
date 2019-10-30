@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190920193228) do
+ActiveRecord::Schema.define(version: 20191030200119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 20190920193228) do
     t.integer "scheduled_reservations_counter_cache"
     t.integer "virtual_qty", default: 1, null: false
     t.boolean "landing_featured", default: false, null: false
+    t.boolean "special", default: false, null: false
   end
 
   create_table "prelaunch_users", force: :cascade do |t|

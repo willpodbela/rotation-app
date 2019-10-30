@@ -14,6 +14,7 @@
       <th><%= sort_link "virtual_qty", "Max V-Qty" %></th>
       <th>Owned Inventory</th>
       <th><%= sort_link "hidden", "Visible?" %></th>
+      <th><%= sort_link "special", "Special?" %></th>
       <th class="black-border-right"><%= sort_link "landing_featured", "Featured?" %></th>
       <th>Rentals</th>
       <th>Cumulative Days Rented</th>
@@ -34,6 +35,7 @@
         <% end %>
       </td>
       <td><%= item.hidden ? '✗' : '✓' %></td>
+      <td><%= item.special ? '✓' : '✗' %></td>
       <td class="black-border-right"><%= item.landing_featured ? '✓' : '✗'  %></td>
       <td><%= item.not_cancelled_reservations.length %></td>
       <td><%= item.cum_days_rented %></td>
