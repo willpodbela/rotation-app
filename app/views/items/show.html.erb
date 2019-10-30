@@ -44,6 +44,13 @@
         <td>&#10007;</td>
       <% end %>
     </tr>
+      <th>Special?</th>
+      <% if @item.special %>
+        <td>&#10003;</td>
+      <% else %>
+        <td>&#10007;</td>
+      <% end %>
+    </tr>
     <tr>
       <th>Last Seen</th>
       <% if @item.hidden %>
