@@ -30,7 +30,12 @@ module Api
         # Items logic
         @my_rotation = current_user.my_rotation_items
         @up_next = current_user.up_next_items
-        @catalog = current_user.catalog_items
+
+        unless current_user.referral_code.id == "FIRSTIN"
+          @catalog = current_user.catalog_items
+        else
+          @catalog = current_user.catalog_items + Item.special
+        end
       
         if display_params[:sort_by_section] == "true"          
           render :sorted_index
