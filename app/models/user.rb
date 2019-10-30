@@ -105,8 +105,6 @@ class User < ApplicationRecord
         items = Item.visible.with_images.or(Item.where(special: true)).order(created_at: :desc)
       end
     end
-    
-    end
     items - self.my_rotation_items - self.up_next_items
   end
   
