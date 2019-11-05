@@ -7,20 +7,41 @@ class Subscription < ApplicationRecord
   scope :canceled, -> { where(status: :canceled) }
   scope :valid, -> { where(status: [:active, :canceled]) }
     
-  enum billing_status: [ :paid, :payment_failed ]
+  enum billing_status: [ :paid, :payment_failed, :payment_action_required ]
   enum status: [ :active, :canceled, :ended ]
-  
+      
   def stripe_subscription_obj=(obj)
     self.start = Time.at(obj.start).to_datetime
     self.current_period_start = Time.at(obj.current_period_start).to_datetime
     self.current_period_end = Time.at(obj.current_period_end).to_datetime
-    
-    if obj.status == "canceled"
+        
+    case obj.status
+    when "canceled"
       self.status = :ended
-    elsif obj.cancel_at_period_end
-      self.status = :canceled
-    else
+    when "incomplete"
+      self.billing_status = :payment_action_required
       self.status = :active
+    when "past_due"
+      self.billing_status = :payment_failed
+      self.status = :active
+    when "unpaid"
+      self.billing_status = :payment_failed
+      self.status = :active
+    when "incomplete_expired"
+      self.status = :ended
+    else
+      self.billing_status = :paid
+      # active, trialing, or otherwise
+      if obj.cancel_at_period_end
+        self.status = :canceled
+      else
+        self.status = :active
+      end
+    end
+    
+    if self.payment_action_required?
+      payment_intent = StripeService.get_payment_intent(obj.latest_invoice)
+      subscription.update_attributes(incomplete_payment_intent_client_secret: payment_intent[:client_secret])
     end
     
     @stripe_subscription_obj=obj

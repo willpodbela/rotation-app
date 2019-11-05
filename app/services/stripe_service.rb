@@ -23,7 +23,7 @@ class StripeService
       end
       
       # Create subscription
-      params = {plan: ENV['STRIPE_PLAN_ID']}
+      params = {plan: ENV['STRIPE_PLAN_ID'], payment_behavior: "allow_incomplete"}
       if coupon = user.coupon
         params[:coupon] = coupon.id
       end
@@ -94,6 +94,16 @@ class StripeService
         })
       else
         raise StandardError.new("user.stripe_customer_id is nil. Most likely user has never had a subscription. Use create_monthly_subscription function instead.")
+      end
+    end
+    
+    def get_payment_intent(invoice_id)      
+      Stripe.api_key = Rails.configuration.stripe[:secret_key]
+      invoice = Stripe::Invoice.retrieve(invoice_id)
+      unless invoice[:payment_intent].nil?
+        return Stripe::PaymentIntent.retrieve(invoice[:payment_intent])
+      else
+        return nil
       end
     end
     
