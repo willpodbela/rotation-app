@@ -6,14 +6,29 @@ module Api
       def destroy
         render_error(405)
       end
-      def update
-        render_error(405)
-      end
       def index
         render_error(405)
       end
       def show
         render_error(405)
+      end
+      
+      # Only param that can be passed right now is :cancel_at_period_end
+      # (in the future we can also use this endpoint to change tiers)
+      def update
+        begin
+          subscription = StripeService.set_subscription_cancel_at_period_end(current_user, subscription_params[:cancel_at_period_end])
+          set_resource(subscription)
+          render :show, status: :created
+        rescue Stripe::CardError, StripeService::StripeServiceError => e
+          # CardError = Invalid card; return the error message.
+          # StripeServiceError = Something happened in control logic of StripeService class that shouldn't have; return the error message.
+          render_error(400, e.message)
+        rescue => e
+          # Some other error; Return 500
+          # TODO: Log
+          render_error(500, nil)
+        end
       end
       
       def create                
@@ -34,7 +49,7 @@ module Api
       private
  
       def subscription_params
-        params.permit(:stripe_source_id)
+        params.permit(:stripe_source_id, :cancel_at_period_end)
       end
       
     end

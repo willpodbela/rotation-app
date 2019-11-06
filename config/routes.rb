@@ -63,6 +63,13 @@ Rails.application.routes.draw do
         post 'buy', on: :member
       end
       
+      #DEPRECATED as of iOS <= v1.1.10, we are using the singular resource path for subscriptions, so we just route the old path to the controller for now and have both
+      post "subscriptions", to: "subscriptions#create" 
+      #END DEPRECATED     
+      resource :subscription, only: [:create, :show, :update] do
+        resources :cards, only: [:create]
+      end
+      
       resources :subscriptions, only: [:create] do
         get "cancel", on: :collection
         get "restore", on: :collection

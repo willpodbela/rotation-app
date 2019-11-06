@@ -5,28 +5,28 @@ class Subscription < ApplicationRecord
   scope :current, -> { where('current_period_end >= ?', Date.today) }
   scope :active, -> { where(status: :active) }
   scope :canceled, -> { where(status: :canceled) }
-  scope :valid, -> { where(status: [:active, :canceled]) }
+  scope :valid, -> { where(status: [:active, :canceled, :incomplete]) }
     
-  enum billing_status: [ :paid, :payment_failed, :payment_action_required ]
-  enum status: [ :active, :canceled, :ended ]
+  enum billing_status: [ :paid, :payment_failed ]
+  enum status: [ :active, :canceled, :ended, :incomplete ]
       
   def stripe_subscription_obj=(obj)
     self.start = Time.at(obj.start).to_datetime
     self.current_period_start = Time.at(obj.current_period_start).to_datetime
     self.current_period_end = Time.at(obj.current_period_end).to_datetime
-        
+    self.latest_invoice_id = obj.latest_invoice
+    
     case obj.status
     when "canceled"
       self.status = :ended
     when "incomplete"
-      self.billing_status = :payment_action_required
-      self.status = :active
+      self.status = :incomplete
     when "past_due"
       self.billing_status = :payment_failed
       self.status = :active
     when "unpaid"
       self.billing_status = :payment_failed
-      self.status = :active
+      self.status = :ended
     when "incomplete_expired"
       self.status = :ended
     else
@@ -37,11 +37,6 @@ class Subscription < ApplicationRecord
       else
         self.status = :active
       end
-    end
-    
-    if self.payment_action_required?
-      payment_intent = StripeService.get_payment_intent(obj.latest_invoice)
-      subscription.update_attributes(incomplete_payment_intent_client_secret: payment_intent[:client_secret])
     end
     
     @stripe_subscription_obj=obj

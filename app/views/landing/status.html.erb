@@ -29,12 +29,17 @@
             <div class="ubuntu light font28 dark_gray title">Founding Member</div>
             <div style="margin:30px;">Price: $<%= (@plan.amount / 100) %>/mo</div>
             <% if @current_subscription %>
-              <% if @current_subscription.active? %>
+              <% case @current_subscription.status.to_sym 
+                 when :active %>
                 <div style="margin:30px;">Next Billing: <%= @current_subscription.current_period_end.strftime("%b %d, %Y") %></div>
                 <%= link_to("Cancel Subscription", cancel_subscriptions_path, class: "min_width170 btn size60 transparent_blue border border_blue radius6 font16") %>
-              <% elsif @current_subscription.canceled? %>
+              <% when :canceled %>
                 <div style="margin:30px;">Your subscription ends on <%= @current_subscription.current_period_end.strftime("%b %d, %Y") %> and is not set to renew.</div>
                 <%= link_to("Restore Subscription", restore_subscriptions_path, class: "min_width170 btn size60 transparent_blue border border_blue radius6 font16") %>
+              <% when :incomplete %>
+                <script src="https://js.stripe.com/v3/"></script>
+                <div style="margin:30px;">Your Bank requires a bit more verification, please complete final step below:</div>
+                <a href="#" onclick='Stripe("pk_test_Nfvb3ZjRZMUfa9HxzXsz0PnZ").confirmCardPayment("<%= @current_subscription.incomplete_payment_intent_client_secret %>").then(function(result) { document.location.reload(true) });' class="min_width170 btn size60 transparent_blue border border_blue radius6 font16">Finalize Payment</a>
               <% end %>
             <% end %>
             <div style="padding: 10px 0px;"></div>
