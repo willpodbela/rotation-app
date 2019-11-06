@@ -143,6 +143,7 @@ ActiveRecord::Schema.define(version: 20191105165528) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "incomplete_payment_intent_client_secret"
+    t.string "latest_invoice_id"
     t.index ["stripe_subscription_id"], name: "index_subscriptions_on_stripe_subscription_id", unique: true
   end
 
