@@ -67,12 +67,7 @@ Rails.application.routes.draw do
       post "subscriptions", to: "subscriptions#create" 
       #END DEPRECATED     
       resource :subscription, only: [:create, :show, :update] do
-        resources :cards, only: [:create]
-      end
-      
-      resources :subscriptions, only: [:create] do
-        get "cancel", on: :collection
-        get "restore", on: :collection
+        post "update-payment", on: :collection
       end
       
       post 'devices/:token', to: 'devices#create'

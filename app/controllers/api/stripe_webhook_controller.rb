@@ -36,6 +36,12 @@ module Api
         unless Subscription.process_stripe_webhook(subscription_id, {:billing_status => :payment_failed})
           # TODO Log error
         end
+      when "invoice.payment_action_required"
+        # Occurs whenever an invoice payment attempt fails, due either to a declined payment or to the lack of a stored payment method.
+        subscription_id = data_object["subscription"]
+        unless Subscription.process_stripe_webhook(subscription_id, {:billing_status => :payment_failed})
+          # TODO Log error
+        end
       end
       
       return head :ok

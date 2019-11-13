@@ -2,9 +2,13 @@
   
   def create
     begin
-      StripeService.create_monthly_subscription(current_user, subscription_params[:stripeToken])
-
-      flash[:notice] = 'You have successfully subscribed to our premium plan!'
+      subscription = StripeService.create_monthly_subscription(current_user, subscription_params[:stripeToken])
+      
+      if subscription.payment_action_required?
+        flash[:alert] = 'Your Bank requires a bit more verification, please complete final step below'
+      else
+        flash[:notice] = 'You have successfully subscribed to our premium plan!'
+      end
     rescue Stripe::CardError => e
       # CardError; return the error message.
       flash[:alert] = e.message
@@ -18,13 +22,18 @@
   
   def update_payment
     begin
-      if current_user.current_subscription.incomplete?
-        StripeService.change_payment_and_reattempt_incomplete_monthly_subscription(current_user, subscription_params[:stripeToken])
+      subscription = current_user.current_subscription
+      if subscription.incomplete?
+        subscription = StripeService.change_payment_and_reattempt_monthly_subscription(current_user, subscription_params[:stripeToken])
+        if subscription.payment_action_required?
+          flash[:alert] = 'Your Bank requires a bit more verification, please complete final step below'
+        else
+          flash[:notice] = 'You have successfully subscribed to our premium plan!'
+        end
       else
         StripeService.update_or_create_customer_with_payment(current_user, subscription_params[:stripeToken])
+        flash[:notice] = 'You have successfully updated your card on file.'
       end
-      
-      flash[:notice] = 'You have successfully updated your card on file.'
     rescue Stripe::CardError => e
       # CardError; return the error message.
       flash[:alert] = e.message

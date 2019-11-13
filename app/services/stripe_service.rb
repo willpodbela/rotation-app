@@ -33,7 +33,7 @@ class StripeService
       
       # Call Stripe to create Subscription
       raise ArgumentError.new("Missing STRIPE_PLAN_ID") unless ENV.has_key?('STRIPE_PLAN_ID')
-      params = {plan: ENV['STRIPE_PLAN_ID'], payment_behavior: "allow_incomplete"}
+      params = {plan: ENV['STRIPE_PLAN_ID'], payment_behavior: "allow_incomplete", trial_end: Time.now.to_i+5-(60*60)}
       if coupon = user.coupon
         params[:coupon] = coupon.id
       end
@@ -67,34 +67,56 @@ class StripeService
     end
     
     # Returns a (Rotation Application) Subscription Object
-    def change_payment_and_reattempt_incomplete_monthly_subscription(user, stripe_source_id)
+    def change_payment_and_reattempt_monthly_subscription(user, stripe_source_id)
       setup
       
       loc_subscription = user.subscriptions.current.valid.first
-      if loc_subscription && loc_subscription.incomplete?
+      if loc_subscription
+        # Retrive or create Customer and attach payment method
+        customer = update_or_create_customer_with_payment(user, stripe_source_id)
+        
+        # Ensure we have the lastest_invoice_id
         if loc_subscription.latest_invoice_id.nil?
-          refresh_subscription_data(loc_subscription)
+          refresh_subscription_data(loc_subscription, true)
           if loc_subscription.latest_invoice_id.nil?
             raise StripeServiceError.new("Fatal internal error occured. Please contact support@therotation.club.")
           end
         end
         
-        # Retrive or create Customer and attach payment method
-        customer = update_or_create_customer_with_payment(user, stripe_source_id)
+        if loc_subscription.incomplete?
+          begin
+            # Reattempt (and get) subscription invoice
+            payment_intent = reattempt_invoice(loc_subscription.latest_invoice_id)  
+          rescue => e
+            # Silence all errors as the above call with throw a 402 if :payment_action_required
+            # ^ Stripe trash
+          end        
+        end
         
-        # Reattempt subscription invoice
-        payment_intent = reattempt_invoice(loc_subscription.latest_invoice_id)
+        # Get subscription invoice
+        payment_intent = get_payment_intent(loc_subscription.latest_invoice_id)
         
         case payment_intent[:status]
-        when "succeeded", "requires_action"
+        when "succeeded"
           refresh_subscription_data(loc_subscription)
+          unless loc_subscription.save
+             # TODO: Log error - stripe succeeded but local obj could not be saved
+          end
+          return loc_subscription
+        when "requires_payment_method", "requires_source"
+          loc_subscription.billing_status = :payment_failed
+          unless loc_subscription.save
+             # TODO: Log error - stripe succeeded but local obj could not be saved
+          end
+          raise StripeServiceError.new("Payment failed. Please use a different payment method.")
+        when "requires_action", "requires_source_action"
+          refresh_subscription_data(loc_subscription)
+          loc_subscription.billing_status = :payment_action_required
           loc_subscription.incomplete_payment_intent_client_secret = payment_intent[:client_secret]
           unless loc_subscription.save
              # TODO: Log error - stripe succeeded but local obj could not be saved
           end
           return loc_subscription
-        when "requires_payment_method"
-          raise StripeServiceError.new("Payment failed. Please use a different payment method.")
         end
       else
         raise StripeServiceError.new("Customer does not have a subscription elidgable for re-attampt. Please contact support@therotation.club.")
@@ -201,17 +223,21 @@ class StripeService
       end
     end
     
+    # Retrieves Stripe::Subscription from Stripe server and loads attributes into corresponding (Rotation Application) Subscription Object 
+    def refresh_subscription_data(subscription, should_save_after_refresh = false)
+      setup
+      
+      subscription.stripe_subscription_obj = Stripe::Subscription.retrieve(subscription.stripe_subscription_id)
+      subscription.save if should_save_after_refresh
+      return subscription
+    end
+    
     private
     
     # Call at start of every function
     def setup
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
     end
-    
-    # NOTE: Does not save after refresh
-    def refresh_subscription_data(subscription)
-      subscription.stripe_subscription_obj = Stripe::Subscription.retrieve(subscription.stripe_subscription_id)
-    end
-    
+     
   end
 end

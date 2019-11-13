@@ -37,9 +37,13 @@
                 <div style="margin:30px;">Your subscription ends on <%= @current_subscription.current_period_end.strftime("%b %d, %Y") %> and is not set to renew.</div>
                 <%= link_to("Restore Subscription", restore_subscriptions_path, class: "min_width170 btn size60 transparent_blue border border_blue radius6 font16") %>
               <% when :incomplete %>
-                <script src="https://js.stripe.com/v3/"></script>
-                <div style="margin:30px;">Your Bank requires a bit more verification, please complete final step below:</div>
-                <a href="#" onclick='Stripe("pk_test_Nfvb3ZjRZMUfa9HxzXsz0PnZ").confirmCardPayment("<%= @current_subscription.incomplete_payment_intent_client_secret %>").then(function(result) { document.location.reload(true) });' class="min_width170 btn size60 transparent_blue border border_blue radius6 font16">Finalize Payment</a>
+                <% if @current_subscription.payment_action_required? %>
+                  <script src="https://js.stripe.com/v3/"></script>
+                  <div style="margin:30px;">Your Bank requires a bit more verification, please complete final step below:</div>
+                  <a href="#" onclick='Stripe("pk_test_Nfvb3ZjRZMUfa9HxzXsz0PnZ").confirmCardPayment("<%= @current_subscription.incomplete_payment_intent_client_secret %>").then(function(result) { document.location.reload(true) });' class="min_width170 btn size60 transparent_blue border border_blue radius6 font16">Finalize Payment</a>
+                <% else %>
+                  <div style="margin:30px;">Verification failed, please enter new payment info:</div>
+                <% end %> 
               <% end %>
             <% end %>
             <div style="padding: 10px 0px;"></div>
@@ -48,7 +52,7 @@
                 data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                 <% if @current_subscription %>
                 data-label="Update Payment Method"
-                data-panelLabel="Update"
+                data-panel-label="Update"
                 <% else %>
                 data-amount="<%= @plan.amount %>"
                 <% end %>

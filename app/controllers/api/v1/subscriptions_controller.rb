@@ -46,6 +46,28 @@ module Api
         end
       end
  
+      def update_payment
+        begin
+          if !current_user.current_subscription.incomplete? && current_user.current_subscription.paid?
+            StripeService.update_or_create_customer_with_payment(current_user, subscription_params[:stripe_source_id])
+            subscription = current_user.current_subscription
+          else
+            subscription = StripeService.change_payment_and_reattempt_monthly_subscription(current_user, subscription_params[:stripe_source_id])
+          end
+          
+          set_resource(subscription)
+          render :show, status: :ok
+        rescue Stripe::CardError, StripeService::StripeServiceError => e
+          # CardError = Invalid card; return the error message.
+          # StripeServiceError = Something happened in control logic of StripeService class that shouldn't have; return the error message.
+          render_error(400, e.message)
+        rescue => e
+          # Some other error; Return 500
+          # TODO: Log
+          render_error(500, e.message)
+        end
+      end
+ 
       private
  
       def subscription_params

@@ -7,7 +7,7 @@ class Subscription < ApplicationRecord
   scope :canceled, -> { where(status: :canceled) }
   scope :valid, -> { where(status: [:active, :canceled, :incomplete]) }
     
-  enum billing_status: [ :paid, :payment_failed ]
+  enum billing_status: [ :paid, :payment_failed, :payment_action_required ]
   enum status: [ :active, :canceled, :ended, :incomplete ]
       
   def stripe_subscription_obj=(obj)
