@@ -39,7 +39,7 @@
       flash[:alert] = e.message
     rescue => e
       # Some other error
-      flash[:alert] = e.message
+      flash[:alert] = 'Ooops, something went wrong!'
     end
     
     redirect_to status_path
@@ -54,8 +54,7 @@
       # StripeServiceError = Something happened in control logic of StripeService class that shouldn't have; return the error message.
       flash[:alert] = e.message
     rescue => e
-      flash[:alert] = e.message
-      #flash[:alert] = 'Oops, something went wrong! Please email support@therotation.club for help. (Pinky swear this is not a ploy to make it hard to cancel. Something actually went wrong.)'
+      flash[:alert] = 'Oops, something went wrong! Please email support@therotation.club for help. (Pinky swear this is not a ploy to make it hard to cancel. Something actually went wrong.)'
     end
     
     redirect_to status_path

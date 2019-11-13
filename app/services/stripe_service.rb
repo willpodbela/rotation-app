@@ -33,7 +33,7 @@ class StripeService
       
       # Call Stripe to create Subscription
       raise ArgumentError.new("Missing STRIPE_PLAN_ID") unless ENV.has_key?('STRIPE_PLAN_ID')
-      params = {plan: ENV['STRIPE_PLAN_ID'], payment_behavior: "allow_incomplete", trial_end: Time.now.to_i+5-(60*60)}
+      params = {plan: ENV['STRIPE_PLAN_ID'], payment_behavior: "allow_incomplete"}
       if coupon = user.coupon
         params[:coupon] = coupon.id
       end

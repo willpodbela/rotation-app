@@ -64,7 +64,7 @@ module Api
         rescue => e
           # Some other error; Return 500
           # TODO: Log
-          render_error(500, e.message)
+          render_error(500, nil)
         end
       end
  
