@@ -10,25 +10,16 @@ class Nav extends Component {
             <img srcSet={"../images/The-Rotation.png 1x, ../images/The-Rotation@2x.png 2x"} src={"../images/The-Rotation.png"} className="max_width_full" alt="" />
           </Link>
           <div className="flex align_center">
-            {/* if user_signed_in?
-              <div className="nav_elem padding_right20">
-                <Link to="/">Logout</Link>
-              </div>
-              <div className="nav_elem padding_right20">
-                <Link to="/">Check Status</Link>
-              </div>
-            else */}
-              <div className="nav_elem padding_right20">
-                <Link to="/">Log In</Link>
-              </div>
-              <div className="nav_elem padding_right20">
-                <Link to="/">Sign Up</Link>
-              </div>
-            {/* end  */}
+            <div className="proxima_small bold padding_right20">
+              <Link className="rotation_gray" to="/login">Log In</Link>
+            </div>
+            <div className="proxima_small bold white padding_right20">
+              <Link className="rotation_gray" to="/signup">Sign Up</Link>
+            </div>
             <div>
               <div className="download_app_btn flex align_center justify_center">
-                <div className="nav_elem">
-                  <a href="https://apps.apple.com/us/app/com-rotationinc-rotation/id1404678165">Download App</a>
+                <div className="proxima_small bold">
+                  <a className="rotation_gray" href="https://apps.apple.com/us/app/com-rotationinc-rotation/id1404678165">Download App</a>
                 </div>
               </div>
             </div>

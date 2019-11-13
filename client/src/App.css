@@ -1,26 +1,36 @@
 @font-face {
   font-family: "Druk Text Wide";
-  src: font-url("./fonts/DrukTextWide-Medium.otf") format('opentype');
+  src: local("Druk Text Wide"), url("./fonts/DrukTextWide-Medium.otf") format('opentype');
 }
 @font-face {
   font-family: "Druk Wide Medium";
-  src: font-url("./fonts/DrukWide-Medium.otf") format('opentype');
+  src: local("Druk Wide Medium"), url("./fonts/DrukWide-Medium.otf") format('opentype');
 }
 @font-face {
   font-family: "Proxima Nova";
-  src: font-url("./fonts/ProximaNova-Regular.ttf") format('truetype');
+  src: local("Proxima Nova"), url("./fonts/ProximaNova-Regular.ttf") format('truetype');
 }
 @font-face {
   font-family: "Proxima Nova Semibold";
-  src: font-url("./fonts/ProximaNova-Semibold.ttf") format('truetype');
+  src: local("Proxima Nova Semibold"), url("./fonts/ProximaNova-Semibold.ttf") format('truetype');
+}
+.rotation_gray{
+  color: #333333;
+}
+.white{
+  color: #FFFFFF;
+}
+.rotation_gray_background{
+  background: #333333;
+}
+.white_background{
+  background-color: #FFFFFF;
 }
 a{
   text-decoration: none;
 }
 .Nav{
   height: 88px;
-  background: #ffffff;
-  overflow: hidden;
 }
 @media (max-width: 640px) {
   .nav_elements{
@@ -29,30 +39,18 @@ a{
     justify-content: space-around !important;
   }
 }
-.nav_elem{
-  color: #333333;
-  font-family: "Proxima Nova";
-  font-size: 11px;
-  font-weight: bold;
-}
-.nav_elem_hamberger {
-  font-family: "Proxima Nova";
-  font-size: 18px;
-}
 .download_app_btn{
   height: 39px;
   width: 147px;
-  border: 1px solid #4A4A4A;
-  border-radius: 20.5px;
+  border: 1px solid #333333;
+  border-radius: 20px;
 }
-.background {
-  background-color: #F1F2F2;
+.background{
   height: calc(100vw * 0.65);
   background-image: url("./img/landing-bg-desktop.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  align-items: center;
 }
 .left13pct{
   margin-left: 13%;
@@ -61,20 +59,40 @@ a{
   margin-left: 13%;
   margin-right: 13%;
 }
-.welcome_to_a_closet{
-  width: 388px;
-  color: #333333;
+.druk_large{
   font-family: "Druk Text Wide";
   font-size: 36px;
-  line-height: 39px;
 }
-.welcome_description{
-  width: 388px;
-  color: #333333;
+.druk_medium{
+  font-family: "Druk Text Wide";
+  font-size: 24px;
+}
+.druk_small{
+  font-family: "Druk Text Wide";
+  font-size: 18px;
+}
+.druk_xs{
+  font-family: "Druk Text Wide";
+  font-size: 14px;
+}
+.proxima_xl{
   font-family: "Proxima Nova";
   font-size: 18px;
-  line-height: 28px;
-  display: block;
+}
+.proxima_large{
+  font-family: "Proxima Nova";
+  font-size: 16px;
+}
+.proxima_medium{
+  font-family: "Proxima Nova";
+  font-size: 14px;
+}
+.proxima_small{
+  font-family: "Proxima Nova";
+  font-size: 12px;
+}
+.width388{
+  width: 388px;
 }
 .sign_up{
   height: 55px;
@@ -82,243 +100,111 @@ a{
 }
 .sign_up_box{
   width: 223px;
-  background-color: #FFFFFF;
-}
-.email_input{
-  opacity: 0.7;
-  color: #333333;
-  font-family: "Proxima Nova";
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  line-height: 10px;
 }
 .i_want_in{
   width: 88px;
-  color: #FFFFFF;
-  font-family: "Proxima Nova";
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  line-height: 10px;
-  background-color: #333333;
 }
 .step_box{
   height: 240px;
   width: 290px;
-  border: 1px solid #DBDBDB;
+  border: 1px solid #333333;
 }
 @media (max-width: 1183px) {
-    .three_steps{
-      margin: 0 !important;
-      justify-content: space-evenly !important;
-    }
-}
-@media (max-width: 583px) {
-  .only_border_sides{
-    border-top: none;
-    border-bottom: none;
+  .three_steps{
+    margin: 0 !important;
+    justify-content: space-evenly !important;
   }
 }
-.large_number{
-  color: #1A1A1A;
-  font-family: "Proxima Nova";
-  font-weight: 500;
-  font-size: 54px;
-  font-weight: bold;
-}
 .step_title{
-  width: 149px;
-  color: #333333;
-  font-family: "Druk Text Wide";
-  font-size: 17px;
-  letter-spacing: -0.4px;
-  line-height: 22px;
-}
-.title_wide{
-  width: 167px !important;
+  width: 173px;
 }
 .step_description{
   width: 237px;
-  color: #333333;
-  font-family: "Proxima Nova";
-  font-size: 14px;
-  letter-spacing: -0.3px;
-  line-height: 19px;
-}
-.section_header{
-  color: #333333;
-  font-family: "Druk Text Wide";
-  font-size: 22px;
-  font-weight: 500;
-  letter-spacing: -0.37px;
 }
 .item_card{
   height: 248px;
   width: 163px;
-  background-color: #f0f2f5;
+  background-color: #F2F2F2;
 }
 .item_card_large{
   height: 273.66px;
   width: 216px;
-  background-color: #f0f2f5;
+  background-color: #F2F2F2;
 }
 .card_large{
-  max-width: 216px;
+  width: 216px;
 }
-.item_image{
-  width: 163px;
+.blend_background{
   mix-blend-mode: multiply;
 }
-.item_card {
-  overflow: hidden;
-}
-.brand{
-  color: #333333;
-  font-family: "Proxima Nova";
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 15px;
-}
-.description{
-  opacity: 0.7;
-  color: #333333;
-  font-family: "Proxima Nova";
-  font-size: 12px;
-  line-height: 19px;
+.padding_top2{
+  padding-top: 2px;
 }
 .scrolling_wrapper{
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  .card {
-    flex: 0 0 auto;
-  }
 }
-footer {
+footer{
   background: #141414;
 }
-.footer-container {
+.footer_container{
   width: auto;
-}
-.plan_pricing{
-  color: #333333;
-  font-family: "Proxima Nova";
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  line-height: 15px;
 }
 .subscribe_to_the_closet{
   width: 355px;
-  color: #333333;
-  font-family: "Druk Text Wide";
-  font-size: 24px;
-  font-weight: 500;
-  line-height: 29px;
-}
-.brand{
-  color: #333333;
-  font-family: "Proxima Nova";
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 15px;
 }
 .pricing_rectangle{
-  display: inline-block;
   height: 114px;
   width: 173px;
   border: 2px solid #333333;
 }
-::-webkit-scrollbar {
+::-webkit-scrollbar{
   display: none;
 }
 @media (max-width: 640px) {
-    .background {
-      height: calc(100vh - 138px);
-      background-image: url("./img/landing-bg-mobile.png");
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: top;
-      align-items: flex-end;
-      padding-bottom: 50px;
-    }
-    .welcome_description{
-      display: none;
-    }
-    .how_it_works {
-      padding-top: 0px;
-    }
+  .background{
+    height: calc(100vh - 138px);
+    background-image: url("./img/landing-bg-mobile.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    align-items: flex-end !important;
+    padding-bottom: 50px;
+  }
+  .welcome_description{
+    display: none;
+  }
+  .how_it_works{
+    padding-top: 0px;
+  }
 }
 @media (max-width: 960px) {
-    .welcome_to_a_closet{
-      width: 311px;
-      color: #333333;
-      font-size: 24px;
-      line-height: 29px;
-    }
-    .welcome_description{
-      width: 311px;
-      color: #333333;
-      font-family: "Proxima Nova";
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 21px;
-    }
-    .footer-container {
-      width: 200px;
-      margin: auto;
-    }
-    .justify_center_under_960 {
-      justify-content: center !important;
-    }
-}
-@media (max-width: 1200px) {
-    .nav_right_elems {
-      display: none !important;
-    }
-}
-.dark_bg{
-  background-color: #333333;
-}
-.white_text{
-  color: #FFFFFF !important;
-}
-.pricing_box_description{
-  color: #333333;
-  font-family: "Proxima Nova";
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 15px;
-  letter-spacing: 1px;
+  .welcome_to_a_closet{
+    width: 311px !important;
+    font-size: 24px !important;
+    line-height: 29px !important;
+  }
+  .welcome_description{
+    width: 311px !important;
+    font-size: 14px !important;
+    line-height: 21px !important;
+  }
+  .footer_container{
+    width: 200px;
+    margin: auto;
+  }
+  .justify_center_under_960{
+    justify-content: center !important;
+  }
 }
 .checkbox_icon{
-  font-size: 27px;
-  padding-top: 6.75px;
-  padding-left: 8px;
-}
-.checkbox_description{
-  text-align: left;
-  width: 250px;
-  color: #4A4A4A;
-  font-family: "Proxima Nova";
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 20px;
+  padding: 6.75px 0 0 8px;
 }
 .join_waitlist_btn{
   height: 55px;
   width: 178px;
-  background-color: #333333;
-}
-.join_waitlist{
-  color: #FFFFFF;
-  font-family: "Proxima Nova";
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  line-height: 10px;
 }
 .icon_wrapper{
   height: 40px;
@@ -336,69 +222,18 @@ footer {
     padding-bottom: 15px !important;
   }
 }
-.InviteFriendsPage{
-  background: #333333;
-}
 .rotation_logo{
   box-sizing: border-box;
   height: 51.75px;
   width: 51.75px;
 }
-.invite_friends_title{
-  width: 388px;
-  color: #FFFFFF;
-  font-family: "Druk Text Wide";
-  font-size: 32px;
-  font-weight: 500;
-  line-height: 38px;
-}
-.invite_friends_description{
-  width: 388px;
-  color: #FFFFFF;
-  font-family: "Proxima Nova";
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 27px;
-}
-.invite_friends_right{
-  width: 388px;
-}
-.personal_link{
-  color: #FFFFFF;
-  font-family: "Proxima Nova";
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  line-height: 10px;
-}
-.link_box{
-  height: 60px;
-  width: 100%;
-  background-color: #FFFFFF;
-}
 .link_text{
   overflow: hidden;
   white-space: nowrap;
-  color: #333333;
-  font-family: "Proxima Nova";
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 22px;
 }
 .share_link{
 	height: 55px;
   width: 178px;
-  background-color: #FFFFFF;
-  color: #333333;
-  font-family: "Proxima Nova";
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  line-height: 10px;
-}
-.invite_friends_icon{
-  font-size: 20px;
-  padding-right: 10px;
 }
 @media (max-width: 1048px) {
   .invite_friends{
@@ -422,19 +257,8 @@ footer {
     margin: 12.5px auto;
   }
 }
-.rewards_title{
-  color: #FFFFFF;
-  font-family: "Druk Text Wide";
-  font-size: 32px;
-  font-weight: 500;
-}
 .rewards_description{
   width: 412px;
-  color: #FFFFFF;
-  font-family: "Proxima Nova";
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 27px;
 }
 @media (max-width: 420px) {
   .rewards_description{
@@ -443,19 +267,6 @@ footer {
 }
 .height38{
   height: 38px;
-}
-.rewards_druk_text{
-  color: #FFFFFF;
-  font-family: "Druk Text Wide";
-  font-size: 18px;
-  font-weight: 500;
-}
-.rewards_text{
-  height: 38px;
-  color: #FFFFFF;
-  font-family: "Proxima Nova";
-  font-size: 14px;
-  font-weight: 500;
 }
 .rewards_box{
   width: 194px;
@@ -467,20 +278,16 @@ footer {
 .rewards_divider{
   height: 40px;
   width: 2px;
-  background-color: #FFFFFF;
-}
-.rewards_bar_vertical{
-  display: none;
 }
 @media (max-width: 1000px) {
   .rewards_box{
-    width: 125px;
+    width: 125px !important;
   }
   .rewards_druk_text{
-    font-size: 12px;
+    font-size: 12px !important;
   }
   .rewards_text{
-    font-size: 10px;
+    font-size: 10px !important;
   }
 }
 @media (max-width: 650px) {
@@ -525,37 +332,26 @@ footer {
 .rewards_divider_vertical{
   height: 2px;
   width: 40px;
-  background-color: #FFFFFF;
 }
 .vertical_middle{
   vertical-align: middle;
 }
-.BrowseCatalogPage{
-  border-top: 1px solid #EBEBEB;
-}
-.PrivacyPage{
+.gray_border_top{
   border-top: 1px solid #EBEBEB;
 }
 .fixed_position{
   position: fixed;
 }
-.filters_title{
-  color: #333333;
-  font-family: "Druk Text Wide";
-  font-size: 14px;
-  font-weight: 500;
-}
-.filters_subtitle{
-  color: #333333;
-  font-family: "Proxima Nova";
-  font-size: 12px;
-  line-height: 15px;
-}
 .cursor_pointer{
   cursor: pointer;
 }
 .catalog{
-  width: 708px;
+  width: 944px;
+}
+@media (max-width: 1491px) {
+  .catalog{
+    width: 708px !important;
+  }
 }
 @media (max-width: 1174px) {
   .catalog{
@@ -17040,6 +16836,9 @@ b {
 
 .uppercase {
   text-transform: uppercase; }
+
+.lowercase {
+    text-transform: lowercase; }
 
 .underline {
   text-decoration: underline; }
