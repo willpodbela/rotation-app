@@ -50,7 +50,16 @@ class StripeService
         
         if subscription.incomplete?
           payment_intent = get_payment_intent(stripe_subscription_obj.latest_invoice)
-          subscription.incomplete_payment_intent_client_secret = payment_intent[:client_secret]
+          
+          case payment_intent[:status]
+          when "requires_payment_method", "requires_source"
+            subscription.billing_status = :payment_failed
+          when "requires_action", "requires_source_action"
+            subscription.billing_status = :payment_action_required
+            subscription.incomplete_payment_intent_client_secret = payment_intent[:client_secret]
+          else
+            # TODO: Log error - an incomplete subscription should only have a payment_intent status of those listed above
+          end
         end
         
         unless subscription.save
