@@ -26,6 +26,7 @@ class LandingController < ApplicationController
     
     @current_subscription = current_user.current_subscription
     @is_ios = browser.platform.ios?
+    @stripe_publishable_key = ENV['STRIPE_PUBLISHABLE_KEY']
   end
   
   # Slimed down version of status page with just button directing user to update card

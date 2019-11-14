@@ -5,22 +5,38 @@ class Subscription < ApplicationRecord
   scope :current, -> { where('current_period_end >= ?', Date.today) }
   scope :active, -> { where(status: :active) }
   scope :canceled, -> { where(status: :canceled) }
-  scope :valid, -> { where(status: [:active, :canceled]) }
+  scope :valid, -> { where(status: [:active, :canceled, :incomplete]) }
     
-  enum billing_status: [ :paid, :payment_failed ]
-  enum status: [ :active, :canceled, :ended ]
-  
+  enum billing_status: [ :paid, :payment_failed, :payment_action_required ]
+  enum status: [ :active, :canceled, :ended, :incomplete ]
+      
   def stripe_subscription_obj=(obj)
     self.start = Time.at(obj.start).to_datetime
     self.current_period_start = Time.at(obj.current_period_start).to_datetime
     self.current_period_end = Time.at(obj.current_period_end).to_datetime
+    self.latest_invoice_id = obj.latest_invoice
     
-    if obj.status == "canceled"
+    case obj.status
+    when "canceled"
       self.status = :ended
-    elsif obj.cancel_at_period_end
-      self.status = :canceled
-    else
+    when "incomplete"
+      self.status = :incomplete
+    when "past_due"
+      self.billing_status = :payment_failed
       self.status = :active
+    when "unpaid"
+      self.billing_status = :payment_failed
+      self.status = :ended
+    when "incomplete_expired"
+      self.status = :ended
+    else
+      self.billing_status = :paid
+      # active, trialing, or otherwise
+      if obj.cancel_at_period_end
+        self.status = :canceled
+      else
+        self.status = :active
+      end
     end
     
     @stripe_subscription_obj=obj

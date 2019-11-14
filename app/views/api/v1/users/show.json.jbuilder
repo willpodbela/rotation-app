@@ -12,5 +12,9 @@ json.user do
   end
   json.reservations_remaining   @user.reservations_remaining
   json.est_delivery_date        @user.est_delivery_date
+  json.subscription             @user.current_subscription
+  
+  #DEPRECATED as of iOS <= v1.1.10, we now pass the whole subscription object with the subscription key
   json.current_subscription     !@user.current_subscription.nil?
+  #END DEPRECATED
 end
