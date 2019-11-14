@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 20191105165528) do
     t.integer "scheduled_reservations_counter_cache"
     t.integer "virtual_qty", default: 1, null: false
     t.boolean "landing_featured", default: false, null: false
+    t.boolean "special", default: false, null: false
   end
 
   create_table "prelaunch_users", force: :cascade do |t|

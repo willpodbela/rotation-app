@@ -31,7 +31,7 @@ module Api
         @my_rotation = current_user.my_rotation_items
         @up_next = current_user.up_next_items
         @catalog = current_user.catalog_items
-      
+        
         if display_params[:sort_by_section] == "true"          
           render :sorted_index
         else 

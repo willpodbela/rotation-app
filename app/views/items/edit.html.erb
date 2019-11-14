@@ -39,6 +39,10 @@
         <td><%= f.check_box(:landing_featured) %></td>
       </tr>
       <tr>
+        <th>Special?</th>
+        <td><%= f.check_box(:special) %></td>
+      </tr>
+      <tr>
         <th>Purchase URL</th>
         <td><%= link_to(@item.buyURL, "http://www.#{@item.buyURL}", :class => 'action purchase') if @item.buyURL %></td>
       </tr>
