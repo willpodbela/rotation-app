@@ -74,6 +74,16 @@ module Api
         params.permit(:stripe_source_id, :cancel_at_period_end)
       end
       
+      def set_resource(resource = nil)
+        resource ||= current_user.current_subscription
+      
+        # Set instance variables for use in the global view template (fallback if no :show template is provided)
+        instance_variable_set("@global_view_template_data", resource)
+        instance_variable_set("@global_view_template_name", resource_name)
+        
+        instance_variable_set("@#{resource_name}", resource)
+      end
+      
     end
   end
 end
