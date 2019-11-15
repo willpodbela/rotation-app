@@ -1,6 +1,4 @@
 import React, { Component } from "react"
-// import { Link } from "react-router-dom"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import PricingTable from "../PricingTable"
 
 class LandingPage extends Component {
@@ -30,8 +28,8 @@ class LandingPage extends Component {
             <div className="welcome_to_a_closet line_height40 width388 druk_large rotation_gray padding_bottom25">Welcome to a closet without boundaries.</div>
             <div className="welcome_description line_height28 width388 proxima_xl rotation_gray padding_bottom25">Rent unlimited streetwear, for one low monthly price. Choose from our massive catalog and swap items whenever you want. We curate the latest in style and keep your closet in season so you don’t have to.</div>
             <div className="flex sign_up">
-              <div className="sign_up_box white_background flex align_center"><input className="spacing10 opacity7 proxima_small medium rotation_gray left20" placeholder="ENTER EMAIL ADDRESS"></input></div>
-              <div className="i_want_in spacing10 proxima_small semibold white rotation_gray_background flex justify_center align_center uppercase">I Want In</div>
+              <div className="sign_up_box white_background flex align_center"><input className="width200 spacing10 opacity7 proxima_small medium rotation_gray left20" placeholder="ENTER EMAIL ADDRESS"></input></div>
+              <div className="i_want_in spacing10 proxima_small semibold white rotation_gray_background flex justify_center align_center cursor_pointer uppercase">I Want In</div>
             </div>
           </div>
         </header>
@@ -63,12 +61,12 @@ class LandingPage extends Component {
           <div className="scrolling_wrapper">
             {this.state.items.map((item, index) => {
               return (
-                <div key={index} className="width150 padding_right30">
-                  <div className="item_card flex align_center justify_center">
-                    <img className="blend_background max_width140" src={item.image_url} alt="" />
+                <div key={index} className="padding_right30">
+                  <div className="item_card light_background flex align_center justify_center">
+                    <img className="blend_background max_width130" src={item.image_url} alt="" />
                   </div>
-                  <div className="proxima_small semibold rotation_gray padding_top10">{item.title.toUpperCase()}</div>
-                  <div className="padding_top2 opacity7 proxima_small rotation_gray">{item.description.toLowerCase()}</div>
+                  <div className="proxima_small semibold rotation_gray padding_top10 uppercase">{item.title}</div>
+                  <div className="padding_top2 opacity7 proxima_small rotation_gray lowercase">{item.description}</div>
                 </div>
               )
             })}

@@ -1,6 +1,5 @@
 import React, { Component }  from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Link } from "react-router-dom"
 
 class PricingTable extends Component {
   render(){
@@ -55,7 +54,7 @@ class PricingTable extends Component {
               </div>
             </div>
           </div>
-          <div className="join_waitlist_btn rotation_gray_background margin_auto flex">
+          <div className="join_waitlist_btn rotation_gray_background margin_auto flex cursor_pointer">
             <div className="spacing10 line_height10 proxima_small semibold white flex align_center margin_auto uppercase">Join Waitlist</div>
           </div>
         </section>

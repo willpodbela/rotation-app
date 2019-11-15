@@ -10,10 +10,10 @@
   font-family: "Proxima Nova";
   src: local("Proxima Nova"), url("./fonts/ProximaNova-Regular.ttf") format('truetype');
 }
-@font-face {
+/* @font-face {
   font-family: "Proxima Nova Semibold";
   src: local("Proxima Nova Semibold"), url("./fonts/ProximaNova-Semibold.ttf") format('truetype');
-}
+} */
 .rotation_gray{
   color: #333333;
 }
@@ -25,6 +25,9 @@
 }
 .white_background{
   background-color: #FFFFFF;
+}
+.light_background{
+  background-color: #F2F2F2;
 }
 a{
   text-decoration: none;
@@ -124,12 +127,10 @@ a{
 .item_card{
   height: 248px;
   width: 163px;
-  background-color: #F2F2F2;
 }
 .item_card_large{
   height: 273.66px;
   width: 216px;
-  background-color: #F2F2F2;
 }
 .card_large{
   width: 216px;
@@ -227,7 +228,7 @@ footer{
   height: 51.75px;
   width: 51.75px;
 }
-.link_text{
+.hide_overflow{
   overflow: hidden;
   white-space: nowrap;
 }
@@ -345,21 +346,21 @@ footer{
 .cursor_pointer{
   cursor: pointer;
 }
-.catalog{
+.catalog_section{
   width: 944px;
 }
 @media (max-width: 1491px) {
-  .catalog{
+  .catalog_section{
     width: 708px !important;
   }
 }
 @media (max-width: 1174px) {
-  .catalog{
+  .catalog_section{
     width: 472px !important;
   }
 }
 @media (max-width: 856px) {
-  .catalog{
+  .catalog_section{
     width: 236px !important;
   }
 }
@@ -376,12 +377,31 @@ footer{
   .catalog_wrapper{
     justify-content: center !important;
   }
-  .catalog{
+  .catalog_section{
     justify-content: center !important;
   }
   .card_large{
     padding-left: 0 !important;
   }
+}
+.width_half{
+  width: 50%;
+}
+.item_modal{
+  max-width: 45% !important;
+}
+.modal_description{
+  height: 72px !important;
+}
+.reserve{
+  border: 1px solid #333333;
+  width: 57%;
+  height: 44px;
+}
+.like_button{
+  border: 1px solid #333333;
+  width: 44px;
+  height: 44px;
 }
 /* Admin Page CSS */
 div.edit td, div.edit th,
@@ -16838,7 +16858,10 @@ b {
   text-transform: uppercase; }
 
 .lowercase {
-    text-transform: lowercase; }
+  text-transform: lowercase; }
+
+.capitalize {
+  text-transform: capitalize; }
 
 .underline {
   text-decoration: underline; }

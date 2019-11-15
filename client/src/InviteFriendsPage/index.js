@@ -19,7 +19,7 @@ class InviteFriendsPage extends Component {
             <div className="spacing10 line_height10 proxima_small semibold white padding_bottom25 uppercase">Your Personal Link:</div>
             <div className="padding_bottom25">
               <div className="height60 white_background flex align_center">
-                <div className="link_text proxima_xl medium rotation_gray padding_left15">therotation.club?referralCode=aNeI67A&refSource=copy</div>
+                <div className="hide_overflow proxima_xl medium rotation_gray padding_left15">therotation.club?referralCode=aNeI67A&refSource=copy</div>
               </div>
             </div>
             <div>
