@@ -73,5 +73,13 @@ Rails.application.routes.draw do
       post 'devices/:token', to: 'devices#create'
       delete 'devices/:token', to: 'devices#destroy'
     end
+    
+    namespace :warehouse do
+      namespace :v1 do
+        resources :units, only: [:show, :update] do
+          post "returned", on: :member
+        end
+      end
+    end
   end
 end

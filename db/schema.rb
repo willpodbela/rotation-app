@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191105165528) do
+ActiveRecord::Schema.define(version: 20191114211334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -163,6 +163,7 @@ ActiveRecord::Schema.define(version: 20191105165528) do
     t.integer "live_reservations_counter_cache", default: 0, null: false
     t.integer "scheduled_reservations_counter_cache", default: 0, null: false
     t.decimal "supplier_shipping_cost"
+    t.string "rfid_tag_id"
   end
 
   create_table "users", force: :cascade do |t|

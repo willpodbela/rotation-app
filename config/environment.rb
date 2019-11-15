@@ -12,4 +12,6 @@ unless Rails.env.production?
   ENV['EMAIL_PREFIX'] = "LOCAL DEV: "
   ENV['STRIPE_PLAN_ID'] = "plan_DmpGqUGCX1SpsS"
   ENV['MAIL_CHIMP_API_KEY'] = "a128a2f0edefa01e9526b94fddaee383-us3"
+  ENV['WAREHOUSE_API_AUTH_NAME'] = "authname1"
+  ENV['WAREHOUSE_API_AUTH_PASSWORD'] = "password2"
 end
