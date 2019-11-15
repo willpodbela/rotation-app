@@ -1,13 +1,10 @@
-include Queries
-
 module Api
   module Warehouse
     module V1
       class UnitsController < Api::V1::BaseController
         http_basic_authenticate_with name:ENV["WAREHOUSE_API_AUTH_NAME"], password:ENV["WAREHOUSE_API_AUTH_PASSWORD"], only: [:login, :forgot]
         skip_before_action :authenticate_user_from_token!
-        around_action :render_item
-    
+            
         #Failsafe: Override endpoints that we don't want to make available
         def destroy
           render_error(405)
@@ -55,20 +52,13 @@ module Api
     
         # Override set_resource implementation as [:id] can be either an id or rfid_tag_id
         def set_resource(resource = nil)
-          resource ||= Unit.where(id: params[:id]).or(Unit.where(rfid_tag_id: params[:id])).first
+          resource ||= Unit.where(id: params[:id]).or(Unit.where(rfid_tag_id: params[:id])).includes(:item).first
       
           # Set instance variables for use in the global view template (fallback if no :show template is provided)
           instance_variable_set("@global_view_template_data", resource)
           instance_variable_set("@global_view_template_name", resource_name)
   
           instance_variable_set("@#{resource_name}", resource)
-        end
-    
-        def render_item
-          unless performed? || get_resource.nil?
-            @item = get_resource.item
-            render "api/warehouse/v1/items/show", status: :ok
-          end
         end
       end
     end
