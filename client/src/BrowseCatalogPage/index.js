@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Modal from "react-bootstrap/Modal"
 import "./bootstrap-modal.css"
 import ItemCard from "../ItemCard"
+import ErrorMessage from "../ErrorMessage"
 
 class BrowseCatalogPage extends Component {
   constructor(props){
@@ -12,7 +13,8 @@ class BrowseCatalogPage extends Component {
       upNext:[],
       myRotation: [],
       showModal: false,
-      modalItem: {}
+      modalItem: {},
+      showError: false
     }
   }
 
@@ -26,7 +28,6 @@ class BrowseCatalogPage extends Component {
             items.forEach(item => {
               item.title = {value: item.title, selected: false}
             })
-            // this.setState({items: items, upNext: items.slice(0,2), myRotation: items.slice(2,4)})
             this.setState({items: items})
           })
       })
@@ -45,7 +46,7 @@ class BrowseCatalogPage extends Component {
   reserveItem(e){
     const upNext = this.state.upNext
     if(upNext.length === 2){
-      console.log("only 2 items allowed")
+      this.setState({showError: true})
     }else{
       let upNextCopy = JSON.parse(JSON.stringify(upNext))
       upNextCopy.push(this.state.modalItem)
@@ -75,8 +76,12 @@ class BrowseCatalogPage extends Component {
       return designers.find(designer => designer.value === value)
     })
     const selectedItem = this.state.modalItem
+    const reservedIDs = this.state.upNext.map(item => item.id)
     return (
       <div className="BrowseCatalogPage gray_border_top">
+        {this.state.showError &&
+          <ErrorMessage error={{message: "Only 2 items allowed in your Rotation"}}/>
+        }
         <div className="catalog_wrapper padding_top25 flex justify_between sides13pct">
           <div className="filters_and_designers width150 padding_right10">
             <div className="fixed_position width150">
@@ -136,7 +141,7 @@ class BrowseCatalogPage extends Component {
               <div className="width_full left20 filters_title medium druk_xs rotation_gray padding_bottom20">Catalog</div>
               {this.state.items.map(item => item.title.selected).includes(true) ? (
                 this.state.items.map((item, index) => {
-                  if(item.title.selected){
+                  if(item.title.selected && !reservedIDs.includes(item.id)){
                     return (
                       <div key={index} onClick={(e) => this.displayModal(e, item)}>
                         <ItemCard item={item}  />
@@ -148,33 +153,37 @@ class BrowseCatalogPage extends Component {
                 })
               ) : (
                 this.state.items.map((item, index) => {
-                  return (
-                    <div key={index} onClick={(e) => this.displayModal(e, item)}>
-                      <ItemCard item={item}  />
-                    </div>
-                  )
+                  if(!reservedIDs.includes(item.id)){
+                    return (
+                      <div key={index} onClick={(e) => this.displayModal(e, item)}>
+                        <ItemCard item={item}  />
+                      </div>
+                    )
+                  }else{
+                    return null
+                  }
                 })
               )}
             </div>
           </div>
         </div>
         {this.state.showModal &&
-          <Modal show={this.state.showModal} dialogClassName="item_modal" centered>
-            <div className="height500 width_half light_background flex justify_center align_center">
-              <img className="blend_background max_width250" src={selectedItem.image_url} alt="" />
+          <Modal show={this.state.showModal} dialogClassName="modal_item" centered>
+            <div className="modal_section height500 width_half light_background flex justify_center align_center">
+              <img className="modal_image blend_background" src={selectedItem.image_url} alt="" />
             </div>
-            <div className="height500 width_half white_background">
-              <FontAwesomeIcon className="font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
-              <div className="proxima_small rotation_gray opacity6 uppercase top50 padding_sides50">{selectedItem.title.value}</div>
-              <div className="modal_description druk_medium rotation_gray line_height24 padding_top10 padding_sides50 capitalize">{selectedItem.description}</div>
-              <div className="height160 proxima_small rotation_gray line_height20 padding_top40 padding_sides50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
-              <div className="flex justify_between padding_top40">
+            <div className="modal_section height500 width_half white_background">
+              <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
+              <div className="modal_brand proxima_small rotation_gray opacity6 uppercase top50 padding_sides50">{selectedItem.title.value}</div>
+              <div className="modal_description height70 overflow_scroll druk_medium rotation_gray line_height24 padding_top10 padding_sides50 capitalize">{selectedItem.description}</div>
+              <div className="modal_brand_info overflow_scroll height160 proxima_small rotation_gray line_height20 padding_top40 padding_sides50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+              <div className="modal_buttons sides50 flex justify_between padding_top40">
                 {this.state.upNext.some(item => item.id === selectedItem.id) ? (
-                  <div className="reserve left50 proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer red" onClick={(e) => this.removeItem(e)}>Remove</div>
+                  <div className="reserve_btn width220 proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer red" onClick={(e) => this.removeItem(e)}>Remove</div>
                 ) : (
-                  <div className="reserve left50 proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveItem(e)}>Reserve</div>
+                  <div className="reserve_btn width220 proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveItem(e)}>Reserve</div>
                 )}
-                <div className="like_button right50 flex justify_center align_center cursor_pointer"><FontAwesomeIcon icon="heart" /></div>
+                <div className="like_btn flex justify_center align_center cursor_pointer"><FontAwesomeIcon className="rotation_gray" icon="heart" /></div>
               </div>
             </div>
           </Modal>

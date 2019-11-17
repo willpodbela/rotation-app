@@ -19,17 +19,17 @@ class InviteFriendsPage extends Component {
             <div className="spacing10 line_height10 proxima_small semibold white padding_bottom25 uppercase">Your Personal Link:</div>
             <div className="padding_bottom25">
               <div className="height60 white_background flex align_center">
-                <div className="hide_overflow proxima_xl medium rotation_gray padding_left15">therotation.club?referralCode=aNeI67A&refSource=copy</div>
+                <div className="overflow_scroll nowrap proxima_xl medium rotation_gray padding_left15">therotation.club?referralCode=aNeI67A&refSource=copy</div>
               </div>
             </div>
             <div>
               <div className="flex justify_between padding_bottom25 share_link_row">
                 <div className="share_link spacing10 proxima_small semibold white_background rotation_gray white_background rotation_gray flex justify_center align_center uppercase">Copy Link</div>
-                <div className="share_link spacing10 proxima_small semibold white_background rotation_gray flex justify_center align_center"><FontAwesomeIcon icon="envelope" className="font20 padding_right10 uppercase" />Email</div>
+                <div className="share_link spacing10 proxima_small semibold white_background rotation_gray flex justify_center align_center uppercase"><FontAwesomeIcon icon="envelope" className="font20 rotation_gray padding_right10" />Email</div>
               </div>
               <div className="flex justify_between">
-                <div className="share_link spacing10 proxima_small semibold white_background rotation_gray flex justify_center align_center"><FontAwesomeIcon icon="comment" className="font20 padding_right10 uppercase" />Send SMS</div>
-                <div className="share_link spacing10 proxima_small semibold white_background rotation_gray flex justify_center align_center"><FontAwesomeIcon icon={["fab", "twitter"]} className="font20 padding_right10 uppercase" />Share</div>
+                <div className="share_link spacing10 proxima_small semibold white_background rotation_gray flex justify_center align_center uppercase"><FontAwesomeIcon icon="comment" className="font20 rotation_gray padding_right10" />Send SMS</div>
+                <div className="share_link spacing10 proxima_small semibold white_background rotation_gray flex justify_center align_center uppercase"><FontAwesomeIcon icon={["fab", "twitter"]} className="font20 rotation_gray padding_right10" />Share</div>
               </div>
             </div>
           </div>

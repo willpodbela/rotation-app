@@ -228,8 +228,10 @@ footer{
   height: 51.75px;
   width: 51.75px;
 }
-.hide_overflow{
-  overflow: hidden;
+.overflow_scroll{
+  overflow: scroll;
+}
+.nowrap{
   white-space: nowrap;
 }
 .share_link{
@@ -387,21 +389,74 @@ footer{
 .width_half{
   width: 50%;
 }
-.item_modal{
-  max-width: 45% !important;
+.modal_image{
+  max-width: 70%;
 }
-.modal_description{
-  height: 72px !important;
-}
-.reserve{
+.reserve_btn{
   border: 1px solid #333333;
-  width: 57%;
   height: 44px;
 }
-.like_button{
+.like_btn{
   border: 1px solid #333333;
   width: 44px;
   height: 44px;
+}
+.modal_item{
+  max-width: 800px !important;
+}
+@media (max-width: 1000px) {
+  .modal_item{
+    max-width: 600px !important;
+  }
+  .reserve_btn{
+    width: 130px !important;
+  }
+}
+@media (max-width: 750px) {
+  .modal_item{
+    max-width: 250px !important;
+  }
+  .modal_section{
+    max-height: 250px;
+  }
+  .close_btn{
+    font-size: 12px !important;
+    padding: 15px 15px 0 0 !important;
+  }
+  .modal_brand{
+    overflow: scroll;
+    height: 30px;
+    padding: 0 !important;
+    text-align: center;
+    margin: 40px 10px 0 10px !important;
+    line-height: normal !important;
+  }
+  .modal_description{
+    padding: 0 !important;
+    margin: 10px !important;
+    text-align: center;
+    font-size: 14px;
+    line-height: normal !important;
+  }
+  .modal_brand_info{
+    display: none;
+  }
+  .modal_buttons{
+    padding-top: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+  }
+  .reserve_btn{
+    margin: 0 auto;
+    font-size: 12px;
+    width: 80px !important;
+    height: 30px;
+  }
+  .like_btn{
+    margin: 5px auto;
+    width: 80px !important;
+    height: 30px;
+  }
 }
 /* Admin Page CSS */
 div.edit td, div.edit th,
