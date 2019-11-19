@@ -7,7 +7,7 @@ class PrivacyPage extends Component {
 
   render(){
     return (
-      <div className="PrivacyPage gray_border_top">
+      <div className="PrivacyPage gray_border_top proxima">
         <section className="padding_top25 padding_bottom80 sides13pct">
         	<div>
         		<h2 className="font42 font_second light rotation_gray bottom20">Privacy Policy</h2>

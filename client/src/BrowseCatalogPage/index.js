@@ -84,7 +84,7 @@ class BrowseCatalogPage extends Component {
         }
         <div className="catalog_wrapper padding_top25 flex justify_between sides13pct">
           <div className="filters_and_designers width150 padding_right10">
-            <div className="fixed_position width150">
+            <div className="fixed_sidebar overflow_scroll width150">
               <div className="filters">
                 <div className="filters_title medium druk_xs rotation_gray padding_bottom5">Filters</div>
                 <div>

@@ -12,59 +12,59 @@ class InviteFriendsPage extends Component {
         <div className="text_center padding_top170 padding_bottom75"><img src={logo} className="rotation_logo" alt="" /></div>
         <div className="invite_friends flex justify_between sides13pct padding_bottom130">
           <div className="padding_bottom75">
-            <div className="line_height40 width388 druk_large white flex">Invite friends and earn up to a free year.</div>
-            <div className="line_height28 width388 proxima_xl white padding_top20 flex">Use your very own link to spread the word about The Rotation. You’ll get cash to spend with us for every friend that signs up.</div>
+            <div className="invite_friends_title line_height40 druk_large white flex">Invite friends and earn up to a free year.</div>
+            <div className="invite_friends_description line_height28 proxima_xl white padding_top20 flex">Use your very own link to spread the word about The Rotation. You’ll get cash to spend with us for every friend that signs up.</div>
           </div>
-          <div className="width388">
+          <div className="invite_friends_right">
             <div className="spacing10 line_height10 proxima_small semibold white padding_bottom25 uppercase">Your Personal Link:</div>
-            <div className="padding_bottom25">
+            <div className="personal_link padding_bottom25">
               <div className="height60 white_background flex align_center">
                 <div className="overflow_scroll nowrap proxima_xl medium rotation_gray padding_left15">therotation.club?referralCode=aNeI67A&refSource=copy</div>
               </div>
             </div>
             <div>
               <div className="flex justify_between padding_bottom25 share_link_row">
-                <div className="share_link spacing10 proxima_small semibold white_background rotation_gray white_background rotation_gray flex justify_center align_center uppercase">Copy Link</div>
-                <div className="share_link spacing10 proxima_small semibold white_background rotation_gray flex justify_center align_center uppercase"><FontAwesomeIcon icon="envelope" className="font20 rotation_gray padding_right10" />Email</div>
+                <div className="share_link height60 spacing10 proxima_small semibold white_background rotation_gray white_background rotation_gray flex justify_center align_center uppercase cursor_pointer">Copy Link</div>
+                <div className="share_link height60 spacing10 proxima_small semibold white_background rotation_gray flex justify_center align_center uppercase cursor_pointer"><FontAwesomeIcon icon="envelope" className="font20 rotation_gray padding_right10" />Email</div>
               </div>
               <div className="flex justify_between">
-                <div className="share_link spacing10 proxima_small semibold white_background rotation_gray flex justify_center align_center uppercase"><FontAwesomeIcon icon="comment" className="font20 rotation_gray padding_right10" />Send SMS</div>
-                <div className="share_link spacing10 proxima_small semibold white_background rotation_gray flex justify_center align_center uppercase"><FontAwesomeIcon icon={["fab", "twitter"]} className="font20 rotation_gray padding_right10" />Share</div>
+                <div className="share_link height60 spacing10 proxima_small semibold white_background rotation_gray flex justify_center align_center uppercase cursor_pointer"><FontAwesomeIcon icon="comment" className="font20 rotation_gray padding_right10" />Send SMS</div>
+                <div className="share_link height60 spacing10 proxima_small semibold white_background rotation_gray flex justify_center align_center uppercase cursor_pointer"><FontAwesomeIcon icon={["fab", "twitter"]} className="font20 rotation_gray padding_right10" />Share</div>
               </div>
             </div>
           </div>
         </div>
-        <div className="rewards_title medium druk_large white text_center padding_bottom20">Keep Track of Your Rewards</div>
-        <div className="rewards_description line_height28 proxima_xl medium white text_center margin_auto padding_bottom50">Return here to view your progress and see your rewards anytime. Your rewards are attached to your email.</div>
+        <div className="invite_friends_title medium druk_large white text_center margin_auto padding_bottom20">Keep Track of Your Rewards</div>
+        <div className="invite_friends_description line_height28 proxima_xl medium white text_center margin_auto padding_bottom50">Return here to view your progress and see your rewards anytime. Your rewards are attached to your email.</div>
         <div className="rewards_bar_horizontal flex justify_center align_center padding_bottom70">
           <div>
-            <div className="rewards_druk_text medium druk_small white height38 flex align_end padding_bottom20">Friends Joined</div>
+            <div className="rewards_druk_text medium druk_small white flex align_end padding_bottom20">Friends Joined</div>
             <ProgressBar className="rewards_box" variant="white" now={100} />
-            <div className="rewards_druk_text medium druk_small white height38 padding_top20">Reward Won</div>
+            <div className="rewards_druk_text medium druk_small white padding_top20">Reward Won</div>
           </div>
           <div className="rewards_divider white_background"></div>
           <div>
-            <div className="rewards_druk_text medium druk_small white height38 flex align_end justify_center padding_bottom20">1</div>
+            <div className="rewards_druk_text medium druk_small white flex align_end justify_center padding_bottom20">1</div>
             <ProgressBar className="rewards_box" variant="white" min="0" max="1" now={numFriends} />
-            <div className="rewards_text height38 proxima_xl medium white padding_top20 text_center">$50</div>
+            <div className="rewards_text proxima_xl medium white padding_top20 text_center">$50</div>
           </div>
           <div className="rewards_divider white_background"></div>
           <div>
-            <div className="rewards_druk_text medium druk_small white height38 flex align_end justify_center padding_bottom20">5</div>
+            <div className="rewards_druk_text medium druk_small white flex align_end justify_center padding_bottom20">5</div>
             <ProgressBar className="rewards_box" variant="white" min="1" max="5" now={numFriends} />
-            <div className="rewards_text height38 proxima_xl medium white padding_top20 text_center">$90</div>
+            <div className="rewards_text proxima_xl medium white padding_top20 text_center">$90</div>
           </div>
           <div className="rewards_divider white_background"></div>
           <div>
-            <div className="rewards_druk_text medium druk_small white height38 flex align_end justify_center padding_bottom20">20</div>
+            <div className="rewards_druk_text medium druk_small white flex align_end justify_center padding_bottom20">20</div>
             <ProgressBar className="rewards_box" variant="white" min="5" max="20" now={numFriends} />
-            <div className="rewards_text height38 proxima_xl medium white padding_top20 text_center">3 Months Free</div>
+            <div className="rewards_text proxima_xl medium white padding_top20 text_center">3 Months Free</div>
           </div>
           <div className="rewards_divider white_background"></div>
           <div>
-            <div className="rewards_druk_text medium druk_small white height38 flex align_end justify_center padding_bottom20">50</div>
+            <div className="rewards_druk_text medium druk_small white flex align_end justify_center padding_bottom20">50</div>
             <ProgressBar className="rewards_box" variant="white" min="20" max="50" now={numFriends} />
-            <div className="rewards_text height38 proxima_xl medium white padding_top20 text_center">1 Year Free</div>
+            <div className="rewards_text proxima_xl medium white padding_top20 text_center">1 Year Free</div>
           </div>
           <div className="rewards_divider white_background"></div>
         </div>
@@ -79,30 +79,30 @@ class InviteFriendsPage extends Component {
           <div className="rewards_row flex justify_center align_center">
             <div className="rewards_druk_text medium druk_small white width120 text_center padding_left20">1</div>
             <ProgressBar className="rewards_box vertical" variant="white" min="0" max="1" now={numFriends} />
-            <div className="rewards_text height38 proxima_xl medium white width120 flex justify_center align_center padding_right20">$50</div>
+            <div className="rewards_text proxima_xl medium white width120 flex justify_center align_center padding_right20">$50</div>
           </div>
           <div className="rewards_divider_vertical white_background margin_auto"></div>
           <div className="rewards_row flex justify_center align_center">
             <div className="rewards_druk_text medium druk_small white width120 text_center padding_left20">5</div>
             <ProgressBar className="rewards_box vertical" variant="white" min="1" max="5" now={numFriends} />
-            <div className="rewards_text height38 proxima_xl medium white width120 flex justify_center align_center padding_right20">$90</div>
+            <div className="rewards_text proxima_xl medium white width120 flex justify_center align_center padding_right20">$90</div>
           </div>
           <div className="rewards_divider_vertical white_background margin_auto"></div>
           <div className="rewards_row flex justify_center align_center">
             <div className="rewards_druk_text medium druk_small white width120 text_center padding_left20">20</div>
             <ProgressBar className="rewards_box vertical" variant="white" min="5" max="20" now={numFriends} />
-            <div className="rewards_text height38 proxima_xl medium white width120 flex justify_center align_center padding_right20">3 Months Free</div>
+            <div className="rewards_text proxima_xl medium white width120 flex justify_center align_center padding_right20">3 Months Free</div>
           </div>
           <div className="rewards_divider_vertical white_background margin_auto"></div>
           <div className="rewards_row flex justify_center align_center">
             <div className="rewards_druk_text medium druk_small white width120 text_center padding_left20">50</div>
             <ProgressBar className="rewards_box vertical" variant="white" min="20" max="50" now={numFriends} />
-            <div className="rewards_text height38 proxima_xl medium white width120 flex justify_center align_center padding_right20">1 Year Free</div>
+            <div className="rewards_text proxima_xl medium white width120 flex justify_center align_center padding_right20">1 Year Free</div>
           </div>
           <div className="rewards_divider_vertical white_background margin_auto"></div>
         </div>
 
-        <div className="rewards_text height38 proxima_xl medium white text_center margin_auto"><strong>{numFriends}</strong> friends have joined</div>
+        <div className="rewards_text proxima_xl medium white text_center margin_auto"><strong>{numFriends}</strong> friends have joined</div>
       </div>
     )
   }

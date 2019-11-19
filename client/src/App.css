@@ -94,6 +94,9 @@ a{
   font-family: "Proxima Nova";
   font-size: 12px;
 }
+.proxima{
+  font-family: "Proxima Nova";
+}
 .width388{
   width: 388px;
 }
@@ -235,8 +238,22 @@ footer{
   white-space: nowrap;
 }
 .share_link{
-	height: 55px;
   width: 178px;
+}
+.invite_friends_title{
+  width: 388px;
+}
+.invite_friends_description{
+  width: 388px;
+}
+.invite_friends_right{
+  width: 388px;
+}
+.rewards_text{
+  height: 38px;
+}
+.rewards_druk_text{
+  height: 38px;
 }
 @media (max-width: 1048px) {
   .invite_friends{
@@ -257,20 +274,16 @@ footer{
     padding-bottom: 0px !important;
   }
   .share_link{
-    margin: 12.5px auto;
+    margin: 12px auto;
+    width: 250px;
+  }
+  .personal_link{
+    padding-bottom: 12px !important;
   }
 }
-.rewards_description{
-  width: 412px;
-}
-@media (max-width: 420px) {
-  .rewards_description{
-    width: 300px;
-  }
-}
-.height38{
+/* .height38{
   height: 38px;
-}
+} */
 .rewards_box{
   width: 194px;
   border-top: 2px solid #FFFFFF;
@@ -342,8 +355,9 @@ footer{
 .gray_border_top{
   border-top: 1px solid #EBEBEB;
 }
-.fixed_position{
+.fixed_sidebar{
   position: fixed;
+  height: 65vh;
 }
 .cursor_pointer{
   cursor: pointer;
@@ -390,7 +404,7 @@ footer{
   width: 50%;
 }
 .modal_image{
-  max-width: 70%;
+  max-width: 75%;
 }
 .reserve_btn{
   border: 1px solid #333333;
