@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: :json} do
     post "stripe", to: "stripe_webhook#stripe"
   
+    #DEPRECATED as of iOS <= v1.1.11 we are on v2
     namespace :v1 do
       post "auth/login"
       get "auth/logout"
@@ -66,6 +67,33 @@ Rails.application.routes.draw do
       #DEPRECATED as of iOS <= v1.1.10, we are using the singular resource path for subscriptions, so we just route the old path to the controller for now and have both
       post "subscriptions", to: "subscriptions#create" 
       #END DEPRECATED     
+      resource :subscription, only: [:create, :show, :update] do
+        post "update-payment", on: :collection
+      end
+      
+      post 'devices/:token', to: 'devices#create'
+      delete 'devices/:token', to: 'devices#destroy'
+    end
+    #END DEPRECATED
+    
+    namespace :v2 do
+      post "auth/login"
+      get "auth/logout"
+      post "auth/forgot"
+      
+      resources :users, only: [:create, :show, :update] do
+        resource :profile, only: [:show, :update]
+      end
+    
+      resources :items, only: [:index, :show] do
+        resource :favorite, only: [:create, :destroy]
+      end
+    
+      resources :reservations do
+        get 'info', on: :collection
+        post 'buy', on: :member
+      end
+         
       resource :subscription, only: [:create, :show, :update] do
         post "update-payment", on: :collection
       end
