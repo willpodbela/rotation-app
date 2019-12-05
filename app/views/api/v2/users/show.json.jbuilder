@@ -13,5 +13,8 @@ json.user do
   json.reservations_remaining   @user.reservations_remaining
   json.est_delivery_date        @user.est_delivery_date
   json.subscription             @user.current_subscription
-  json.current_subscription     !@user.current_subscription.nil?
+  
+  #FIXME this triggers an API call to Stripe in model
+  json.available_tiers          @user.available_tiers
+  #END FIXME
 end
