@@ -23,7 +23,7 @@ module Scripts
       no_user_obj = []
       stripe_failures = []
       skipped = []
-      prelaunch_users.all.each do |p|
+      prelaunch_users.each do |p|
         valid_invs = p.invited_users.where(bounced: false).count
         prize = 0
         
