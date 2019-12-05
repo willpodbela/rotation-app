@@ -30,10 +30,6 @@ module Api
       end
     
       private
-    
-      def items_params
-        params.permit(items: [:retail_value, :subtitle, :image_url, :title, :buyURL, :image_remote_url, :alternate_image_urls => []])
-      end
       
       def item_params
         params.permit()
