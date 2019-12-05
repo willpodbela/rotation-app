@@ -20,7 +20,7 @@ module Api
       def index
         @reservation_info = {
           :reservations_remaining => current_user.reservations_remaining, 
-          :next_period => current_user.legacy_next_reservation_period,
+          :next_period => { :start_date => current_user.est_delivery_date, :end_date => current_user.est_delivery_date+30 },
           :est_delivery_date => current_user.est_delivery_date
         }
         @current_subscription = current_user.current_subscription
