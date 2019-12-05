@@ -25,17 +25,17 @@ module Scripts
       skipped = []
       prelaunch_users.each do |p|
         valid_invs = p.invited_users.where(bounced: false).count
-        prize = 0
+        prize = 0 # in cents
         
-        month = 89
+        month = 8900
         if valid_invs >= 50
           prize = month*12
         elsif valid_invs >= 25
           prize = month*3
         elsif valid_invs >= 5
-          prize = 90
+          prize = 9000
         elsif valid_invs >= 1
-          prize = 50
+          prize = 5000
         end
         
         if prize > 0
