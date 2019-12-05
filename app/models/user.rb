@@ -142,6 +142,11 @@ class User < ApplicationRecord
     return formatted_tiers
   end
   
+  # returns account_balance of user (outstanding credits or debits in Stripe)
+  def account_balance
+    return StripeService.get_customer_balance(self)
+  end
+  
   private
   
   def generate_authentication_token

@@ -16,7 +16,8 @@ json.user do
     json.reservations_remaining @user.reservations_remaining
   end
   
-  #FIXME this triggers an API call to Stripe in model
+  #FIXME these trigger API calls to Stripe in model
   json.available_tiers          @user.available_tiers
+  json.account_balance          @user.account_balance
   #END FIXME
 end
