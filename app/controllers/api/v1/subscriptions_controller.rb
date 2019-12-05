@@ -13,11 +13,9 @@ module Api
         render_error(405)
       end
       
-      # Only param that can be passed right now is :cancel_at_period_end
-      # (in the future we can also use this endpoint to change tiers)
       def update
         begin
-          subscription = StripeService.set_subscription_cancel_at_period_end(current_user, subscription_params[:cancel_at_period_end])
+          subscription = StripeService.update_subscription(current_user, subscription_params)
           set_resource(subscription)
           render :show, status: :created
         rescue Stripe::CardError, StripeService::StripeServiceError => e
