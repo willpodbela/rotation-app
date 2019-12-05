@@ -47,7 +47,7 @@
   
   def cancel
     begin
-      StripeService.cancel_monthly_subscription(current_user)
+      StripeService.update_subscription(user, {:cancel_at_period_end => true})
       
       flash[:notice] = 'You have successfully cancelled your plan. Please allow up to 24hrs for processing.'
     rescue StripeService::StripeServiceError => e
@@ -62,7 +62,7 @@
   
   def restore
     begin
-      StripeService.uncancel_monthly_subscription(current_user)
+      StripeService.update_subscription(user, {:cancel_at_period_end => false})
       
       flash[:notice] = 'You have successfully restored your plan. Glad to you have you back! Please allow up to 24hrs for processing.'
     rescue StripeService::StripeServiceError => e

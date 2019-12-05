@@ -10,8 +10,13 @@ json.user do
   if @user.coupon
     json.coupon                 @user.coupon
   end
-  json.reservations_remaining   (@user.reservations_remaining || 2)
   json.est_delivery_date        @user.est_delivery_date
   json.subscription             @user.current_subscription
-  json.current_subscription     !@user.current_subscription.nil?
+  if @user.current_subscription
+    json.reservations_remaining @user.reservations_remaining
+  end
+  
+  #FIXME this triggers an API call to Stripe in model
+  json.available_tiers          @user.available_tiers
+  #END FIXME
 end

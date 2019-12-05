@@ -44,14 +44,23 @@ class StripeService
     end
     
     # Returns a (Rotation Application) Subscription Object
-    def create_monthly_subscription(user, stripe_source_id)
+    def create_monthly_subscription(user, stripe_source_id, item_qty)
+      # Check and format arguments
+      plan_qty = item_qty.to_i
+      raise ArgumentError.new("Missing STRIPE_PLAN_ID") unless ENV.has_key?('STRIPE_PLAN_ID')
+      raise ArgumentError.new("Missing item qty / tier selection") if plan_qty.nil?
+      # Currently we only want to allow plans between 2 and 4, while this is also enforced in the view, we double check for safety here.
+      # NOTE: This logic may need to be removed / changed if user.available_tiers (in user.rb) is changed
+      raise ArgumentError.new("Invalid item qty / tier selection for plan") if plan_qty > 4 || plan_qty < 2
+      
+      # Common Setup
       setup
+      
       # Retrive or create Customer and attach payment method
       customer = update_or_create_customer_with_payment(user, stripe_source_id)
       
       # Call Stripe to create Subscription
-      raise ArgumentError.new("Missing STRIPE_PLAN_ID") unless ENV.has_key?('STRIPE_PLAN_ID')
-      params = {plan: ENV['STRIPE_PLAN_ID'], payment_behavior: "allow_incomplete"}
+      params = {plan: ENV['STRIPE_PLAN_ID'], quantity: plan_qty, payment_behavior: "allow_incomplete"}
       if coupon = user.coupon
         params[:coupon] = coupon.id
       end
@@ -63,7 +72,8 @@ class StripeService
         subscription = Subscription.new(
           :user => user,
           :stripe_subscription_obj => stripe_subscription_obj,
-          :stripe_plan_id => ENV['STRIPE_PLAN_ID']
+          :stripe_plan_id => ENV['STRIPE_PLAN_ID'],
+          :item_qty => plan_qty
         )
         
         if subscription.incomplete?
@@ -151,23 +161,17 @@ class StripeService
     end
     
     # Returns a (Rotation Application) Subscription Object
-    def cancel_monthly_subscription(user)
-      set_subscription_cancel_at_period_end(user, true)
-    end
-    
-    # Returns a (Rotation Application) Subscription Object
-    def uncancel_monthly_subscription(user)
-      set_subscription_cancel_at_period_end(user, false)
-    end
-    
-    # Returns a (Rotation Application) Subscription Object
-    def set_subscription_cancel_at_period_end(user, cancel_at_period_end)
+    def update_subscription(user, params)
       setup
       
       loc_subscription = user.subscriptions.current.valid.first
       if loc_subscription
         subscription = Stripe::Subscription.retrieve(loc_subscription.stripe_subscription_id)
-        subscription.cancel_at_period_end = cancel_at_period_end
+        subscription.cancel_at_period_end = params[:cancel_at_period_end] if params.key?(:cancel_at_period_end)
+        if params.key?(:item_qty)
+          subscription.quantity = params[:item_qty]
+          loc_subscription.item_qty = params[:item_qty]
+        end
         if subscription.save
           loc_subscription.stripe_subscription_obj = subscription
           unless loc_subscription.save
@@ -176,10 +180,10 @@ class StripeService
           
           return loc_subscription
         else 
-          raise StripeServiceError.new("Unable to cancel subscription in Stripe. Please contact support@therotation.club.")
+          raise StripeServiceError.new("Unable to update subscription in Stripe. Please contact support@therotation.club.")
         end
       else
-        raise StripeServiceError.new("Customer does not have a subscription elidgable for re-activation. Please contact support@therotation.club.")
+        raise StripeServiceError.new("Customer does not have a subscription elidgable for re-activation or tier change. Please contact support@therotation.club.")
       end
     end
     
@@ -288,6 +292,13 @@ class StripeService
       end
       bal = Stripe::Customer.create_balance_transaction(user.stripe_customer_id, params)
       return bal["ending_balance"]
+    end
+      
+    # Retrieves Stripe::Plan object from Stripe server so tiers and prices can be viewed
+    def get_plan
+      raise ArgumentError.new("Missing STRIPE_PLAN_ID") unless ENV.has_key?('STRIPE_PLAN_ID')
+      setup
+      return Stripe::Plan.retrieve(ENV['STRIPE_PLAN_ID'])
     end
     
     private

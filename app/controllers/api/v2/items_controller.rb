@@ -1,8 +1,8 @@
 include Queries
 
 module Api
-    module V1
-    class ItemsController < Api::V1::BaseController
+  module V2
+    class ItemsController < Api::V2::BaseController
       before_action :set_inventory, only: [:show, :index]
       
       #Failsafe: Override endpoints that we don't want to make available
@@ -15,17 +15,8 @@ module Api
       def create  
         render_error(405)
       end
-    
-      # Override: GET /api/{plural_resource_name}
+      
       def index
-        @reservation_info = {
-          :reservations_remaining => (current_user.reservations_remaining || 2), 
-          :next_period => { :start_date => current_user.est_delivery_date, :end_date => current_user.est_delivery_date+30 },
-          :est_delivery_date => current_user.est_delivery_date
-        }
-        @current_subscription = current_user.current_subscription
-        
-        # Items logic
         @my_rotation = current_user.my_rotation_items
         @up_next = current_user.up_next_items
         @catalog = current_user.catalog_items
