@@ -68,7 +68,7 @@ module Scripts
       
       output =  "Total Prize Money: #{total_awarded}\n"
       output << "Successful Awards: #{success.join(", ")}\n"
-      output << "Skipped (Prize already applied): \n#{skipped.join(", ")}"
+      output << "Skipped (Prize already applied): #{skipped.join(", ")}\n"
       output << "No User Failures: #{no_user_obj.join(", ")}\n"
       output << "Stripe Failures: \n#{stripe_failures.join("\n")}"
       puts output
