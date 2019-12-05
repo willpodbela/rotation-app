@@ -17,12 +17,13 @@ module Scripts
       return "Succesfully marked #{success} emails bounced. Failed to find #{fail} emails in the database."
     end
     
-    def self.apply_reward_credits(simulate = false)
+    def self.apply_reward_credits(prelaunch_users, simulate = true)
       total_awarded = 0
       success = []
       no_user_obj = []
       stripe_failures = []
-      PrelaunchUser.all.each do |p|
+      skipped = []
+      prelaunch_users.all.each do |p|
         valid_invs = p.invited_users.where(bounced: false).count
         prize = 0
         
@@ -38,30 +39,36 @@ module Scripts
         end
         
         if prize > 0
-          user = User.find_by_email(p.email)
-          if user.nil?
-            no_user_obj << p.email
-          else
-            unless simulate
-              begin
-                ##StripeService.create_account_credit(user, prize, "Prelaunch Referral Program: #{valid_invs} Invites")
-                p.credits_applied = prize
-                ##p.save
+          if prize > p.credits_applied
+            prize -= p.credits_applied
+            user = User.find_by_email(p.email)
+            if user.nil?
+              no_user_obj << p.email
+            else
+              unless simulate
+                begin
+                  StripeService.create_account_credit(user, prize, "Prelaunch Referral Program: #{valid_invs} Invites")
+                  p.credits_applied += prize
+                  p.save
+                  success << p.email
+                  total_awarded += prize
+                rescue StripeService::StripeServiceError => e
+                  stripe_failures << "#{p.email} - #{e.message}"
+                end
+              else
                 success << p.email
                 total_awarded += prize
-              rescue StripeService::StripeServiceError => e
-                stripe_failures << "#{p.email} - #{e.message}"
               end
-            else
-              success << p.email
-              total_awarded += prize
             end
+          else
+            skipped << p.email
           end
         end
       end
       
       output =  "Total Prize Money: #{total_awarded}\n"
       output << "Successful Awards: #{success.join(", ")}\n"
+      output << "Skipped (Prize already applied): \n#{skipped.join(", ")}"
       output << "No User Failures: #{no_user_obj.join(", ")}\n"
       output << "Stripe Failures: \n#{stripe_failures.join("\n")}"
       puts output
