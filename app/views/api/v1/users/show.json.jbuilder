@@ -14,4 +14,10 @@ json.user do
   json.est_delivery_date        @user.est_delivery_date
   json.subscription             @user.current_subscription
   json.current_subscription     !@user.current_subscription.nil?
+  if @user.current_subscription
+    json.reservations_remaining @user.reservations_remaining
+  else
+    #NOTE: Logic for backward compatibility with new model specs as reservations_remaining can't be nil
+    json.reservations_remaining 2
+  end
 end

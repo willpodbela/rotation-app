@@ -91,9 +91,9 @@ class User < ApplicationRecord
     self.current_valid_subscriptions.first
   end
   
-  # eager_load live_reservations and scheduled_reservations when planning to make this call
+  # eager_load current_valid_subscriptions, live_reservations, and scheduled_reservations when planning to make this call
   def reservations_remaining
-    2 - self.live_reservations.size - self.scheduled_reservations.size
+    self.current_subscription.item_qty - self.live_reservations.size - self.scheduled_reservations.size
   end
   
   # eager_load my_rotation_items and up_next_items when planning to make this call

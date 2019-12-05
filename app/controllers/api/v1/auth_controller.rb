@@ -36,7 +36,7 @@ module Api
           if @user.valid_password?(params[:password])
             @user.renew_authentication_token
             if @user.save
-              render('api/v1/users/show')
+              render(login_render_view)
             else
               render_error(500, nil)
             end 
@@ -72,6 +72,10 @@ module Api
       #should never be called due to the fact that update/create are disabled
       def auth_params
         params
+      end
+      
+      def login_render_view
+        'api/v1/users/show'
       end
     end
   end
