@@ -30,18 +30,7 @@ module Api
       end
       
       def create                
-        begin
-          subscription = StripeService.create_monthly_subscription(current_user, subscription_params[:stripe_source_id])
-          set_resource(subscription)
-          render :show, status: :created
-        rescue Stripe::CardError => e
-          # CardError; return the error message.
-          render_error(400, e.message)
-        rescue => e
-          # Some other error; Return 500
-          # TODO: Log
-          render_error(500, nil)
-        end
+        render_error(400, "We're out of Beta! Please update to the latest version in the App Store to sign-up.")
       end
  
       def update_payment

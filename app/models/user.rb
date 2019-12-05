@@ -93,7 +93,12 @@ class User < ApplicationRecord
   
   # eager_load current_valid_subscriptions, live_reservations, and scheduled_reservations when planning to make this call
   def reservations_remaining
-    self.current_subscription.item_qty - self.live_reservations.size - self.scheduled_reservations.size
+    sub = self.current_subscription
+    if sub.nil?
+      return nil
+    else
+      return self.current_subscription.item_qty - self.live_reservations.size - self.scheduled_reservations.size
+    end
   end
   
   # eager_load my_rotation_items and up_next_items when planning to make this call
