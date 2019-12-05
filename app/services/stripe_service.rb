@@ -25,6 +25,24 @@ class StripeService
       end
     end
     
+    # Returns a Stripe::Customer Object
+    def retrive_or_create_customer(user)
+      setup
+      
+      if user.stripe_customer_id? 
+        return Stripe::Customer.retrieve(user.stripe_customer_id)
+      else
+        customer = Stripe::Customer.create({
+          email: user.email
+        })
+        user.stripe_customer_id = customer.id
+        unless user.save
+          # TODO: Log error - stripe succeeded but local obj could not be saved          
+        end
+        return customer
+      end
+    end
+    
     # Returns a (Rotation Application) Subscription Object
     def create_monthly_subscription(user, stripe_source_id)
       setup
@@ -239,6 +257,37 @@ class StripeService
       subscription.stripe_subscription_obj = Stripe::Subscription.retrieve(subscription.stripe_subscription_id)
       subscription.save if should_save_after_refresh
       return subscription
+    end
+    
+    # Returns Int value of customer balance from Stripe server. A negative number means the customer has a credit toward next statement. A postive number means they owe us money. 
+    def get_customer_balance(user)
+      setup
+      
+      if user.stripe_customer_id.nil?
+        return 0
+      else
+        bal = Stripe::Customer.list_balance_transactions(user.stripe_customer_id, {
+          limit: 1
+        })
+        if bal["data"].length > 0
+          return bal["data"][0]["ending_balance"]
+        else
+          return 0
+        end
+      end
+    end
+    
+    # Adds credit to the customer's account for amount in USD cents that will go toward next statement or purchase. Returns Int representing new customer balance.
+    def create_account_credit(user, amount, description = nil)
+      setup
+      
+      cust = retrive_or_create_customer(user)
+      params = {amount: -amount, currency: 'usd'}
+      unless description.nil?
+        params[:description] = description
+      end
+      bal = Stripe::Customer.create_balance_transaction(user.stripe_customer_id, params)
+      return bal["ending_balance"]
     end
     
     private

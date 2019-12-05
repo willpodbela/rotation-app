@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191114211334) do
+ActiveRecord::Schema.define(version: 20191205170834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20191114211334) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "bounced", default: false, null: false
+    t.integer "credits_applied", default: 0, null: false
     t.index ["email"], name: "index_prelaunch_users_on_email", unique: true
     t.index ["inviter_id"], name: "index_prelaunch_users_on_inviter_id"
     t.index ["ip_address"], name: "index_prelaunch_users_on_ip_address"
@@ -145,6 +146,7 @@ ActiveRecord::Schema.define(version: 20191114211334) do
     t.datetime "updated_at", null: false
     t.string "incomplete_payment_intent_client_secret"
     t.string "latest_invoice_id"
+    t.integer "item_qty", null: false
     t.index ["stripe_subscription_id"], name: "index_subscriptions_on_stripe_subscription_id", unique: true
   end
 
