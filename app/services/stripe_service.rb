@@ -26,13 +26,21 @@ class StripeService
     end
     
     # Returns a (Rotation Application) Subscription Object
-    def create_monthly_subscription(user, stripe_source_id)
+    def create_monthly_subscription(user, stripe_source_id, plan_qty)
+      # Check arguments
+      raise ArgumentError.new("Missing STRIPE_PLAN_ID") unless ENV.has_key?('STRIPE_PLAN_ID')
+      raise ArgumentError.new("Missing item qty / tier selection") if plan_qty.nil?
+      # Currently we only want to allow plans between 2 and 4, while this is also enforced in the view, we double check for safety here.
+      # NOTE: This logic may need to be removed / changed if user.available_tiers (in user.rb) is changed
+      raise ArgumentError.new("Invalid item qty / tier selection for plan") if plan_qty > 4 || plan_qty < 2
+      
+      # Common Setup
       setup
+      
       # Retrive or create Customer and attach payment method
       customer = update_or_create_customer_with_payment(user, stripe_source_id)
       
       # Call Stripe to create Subscription
-      raise ArgumentError.new("Missing STRIPE_PLAN_ID") unless ENV.has_key?('STRIPE_PLAN_ID')
       params = {plan: ENV['STRIPE_PLAN_ID'], payment_behavior: "allow_incomplete"}
       if coupon = user.coupon
         params[:coupon] = coupon.id
@@ -239,6 +247,13 @@ class StripeService
       subscription.stripe_subscription_obj = Stripe::Subscription.retrieve(subscription.stripe_subscription_id)
       subscription.save if should_save_after_refresh
       return subscription
+    end
+    
+    # Retrieves Stripe::Plan object from Stripe server so tiers and prices can be viewed
+    def get_plan
+      raise ArgumentError.new("Missing STRIPE_PLAN_ID") unless ENV.has_key?('STRIPE_PLAN_ID')
+      setup
+      return Stripe::Plan.retrieve(ENV['STRIPE_PLAN_ID'])
     end
     
     private

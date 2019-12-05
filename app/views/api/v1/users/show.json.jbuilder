@@ -14,6 +14,10 @@ json.user do
   json.est_delivery_date        @user.est_delivery_date
   json.subscription             @user.current_subscription
   
+  #FIXME this triggers an API call to Stripe in model
+  json.available_tiers          @user.available_tiers
+  #END FIXME
+  
   #DEPRECATED as of iOS <= v1.1.10, we now pass the whole subscription object with the subscription key
   json.current_subscription     !@user.current_subscription.nil?
   #END DEPRECATED

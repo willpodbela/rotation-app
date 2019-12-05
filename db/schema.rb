@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191114211334) do
+ActiveRecord::Schema.define(version: 20191205010904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,6 +145,7 @@ ActiveRecord::Schema.define(version: 20191114211334) do
     t.datetime "updated_at", null: false
     t.string "incomplete_payment_intent_client_secret"
     t.string "latest_invoice_id"
+    t.integer "item_qty", null: false
     t.index ["stripe_subscription_id"], name: "index_subscriptions_on_stripe_subscription_id", unique: true
   end
 

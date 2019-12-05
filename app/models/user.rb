@@ -113,7 +113,7 @@ class User < ApplicationRecord
     Date.today+shipping_delay
   end
   
-  #returns coupon that is eligible to be applied to a subscription if one exists
+  # returns coupon that is eligible to be applied to a subscription if one exists
   def coupon
     if has_used_promo?
       return nil
@@ -122,6 +122,19 @@ class User < ApplicationRecord
     elsif advertisement_code && (a = advertisement_code.coupon)
       return a
     end
+  end
+  
+  # returns available_tiers that user can subscriber or change to
+  # Currently stripe plans are set up where each tier represents only one quantity and we don't allow inf tier to be leveraged
+  # NOTE: If this logic is changed, you may need to be remove / change the logic in create_monthly_subscription (in stripe_service.rb)
+  def available_tiers
+    stripe_tiers = StripeService.get_plan["tiers"]
+    formatted_tiers = Hash.new
+    stripe_tiers.each do |t|
+      next if t.up_to.nil?
+      formatted_tiers[t.up_to] = t.flat_amount + t.up_to*t.unit_amount
+    end
+    return formatted_tiers
   end
   
   # DEPRECATED: iOS app <= v1.1
