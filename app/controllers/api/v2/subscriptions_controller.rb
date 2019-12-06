@@ -1,7 +1,7 @@
 module Api
-    module V1
-    class SubscriptionsController < Api::V1::BaseController
-      
+  module V2
+    class SubscriptionsController < Api::V2::BaseController
+    
       #Failsafe: Override endpoints that we don't want to make available
       def destroy
         render_error(405)
@@ -30,7 +30,18 @@ module Api
       end
       
       def create                
-        render_error(400, "We're out of Beta! Please update to the latest version in the App Store to sign-up.")
+        begin
+          subscription = StripeService.create_monthly_subscription(current_user, subscription_params[:stripe_source_id], subscription_params[:item_qty])
+          set_resource(subscription)
+          render :show, status: :created
+        rescue Stripe::CardError => e
+          # CardError; return the error message.
+          render_error(400, e.message)
+        rescue => e
+          # Some other error; Return 500
+          # TODO: Log
+          render_error(500, nil)
+        end
       end
  
       def update_payment
@@ -58,7 +69,7 @@ module Api
       private
  
       def subscription_params
-        params.permit(:stripe_source_id, :cancel_at_period_end)
+        params.permit(:stripe_source_id, :cancel_at_period_end, :item_qty)
       end
       
       def set_resource(resource = nil)
@@ -70,7 +81,7 @@ module Api
         
         instance_variable_set("@#{resource_name}", resource)
       end
-      
+    
     end
   end
 end
