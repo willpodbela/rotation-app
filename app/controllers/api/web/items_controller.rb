@@ -1,8 +1,8 @@
 include Queries
 
 module Api
-  module V2
-    class ItemsController < Api::V2::BaseController
+  module Web
+    class ItemsController < Api::Web::BaseController
       before_action :set_inventory, only: [:show, :index]
       
       #Failsafe: Override endpoints that we don't want to make available

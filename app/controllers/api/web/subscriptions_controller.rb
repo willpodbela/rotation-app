@@ -1,6 +1,6 @@
 module Api
-  module V2
-    class SubscriptionsController < Api::V2::BaseController
+  module Web
+    class SubscriptionsController < Api::Web::BaseController
     
       #Failsafe: Override endpoints that we don't want to make available
       def destroy
