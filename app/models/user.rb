@@ -77,8 +77,12 @@ class User < ApplicationRecord
     end
   end
   
-  def renew_authentication_token
-    self.authentication_token = generate_authentication_token
+  def renew_authentication_token(subtype = nil)
+    if subtype == :web
+      self.web_authentication_token = generate_authentication_token
+    else
+      self.authentication_token = generate_authentication_token
+    end
   end
   
   def send_notification(message)
@@ -152,7 +156,7 @@ class User < ApplicationRecord
   def generate_authentication_token
     loop do
       token = SecureRandom.hex
-      break token unless User.where(authentication_token: token).first
+      break token unless (User.where(authentication_token: token).first || User.where(web_authentication_token: token).first)
     end
   end
 end
