@@ -34,7 +34,7 @@ class BrowseCatalogPage extends Component {
   }
 
   filterItems(e){
-    let itemsCopy = JSON.parse(JSON.stringify(this.state.items))
+    let itemsCopy = [...this.state.items]
     this.state.items.forEach((item, index) => {
       if(item.title.value === e.target.innerHTML){
         itemsCopy[index].title.selected ? itemsCopy[index].title.selected = false : itemsCopy[index].title.selected = true
@@ -48,7 +48,7 @@ class BrowseCatalogPage extends Component {
     if(upNext.length === 2){
       this.setState({showError: true})
     }else{
-      let upNextCopy = JSON.parse(JSON.stringify(upNext))
+      let upNextCopy = [...upNext]
       upNextCopy.push(this.state.modalItem)
       this.setState({upNext: upNextCopy})
       this.hideModal(e)
@@ -56,7 +56,7 @@ class BrowseCatalogPage extends Component {
   }
 
   removeItem(e){
-    let upNextCopy = JSON.parse(JSON.stringify(this.state.upNext))
+    let upNextCopy = [...this.state.upNext]
     upNextCopy.splice(upNextCopy.indexOf(this.state.modalItem), 1)
     this.setState({upNext: upNextCopy})
     this.hideModal(e)
@@ -85,14 +85,14 @@ class BrowseCatalogPage extends Component {
         <div className="catalog_wrapper padding_top25 flex justify_between sides13pct">
           <div className="filters_and_designers width150 padding_right10">
             <div className="fixed_sidebar overflow_scroll width150">
-              <div className="filters">
+              {/* <div className="filters">
                 <div className="filters_title medium druk_xs rotation_gray padding_bottom5">Filters</div>
                 <div>
                   <div className="line_height16 proxima_small rotation_gray cursor_pointer padding_bottom5 uppercase">Tees</div>
                   <div className="line_height16 proxima_small rotation_gray cursor_pointer padding_bottom5 uppercase">Jackets</div>
                   <div className="line_height16 proxima_small rotation_gray cursor_pointer padding_bottom30 uppercase">Accessories</div>
                 </div>
-              </div>
+              </div> */}
               <div className="designers">
                 <div className="filters_title medium druk_xs rotation_gray padding_bottom5">Designers</div>
                 <div>
