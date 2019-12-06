@@ -57,6 +57,10 @@ module Api
  
       private
  
+      def stripe_plan_id
+        ENV['STRIPE_PLAN_ID']
+      end
+ 
       def subscription_params
         params.permit(:stripe_source_id, :cancel_at_period_end)
       end

@@ -40,7 +40,7 @@ gem 'devise', '4.4.0'
 # For use encrypting user passwords sent via API
 gem 'aescrypt'
 # For file uploading
-gem "paperclip", "~> 5.1" 
+gem "paperclip", "~> 5.1"
 gem 'aws-sdk', '< 3.0'
 # For local environment variables
 gem 'dotenv-rails'
@@ -93,3 +93,6 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# Enables CORS so that React front-end can fetch data from Rails
+gem 'rack-cors'

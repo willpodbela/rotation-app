@@ -1,0 +1,1 @@
+json.items @items, partial: 'slim_item', as: :item
