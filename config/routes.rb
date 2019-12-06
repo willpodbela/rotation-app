@@ -101,6 +101,31 @@ Rails.application.routes.draw do
       delete 'devices/:token', to: 'devices#destroy'
     end
     
+    namespace :web do
+      post "auth/login"
+      get "auth/logout"
+      post "auth/forgot"
+      
+      resources :users, only: [:create, :show, :update] do
+        resource :profile, only: [:show, :update]
+      end
+    
+      resources :items, only: [:index, :show] do
+        resource :favorite, only: [:create, :destroy]
+      end
+    
+      resources :reservations do
+        post 'buy', on: :member
+      end
+         
+      resource :subscription, only: [:create, :show, :update] do
+        post "update-payment", on: :collection
+      end
+      
+      post 'devices/:token', to: 'devices#create'
+      delete 'devices/:token', to: 'devices#destroy'
+    end
+    
     namespace :warehouse do
       namespace :v1 do
         resources :units, only: [:show, :update] do
