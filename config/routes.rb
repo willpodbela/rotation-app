@@ -88,7 +88,6 @@ Rails.application.routes.draw do
       end
     
       resources :reservations do
-        get 'info', on: :collection
         post 'buy', on: :member
       end
          
