@@ -8,7 +8,7 @@ class InviteFriendsPage extends Component {
   render(){
     const numFriends = 4
     return (
-      <div className="InviteFriendsPage rotation_gray_background padding_bottom170">
+      <div className="PrelauncherPage rotation_gray_background padding_bottom170">
         <div className="text_center padding_top170 padding_bottom75"><img src={logo} className="rotation_logo" alt="" /></div>
         <div className="invite_friends flex justify_between sides13pct padding_bottom130">
           <div className="padding_bottom75">

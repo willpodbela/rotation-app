@@ -7,10 +7,9 @@ import { fas } from "@fortawesome/free-solid-svg-icons"
 import LandingPage from "./LandingPage"
 import LoginPage from "./LoginPage"
 import SignUpPage from "./SignUpPage"
-import StatusPage from "./StatusPage"
 import PrivacyPage from "./PrivacyPage"
-import InviteFriendsPage from "./InviteFriendsPage"
-import BrowseCatalogPage from "./BrowseCatalogPage"
+import CatalogPage from "./BrowseCatalogPage"
+import AccountPage from "./AccountPage"
 import Nav from "./Nav"
 import Footer from "./Footer"
 
@@ -25,9 +24,9 @@ class App extends Component {
           <Route exact path="/" component={LandingPage} />
           <Route path="/login" exact component={LoginPage} />
           <Route path="/sign-up" exact component={SignUpPage} />
-          <Route path="/status" exact component={StatusPage} />
           <Route path="/privacy" exact component={PrivacyPage} />
-          <Route path="/catalog" exact component={BrowseCatalogPage} />
+          <Route path="/catalog" exact component={CatalogPage} />
+          <Route path="/account" exact component={AccountPage} />
           <Footer />
         </div>
       </Router>

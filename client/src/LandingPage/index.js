@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import PricingTable from "../PricingTable"
 
 class LandingPage extends Component {
   constructor(props){
@@ -72,7 +71,6 @@ class LandingPage extends Component {
             })}
           </div>
         </section>
-        <PricingTable />
       </div>
     )
   }

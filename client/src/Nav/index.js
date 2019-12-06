@@ -14,7 +14,7 @@ class Nav extends Component {
               <Link className="rotation_gray" to="/login">Log In</Link>
             </div>
             <div className="proxima_small bold white padding_right20">
-              <Link className="rotation_gray" to="/signup">Sign Up</Link>
+              <Link className="rotation_gray" to="/sign-up">Sign Up</Link>
             </div>
             <div>
               <div className="download_app_btn flex align_center justify_center">

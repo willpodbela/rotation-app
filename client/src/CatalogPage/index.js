@@ -5,7 +5,7 @@ import "./bootstrap-modal.css"
 import ItemCard from "../ItemCard"
 import ErrorMessage from "../ErrorMessage"
 
-class BrowseCatalogPage extends Component {
+class CatalogPage extends Component {
   constructor(props){
     super(props)
     this.state = {
@@ -78,37 +78,27 @@ class BrowseCatalogPage extends Component {
     const selectedItem = this.state.modalItem
     const reservedIDs = this.state.upNext.map(item => item.id)
     return (
-      <div className="BrowseCatalogPage gray_border_top">
+      <div className="CatalogPage gray_border_top">
         {this.state.showError &&
           <ErrorMessage error={{message: "Only 2 items allowed in your Rotation"}}/>
         }
         <div className="catalog_wrapper padding_top25 flex justify_between sides13pct">
           <div className="filters_and_designers width150 padding_right10">
             <div className="fixed_sidebar overflow_scroll width150">
-              {/* <div className="filters">
-                <div className="filters_title medium druk_xs rotation_gray padding_bottom5">Filters</div>
-                <div>
-                  <div className="line_height16 proxima_small rotation_gray cursor_pointer padding_bottom5 uppercase">Tees</div>
-                  <div className="line_height16 proxima_small rotation_gray cursor_pointer padding_bottom5 uppercase">Jackets</div>
-                  <div className="line_height16 proxima_small rotation_gray cursor_pointer padding_bottom30 uppercase">Accessories</div>
-                </div>
-              </div> */}
-              <div className="designers">
-                <div className="filters_title medium druk_xs rotation_gray padding_bottom5">Designers</div>
-                <div>
-                  {designers.map((designer, index) => {
-                    return (
-                      <div
-                        key={index}
-                        onClick={(e) => this.filterItems(e)}
-                        className="line_height16 proxima_small rotation_gray cursor_pointer padding_bottom5 uppercase"
-                        style={{fontWeight: designer.selected ? "bold" : "normal"}}
-                      >
-                        {designer.value}
-                      </div>
-                    )
-                  })}
-                </div>
+              <div className="filters_title medium druk_xs rotation_gray padding_bottom5">Designers</div>
+              <div>
+                {designers.map((designer, index) => {
+                  return (
+                    <div
+                      key={index}
+                      onClick={(e) => this.filterItems(e)}
+                      className="line_height16 proxima_small rotation_gray cursor_pointer padding_bottom5 uppercase"
+                      style={{fontWeight: designer.selected ? "bold" : "normal"}}
+                    >
+                      {designer.value}
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </div>
@@ -193,4 +183,4 @@ class BrowseCatalogPage extends Component {
   }
 }
 
-export default BrowseCatalogPage
+export default CatalogPage
