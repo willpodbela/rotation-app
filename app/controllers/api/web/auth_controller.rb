@@ -25,7 +25,7 @@ module Api
         @user = User.find_by_email(params[:email])
         if @user
           if @user.valid_password?(params[:password])
-            @user.renew_authentication_token
+            @user.renew_authentication_token(:web)
             if @user.save
               render('api/web/users/show')
             else
