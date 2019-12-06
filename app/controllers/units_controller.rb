@@ -10,7 +10,7 @@ class UnitsController < AdminBaseController
 
     arr = Unit.available_for_rent.to_a
     arr_total_costs = arr.map(&:total_cost)
-    @avg_cost = arr_total_costs.empty? ? 0 : arr_total_costs.inject{ |sum, el| sum + el } / arr_total_costs.size
+    @avg_cost = (arr_total_costs.empty?) ? 0 : (arr_total_costs.inject{ |sum, el| sum + el } / arr_total_costs.size)
     @total_cost = arr.sum(&:total_cost)
   end
 
@@ -69,7 +69,7 @@ class UnitsController < AdminBaseController
   end
 
   def query_params
-    params.permit(:item_id, :status)
+    params.permit(:item_id, :status, :size, :supplier)
   end
 
   def set_item

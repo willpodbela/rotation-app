@@ -8,12 +8,14 @@
 
   <table class="listing admin_table" summary="Item list">
     <tr class="header">
-      <th>#</th>
-      <th>Title</th>
-      <th>Subtitle</th>
-      <th>Max V-Qty</th>
+      <th><%= sort_link "id", "#" %></th>
+      <th><%= sort_link "title" %></th>
+      <th><%= sort_link "subtitle" %></th>
+      <th><%= sort_link "virtual_qty", "Max V-Qty" %></th>
       <th>Owned Inventory</th>
-      <th class="black-border-right">Visible?</th>
+      <th><%= sort_link "hidden", "Visible?" %></th>
+      <th><%= sort_link "special", "Special?" %></th>
+      <th class="black-border-right"><%= sort_link "landing_featured", "Featured?" %></th>
       <th>Rentals</th>
       <th>Cumulative Days Rented</th>
       <th>Days Since Last Rental</th>
@@ -32,7 +34,9 @@
           <% end %>
         <% end %>
       </td>
-      <td class="black-border-right"><%= item.hidden ? '✗' : '✓' %></td>
+      <td><%= item.hidden ? '✗' : '✓' %></td>
+      <td><%= item.special ? '✓' : '✗' %></td>
+      <td class="black-border-right"><%= item.landing_featured ? '✓' : '✗'  %></td>
       <td><%= item.not_cancelled_reservations.length %></td>
       <td><%= item.cum_days_rented %></td>
       <td><%= item.days_since_last_rental || "N/A" %></td>

@@ -91,14 +91,26 @@ class User < ApplicationRecord
     self.current_valid_subscriptions.first
   end
   
-  # eager_load live_reservations and scheduled_reservations when planning to make this call
+  # eager_load current_valid_subscriptions, live_reservations, and scheduled_reservations when planning to make this call
   def reservations_remaining
-    2 - self.live_reservations.size - self.scheduled_reservations.size
+    sub = self.current_subscription
+    if sub.nil?
+      return nil
+    else
+      return self.current_subscription.item_qty - self.live_reservations.size - self.scheduled_reservations.size
+    end
   end
   
   # eager_load my_rotation_items and up_next_items when planning to make this call
   def catalog_items
-    Item.visible.with_images.order(created_at: :desc) - self.my_rotation_items - self.up_next_items
+    items = Item.visible.with_images.order(created_at: :desc)
+
+    if (r = ReferralCode.find_by_id("FIRSTIN"))
+      if self.referral_code == r
+        items = Item.visible.with_images.or(Item.where(special: true)).order(created_at: :desc)
+      end
+    end
+    items - self.my_rotation_items - self.up_next_items
   end
   
   def est_delivery_date
@@ -106,7 +118,7 @@ class User < ApplicationRecord
     Date.today+shipping_delay
   end
   
-  #returns coupon that is eligible to be applied to a subscription if one exists
+  # returns coupon that is eligible to be applied to a subscription if one exists
   def coupon
     if has_used_promo?
       return nil
@@ -117,12 +129,22 @@ class User < ApplicationRecord
     end
   end
   
-  # DEPRECATED: iOS app <= v1.1
-  # We must provide a reservation period for legacy versions of the iOS app, as a stop gap
-  # solution, we just take the estimated delivery date and add 30 days as the "end" of the
-  # reservation even though there is no "end" anymore.
-  def legacy_next_reservation_period
-    { :start_date => est_delivery_date, :end_date => est_delivery_date+30 }
+  # returns available_tiers that user can subscriber or change to
+  # Currently stripe plans are set up where each tier represents only one quantity and we don't allow inf tier to be leveraged
+  # NOTE: If this logic is changed, you may need to be remove / change the logic in create_monthly_subscription (in stripe_service.rb)
+  def available_tiers
+    stripe_tiers = StripeService.get_plan["tiers"]
+    formatted_tiers = Hash.new
+    stripe_tiers.each do |t|
+      next if t.up_to.nil?
+      formatted_tiers[t.up_to] = t.flat_amount + t.up_to*t.unit_amount
+    end
+    return formatted_tiers
+  end
+  
+  # returns account_balance of user (outstanding credits or debits in Stripe)
+  def account_balance
+    return StripeService.get_customer_balance(self)
   end
   
   private

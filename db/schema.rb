@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190805180209) do
+ActiveRecord::Schema.define(version: 20191205170834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,22 @@ ActiveRecord::Schema.define(version: 20190805180209) do
     t.integer "live_reservations_counter_cache"
     t.integer "scheduled_reservations_counter_cache"
     t.integer "virtual_qty", default: 1, null: false
+    t.boolean "landing_featured", default: false, null: false
+    t.boolean "special", default: false, null: false
+  end
+
+  create_table "prelaunch_users", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "invite_code"
+    t.integer "inviter_id"
+    t.string "ip_address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "bounced", default: false, null: false
+    t.integer "credits_applied", default: 0, null: false
+    t.index ["email"], name: "index_prelaunch_users_on_email", unique: true
+    t.index ["inviter_id"], name: "index_prelaunch_users_on_inviter_id"
+    t.index ["ip_address"], name: "index_prelaunch_users_on_ip_address"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -128,6 +144,9 @@ ActiveRecord::Schema.define(version: 20190805180209) do
     t.datetime "current_period_end", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "incomplete_payment_intent_client_secret"
+    t.string "latest_invoice_id"
+    t.integer "item_qty", null: false
     t.index ["stripe_subscription_id"], name: "index_subscriptions_on_stripe_subscription_id", unique: true
   end
 
@@ -146,6 +165,7 @@ ActiveRecord::Schema.define(version: 20190805180209) do
     t.integer "live_reservations_counter_cache", default: 0, null: false
     t.integer "scheduled_reservations_counter_cache", default: 0, null: false
     t.decimal "supplier_shipping_cost"
+    t.string "rfid_tag_id"
   end
 
   create_table "users", force: :cascade do |t|

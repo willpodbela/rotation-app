@@ -2,11 +2,17 @@
 <html>
   <head>
     <title>The Rotation</title>
+    <% ["DrukTextWide-Medium.otf", "DrukWide-Medium.otf", "ProximaNova-Regular.otf", "ProximaNova-Semibold.otf"].each do |font| %>
+      <link rel="preload" href="<%= font_url(font) %>" as="font" crossorigin/>
+    <% end %>
+    
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= render 'layouts/analytics' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= csrf_meta_tags %>
     <%= yield :stylesheets %>
+    <meta property="og:title" content="The Rotation: Men's Designer Clothing Rental Subscription" />
+    <meta property="og:image" content='<%= image_url "Rotation-Banner.jpg" %>' />
   </head>
 
   <body>

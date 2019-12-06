@@ -5,6 +5,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+# Use Rack-CORS for handling Cross-Origin Resource Sharing
+gem 'rack-cors'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
@@ -64,12 +66,13 @@ gem 'concurrent-ruby', require: 'concurrent'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-# Gems for Startup Framework II
+# Javascript Library Gems
   gem 'jquery-rails'
   gem 'therubyracer'
 	gem 'less-rails-bootstrap'
 	gem 'font-awesome-rails'
 	gem 'jquery-easing-rails'
+	gem 'clipboard-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

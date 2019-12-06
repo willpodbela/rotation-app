@@ -3,6 +3,12 @@
 a{
   text-decoration: none;
 }
+.all-copy {  
+  -webkit-user-select: all;  /* Chrome all / Safari all */
+  -moz-user-select: all;     /* Firefox all */
+  -ms-user-select: all;      /* IE 10+ */
+  user-select: all;          /* Likely future */   
+}
 .NewNav{
   height: 88px;
   background: #ffffff;
@@ -30,7 +36,7 @@ a{
 .background {
   background-color: #F1F2F2;
   height: calc(100vw * 0.65);
-  background-image: url(<%= image_path("landing-bg-desktop.png") %>);
+  background-image: url(<%= image_path("landing-bg-desktop.jpg") %>);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -56,7 +62,8 @@ a{
 }
 .sign_up_box{
   height: 55px;
-  width: 178px;
+  width: 311px;
+  max-width: calc(100vw - 120px);
   background-color: #FFFFFF;
 }
 .sign_up{
@@ -64,6 +71,17 @@ a{
   font-family: "Proxima Nova Semibold";
   font-size: 12px;
   line-height: 10px;
+  float: right;
+  background-color: rgb(20, 20, 20);
+  height: 100%;
+  padding: 0px 20px;
+  color: white;
+  width: 48px;
+  border-radius: unset;
+}
+.sign_up_text {
+  width: calc(100% - 103px);
+  padding-right: 0px;
 }
 .how_it_works {
   padding-top: 70px;
@@ -116,8 +134,19 @@ a{
   height: 248px;
   width: 163px;
   background-color: #f0f2f5;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
-.item_image {
+.item_card_large{
+  height: 273.66px;
+  width: 216px;
+  background-color: #f0f2f5;
+}
+.card_large{
+  max-width: 216px;
+}
+.item_image{
   width: 163px;
   mix-blend-mode: multiply;
 }
@@ -154,13 +183,41 @@ footer {
   width: auto;
   margin: 0px 130px;
 }
+.plan_pricing{
+  color: #333333;
+  font-family: "Proxima Nova";
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 15px;
+}
+.subscribe_to_the_closet{
+  max-width: 355px;
+  color: #333333;
+  font-family: "Druk Text Wide";
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 29px;
+}
+.brand{
+  color: #333333;
+  font-family: "Proxima Nova";
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px;
+}
+.pricing_rectangle{
+  height: 114px;
+  width: 173px;
+  border: 2px solid #333333;
+}
 ::-webkit-scrollbar {
   display: none;
 }
 @media (max-width: 640px) {
     .background {
       height: calc(100vh - 138px);
-      background-image: url(<%= image_path("landing-bg-mobile.png") %>);
+      background-image: url(<%= image_path("landing-bg-mobile.jpg") %>);
       background-size: cover;
       background-repeat: no-repeat;
       background-position: top;
@@ -202,6 +259,203 @@ footer {
       display: none;
     }
 }
+.dark_bg{
+  background-color: #333333;
+}
+.white_text{
+  color: #FFFFFF !important;
+}
+.pricing_box_description{
+  color: #333333;
+  font-family: "Proxima Nova";
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px;
+  letter-spacing: 1px;
+}
+.checkbox_icon{
+  font-size: 27px;
+  padding-top: 6.75px;
+  padding-left: 8px;
+}
+.checkbox_description{
+  text-align: left;
+  width: 250px;
+  color: #4A4A4A;
+  font-family: "Proxima Nova";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+}
+.join_waitlist_btn{
+  height: 55px;
+  width: 178px;
+  background-color: #333333;
+}
+.join_waitlist{
+  color: #FFFFFF;
+  font-family: "Proxima Nova";
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 10px;
+}
+.icon_wrapper{
+  height: 40px;
+  width: 40px;
+}
+@media (max-width: 620px) {
+  .pricing_row{
+    display: block !important;
+    padding-bottom: 30px !important;
+  }
+  .pricing_col{
+    width: 320px !important;
+    margin: 0 auto !important;
+    padding-right: 0px !important;
+  }
+}
+.dark_bg{
+  background-color: #333333;
+}
+.white_text{
+  color: #FFFFFF !important;
+}
+.pricing_box_description{
+  color: #333333;
+  font-family: "Proxima Nova";
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px;
+  letter-spacing: 1px;
+}
+.checkbox_icon{
+  font-size: 27px;
+  padding-top: 6.75px;
+  padding-left: 8px;
+}
+.checkbox_description{
+  text-align: left;
+  width: 250px;
+  color: #4A4A4A;
+  font-family: "Proxima Nova";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+}
+.join_waitlist_btn{
+  height: 55px;
+  width: 178px;
+  background-color: #333333;
+}
+.join_waitlist{
+  color: #FFFFFF;
+  font-family: "Proxima Nova";
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 10px;
+}
+.icon_wrapper{
+  height: 40px;
+  width: 40px;
+}
+@media (max-width: 620px) {
+  .pricing_row{
+    display: block !important;
+    padding-bottom: 30px !important;
+  }
+  .pricing_col{
+    width: 320px !important;
+    margin: 0 auto !important;
+    padding-right: 0px !important;
+  }
+}
+.InviteFriendsPage{
+  background: #333333;
+}
+.rotation_logo{
+  box-sizing: border-box;
+  height: 51.75px;
+  width: 51.75px;
+}
+.invite_friends_title{
+  width: 388px;
+  color: #FFFFFF;
+  font-family: "Druk Text Wide";
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 38px;
+}
+.invite_friends_description{
+  width: 388px;
+  color: #FFFFFF;
+  font-family: "Proxima Nova";
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 27px;
+}
+.invite_friends_right{
+  width: 388px;
+}
+.personal_link{
+  color: #FFFFFF;
+  font-family: "Proxima Nova";
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 10px;
+}
+.link_box{
+  height: 60px;
+  width: 100%;
+  background-color: #FFFFFF;
+}
+.link_text{
+  overflow: hidden;
+  white-space: nowrap;
+  color: #333333;
+  font-family: "Proxima Nova";
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+}
+.share_link{
+	height: 55px;
+  width: 178px;
+  background-color: #FFFFFF;
+  color: #333333;
+  font-family: "Proxima Nova";
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 10px;
+}
+.invite_friends_icon{
+  font-size: 20px;
+  padding-right: 10px;
+}
+@media (max-width: 499px) {
+  .invite_friends_title{
+    width: 250px;
+  }
+  .invite_friends_description{
+    width: 250px;
+  }
+  .invite_friends_right{
+    width: 250px;
+  }
+  .share_link_row{
+    padding-bottom: 0px !important;
+  }
+  .share_link{
+    margin: 12.5px auto;
+    width: 100%;
+  }
+}
+.progress-bar {
+  box-shadow: none;
+}
 /* Dynamic nav */
 @media only screen and (max-width: 500px) {
   .nav_link{
@@ -221,6 +475,116 @@ footer {
     display: flex;
     justify-content: space-around;
   }
+}
+.rewards_title{
+  color: #FFFFFF;
+  font-family: "Druk Text Wide";
+  font-size: 32px;
+  font-weight: 500;
+}
+.rewards_description{
+  width: 412px;
+  color: #FFFFFF;
+  font-family: "Proxima Nova";
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 27px;
+}
+@media (max-width: 420px) {
+  .rewards_description{
+    width: 300px;
+  }
+}
+.height38{
+  height: 38px;
+}
+.rewards_druk_text{
+  color: #FFFFFF;
+  font-family: "Druk Text Wide";
+  font-size: 18px;
+  font-weight: 500;
+}
+.rewards_text{
+  height: 38px;
+  color: #FFFFFF;
+  font-family: "Proxima Nova";
+  font-size: 14px;
+  font-weight: 500;
+}
+.rewards_box{
+  height: 19px;
+  width: 194px;
+  border-top: 2px solid #FFFFFF;
+  border-bottom: 2px solid #FFFFFF;
+  background-color: #333333 !important;
+  border-radius: 0px !important;
+  margin-bottom: 0;
+}
+.rewards_box > .progress-bar {
+  background-color: white !important;
+}
+.rewards_divider{
+  height: 40px;
+  width: 2px;
+  background-color: #FFFFFF;
+}
+.rewards_bar_vertical{
+  display: none;
+}
+@media (max-width: 1000px) {
+  .rewards_box{
+    width: 125px;
+  }
+  .rewards_druk_text{
+    font-size: 12px;
+  }
+  .rewards_text{
+    font-size: 10px;
+  }
+}
+@media (max-width: 650px) {
+  .rewards_bar_horizontal{
+    display: none !important;
+  }
+  .rewards_bar_vertical{
+    display: block !important;
+  }
+  .rewards_druk_text{
+    font-size: 18px;
+    width: 90px;
+    height: 120px;
+  }
+  .rewards_text{
+    font-size: 14px;
+    width: 90px;
+    height: 120px;
+  }
+  .rotation_logo {
+    display: none;
+  }
+  .rewards_rotation_logo_container {
+    padding-top: 40px;
+  }
+}
+@media (max-width: 345px) {
+  .rewards_druk_text{
+    width: 75px;
+  }
+  .rewards_text{
+    width: 75px;
+  }
+}
+.rewards_row{
+  height: 124px;
+}
+.vertical{
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.rewards_divider_vertical{
+  height: 2px;
+  width: 40px;
+  background-color: #FFFFFF;
 }
 .vertical_middle{
   vertical-align: middle;

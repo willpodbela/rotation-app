@@ -5,9 +5,7 @@ module ItemsHelper
     return res.nil? ? nil : res.attributes
   end
 
-  # START: DEPRECATED CODE BLOCK
-  # These functions are deprecated. This code (and calling code in _item.json.jbuilder) should be removed in future versions
-
+  # DEPRECATED as of iOS < v1.2 as api/v2 no longer uses these helper functions
   def my_rotation_reservation_id(user, item)
     res = @current_user.live_reservations.select {|s| s.item_id == item.id}.first
     return res.nil? ? nil : res.id
@@ -17,6 +15,5 @@ module ItemsHelper
     res = @current_user.scheduled_reservations.select {|s| s.item_id == item.id}.first
     return res.nil? ? nil : res.id
   end
-  
-  # END: DEPRECATED CODE BLOCK
+  # END DEPRECATED
 end

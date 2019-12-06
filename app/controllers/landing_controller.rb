@@ -1,5 +1,5 @@
 class LandingController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :sign_up, :download, :privacy]
+  skip_before_action :authenticate_user!, only: [:index, :sign_up, :download, :privacy, :terms]
   before_action :enforce_access_control_admin!, only: [:admin]
   layout :resolve_layout
   
@@ -11,7 +11,13 @@ class LandingController < ApplicationController
   
   # Home Page
   def index
-    @items = Item.visible.with_images.order(created_at: :desc)
+    @prelaunch_user = PrelaunchUser.new()
+    if params.has_key?(:ref) && PrelaunchUser.where(invite_code: params[:ref]).any?
+			@prelaunch_user[:inviter_id] = PrelaunchUser.find_by(invite_code: params[:ref]).id
+		end
+  
+    @items = Item.landing_featured.with_images.order(created_at: :desc)
+    @show_pricing = (ENV["PRICING_SECTION_ENABLED"] == "true")
   end
   
   def status
@@ -20,6 +26,7 @@ class LandingController < ApplicationController
     
     @current_subscription = current_user.current_subscription
     @is_ios = browser.platform.ios?
+    @stripe_publishable_key = ENV['STRIPE_PUBLISHABLE_KEY']
   end
   
   # Slimed down version of status page with just button directing user to update card
@@ -36,6 +43,10 @@ class LandingController < ApplicationController
   
   # Privacy Page
   def privacy
+  end
+  
+  # Terms Page
+  def terms
   end
   
   # AJAX endpoint for sign-up form on Home Page to call

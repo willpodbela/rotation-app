@@ -1,10 +1,10 @@
-class ItemsController < ApplicationController
-  before_action :enforce_access_control_admin!
-
+class ItemsController < AdminBaseController
+  
   def index
     @items = Item
     .includes(:not_cancelled_reservations)
     .where(query_params)
+    .order("#{sort_column} #{sort_direction}")
     
     @owned_inventory_counts = Unit.owned.group(:item_id, :size).count
   end
@@ -64,10 +64,14 @@ class ItemsController < ApplicationController
   private
   
   def item_params
-    params.require(:item).permit(:title, :description, :image_url, :image, :subtitle, :retail_value, :color, :hidden, :image_remote_url, :virtual_qty)
+    params.require(:item).permit(:title, :description, :image_url, :image, :subtitle, :retail_value, :color, :hidden, :image_remote_url, :virtual_qty, :landing_featured, :special)
   end
   
   def query_params
     params.permit(:hidden, :company_owned)
+  end
+  
+  def sortable_columns
+    ["id", "title", "subtitle", "virtual_qty", "hidden", "landing_featured", "special"]
   end
 end

@@ -16,4 +16,5 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require cable
+//= require clipboard
 //= require_tree .

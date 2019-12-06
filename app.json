@@ -40,6 +40,9 @@
     "MAIL_CHIMP_API_KEY": {
       "required": true
     },
+    "PRICING_SECTION_ENABLED": {
+      "required": true
+    },
     "RACK_ENV": {
       "required": true
     },
@@ -75,6 +78,12 @@
     },
     "GA_TRACKING_ID": {
       "required": false
+    },
+    "WAREHOUSE_API_AUTH_NAME": {
+      "required": true
+    },
+    "WAREHOUSE_API_AUTH_PASSWORD": {
+      "required": true
     }
   },
   "formation": {

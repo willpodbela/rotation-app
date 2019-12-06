@@ -23,44 +23,26 @@ module Api
     
       # Override: GET /api/{plural_resource_name}
       def index
-        #DEPRECATED as of iOS <= v1.1.7, this data is now passed with the user object in users#show
         @reservation_info = {
-          :reservations_remaining => current_user.reservations_remaining, 
-          :next_period => current_user.legacy_next_reservation_period,
+          :reservations_remaining => (current_user.reservations_remaining || 2), 
+          :next_period => { :start_date => current_user.est_delivery_date, :end_date => current_user.est_delivery_date+30 },
           :est_delivery_date => current_user.est_delivery_date
         }
         @current_subscription = current_user.current_subscription
-        #END DEPRECATED
         
-        if display_params[:sort_by_section] == "true"
-          common_index(:sorted_index)
+        # Items logic
+        @my_rotation = current_user.my_rotation_items
+        @up_next = current_user.up_next_items
+        @catalog = current_user.catalog_items
+        
+        if display_params[:sort_by_section] == "true"          
+          render :sorted_index
         else 
           common_index(:index)
         end
       end
       
       private
-      
-      def common_index(render_template = :list)
-        # Items logic
-        if (current_user.nil?)
-          @items = Item.visible.with_images.where(query_params)
-          .page(page_params[:page])
-          .per(page_params[:page_size])
-        else
-          @my_rotation = current_user.my_rotation_items
-          @up_next = current_user.up_next_items
-          @catalog = current_user.catalog_items
-          
-          @items = @my_rotation + @up_next + @catalog
-        end
-        
-        render render_template
-      end
-    
-      def items_params
-        params.permit(items: [:retail_value, :subtitle, :image_url, :title, :buyURL, :image_remote_url, :alternate_image_urls => []])
-      end
       
       def item_params
         params.permit()

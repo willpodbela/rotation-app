@@ -25,9 +25,13 @@ class MailChimpService
       return @@instance
     end
     
-    # Convenience method for one and only instance method on Singleton
+    # Convenience methods for instance methods on Singleton
     def sync_and_tag(user)
       instance.sync_and_tag(user)
+    end
+    
+    def register_prelauncher_user(user)
+      instance.register_prelauncher_user(user)
     end
     
   end
@@ -81,6 +85,14 @@ class MailChimpService
     end
   end
   
+  def register_prelauncher_user(user)
+    Concurrent::Future.execute({ executor: @thread_pool }) do
+      # Insert or update email in list with 'prelauncher' tag
+      gibbon_req.lists(@list_id).members(subscriber_hash(user)).upsert(body: {email_address: user.email, status_if_new: "subscribed"})
+      gibbon_req.lists(@list_id).members(subscriber_hash(user)).tags.create(body: {tags: [{ name: "prelauncher", status: :active }]})
+    end
+  end
+  
   private
   
   ## These first two functions hold the business logic for tagging users in MailChimp
@@ -109,7 +121,7 @@ class MailChimpService
   # Use this function to list out any tags that should not be altered. These are usually
   # the tags that are set manually via the online dashboard.
   def ignore_tags
-    ["investor"]
+    ["investor", "prelauncher"]
   end
   
   ## Helper methods

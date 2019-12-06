@@ -11,15 +11,15 @@
         Welcome to a closet without boundaries.
       </div>
       <div class="welcome_description padding_bottom25">
-        This is The Rotation. A members-only club that gives you access to an extensive designer wardrobe, for a fraction of the price. Everything you could want, right at your fingertips.
+        Rent unlimited streetwear, for one low monthly price. Choose from our massive catalog and swap items whenever you want. We curate the latest in style and keep your closet in season so you don’t have to.
       </div>
-      <div class="sign_up_box flex align_center justify_center">
-        <%= link_to(new_user_registration_path) do %>
-          <div class="sign_up">
-            SIGN UP
-          </div>
-        <% end %>
-      </div>
+      <%= form_for(@prelaunch_user, :url => prelauncher_path) do |f| %>
+        <%= f.hidden_field(:inviter_id) %>
+        <div class="sign_up_box flex align_center flex_start">
+          <%= f.text_field(:email, :class => "sign_up_text link_text padding_left15", :placeholder => "mason@ramsey.com") %>
+          <%= f.submit("I WANT IN", :class => "sign_up", :onclick => 'fbq("track", "Lead")') %>
+        </div>
+      <% end %>
     </div>
   </header>
   
@@ -53,14 +53,13 @@
     </div>
   </section>
   
-  <section class="padding_bottom50">
+  <section class="padding_bottom90">
     <h2 class="padding_left50 padding_bottom35 section_header">What's In Store</h2>
     <div class="scrolling-wrapper">
       <div class="padding_left30"></div>
       <% @items.each_with_index do |item, index| %>
         <div key="<%= index %>" class="card max_width150 padding_sides20">
-          <div class="item_card flex align_center justify_center">
-            <img class="item_image" src="<%= item.image.url %>" alt="" />
+          <div class="item_card flex align_center justify_center" style="background-image: url('<%= item.image.url %>');">
           </div>
           <div class="brand padding_top10"><%= item.title %></div>
           <div class="description padding_top5"><%= item.subtitle %></div>
@@ -69,4 +68,63 @@
       <div class="padding_right30"></div>
     </div>
   </section>
+  
+  <% if @show_pricing %>
+  <section class="padding_bottom100 padding_top70 text_center">
+    <div class="plan_pricing padding_bottom15">PLAN + PRICING</div>
+    <div class="subscribe_to_the_closet padding_bottom15 margin_auto">Subscribe to the closet of your future</div>
+    <div class="padding_bottom30 flex justify_center">
+      <div class="pricing_rectangle flex align_center justify_center">
+        <div>
+          <div class="subscribe_to_the_closet">2</div>
+          <div class="pricing_box_description">PIECES AT A TIME</div>
+        </div>
+      </div>
+      <div class="pricing_rectangle flex align_center justify_center dark_bg">
+        <div>
+          <div class="subscribe_to_the_closet white_text">$89</div>
+          <div class="pricing_box_description white_text">PER MONTH</div>
+        </div>
+      </div>
+    </div>
+    <div class="padding_bottom20">
+      <div class="padding_bottom10 height50 flex justify_center pricing_row">
+        <div class="height40 padding_right20 flex align_center justify_center pricing_col">
+          <div class="icon_wrapper padding_right10"><i class="fa fa-check-square checkbox_icon justify_center"></i></div>
+          <div class="checkbox_description">Founding member discount for first 100 members.</div>
+        </div>
+        <div class="height40 flex align_center justify_center pricing_col">
+          <div class="icon_wrapper padding_right10"><i class="fa fa-check-square checkbox_icon justify_center"></i></div>
+          <div class="checkbox_description">We handle the dry-cleaning.</div>
+        </div>
+      </div>
+      <div class="padding_bottom10 height50 flex justify_center pricing_row">
+        <div class="height40 padding_right20 flex align_center justify_center pricing_col">
+          <div class="icon_wrapper padding_right10"><i class="fa fa-check-square checkbox_icon justify_center"></i></div>
+          <div class="checkbox_description">Keep pieces for as long as you want, swap anytime.</div>
+        </div>
+        
+        <div class="height40 flex align_center justify_center pricing_col">
+          <div class="icon_wrapper padding_right10"><i class="fa fa-check-square checkbox_icon justify_center"></i></div>
+          <div class="checkbox_description">New drops every 2 weeks.</div>
+        </div>
+      </div>
+      <div class="padding_bottom10 height50 flex justify_center pricing_row">
+        <div class="height40 padding_right20 flex align_center justify_center pricing_col">
+          <div class="icon_wrapper padding_right10"><i class="fa fa-check-square checkbox_icon justify_center"></i></div>
+          <div class="checkbox_description">Choose pieces from the world’s top men’s designer brands.</div>
+        </div>
+        <div class="height40 flex align_center justify_center pricing_col">
+          <div class="icon_wrapper padding_right10"><i class="fa fa-check-square checkbox_icon justify_center"></i></div>
+          <div class="checkbox_description">2-day shipping guaranteed.</div>
+        </div>
+      </div>
+    </div>
+    <div class="join_waitlist_btn margin_auto flex align_center justify_center">
+      <%= link_to(new_user_registration_path) do %>
+        <div class="join_waitlist">JOIN WAITLIST</div>
+      <% end %>
+    </div>
+  </section>
+  <% end %>
 </div>

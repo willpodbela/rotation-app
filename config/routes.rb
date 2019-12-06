@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  
   root to: "landing#index"
   post "sign_up", to: "landing#sign_up"
   get "status", to: "landing#status"
@@ -7,6 +6,10 @@ Rails.application.routes.draw do
   get "admin", to: "landing#admin"
   get "download", to: "landing#download"
   get "privacy", to: "landing#privacy"
+  get "terms", to: "landing#terms"
+  
+  resource :prelauncher, only: [:create, :show]
+  resources :jobs, only: [:index, :show]
   
   resources "users", only: :index do
     resource :profile, only: [:show, :edit, :update]
@@ -40,6 +43,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: :json} do
     post "stripe", to: "stripe_webhook#stripe"
   
+    #DEPRECATED as of iOS < v1.2 as we are now calling api/v2
     namespace :v1 do
       post "auth/login"
       get "auth/logout"
@@ -62,13 +66,47 @@ Rails.application.routes.draw do
         post 'buy', on: :member
       end
       
-      resources :subscriptions, only: [:create, :index] do
-        get "cancel", on: :collection
-        get "restore", on: :collection
+      post "subscriptions", to: "subscriptions#create" 
+      resource :subscription, only: [:create, :show, :update] do
+        post "update-payment", on: :collection
       end
       
       post 'devices/:token', to: 'devices#create'
       delete 'devices/:token', to: 'devices#destroy'
+    end
+    #END DEPRECATED
+    
+    namespace :v2 do
+      post "auth/login"
+      get "auth/logout"
+      post "auth/forgot"
+      
+      resources :users, only: [:create, :show, :update] do
+        resource :profile, only: [:show, :update]
+      end
+    
+      resources :items, only: [:index, :show] do
+        resource :favorite, only: [:create, :destroy]
+      end
+    
+      resources :reservations do
+        post 'buy', on: :member
+      end
+         
+      resource :subscription, only: [:create, :show, :update] do
+        post "update-payment", on: :collection
+      end
+      
+      post 'devices/:token', to: 'devices#create'
+      delete 'devices/:token', to: 'devices#destroy'
+    end
+    
+    namespace :warehouse do
+      namespace :v1 do
+        resources :units, only: [:show, :update] do
+          post "returned", on: :member
+        end
+      end
     end
   end
 end

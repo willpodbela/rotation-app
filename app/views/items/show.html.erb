@@ -37,6 +37,21 @@
       <% end %>
     </tr>
     <tr>
+      <th>Featured?</th>
+      <% if @item.landing_featured %>
+        <td>&#10003;</td>
+      <% else %>
+        <td>&#10007;</td>
+      <% end %>
+    </tr>
+      <th>Special?</th>
+      <% if @item.special %>
+        <td>&#10003;</td>
+      <% else %>
+        <td>&#10007;</td>
+      <% end %>
+    </tr>
+    <tr>
       <th>Last Seen</th>
       <% if @item.hidden %>
         <td><%= @item.last_seen %></td>

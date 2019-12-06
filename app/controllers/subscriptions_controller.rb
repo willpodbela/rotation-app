@@ -2,9 +2,13 @@
   
   def create
     begin
-      StripeService.create_monthly_subscription(current_user, subscription_params[:stripeToken])
-
-      flash[:notice] = 'You have successfully subscribed to our premium plan!'
+      subscription = StripeService.create_monthly_subscription(current_user, subscription_params[:stripeToken])
+      
+      if subscription.payment_action_required?
+        flash[:alert] = 'Your Bank requires a bit more verification, please complete final step below'
+      else
+        flash[:notice] = 'You have successfully subscribed to our premium plan!'
+      end
     rescue Stripe::CardError => e
       # CardError; return the error message.
       flash[:alert] = e.message
@@ -18,9 +22,18 @@
   
   def update_payment
     begin
-      StripeService.update_payment_method(current_user, subscription_params[:stripeToken])
-
-      flash[:notice] = 'You have successfully updated your card on file.'
+      subscription = current_user.current_subscription
+      if subscription.incomplete?
+        subscription = StripeService.change_payment_and_reattempt_monthly_subscription(current_user, subscription_params[:stripeToken])
+        if subscription.payment_action_required?
+          flash[:alert] = 'Your Bank requires a bit more verification, please complete final step below'
+        else
+          flash[:notice] = 'You have successfully subscribed to our premium plan!'
+        end
+      else
+        StripeService.update_or_create_customer_with_payment(current_user, subscription_params[:stripeToken])
+        flash[:notice] = 'You have successfully updated your card on file.'
+      end
     rescue Stripe::CardError => e
       # CardError; return the error message.
       flash[:alert] = e.message
@@ -33,30 +46,30 @@
   end
   
   def cancel
-    loc_subscription = current_user.subscriptions.current.active.first
-    if loc_subscription
-      subscription = Stripe::Subscription.retrieve(loc_subscription.stripe_subscription_id)
-      subscription.cancel_at_period_end = true
-      if subscription.save
-        flash[:notice] = 'You have successfully cancelled your plan. Please allow up to 24hrs for processing.'
-      else 
-        flash[:alert] = 'Ooops, something went wrong!'
-      end
+    begin
+      StripeService.update_subscription(user, {:cancel_at_period_end => true})
+      
+      flash[:notice] = 'You have successfully cancelled your plan. Please allow up to 24hrs for processing.'
+    rescue StripeService::StripeServiceError => e
+      # StripeServiceError = Something happened in control logic of StripeService class that shouldn't have; return the error message.
+      flash[:alert] = e.message
+    rescue => e
+      flash[:alert] = 'Oops, something went wrong! Please email support@therotation.club for help. (Pinky swear this is not a ploy to make it hard to cancel. Something actually went wrong.)'
     end
     
     redirect_to status_path
   end
   
   def restore
-    loc_subscription = current_user.subscriptions.current.canceled.first
-    if loc_subscription
-      subscription = Stripe::Subscription.retrieve(loc_subscription.stripe_subscription_id)
-      subscription.cancel_at_period_end = false
-      if subscription.save
-        flash[:notice] = 'You have successfully restored your plan. Glad to you have you back! Please allow up to 24hrs for processing.'
-      else 
-        flash[:alert] = 'Ooops, something went wrong!'
-      end
+    begin
+      StripeService.update_subscription(user, {:cancel_at_period_end => false})
+      
+      flash[:notice] = 'You have successfully restored your plan. Glad to you have you back! Please allow up to 24hrs for processing.'
+    rescue StripeService::StripeServiceError => e
+      # StripeServiceError = Something happened in control logic of StripeService class that shouldn't have; return the error message.
+      flash[:alert] = e.message
+    rescue => e
+      flash[:alert] = 'Oops, something went wrong! Please email support@therotation.club for help.'
     end
     
     redirect_to status_path
