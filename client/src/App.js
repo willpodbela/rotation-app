@@ -24,10 +24,9 @@ class App extends Component {
           <Nav />
           <Route exact path="/" component={LandingPage} />
           <Route path="/login" exact component={LoginPage} />
-          <Route path="/signup" exact component={SignUpPage} />
+          <Route path="/sign-up" exact component={SignUpPage} />
           <Route path="/status" exact component={StatusPage} />
           <Route path="/privacy" exact component={PrivacyPage} />
-          <Route path="/invite" exact component={InviteFriendsPage} />
           <Route path="/catalog" exact component={BrowseCatalogPage} />
           <Footer />
         </div>

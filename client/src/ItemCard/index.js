@@ -13,7 +13,7 @@ class ItemCard extends Component {
           <div className="proxima_small semibold rotation_gray uppercase overflow_scroll nowrap width190">{item.title.value}</div>
           <FontAwesomeIcon className="font14 rotation_gray" icon="heart" />
         </div>
-        <div className="padding_top2 opacity7 proxima_small rotation_gray lowercase">{item.description}</div>
+        <div className="padding_top2 opacity7 proxima_small rotation_gray lowercase">{item.subtitle}</div>
       </div>
     )
   }

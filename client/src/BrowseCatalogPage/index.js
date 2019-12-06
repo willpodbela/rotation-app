@@ -175,8 +175,8 @@ class BrowseCatalogPage extends Component {
             <div className="modal_section height500 width_half white_background">
               <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
               <div className="modal_brand proxima_small rotation_gray opacity6 uppercase top50 padding_sides50">{selectedItem.title.value}</div>
-              <div className="modal_description height70 overflow_scroll druk_medium rotation_gray line_height24 padding_top10 padding_sides50 capitalize">{selectedItem.description}</div>
-              <div className="modal_brand_info overflow_scroll height160 proxima_small rotation_gray line_height20 padding_top40 padding_sides50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+              <div className="modal_description height70 overflow_scroll druk_medium rotation_gray line_height24 padding_top10 padding_sides50 capitalize">{selectedItem.subtitle}</div>
+              <div className="modal_brand_info overflow_scroll height160 proxima_small rotation_gray line_height20 padding_top40 padding_sides50">{selectedItem.description}</div>
               <div className="modal_buttons sides50 flex justify_between padding_top40">
                 {this.state.upNext.some(item => item.id === selectedItem.id) ? (
                   <div className="reserve_btn width220 proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer red" onClick={(e) => this.removeItem(e)}>Remove</div>
