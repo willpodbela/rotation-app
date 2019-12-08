@@ -2,7 +2,7 @@ module Api
   module Web
     class UsersController < Api::Web::BaseController
       http_basic_authenticate_with name:ENV["API_AUTH_NAME"], password:ENV["API_AUTH_PASSWORD"], only: [:create]
-      skip_before_action :authenticate_user_from_token!, only: [:create, :sign_up]
+      skip_before_action :authenticate_user_from_token!, only: [:create, :sign_up, :lead]
     
       #Failsafe: Override endpoints that we don't want to make available
       def destroy
@@ -46,6 +46,15 @@ module Api
           else
             render :status=>400, :json => { "message": @user.errors.full_messages.first }
           end
+        end
+      end
+      
+      def lead
+        prelaunch_user = PrelaunchUser.find_or_create_by(email: user_params[:email].downcase)
+        if prelaunch_user.valid?
+          render :status=>200, :json => {}
+        else
+          render :status=>400, :json => { "message": prelaunch_user.errors.full_messages.first }
         end
       end
     
