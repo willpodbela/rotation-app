@@ -1,5 +1,6 @@
 import React, { Component }  from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import "./style.css"
 
 class PricingTable extends Component {
   render(){

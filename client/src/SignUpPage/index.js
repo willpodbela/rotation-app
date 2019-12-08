@@ -1,52 +1,19 @@
 import React, { Component } from "react"
 import { Link, Redirect } from "react-router-dom"
 import Auth from "../modules/Auth"
-import ErrorMessage from "../ErrorMessage"
+import "./style.css"
+import image from "../img/sign-up.jpg"
 
 class SignUpPage extends Component {
   constructor(props){
     super(props)
     this.state = {
+      authenticated: false,
       email: "",
-      password: "",
-      error: null,
-      registerSuccess: false
+      password: ""
     }
-    this.handleRegisterSubmit = this.handleRegisterSubmit.bind(this)
-    this.handleInputChange = this.handleInputChange.bind(this)
   }
 
-  handleRegisterSubmit(e) {
-    e.preventDefault()
-        
-    fetch("api/v1/users/sign_up", {
-      method: "POST",
-      body: JSON.stringify({
-        email: this.state.email,
-        password: this.state.password
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(res => res.json())
-    .then(res => {
-      if (res.status === 200) {
-        Auth.authenticateToken(res.user.auth_token)
-        this.setState({
-          auth: Auth.isUserAuthenticated(),
-          registerSuccess: true
-        })
-      } else {
-        console.log(res)
-        this.setState({
-          error: res
-        })
-      }
-    }).catch(err => {
-      console.log(err)
-    })
-  }
-  
   handleInputChange(e) {
     const name = e.target.name
     const value = e.target.value
@@ -55,34 +22,61 @@ class SignUpPage extends Component {
     })
   }
 
-  render(){
-    if(this.state.registerSuccess){
-      return (
-        <Redirect to="/status" />      
-      )
-    } else {    
-      return (
-        <div className="SignUpPage">
-          <ErrorMessage error={this.state.error}></ErrorMessage>
-          <h1 className="ubuntu font42">Sign up</h1>
-          <div className="max_width570 left_block">
-            <form id="landing-form" className="max_width470 text_center top80 header_3_form" onSubmit={this.handleRegisterSubmit}>
-              <input id="email" name="email" type="email" className="input width_full size60 radius6" placeholder="Email Address" onChange={this.handleInputChange} required/>
-              <input id="password" name="password" type="password" className="input width_full size60 radius6 top30" placeholder="Password" onChange={this.handleInputChange} required/>
-              <input id="password_confirmation" name="password_confirmation" type="password" className="input width_full size60 radius6 top30" placeholder="Confirm" onChange={this.handleInputChange} required/>
-              <button type="submit" className="btn width_full size60 blue radius6 top30">Create an Account</button>
-            </form>
-            <div className="top30 medium_gray text text_center">By signing up, you agree to the <Link to="/">Terms of Service</Link></div>
-            <div className="top10">
-              TODO ADD LINK TO LOGIN after its built<br />
-              TODO ADD LINK TO FORGOT after its built<br />
-            </div>
-          </div>
-        </div>
-      )
-    }
+  handleSignUp(e){
+    e.preventDefault()
+    fetch("/users", {
+      method: "POST",
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    //handle errors here
+    .then(res => res.json())
+    .then(res => {
+      const token = res.user.auth_token
+      if(token){
+        Auth.authenticateToken(token)
+        this.setState({
+          authenticated: true,
+          username: "",
+          password: ""
+        })
+      }
+    }).catch(err => {
+      console.log(err)
+    })
   }
-  
+
+  render(){
+    if(this.state.authenticated){
+      return <Redirect to="/catalog" />
+    }
+    return (
+      <div className="SignUpPage light_background flex justify_center">
+        <img className="max_width400 top80 bottom80 sides70" src={image} />
+        <div className="login_box gray_border white_background height330 width400 top180 bottom180 sides70">
+          <div className="width300 margin_auto top20 druk_small rotation_gray">Sign Up</div>
+          <form onSubmit={(e) => this.handleSignUp(e)}>
+            <div className="input_box gray_border width300 height50 margin_auto top15">
+              <div className="proxima_small medium very_light_gray left20 top5 height15">Email address</div>
+              <input className="proxima_xl medium rotation_gray width260 left20" placeholder="mason@ramsey.com" name="email" value={this.state.email} onChange={(e) => this.handleInputChange(e)} />
+            </div>
+            <div className="input_box gray_border width300 height50 margin_auto top20">
+              <div className="proxima_small medium very_light_gray left20 top5 height15">Password</div>
+              <input type="password" className="proxima_xl medium rotation_gray width260 left20" placeholder="•••••••••••••••" name="password" value={this.state.password} onChange={(e) => this.handleInputChange(e)} />
+            </div>
+            <div className="proxima_xs medium rotation_gray top10 text_center">By registering, I accept the <Link to="/terms" className="underline cursor_pointer">Terms of Service</Link> and <Link to="/privacy" className="underline cursor_pointer">Privacy Policy</Link></div>
+            <input type="submit" value="Sign Up" className="input_box rotation_gray_border rotation_gray_background width300 height50 margin_auto top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" />
+          </form>
+          <Link to="/login"><div className="proxima_small medium underline rotation_gray top10 text_center cursor_pointer">Already have an account? Sign in</div></Link>
+        </div>
+      </div>
+    )
+  }
 }
 
 export default SignUpPage

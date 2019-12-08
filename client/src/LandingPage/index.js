@@ -1,4 +1,7 @@
 import React, { Component } from "react"
+import PricingTable from "../PricingTable"
+import Auth from "../modules/Auth"
+import "./style.css"
 
 class LandingPage extends Component {
   constructor(props){
@@ -10,7 +13,11 @@ class LandingPage extends Component {
 
   componentDidMount(){
     window.scrollTo(0, 0)
-    fetch("/api/v1/items/list")
+    fetch("/items", {
+      headers: {
+        "Authorization": `Token ${Auth.getToken()}`
+      }
+    })
       .then(results => {
         results.json()
           .then(results => {
@@ -33,21 +40,21 @@ class LandingPage extends Component {
           </div>
         </header>
         <section className="three_steps padding_top70 padding_bottom100 flex justify_between sides13pct">
-          <div className="step_box">
+          <div className="step_box rotation_gray_border">
             <div className="flex justify_evenly align_center rotation_gray_background padding_top10 padding_bottom10">
               <div className="druk_large white">1.</div>
               <div className="step_title line_height22 druk_small white">Select Your Pieces</div>
             </div>
             <div className="step_description line_height20 proxima_medium rotation_gray top30 margin_auto">Browse our curated catalog from the world’s most coveted designers. New items are added every two weeks, ensuring you always have access to the freshest closet.</div>
           </div>
-          <div className="step_box">
+          <div className="step_box rotation_gray_border">
             <div className="flex justify_evenly align_center rotation_gray_background padding_top10 padding_bottom10">
               <div className="druk_large white">2.</div>
               <div className="step_title line_height22 druk_small white">Rotate Without Limits</div>
             </div>
             <div className="step_description line_height20 proxima_medium rotation_gray top30 margin_auto">Whether it's a special occasion or your next daily wear, The Rotation holds no limits above your head. Wear, purchase, or exchange amongst our catalog as much as you like.</div>
           </div>
-          <div className="step_box">
+          <div className="step_box rotation_gray_border">
             <div className="flex justify_evenly align_center rotation_gray_background padding_top10 padding_bottom10">
               <div className="druk_large white">3.</div>
               <div className="step_title line_height22 druk_small white">We Handle The Rest</div>
@@ -71,6 +78,7 @@ class LandingPage extends Component {
             })}
           </div>
         </section>
+        <PricingTable />
       </div>
     )
   }

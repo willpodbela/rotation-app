@@ -10,10 +10,6 @@
   font-family: "Proxima Nova";
   src: local("Proxima Nova"), url("./fonts/ProximaNova-Regular.ttf") format('truetype');
 }
-/* @font-face {
-  font-family: "Proxima Nova Semibold";
-  src: local("Proxima Nova Semibold"), url("./fonts/ProximaNova-Semibold.ttf") format('truetype');
-} */
 .rotation_gray{
   color: #333333;
 }
@@ -21,7 +17,7 @@
   color: #FFFFFF;
 }
 .rotation_gray_background{
-  background: #333333;
+  background-color: #333333;
 }
 .white_background{
   background-color: #FFFFFF;
@@ -29,31 +25,11 @@
 .light_background{
   background-color: #F2F2F2;
 }
+.rotation_gray_border{
+  border: 1px solid #333333;
+}
 a{
   text-decoration: none;
-}
-.Nav{
-  height: 88px;
-}
-@media (max-width: 640px) {
-  .nav_elements{
-    margin-left: 0px !important;
-    margin-right: 0px !important;
-    justify-content: space-around !important;
-  }
-}
-.download_app_btn{
-  height: 39px;
-  width: 147px;
-  border: 1px solid #333333;
-  border-radius: 20px;
-}
-.background{
-  height: calc(100vw * 0.65);
-  background-image: url("./img/landing-bg-desktop.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 .left13pct{
   margin-left: 13%;
@@ -94,49 +70,12 @@ a{
   font-family: "Proxima Nova";
   font-size: 12px;
 }
+.proxima_xs{
+  font-family: "Proxima Nova";
+  font-size: 10px;
+}
 .proxima{
   font-family: "Proxima Nova";
-}
-.width388{
-  width: 388px;
-}
-.sign_up{
-  height: 55px;
-  width: 311px;
-}
-.sign_up_box{
-  width: 223px;
-}
-.i_want_in{
-  width: 88px;
-}
-.step_box{
-  height: 240px;
-  width: 290px;
-  border: 1px solid #333333;
-}
-@media (max-width: 1183px) {
-  .three_steps{
-    margin: 0 !important;
-    justify-content: space-evenly !important;
-  }
-}
-.step_title{
-  width: 173px;
-}
-.step_description{
-  width: 237px;
-}
-.item_card{
-  height: 248px;
-  width: 163px;
-}
-.item_card_large{
-  height: 273.66px;
-  width: 216px;
-}
-.card_large{
-  width: 216px;
 }
 .blend_background{
   mix-blend-mode: multiply;
@@ -144,92 +83,8 @@ a{
 .padding_top2{
   padding-top: 2px;
 }
-.scrolling_wrapper{
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-footer{
-  background: #141414;
-}
-.footer_container{
-  width: auto;
-}
-.subscribe_to_the_closet{
-  width: 355px;
-}
-.pricing_rectangle{
-  height: 114px;
-  width: 173px;
-  border: 2px solid #333333;
-}
 ::-webkit-scrollbar{
   display: none;
-}
-@media (max-width: 640px) {
-  .background{
-    height: calc(100vh - 138px);
-    background-image: url("./img/landing-bg-mobile.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: top;
-    align-items: flex-end !important;
-    padding-bottom: 50px;
-  }
-  .welcome_description{
-    display: none;
-  }
-  .how_it_works{
-    padding-top: 0px;
-  }
-}
-@media (max-width: 960px) {
-  .welcome_to_a_closet{
-    width: 311px !important;
-    font-size: 24px !important;
-    line-height: 29px !important;
-  }
-  .welcome_description{
-    width: 311px !important;
-    font-size: 14px !important;
-    line-height: 21px !important;
-  }
-  .footer_container{
-    width: 200px;
-    margin: auto;
-  }
-  .justify_center_under_960{
-    justify-content: center !important;
-  }
-}
-.checkbox_icon{
-  padding: 6.75px 0 0 8px;
-}
-.join_waitlist_btn{
-  height: 55px;
-  width: 178px;
-}
-.icon_wrapper{
-  height: 40px;
-  width: 40px;
-}
-@media (max-width: 620px) {
-  .pricing_row{
-    display: block !important;
-    padding-bottom: 60px !important;
-  }
-  .pricing_col{
-    width: 320px !important;
-    margin: 0 auto !important;
-    padding-right: 0px !important;
-    padding-bottom: 15px !important;
-  }
-}
-.rotation_logo{
-  box-sizing: border-box;
-  height: 51.75px;
-  width: 51.75px;
 }
 .overflow_scroll{
   overflow: scroll;
@@ -237,237 +92,11 @@ footer{
 .nowrap{
   white-space: nowrap;
 }
-.share_link{
-  width: 178px;
-}
-.invite_friends_title{
-  width: 388px;
-}
-.invite_friends_description{
-  width: 388px;
-}
-.invite_friends_right{
-  width: 388px;
-}
-.rewards_text{
-  height: 38px;
-}
-.rewards_druk_text{
-  height: 38px;
-}
-@media (max-width: 1048px) {
-  .invite_friends{
-    justify-content: center !important;
-  }
-}
-@media (max-width: 499px) {
-  .invite_friends_title{
-    width: 250px;
-  }
-  .invite_friends_description{
-    width: 250px;
-  }
-  .invite_friends_right{
-    width: 250px;
-  }
-  .share_link_row{
-    padding-bottom: 0px !important;
-  }
-  .share_link{
-    margin: 12px auto;
-    width: 250px;
-  }
-  .personal_link{
-    padding-bottom: 12px !important;
-  }
-}
-.rewards_box{
-  width: 194px;
-  border-top: 2px solid #FFFFFF;
-  border-bottom: 2px solid #FFFFFF;
-  background-color: #333333 !important;
-  border-radius: 0px !important;
-}
-.rewards_divider{
-  height: 40px;
-  width: 2px;
-}
-@media (max-width: 1000px) {
-  .rewards_box{
-    width: 125px !important;
-  }
-  .rewards_druk_text{
-    font-size: 12px !important;
-  }
-  .rewards_text{
-    font-size: 10px !important;
-  }
-}
-@media (max-width: 650px) {
-  .rewards_bar_horizontal{
-    display: none !important;
-  }
-  .rewards_bar_vertical{
-    display: block !important;
-  }
-  .rewards_druk_text{
-    font-size: 18px !important;
-  }
-  .rewards_text{
-    font-size: 11.5px !important;
-    height: auto;
-  }
-}
-@media (max-width: 405px) {
-  .rewards_druk_text{
-    width: 90px !important;
-    font-size: 14px !important;
-  }
-  .rewards_text{
-    width: 90px !important;
-  }
-}
-@media (max-width: 345px) {
-  .rewards_druk_text{
-    width: 75px !important;
-  }
-  .rewards_text{
-    width: 75px !important;
-  }
-}
-.rewards_row{
-  height: 124px;
-}
-.vertical{
-  -webkit-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-.rewards_divider_vertical{
-  height: 2px;
-  width: 40px;
-}
-.vertical_middle{
-  vertical-align: middle;
-}
 .gray_border_top{
   border-top: 1px solid #EBEBEB;
 }
-.fixed_sidebar{
-  position: fixed;
-  height: 65vh;
-}
 .cursor_pointer{
   cursor: pointer;
-}
-.catalog_section{
-  width: 944px;
-}
-@media (max-width: 1491px) {
-  .catalog_section{
-    width: 708px !important;
-  }
-}
-@media (max-width: 1174px) {
-  .catalog_section{
-    width: 472px !important;
-  }
-}
-@media (max-width: 856px) {
-  .catalog_section{
-    width: 236px !important;
-  }
-}
-@media (max-width: 538px) {
-  .catalog_wrapper{
-    margin-left: 5% !important;
-    margin-right: 5% !important;
-  }
-}
-@media (max-width: 440px) {
-  .filters_and_designers{
-    display: none;
-  }
-  .catalog_wrapper{
-    justify-content: center !important;
-  }
-  .catalog_section{
-    justify-content: center !important;
-  }
-  .card_large{
-    padding-left: 0 !important;
-  }
-}
-.width_half{
-  width: 50%;
-}
-.modal_image{
-  max-width: 75%;
-}
-.reserve_btn{
-  border: 1px solid #333333;
-  height: 44px;
-}
-.like_btn{
-  border: 1px solid #333333;
-  width: 44px;
-  height: 44px;
-}
-.modal_item{
-  max-width: 800px !important;
-}
-@media (max-width: 1000px) {
-  .modal_item{
-    max-width: 600px !important;
-  }
-  .reserve_btn{
-    width: 130px !important;
-  }
-}
-@media (max-width: 750px) {
-  .modal_item{
-    max-width: 250px !important;
-  }
-  .modal_section{
-    max-height: 250px;
-  }
-  .close_btn{
-    font-size: 12px !important;
-    padding: 15px 15px 0 0 !important;
-  }
-  .modal_brand{
-    overflow: scroll;
-    height: 30px;
-    padding: 0 !important;
-    text-align: center;
-    margin: 40px 10px 0 10px !important;
-    line-height: normal !important;
-  }
-  .modal_description{
-    padding: 0 !important;
-    margin: 10px !important;
-    text-align: center;
-    font-size: 14px;
-    line-height: normal !important;
-  }
-  .modal_brand_info{
-    display: none;
-  }
-  .modal_buttons{
-    padding-top: 0 !important;
-    margin: 0 !important;
-    display: block !important;
-  }
-  .reserve_btn{
-    margin: 0 auto;
-    font-size: 12px;
-    width: 80px !important;
-    height: 30px;
-  }
-  .like_btn{
-    margin: 5px auto;
-    width: 80px !important;
-    height: 30px;
-  }
 }
 /* Admin Page CSS */
 div.edit td, div.edit th,
@@ -16963,6 +16592,9 @@ b {
 
 .spacing25 {
   letter-spacing: 2.5px; }
+
+.spacing40 {
+  letter-spacing: 4px; }
 
 .opacity0 {
   opacity: 0; }

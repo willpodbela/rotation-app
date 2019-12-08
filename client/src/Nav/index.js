@@ -1,7 +1,17 @@
 import React, { Component }  from "react"
 import { Link } from "react-router-dom"
+import Auth from "../modules/Auth"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import "./style.css"
 
 class Nav extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      authenticated: Auth.isUserAuthenticated()
+    }
+  }
+
   render(){
     return (
       <div className="Nav flex align_center">
@@ -9,21 +19,29 @@ class Nav extends Component {
           <Link to="/" className="flex align_center">
             <img srcSet={"../images/The-Rotation.png 1x, ../images/The-Rotation@2x.png 2x"} src={"../images/The-Rotation.png"} className="max_width_full" alt="" />
           </Link>
-          <div className="flex align_center">
-            <div className="proxima_small bold padding_right20">
-              <Link className="rotation_gray" to="/login">Log In</Link>
+          {this.state.authenticated ? (
+            <div className="flex">
+              <Link className="right30 cursor_pointer" to="/catalog"><FontAwesomeIcon className="rotation_gray font26" icon="shopping-bag" /></Link>
+              <Link className="right30 cursor_pointer" to="/account"><FontAwesomeIcon className="rotation_gray font26" icon="user" /></Link>
+              <FontAwesomeIcon className="rotation_gray font26 cursor_pointer" icon="sign-out-alt" />
             </div>
-            <div className="proxima_small bold white padding_right20">
-              <Link className="rotation_gray" to="/sign-up">Sign Up</Link>
-            </div>
-            <div>
-              <div className="download_app_btn flex align_center justify_center">
-                <div className="proxima_small bold">
-                  <a className="rotation_gray" href="https://apps.apple.com/us/app/com-rotationinc-rotation/id1404678165">Download App</a>
+          ) : (
+            <div className="flex align_center">
+              <div className="proxima_small bold padding_right20">
+                <Link className="rotation_gray" to="/login">Log In</Link>
+              </div>
+              <div className="proxima_small bold white padding_right20">
+                <Link className="rotation_gray" to="/sign-up">Sign Up</Link>
+              </div>
+              <div>
+                <div className="download_app_btn rotation_gray_border flex align_center justify_center">
+                  <div className="proxima_small bold">
+                    <a className="rotation_gray" href="https://apps.apple.com/us/app/com-rotationinc-rotation/id1404678165">Download App</a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </nav>
       </div>
     )

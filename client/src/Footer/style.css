@@ -1,0 +1,15 @@
+footer{
+  background: #141414;
+}
+.footer_container{
+  width: auto;
+}
+@media (max-width: 960px) {
+  .footer_container{
+    width: 200px;
+    margin: auto;
+  }
+  .justify_center_under_960{
+    justify-content: center !important;
+  }
+}

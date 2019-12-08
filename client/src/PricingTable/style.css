@@ -1,0 +1,31 @@
+.subscribe_to_the_closet{
+  width: 355px;
+}
+.pricing_rectangle{
+  height: 114px;
+  width: 173px;
+  border: 2px solid #333333;
+}
+.checkbox_icon{
+  padding: 6.75px 0 0 8px;
+}
+.join_waitlist_btn{
+  height: 55px;
+  width: 178px;
+}
+.icon_wrapper{
+  height: 40px;
+  width: 40px;
+}
+@media (max-width: 620px) {
+  .pricing_row{
+    display: block !important;
+    padding-bottom: 60px !important;
+  }
+  .pricing_col{
+    width: 320px !important;
+    margin: 0 auto !important;
+    padding-right: 0px !important;
+    padding-bottom: 15px !important;
+  }
+}

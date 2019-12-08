@@ -3,8 +3,9 @@ import logo from "../img/rotation-logo.png"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "./bootstrap-progress-bar.css"
 import ProgressBar from "react-bootstrap/ProgressBar"
+import "./style.css"
 
-class InviteFriendsPage extends Component {
+class PrelauncherPage extends Component {
   render(){
     const numFriends = 4
     return (
@@ -68,7 +69,6 @@ class InviteFriendsPage extends Component {
           </div>
           <div className="rewards_divider white_background"></div>
         </div>
-
         <div className="rewards_bar_vertical hidden padding_bottom50">
           <div className="rewards_row flex justify_center align_center">
             <div className="rewards_druk_text medium druk_small white width120 text_center padding_left20">Friends Joined</div>
@@ -101,11 +101,10 @@ class InviteFriendsPage extends Component {
           </div>
           <div className="rewards_divider_vertical white_background margin_auto"></div>
         </div>
-
         <div className="rewards_text proxima_xl medium white text_center margin_auto"><strong>{numFriends}</strong> friends have joined</div>
       </div>
     )
   }
 }
 
-export default InviteFriendsPage
+export default PrelauncherPage
