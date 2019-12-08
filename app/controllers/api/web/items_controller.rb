@@ -4,6 +4,8 @@ module Api
   module Web
     class ItemsController < Api::Web::BaseController
       before_action :set_inventory, only: [:show, :index]
+      skip_before_action :authenticate_user_from_token!, only: [:index]
+      before_action :authenticate_user_from_token, only: [:index]
       
       #Failsafe: Override endpoints that we don't want to make available
       def destroy
@@ -17,15 +19,24 @@ module Api
       end
       
       def index
-        @my_rotation = current_user.my_rotation_items
-        @up_next = current_user.up_next_items
-        @catalog = current_user.catalog_items
+        if user_signed_in?
+          @my_rotation = current_user.my_rotation_items
+          @up_next = current_user.up_next_items
+          @catalog = current_user.catalog_items
         
-        if display_params[:sort_by_section] == "true"          
-          render :sorted_index
-        else 
-          @items = @my_rotation + @up_next + @catalog
-          render :index
+          if display_params[:sort_by_section] == "true"          
+            render :sorted_index
+          else 
+            @items = @my_rotation + @up_next + @catalog
+            render :index
+          end
+        else
+          if display_params[:landing_featured] == "true"          
+            @items = Item.landing_featured
+          else 
+            @items = Item.visible
+          end
+          @items = @items.with_images.order(created_at: :desc)
         end
       end
     
@@ -40,12 +51,14 @@ module Api
       end
     
       def display_params
-        params.permit(:sort_by_section)
+        params.permit(:sort_by_section, :landing_featured)
       end
       
       def set_inventory
         @inventory = Queries::Inventory.new
-        @favorite_item_ids = current_user.favorite_items.map(&:id)
+        unless current_user.nil?
+          @favorite_item_ids = current_user.favorite_items.map(&:id)
+        end
       end
       
     end
