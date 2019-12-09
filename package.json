@@ -1,5 +1,10 @@
 {
   "name": "rotation-app",
   "private": true,
-  "dependencies": {}
+  "dependencies": {},
+  "scripts": {
+    "build": "cd client && yarn install && yarn build && cd ..",
+    "deploy": "cp -a client/build/. public/",
+    "postinstall": "yarn build && yarn deploy && echo 'Client built!'"
+  }
 }

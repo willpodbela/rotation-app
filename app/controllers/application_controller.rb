@@ -56,4 +56,8 @@ class ApplicationController < ActionController::Base
       session[:redirect] = params[:redirect]
     end
   end
+  
+  def react_index_html
+    render :file => 'public/index.html'
+  end
 end
