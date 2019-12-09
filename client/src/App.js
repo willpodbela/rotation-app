@@ -23,9 +23,12 @@ class App extends Component {
     super(props)
     this.state = {
       authenticated: Auth.isUserAuthenticated(),
-      email: "",
-      password: "",
-      user: {}
+      loginEmail: "",
+      loginPassword: "",
+      registerEmail: "",
+      regsiterPassword: "",
+      showForgotPasswordMessage: false,
+      userLoggedIn: {}
     }
   }
 
@@ -39,21 +42,65 @@ class App extends Component {
     //handle errors here
     .then(res => {
       Auth.deauthenticateUser()
-      console.log(Auth.isUserAuthenticated())
       this.setState({
         authenticated: Auth.isUserAuthenticated(),
-        user: {}
+        loginEmail: "",
+        loginPassword: ""
       })
     })
   }
-  
+
+  forgotPassword(e){
+    e.preventDefault()
+    fetch("/auth/forgot", {
+      method: "POST",
+      body: JSON.stringify({
+        email: this.state.loginEmail
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    //handle errors here
+    .then(res => {
+      this.setState({showForgotPasswordMessage: true})
+    })
+  }
+
+  handleSignUp(e){
+    e.preventDefault()
+    fetch("/users", {
+      method: "POST",
+      body: JSON.stringify({
+        email: this.state.registerEmail,
+        password: this.state.registerPassword
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    //handle errors here
+    .then(res => res.json())
+    .then(res => {
+      const token = res.user.auth_token
+      if(token){
+        Auth.authenticateToken(token)
+        this.setState({
+          authenticated: Auth.isUserAuthenticated()
+        })
+      }
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
   handleLoginSubmit(e){
     e.preventDefault()
     fetch("/auth/login", {
       method: "POST",
       body: JSON.stringify({
-        email: this.state.email,
-        password: this.state.password
+        email: this.state.loginEmail,
+        password: this.state.loginPassword
       }),
       headers: {
         "Content-Type": "application/json"
@@ -67,7 +114,9 @@ class App extends Component {
         Auth.authenticateToken(token)
         this.setState({
           authenticated: Auth.isUserAuthenticated(),
-          user: res.user
+          loginEmail: "",
+          // userLoggedIn: res.user,
+          loginPassword: ""
         })
       }
     }).catch(err => {
@@ -95,12 +144,24 @@ class App extends Component {
               <LoginPage
                 auth={this.state.authenticated}
                 handleLoginSubmit={(e) => this.handleLoginSubmit(e)}
-                email={this.state.email}
-                password={this.state.password}
+                loginEmail={this.state.loginEmail}
+                loginPassword={this.state.loginPassword}
+                handleInputChange={(e) => this.handleInputChange(e)}
+                forgotPassword={(e) => this.forgotPassword(e)}
+                showForgotPasswordMessage={this.state.showForgotPasswordMessage}
+              />
+          }/>
+          <Route
+            path="/sign-up"
+            render={() =>
+              <SignUpPage
+                auth={this.state.authenticated}
+                handleSignUp={(e) => this.handleSignUp(e)}
+                registerEmail={this.state.registerEmail}
+                registerPassword={this.state.registerPassword}
                 handleInputChange={(e) => this.handleInputChange(e)}
               />
           }/>
-          <Route path="/sign-up" exact component={SignUpPage} />
           <Route path="/terms" exact component={TermsPage} />
           <Route path="/privacy" exact component={PrivacyPage} />
           <Route path="/catalog" exact component={CatalogPage} />

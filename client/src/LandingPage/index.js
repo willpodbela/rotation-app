@@ -13,7 +13,30 @@ class LandingPage extends Component {
 
   componentDidMount(){
     window.scrollTo(0, 0)
-    //unauthenticaed items request here
+    fetch("/items", {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(results => {
+      results.json()
+        .then(results => {
+          this.setState({items: results.items.filter(item => item.landing_featured)})
+        })
+    })
+  }
+
+  addLeadEmail(e){
+    console.log(this.state.landing_email)
+    fetch("/users/lead", {
+      method: "POST",
+      body: JSON.stringify({
+        "email": this.state.landing_email
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
   }
 
   handleInputChange(e) {
@@ -33,7 +56,12 @@ class LandingPage extends Component {
             <div className="welcome_description line_height28 width388 proxima_xl rotation_gray padding_bottom25">Rent unlimited streetwear, for one low monthly price. Choose from our massive catalog and swap items whenever you want. We curate the latest in style and keep your closet in season so you don’t have to.</div>
             <div className="flex sign_up">
               <div className="sign_up_box white_background flex align_center"><input className="width200 spacing10 opacity7 proxima_small medium rotation_gray left20" placeholder="ENTER EMAIL ADDRESS" name="landing_email" value={this.state.landing_email} onChange={(e) => this.handleInputChange(e)} /></div>
-              <Link to={{pathname: "/sign-up", state: {landing_email: this.state.landing_email}}} className="i_want_in spacing10 proxima_small semibold white rotation_gray_background flex justify_center align_center cursor_pointer uppercase">I Want In</Link>
+              <Link
+                to="/sign-up"
+                className="i_want_in spacing10 proxima_small semibold white rotation_gray_background flex justify_center align_center cursor_pointer uppercase"
+                onClick={(e) => this.addLeadEmail(e)}>
+                  I Want In
+              </Link>
             </div>
           </div>
         </header>
