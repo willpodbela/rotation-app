@@ -5,13 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "./style.css"
 
 class Nav extends Component {
-  // constructor(props){
-  //   super(props)
-  //   this.state = {
-  //     auth: Auth.isUserAuthenticated()
-  //   }
-  // }
-
   render(){
     return (
       <div className="Nav flex align_center">
@@ -19,7 +12,7 @@ class Nav extends Component {
           <Link to="/" className="flex align_center">
             <img srcSet={"../images/The-Rotation.png 1x, ../images/The-Rotation@2x.png 2x"} src={"../images/The-Rotation.png"} className="max_width_full" alt="" />
           </Link>
-          {/* {this.state.auth ? (
+          {/* {Auth.isUserAuthenticated() ? (
             <div className="flex">
               <Link className="right30 cursor_pointer" to="/catalog"><FontAwesomeIcon className="rotation_gray font26" icon="shopping-bag" /></Link>
               <Link className="right30 cursor_pointer" to="/account"><FontAwesomeIcon className="rotation_gray font26" icon="user" /></Link>

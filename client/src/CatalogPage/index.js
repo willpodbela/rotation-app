@@ -38,26 +38,27 @@ class CatalogPage extends Component {
 
   componentDidMount(){
     window.scrollTo(0, 0)
-    if(Auth.isUserAuthenticated()){
-      fetch("/items?sort_by_section=true", {
-        headers: {
-          "Authorization": `Token ${Auth.getToken()}`
-        }
-      })
-      .then(results => {
-        results.json()
-          .then(results => {
-            this.setState({myRotation: this.addSelectedProperty(results.items.my_rotation)})
-            this.setState({upNext: this.addSelectedProperty(results.items.up_next)})
-            this.setState({items: this.addSelectedProperty(results.items.catalog)})
-            let designers = this.state.items.map(item => item.title)
-            designers = Array.from(new Set(designers.map(designer => designer.value))).map(value => {
-              return designers.find(designer => designer.value === value)
-            })
-            this.setState({designers: designers})
+    fetch("/items?sort_by_section=true", {
+      headers: {
+        "Authorization": `Token ${Auth.getToken()}`
+      }
+    })
+    .then(results => {
+      results.json()
+        .then(results => {
+          this.setState({
+            myRotation: this.addSelectedProperty(results.items.my_rotation),
+            upNext: this.addSelectedProperty(results.items.up_next),
+            favorites: this.addSelectedProperty(results.items.catalog.filter(item => item.is_favorite)),
+            items: this.addSelectedProperty(results.items.catalog.filter(item => !item.is_favorite))
           })
-      })
-    }
+          let designers = this.state.items.map(item => item.title)
+          designers = Array.from(new Set(designers.map(designer => designer.value))).map(value => {
+            return designers.find(designer => designer.value === value)
+          })
+          this.setState({designers: designers})
+        })
+    })
   }
 
   addSelectedProperty(items){
@@ -154,6 +155,32 @@ class CatalogPage extends Component {
     this.setState({requestToBuyMessage: true})
   }
 
+  favoriteItem(e){
+    fetch(`/items/${this.state.selectedItem.id}/favorite`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${Auth.getToken()}`
+      }
+    })
+    //handle errors here
+    this.hideModal(e)
+    window.location.reload(true)
+  }
+
+  unfavoriteItem(e){
+    fetch(`/items/${this.state.selectedItem.id}/favorite`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${Auth.getToken()}`
+      }
+    })
+    //handle errors here
+    this.hideModal(e)
+    window.location.reload(true)
+  }
+
   hideModal(e){
     this.setState({showModal: false})
     this.setState({modalSizes: [
@@ -220,7 +247,7 @@ class CatalogPage extends Component {
                 {this.state.myRotation.map((item, index) => {
                   return (
                     <div key={index} onClick={(e) => this.displayModal(e, item)}>
-                      <ItemCard item={item}  />
+                      <ItemCard item={item} favorited={item.is_favorite} />
                     </div>
                   )
                 })}
@@ -232,7 +259,7 @@ class CatalogPage extends Component {
                 {this.state.upNext.map((item, index) => {
                   return (
                     <div key={index} onClick={(e) => this.displayModal(e, item)}>
-                      <ItemCard item={item}  />
+                      <ItemCard item={item} favorited={item.is_favorite} />
                     </div>
                   )
                 })}
@@ -244,7 +271,7 @@ class CatalogPage extends Component {
                 {this.state.favorites.map((item, index) => {
                   return (
                     <div key={index} onClick={(e) => this.displayModal(e, item)}>
-                      <ItemCard item={item}  />
+                      <ItemCard item={item} favorited={item.is_favorite} />
                     </div>
                   )
                 })}
@@ -273,7 +300,7 @@ class CatalogPage extends Component {
                   if(item.title.selected && this.getSizesAvailable(item).filter(size => selectedSizes.includes(size)).length > 0){
                     return (
                       <div key={index} onClick={(e) => this.displayModal(e, item)}>
-                        <ItemCard item={item}  />
+                        <ItemCard item={item} favorited={item.is_favorite} />
                       </div>
                     )
                   }else{
@@ -285,7 +312,7 @@ class CatalogPage extends Component {
                   if(item.title.selected){
                     return (
                       <div key={index} onClick={(e) => this.displayModal(e, item)}>
-                        <ItemCard item={item}  />
+                        <ItemCard item={item} favorited={item.is_favorite} />
                       </div>
                     )
                   }else{
@@ -297,7 +324,7 @@ class CatalogPage extends Component {
                   if(this.getSizesAvailable(item).filter(size => selectedSizes.includes(size)).length > 0){
                     return (
                       <div key={index} onClick={(e) => this.displayModal(e, item)}>
-                        <ItemCard item={item}  />
+                        <ItemCard item={item} favorited={item.is_favorite} />
                       </div>
                     )
                   }else{
@@ -308,7 +335,7 @@ class CatalogPage extends Component {
                 this.state.items.map((item, index) => {
                   return (
                     <div key={index} onClick={(e) => this.displayModal(e, item)}>
-                      <ItemCard item={item}  />
+                      <ItemCard item={item} favorited={item.is_favorite} />
                     </div>
                   )
                 })
@@ -364,7 +391,11 @@ class CatalogPage extends Component {
                 ) : (
                   <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveItem(e)}>Reserve</div>
                 )}
-                <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer"><FontAwesomeIcon className="rotation_gray" icon="heart" /></div>
+                {selectedItem.is_favorite ? (
+                  <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.unfavoriteItem(e)}><FontAwesomeIcon className="rotation_gray" icon="heart" /></div>
+                ) : (
+                  <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.favoriteItem(e)}><FontAwesomeIcon className="rotation_gray" icon="bullseye" /></div>
+                )}
               </div>
             </div>
           </Modal>
