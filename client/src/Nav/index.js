@@ -12,13 +12,13 @@ class Nav extends Component {
           <Link to="/" className="flex align_center">
             <img srcSet={"../images/The-Rotation.png 1x, ../images/The-Rotation@2x.png 2x"} src={"../images/The-Rotation.png"} className="max_width_full" alt="" />
           </Link>
-          {/* {Auth.isUserAuthenticated() ? (
+          {Auth.isUserAuthenticated() ? (
             <div className="flex">
               <Link className="right30 cursor_pointer" to="/catalog"><FontAwesomeIcon className="rotation_gray font26" icon="shopping-bag" /></Link>
               <Link className="right30 cursor_pointer" to="/account"><FontAwesomeIcon className="rotation_gray font26" icon="user" /></Link>
-              <FontAwesomeIcon className="rotation_gray font26 cursor_pointer" icon="sign-out-alt" onClick={Auth.deauthenticateUser()} />
+              <FontAwesomeIcon className="rotation_gray font26 cursor_pointer" icon="sign-out-alt" onClick={this.props.logoutUser} />
             </div>
-          ) : ( */}
+          ) : (
             <div className="flex align_center">
               <div className="proxima_small bold padding_right20">
                 <Link className="rotation_gray" to="/login">Log In</Link>
@@ -34,7 +34,7 @@ class Nav extends Component {
                 </div>
               </div>
             </div>
-          {/* )} */}
+          )}
         </nav>
       </div>
     )

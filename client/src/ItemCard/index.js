@@ -12,7 +12,7 @@ class ItemCard extends Component {
         </div>
         <div className="flex justify_between align_center padding_top10">
           <div className="proxima_small semibold rotation_gray uppercase overflow_scroll nowrap width190">{item.title.value}</div>
-          {this.props.favorited ? (
+          {item.is_favorite ? (
             <FontAwesomeIcon className="font14 rotation_gray" icon="heart" />
           ) : (
             <FontAwesomeIcon className="font14 rotation_gray" icon="bullseye" />

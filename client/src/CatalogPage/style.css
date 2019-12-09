@@ -131,4 +131,8 @@
   .like_btn{
     display: none;
   }
+  .request_to_buy{
+    text-align: center;
+    line-height: 14px;
+  }
 }

@@ -32,7 +32,8 @@ class CatalogPage extends Component {
         {value: "M", selected: false, available: false},
         {value: "L", selected: false, available: false},
         {value: "XL", selected: false, available: false}
-      ]
+      ],
+      isLoaded: false
     }
   }
 
@@ -40,6 +41,7 @@ class CatalogPage extends Component {
     window.scrollTo(0, 0)
     fetch("/items?sort_by_section=true", {
       headers: {
+        "Content-Type": "application/json",
         "Authorization": `Token ${Auth.getToken()}`
       }
     })
@@ -243,11 +245,11 @@ class CatalogPage extends Component {
           <div>
             {this.state.myRotation.length > 0 &&
               <div className="catalog_section padding_bottom10 flex">
-                <div className="width_full left20 filters_title medium druk_xs rotation_gray padding_bottom20">My Rotation</div>
+                <div className="catalog_title width_full left20 filters_title medium druk_xs rotation_gray padding_bottom20">My Rotation</div>
                 {this.state.myRotation.map((item, index) => {
                   return (
                     <div key={index} onClick={(e) => this.displayModal(e, item)}>
-                      <ItemCard item={item} favorited={item.is_favorite} />
+                      <ItemCard item={item} />
                     </div>
                   )
                 })}
@@ -255,11 +257,11 @@ class CatalogPage extends Component {
             }
             {this.state.upNext.length > 0 &&
               <div className="catalog_section padding_bottom10 flex">
-                <div className="width_full left20 medium druk_xs rotation_gray padding_bottom20">Up Next</div>
+                <div className="catalog_title width_full left20 medium druk_xs rotation_gray padding_bottom20">Up Next</div>
                 {this.state.upNext.map((item, index) => {
                   return (
                     <div key={index} onClick={(e) => this.displayModal(e, item)}>
-                      <ItemCard item={item} favorited={item.is_favorite} />
+                      <ItemCard item={item} />
                     </div>
                   )
                 })}
@@ -267,11 +269,11 @@ class CatalogPage extends Component {
             }
             {this.state.favorites.length > 0 &&
               <div className="catalog_section padding_bottom10 flex">
-                <div className="width_full left20 medium druk_xs rotation_gray padding_bottom20">Favorites</div>
+                <div className="catalog_title width_full left20 medium druk_xs rotation_gray padding_bottom20">Favorites</div>
                 {this.state.favorites.map((item, index) => {
                   return (
                     <div key={index} onClick={(e) => this.displayModal(e, item)}>
-                      <ItemCard item={item} favorited={item.is_favorite} />
+                      <ItemCard item={item} />
                     </div>
                   )
                 })}
@@ -300,7 +302,7 @@ class CatalogPage extends Component {
                   if(item.title.selected && this.getSizesAvailable(item).filter(size => selectedSizes.includes(size)).length > 0){
                     return (
                       <div key={index} onClick={(e) => this.displayModal(e, item)}>
-                        <ItemCard item={item} favorited={item.is_favorite} />
+                        <ItemCard item={item} />
                       </div>
                     )
                   }else{
@@ -312,7 +314,7 @@ class CatalogPage extends Component {
                   if(item.title.selected){
                     return (
                       <div key={index} onClick={(e) => this.displayModal(e, item)}>
-                        <ItemCard item={item} favorited={item.is_favorite} />
+                        <ItemCard item={item} />
                       </div>
                     )
                   }else{
@@ -324,7 +326,7 @@ class CatalogPage extends Component {
                   if(this.getSizesAvailable(item).filter(size => selectedSizes.includes(size)).length > 0){
                     return (
                       <div key={index} onClick={(e) => this.displayModal(e, item)}>
-                        <ItemCard item={item} favorited={item.is_favorite} />
+                        <ItemCard item={item} />
                       </div>
                     )
                   }else{
@@ -335,7 +337,7 @@ class CatalogPage extends Component {
                 this.state.items.map((item, index) => {
                   return (
                     <div key={index} onClick={(e) => this.displayModal(e, item)}>
-                      <ItemCard item={item} favorited={item.is_favorite} />
+                      <ItemCard item={item} />
                     </div>
                   )
                 })
@@ -385,7 +387,7 @@ class CatalogPage extends Component {
               </div>
               <div className="modal_buttons sides50 flex justify_between top40">
                 {myRotationItemSelected ? (
-                  <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer green" onClick={(e) => this.requestToBuy(e)}>Request to Buy</div>
+                  <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer green request_to_buy" onClick={(e) => this.requestToBuy(e)}>Request to Buy</div>
                 ) : upNextItemSelected ? (
                   <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer red" onClick={(e) => this.removeItem(e)}>Remove</div>
                 ) : (

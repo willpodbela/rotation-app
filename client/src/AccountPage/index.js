@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
+import Auth from "../modules/Auth"
 import "./style.css"
 
 class AccountPage extends Component {
@@ -31,7 +32,59 @@ class AccountPage extends Component {
   }
 
   componentDidMount(){
-    //make request to get profile info here
+    //Need to get id of logged in user somehow
+    fetch("/users/2/profile", {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${Auth.getToken()}`
+      }
+    })
+    .then(results => {
+      results.json()
+        .then(results => {
+          const profile = results.profile
+          this.setState({
+            firstName: profile.first_name,
+            lastName: profile.last_name,
+            addressLine1: profile.address_line_one,
+            addressLine2: profile.address_line_two,
+            city: profile.address_city,
+            zipcode: profile.address_zip,
+            state: profile.address_state
+          })
+        })
+      })
+  }
+
+  updateAccountDetails(e){
+    //Need to get id of logged in user somehow
+    fetch("/users/2/profile", {
+      method: "PUT",
+      body: JSON.stringify({
+        "profile": {
+      		"address_line_one": this.state.addressLine1,
+          "address_line_two": this.state.addressLine2,
+          "address_city": this.state.city,
+          "address_zip": this.state.zipcode,
+          "address_state": this.state.state
+        }
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${Auth.getToken()}`
+      }
+    }).then(res => res.json()).then(res => {
+      console.log(res)
+      //handle errors here
+    })
+  }
+
+  updatePassword(e){
+    console.log("here")
+  }
+
+  updateBillingInfo(e){
+    console.log("here")
   }
 
   handleInputChange(e) {
@@ -54,10 +107,10 @@ class AccountPage extends Component {
     return (
       <div className="AccountPage gray_border_top bottom70 flex">
         <div className="left13pct top40 proxima_small rotation_gray semibold spacing20 uppercase">
-          <div className="cursor_pointer" onClick={(e) => this.toggleProfilePage(e)}>Profile</div>
+          <div className="cursor_pointer" style={{textDecoration: this.state.showProfile ? "underline" : "none"}} onClick={(e) => this.toggleProfilePage(e)}>Profile</div>
           <div className="top20 cursor_pointer">Credits</div>
           <div className="top20"><Link to="/prelauncher">Refer & Earn</Link></div>
-          <div className="top20 cursor_pointer" onClick={(e) => this.toggleSettingsPage(e)}>Settings</div>
+          <div className="top20 cursor_pointer" style={{textDecoration: this.state.showSettings ? "underline" : "none"}} onClick={(e) => this.toggleSettingsPage(e)}>Settings</div>
         </div>
         {this.state.showProfile &&
           <div className="account_inputs top40 sides100">
@@ -94,9 +147,9 @@ class AccountPage extends Component {
                 <input className="proxima_xl medium rotation_gray width260 left20" name="state" value={this.state.state} onChange={(e) => this.handleInputChange(e)} />
               </div>
             </div>
-            <input type="submit" value="Save Changes" className="input_box rotation_gray_border rotation_gray_background width300 height50 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" />
+            <div className="input_box rotation_gray_border rotation_gray_background width300 height50 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" onClick={(e) => this.updateAccountDetails(e)}>Save Changes</div>
             <div className="profile_divider rotation_gray_background top40"></div>
-            <div className="druk_xs medium rotation_gray top20">Password</div>
+            <div className="druk_xs medium rotation_gray top30">Password</div>
             <div className="input_box flex align_center gray_border width300 height50 top20">
               <input className="proxima_xl medium width260 left20" placeholder="Current Password" name="currentPassword" value={this.state.currentPassword} onChange={(e) => this.handleInputChange(e)} />
             </div>
@@ -108,7 +161,7 @@ class AccountPage extends Component {
                 <input className="proxima_xl medium width260 left20" placeholder="Confirm Password" name="newPasswordConfirm" value={this.state.newPasswordConfirm} onChange={(e) => this.handleInputChange(e)} />
               </div>
             </div>
-            <input type="submit" value="Save Changes" className="input_box rotation_gray_border rotation_gray_background width300 height50 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" />
+            <div className="input_box rotation_gray_border rotation_gray_background width300 height50 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" onClick={(e) => this.updatePassword(e)}>Save Changes</div>
             <div className="profile_divider rotation_gray_background top40"></div>
             <div className="druk_xs medium rotation_gray top20">Need a break?</div>
             <div className="flex top30 input_group">
@@ -165,7 +218,7 @@ class AccountPage extends Component {
                 <input className="proxima_xl medium rotation_gray width260 left20" name="billingState" value={this.state.billingState} onChange={(e) => this.handleInputChange(e)} />
               </div>
             </div>
-            <input type="submit" value="Save Changes" className="input_box rotation_gray_border rotation_gray_background width300 height50 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" />
+            <div className="input_box rotation_gray_border rotation_gray_background width300 height50 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" onClick={(e) => this.updateBillingInfo(e)}>Save Changes</div>
           </div>
         }
       </div>
