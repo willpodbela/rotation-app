@@ -1,9 +1,13 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :generate_access_control_methods!
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:react_index_html]
   before_action :advertisement_tracking
   before_action :login_redirect
+  
+  def react_index_html
+    render :file => 'public/index.html'
+  end
   
   private
   
@@ -56,4 +60,5 @@ class ApplicationController < ActionController::Base
       session[:redirect] = params[:redirect]
     end
   end
+  
 end
