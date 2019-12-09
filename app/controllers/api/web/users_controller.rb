@@ -1,7 +1,6 @@
 module Api
   module Web
     class UsersController < Api::Web::BaseController
-      http_basic_authenticate_with name:ENV["API_AUTH_NAME"], password:ENV["API_AUTH_PASSWORD"], only: [:create]
       skip_before_action :authenticate_user_from_token!, only: [:create, :sign_up, :lead]
     
       #Failsafe: Override endpoints that we don't want to make available
@@ -18,17 +17,6 @@ module Api
         else
           render_error(403)
         end
-      end
-    
-      def create    
-        begin 
-          decrypted_pass = AESCrypt.decrypt(params[:password], ENV["API_AUTH_PASSWORD"])
-        rescue Exception => e
-          return render_error(:unprocessable_entity, "A network error occured. Please switch to a different network and try again.")
-        end
-      
-        params[:password] = decrypted_pass
-        super
       end
       
       def sign_up
