@@ -34,14 +34,6 @@ module Api
       def update
         render_error(405)
       end
-    
-      def info
-        render :status => 200, :json => {
-          :reservations_remaining => current_user.reservations_remaining, 
-          :next_period => current_user.legacy_next_reservation_period,
-          :est_delivery_date => current_user.est_delivery_date
-        }
-      end
       
       def buy
         # NOTE: Wizard-of-oz MVP -- Send request email to the team and manually engage customer on purchase

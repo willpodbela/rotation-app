@@ -58,9 +58,6 @@ module Api
         render :status=>status, :json=>{:error => {:message => message}}
       end
       
-      # NOTE: So far this is the only class that differs in implementation from
-      # Api::V1::BaseController, but for confusion sake it seemed more sensible not to
-      # subclass so that web could exist as its own entity unaffected by iOS api classes
       def authenticate_user_from_token!
         authenticate_or_request_with_http_token do |token, options|
           current_user = User.find_by_web_authentication_token(token)
@@ -68,6 +65,18 @@ module Api
             sign_in current_user, store: false
           else
             render_error(403, "Invalid or missing authentication token")
+          end
+        end      
+      end
+      
+      # Not fatal version -- will try to authenticate user from token if one exists and 
+      # current_user will be set if successful. If token is missing or invalid, no error 
+      # will be thrown but current_user will be nil
+      def authenticate_user_from_token
+        authenticate_with_http_token do |token, options|
+          current_user = User.find_by_web_authentication_token(token)
+          if current_user
+            sign_in current_user, store: false
           end
         end      
       end
