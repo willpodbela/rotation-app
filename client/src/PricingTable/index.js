@@ -1,5 +1,6 @@
 import React, { Component }  from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Link } from "react-router-dom"
 import "./style.css"
 
 class PricingTable extends Component {
@@ -9,17 +10,48 @@ class PricingTable extends Component {
         <section className="padding_bottom100 text_center">
           <div className="spacing10 proxima_small semibold rotation_gray padding_bottom15 uppercase">Plan + Pricing</div>
           <div className="subscribe_to_the_closet line_height30 medium druk_medium rotation_gray padding_bottom15 margin_auto">Subscribe to the closet of your future</div>
-          <div className="padding_bottom30 flex justify_center">
-            <div className="pricing_rectangle flex align_center justify_center">
-              <div>
-                <div className="medium druk_medium rotation_gray">2</div>
-                <div className="spacing10 line_height16 proxima_small semibold rotation_gray uppercase">Pieces at a Time</div>
+          <div className="proxima_large medium rotation_gray text_center">We've got three plans to choose from.</div>
+          <div className="padding_bottom30 padding_top30 flex justify_center">
+            <div className="sides10 top10 bottom10 flex">
+              <div className="pricing_rectangle flex align_center justify_center">
+                <div>
+                  <div className="medium druk_medium rotation_gray">2</div>
+                  <div className="spacing10 line_height16 proxima_small semibold rotation_gray uppercase">Pieces at a Time</div>
+                </div>
+              </div>
+              <div className="pricing_rectangle flex align_center justify_center rotation_gray_background">
+                <div>
+                  <div className="medium druk_medium white">$89</div>
+                  <div className="spacing10 line_height16 proxima_small semibold white uppercase">per month</div>
+                </div>
               </div>
             </div>
-            <div className="pricing_rectangle flex align_center justify_center rotation_gray_background">
-              <div>
-                <div className="medium druk_medium white">$49</div>
-                <div className="spacing10 line_height16 proxima_small semibold white uppercase">per month</div>
+            <div className="sides10 top10 bottom10 flex">
+              <div className="pricing_rectangle flex align_center justify_center">
+                <div>
+                  <div className="medium druk_medium rotation_gray">3</div>
+                  <div className="spacing10 line_height16 proxima_small semibold rotation_gray uppercase">Pieces at a Time</div>
+                </div>
+              </div>
+              <div className="pricing_rectangle flex align_center justify_center rotation_gray_background">
+                <div>
+                  <div className="medium druk_medium white">$129</div>
+                  <div className="spacing10 line_height16 proxima_small semibold white uppercase">per month</div>
+                </div>
+              </div>
+            </div>
+            <div className="sides10 top10 bottom10 flex">
+              <div className="pricing_rectangle flex align_center justify_center">
+                <div>
+                  <div className="medium druk_medium rotation_gray">4</div>
+                  <div className="spacing10 line_height16 proxima_small semibold rotation_gray uppercase">Pieces at a Time</div>
+                </div>
+              </div>
+              <div className="pricing_rectangle flex align_center justify_center rotation_gray_background">
+                <div>
+                  <div className="medium druk_medium white">$159</div>
+                  <div className="spacing10 line_height16 proxima_small semibold white uppercase">per month</div>
+                </div>
               </div>
             </div>
           </div>
@@ -56,7 +88,7 @@ class PricingTable extends Component {
             </div>
           </div>
           <div className="join_waitlist_btn rotation_gray_background margin_auto flex cursor_pointer">
-            <div className="spacing10 line_height10 proxima_small semibold white flex align_center margin_auto uppercase">Join Waitlist</div>
+            <Link to="/sign-up" className="spacing10 line_height10 proxima_small semibold white flex align_center margin_auto uppercase">Sign Up</Link>
           </div>
         </section>
       </div>

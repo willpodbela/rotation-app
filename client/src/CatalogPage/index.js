@@ -32,14 +32,13 @@ class CatalogPage extends Component {
         {value: "M", selected: false, available: false},
         {value: "L", selected: false, available: false},
         {value: "XL", selected: false, available: false}
-      ],
-      isLoaded: false
+      ]
     }
   }
 
   componentDidMount(){
     window.scrollTo(0, 0)
-    fetch("/items?sort_by_section=true", {
+    fetch("/api/web/items?sort_by_section=true", {
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Token ${Auth.getToken()}`
@@ -104,7 +103,7 @@ class CatalogPage extends Component {
 
   reserveItem(e){
     if(this.state.modalSizes.some(size => size.selected === true)){
-      fetch("/reservations", {
+      fetch("/api/web/reservations", {
         method: "POST",
         body: JSON.stringify({
           "item_id": this.state.selectedItem.id,
@@ -126,7 +125,7 @@ class CatalogPage extends Component {
   }
 
   removeItem(e){
-    fetch(`/reservations/${this.state.selectedItem.reservation.id}`, {
+    fetch(`/api/web/reservations/${this.state.selectedItem.reservation.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -145,7 +144,7 @@ class CatalogPage extends Component {
   }
 
   requestToBuy(e){
-    fetch(`/reservations/${this.state.selectedItem.reservation.id}/buy`, {
+    fetch(`/api/web/reservations/${this.state.selectedItem.reservation.id}/buy`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -158,7 +157,7 @@ class CatalogPage extends Component {
   }
 
   favoriteItem(e){
-    fetch(`/items/${this.state.selectedItem.id}/favorite`, {
+    fetch(`/api/web/items/${this.state.selectedItem.id}/favorite`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -171,7 +170,7 @@ class CatalogPage extends Component {
   }
 
   unfavoriteItem(e){
-    fetch(`/items/${this.state.selectedItem.id}/favorite`, {
+    fetch(`/api/web/items/${this.state.selectedItem.id}/favorite`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

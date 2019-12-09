@@ -8,7 +8,6 @@ import TermsPage from "./TermsPage"
 import PrivacyPage from "./PrivacyPage"
 import CatalogPage from "./CatalogPage"
 import AccountPage from "./AccountPage"
-import PrelauncherPage from "./PrelauncherPage"
 import Nav from "./Nav"
 import Footer from "./Footer"
 import Auth from "./modules/Auth"
@@ -33,7 +32,7 @@ class App extends Component {
   }
 
   logoutUser(){
-    fetch("/auth/logout", {
+    fetch("/api/web/auth/logout", {
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Token ${Auth.getToken()}`
@@ -52,7 +51,7 @@ class App extends Component {
 
   forgotPassword(e){
     e.preventDefault()
-    fetch("/auth/forgot", {
+    fetch("/api/web/auth/forgot", {
       method: "POST",
       body: JSON.stringify({
         email: this.state.loginEmail
@@ -69,7 +68,7 @@ class App extends Component {
 
   handleSignUp(e){
     e.preventDefault()
-    fetch("/users", {
+    fetch("/api/web/users", {
       method: "POST",
       body: JSON.stringify({
         email: this.state.registerEmail,
@@ -96,7 +95,7 @@ class App extends Component {
 
   handleLoginSubmit(e){
     e.preventDefault()
-    fetch("/auth/login", {
+    fetch("/api/web/auth/login", {
       method: "POST",
       body: JSON.stringify({
         email: this.state.loginEmail,
@@ -115,7 +114,7 @@ class App extends Component {
         this.setState({
           authenticated: Auth.isUserAuthenticated(),
           loginEmail: "",
-          // userLoggedIn: res.user,
+          userLoggedIn: res.user,
           loginPassword: ""
         })
       }
@@ -165,8 +164,13 @@ class App extends Component {
           <Route path="/terms" exact component={TermsPage} />
           <Route path="/privacy" exact component={PrivacyPage} />
           <Route path="/catalog" exact component={CatalogPage} />
-          <Route path="/account" exact component={AccountPage} />
-          <Route path="/prelauncher" exact component={PrelauncherPage} />
+          <Route
+            path="/account"
+            render={() =>
+              <AccountPage
+                userLoggedIn={this.state.userLoggedIn}
+              />
+          }/>
           <Footer />
         </div>
       </Router>

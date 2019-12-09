@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
 import "./style.css"
+import PricingTable from "../PricingTable"
 
 class LandingPage extends Component {
   constructor(props){
@@ -13,7 +14,7 @@ class LandingPage extends Component {
 
   componentDidMount(){
     window.scrollTo(0, 0)
-    fetch("/items", {
+    fetch("/api/web/items", {
       headers: {
         "Content-Type": "application/json"
       }
@@ -28,7 +29,7 @@ class LandingPage extends Component {
 
   addLeadEmail(e){
     console.log(this.state.landing_email)
-    fetch("/users/lead", {
+    fetch("/api/web/users/lead", {
       method: "POST",
       body: JSON.stringify({
         "email": this.state.landing_email
@@ -104,6 +105,7 @@ class LandingPage extends Component {
             })}
           </div>
         </section>
+        <PricingTable />
       </div>
     )
   }
