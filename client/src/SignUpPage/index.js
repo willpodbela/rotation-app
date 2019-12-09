@@ -14,6 +14,13 @@ class SignUpPage extends Component {
     }
   }
 
+  componentDidMount(){
+    window.scrollTo(0, 0)
+    if(this.props.location.state){
+      this.setState({email: this.props.location.state.landing_email})
+    }
+  }
+
   handleInputChange(e) {
     const name = e.target.name
     const value = e.target.value
@@ -57,7 +64,7 @@ class SignUpPage extends Component {
     }
     return (
       <div className="SignUpPage light_background flex justify_center">
-        <img className="max_width400 top80 bottom80 sides70" src={image} />
+        <img className="login_image max_width400 top80 bottom80 sides70" src={image} alt="" />
         <div className="login_box gray_border white_background height330 width400 top180 bottom180 sides70">
           <div className="width300 margin_auto top20 druk_small rotation_gray">Sign Up</div>
           <form onSubmit={(e) => this.handleSignUp(e)}>
@@ -72,7 +79,7 @@ class SignUpPage extends Component {
             <div className="proxima_xs medium rotation_gray top10 text_center">By registering, I accept the <Link to="/terms" className="underline cursor_pointer">Terms of Service</Link> and <Link to="/privacy" className="underline cursor_pointer">Privacy Policy</Link></div>
             <input type="submit" value="Sign Up" className="input_box rotation_gray_border rotation_gray_background width300 height50 margin_auto top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" />
           </form>
-          <Link to="/login"><div className="proxima_small medium underline rotation_gray top10 text_center cursor_pointer">Already have an account? Sign in</div></Link>
+          <Link to="/login" className="proxima_small medium underline rotation_gray top10 flex justify_center cursor_pointer">Already have an account? Sign in</Link>
         </div>
       </div>
     )

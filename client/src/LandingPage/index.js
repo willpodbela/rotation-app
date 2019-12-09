@@ -1,29 +1,27 @@
 import React, { Component } from "react"
-import PricingTable from "../PricingTable"
-import Auth from "../modules/Auth"
+import { Link } from "react-router-dom"
 import "./style.css"
 
 class LandingPage extends Component {
   constructor(props){
     super(props)
     this.state = {
-      items: []
+      items: [],
+      landing_email: ""
     }
   }
 
   componentDidMount(){
     window.scrollTo(0, 0)
-    fetch("/items", {
-      headers: {
-        "Authorization": `Token ${Auth.getToken()}`
-      }
+    //unauthenticaed items request here
+  }
+
+  handleInputChange(e) {
+    const name = e.target.name
+    const value = e.target.value
+    this.setState({
+      [name]: value
     })
-      .then(results => {
-        results.json()
-          .then(results => {
-            this.setState({items: results.items})
-          })
-      })
   }
 
   render(){
@@ -34,8 +32,8 @@ class LandingPage extends Component {
             <div className="welcome_to_a_closet line_height40 width388 druk_large rotation_gray padding_bottom25">Welcome to a closet without boundaries.</div>
             <div className="welcome_description line_height28 width388 proxima_xl rotation_gray padding_bottom25">Rent unlimited streetwear, for one low monthly price. Choose from our massive catalog and swap items whenever you want. We curate the latest in style and keep your closet in season so you don’t have to.</div>
             <div className="flex sign_up">
-              <div className="sign_up_box white_background flex align_center"><input className="width200 spacing10 opacity7 proxima_small medium rotation_gray left20" placeholder="ENTER EMAIL ADDRESS"></input></div>
-              <div className="i_want_in spacing10 proxima_small semibold white rotation_gray_background flex justify_center align_center cursor_pointer uppercase">I Want In</div>
+              <div className="sign_up_box white_background flex align_center"><input className="width200 spacing10 opacity7 proxima_small medium rotation_gray left20" placeholder="ENTER EMAIL ADDRESS" name="landing_email" value={this.state.landing_email} onChange={(e) => this.handleInputChange(e)} /></div>
+              <Link to={{ pathname: "/sign-up", state: { landing_email: this.state.landing_email} }} className="i_want_in spacing10 proxima_small semibold white rotation_gray_background flex justify_center align_center cursor_pointer uppercase">I Want In</Link>
             </div>
           </div>
         </header>
@@ -78,7 +76,6 @@ class LandingPage extends Component {
             })}
           </div>
         </section>
-        <PricingTable />
       </div>
     )
   }

@@ -12,13 +12,15 @@ class CatalogPage extends Component {
   constructor(props){
     super(props)
     this.state = {
-      items: [],
-      upNext:[],
       myRotation: [],
+      upNext:[],
       favorites: [],
+      items: [],
+      designers: [],
       showModal: false,
-      modalItem: {},
-      showError: false,
+      selectedItem: {},
+      showSizeSelectionError: false,
+      requestToBuyMessage: false,
       sizes: [
         {value: "S", selected: false},
         {value: "M", selected: false},
@@ -30,27 +32,39 @@ class CatalogPage extends Component {
         {value: "M", selected: false, available: false},
         {value: "L", selected: false, available: false},
         {value: "XL", selected: false, available: false}
-      ],
+      ]
     }
   }
 
   componentDidMount(){
     window.scrollTo(0, 0)
-    fetch("/items", {
-      headers: {
-        "Authorization": `Token ${Auth.getToken()}`
-      }
-    })
-    .then(results => {
-      results.json()
-        .then(results => {
-          let items = results.items
-          items.forEach(item => {
-            item.title = {value: item.title, selected: false}
+    if(Auth.isUserAuthenticated()){
+      fetch("/items?sort_by_section=true", {
+        headers: {
+          "Authorization": `Token ${Auth.getToken()}`
+        }
+      })
+      .then(results => {
+        results.json()
+          .then(results => {
+            this.setState({myRotation: this.addSelectedProperty(results.items.my_rotation)})
+            this.setState({upNext: this.addSelectedProperty(results.items.up_next)})
+            this.setState({items: this.addSelectedProperty(results.items.catalog)})
+            let designers = this.state.items.map(item => item.title)
+            designers = Array.from(new Set(designers.map(designer => designer.value))).map(value => {
+              return designers.find(designer => designer.value === value)
+            })
+            this.setState({designers: designers})
           })
-          this.setState({items: items})
-        })
+      })
+    }
+  }
+
+  addSelectedProperty(items){
+    items.forEach(item => {
+      item.title = {value: item.title, selected: false}
     })
+    return items
   }
 
   filterDesigners(e){
@@ -76,65 +90,115 @@ class CatalogPage extends Component {
   toggleModalSizes(e){
     let sizesCopy = [...this.state.modalSizes]
     this.state.modalSizes.forEach((size, index) => {
-      if(size.value === e.target.innerHTML){
+      if(size.available && size.value === e.target.innerHTML){
         sizesCopy[index].selected ? sizesCopy[index].selected = false : sizesCopy[index].selected = true
       }else{
-        if(size.selected){
-          sizesCopy[index].selected = false
-        }
+        sizesCopy[index].selected = false
       }
     })
     this.setState({modalSizes: sizesCopy})
   }
 
   reserveItem(e){
-    const upNext = this.state.upNext
-    if(upNext.length === 2){
-      this.setState({showError: true})
-    }else{
-      let upNextCopy = [...upNext]
-      upNextCopy.push(this.state.modalItem)
-      this.setState({upNext: upNextCopy})
+    if(this.state.modalSizes.some(size => size.selected === true)){
+      fetch("/reservations", {
+        method: "POST",
+        body: JSON.stringify({
+          "item_id": this.state.selectedItem.id,
+          "size": this.state.modalSizes.find(size => size.selected).value
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Token ${Auth.getToken()}`
+        }
+      }).then(res => res.json()).then(res => {
+        console.log(res)
+        //handle errors here
+      })
       this.hideModal(e)
+      window.location.reload(true)
+    }else{
+      this.setState({showSizeSelectionError: true})
     }
   }
 
   removeItem(e){
-    let upNextCopy = [...this.state.upNext]
-    upNextCopy.splice(upNextCopy.indexOf(this.state.modalItem), 1)
-    this.setState({upNext: upNextCopy})
+    fetch(`/reservations/${this.state.selectedItem.reservation.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${Auth.getToken()}`
+      }
+    }).then(res => res.json()).then(res => {
+      console.log(res)
+      //handle errors here
+    })
     this.hideModal(e)
+    window.location.reload(true)
   }
 
   displayModal(e, item){
-    this.setState({showModal: true, modalItem: item})
+    this.setState({showModal: true, selectedItem: item})
+  }
+
+  requestToBuy(e){
+    fetch(`/reservations/${this.state.selectedItem.reservation.id}/buy`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${Auth.getToken()}`
+      }
+    })
+    //handle errors here
+    this.hideModal(e)
+    this.setState({requestToBuyMessage: true})
   }
 
   hideModal(e){
     this.setState({showModal: false})
+    this.setState({modalSizes: [
+      {value: "S", selected: false, available: false},
+      {value: "M", selected: false, available: false},
+      {value: "L", selected: false, available: false},
+      {value: "XL", selected: false, available: false}
+    ]})
+  }
+
+  getSizesAvailable(item){
+    const sizes = item.sizes
+    let availableSizes = []
+    for(let size in sizes){
+      if(sizes[size] > 0){
+        availableSizes.push(size)
+      }
+    }
+    return availableSizes
   }
 
   render(){
     if(!Auth.isUserAuthenticated()){
       return <Redirect to="/" />
     }
-    let designers = this.state.items.map(item => item.title)
-    designers = Array.from(new Set(designers.map(designer => designer.value))).map(value => {
-      return designers.find(designer => designer.value === value)
-    })
-    const selectedItem = this.state.modalItem
-    const reservedIDs = this.state.upNext.map(item => item.id)
+    const selectedItem = this.state.selectedItem
+    const selectedSizes = this.state.sizes.filter(size => size.selected).map(size => size.value)
+    const designersBeingFiltered = this.state.items.map(item => item.title.selected).includes(true)
+    const sizesBeingFiltered = selectedSizes.length > 0
+    const myRotationItemSelected = this.state.myRotation.some(item => item.id === selectedItem.id)
+    const upNextItemSelected = this.state.upNext.some(item => item.id === selectedItem.id)
     return (
       <div className="CatalogPage gray_border_top">
-        {this.state.showError &&
-          <ErrorMessage error={{message: "Only 2 items allowed in your Rotation"}}/>
+        {this.state.showSizeSelectionError &&
+          <ErrorMessage error={{message: "Please select a size."}}/>
+        }
+        {this.state.requestToBuyMessage &&
+          <ErrorMessage error={{message: "We've recieved your request and a member of our team will be in contact with you shortly."}}/>
         }
         <div className="catalog_wrapper padding_top25 flex justify_between sides13pct">
           <div className="filters_and_designers width150 padding_right10">
             <div className="fixed_sidebar overflow_scroll width150">
               <div className="filters_title medium druk_xs rotation_gray padding_bottom5">Designers</div>
               <div>
-                {designers.map((designer, index) => {
+                {this.state.designers.map((designer, index) => {
                   return (
                     <div
                       key={index}
@@ -204,9 +268,33 @@ class CatalogPage extends Component {
                   })}
                 </div>
               </div>
-              {this.state.items.map(item => item.title.selected).includes(true) || this.state.sizes.map(size => size.selected).includes(true) ? (
+              {designersBeingFiltered && sizesBeingFiltered ? (
                 this.state.items.map((item, index) => {
-                  if(item.title.selected && !reservedIDs.includes(item.id)){
+                  if(item.title.selected && this.getSizesAvailable(item).filter(size => selectedSizes.includes(size)).length > 0){
+                    return (
+                      <div key={index} onClick={(e) => this.displayModal(e, item)}>
+                        <ItemCard item={item}  />
+                      </div>
+                    )
+                  }else{
+                    return null
+                  }
+                })
+              ) : designersBeingFiltered && !sizesBeingFiltered ? (
+                this.state.items.map((item, index) => {
+                  if(item.title.selected){
+                    return (
+                      <div key={index} onClick={(e) => this.displayModal(e, item)}>
+                        <ItemCard item={item}  />
+                      </div>
+                    )
+                  }else{
+                    return null
+                  }
+                })
+              ) : !designersBeingFiltered && sizesBeingFiltered ? (
+                this.state.items.map((item, index) => {
+                  if(this.getSizesAvailable(item).filter(size => selectedSizes.includes(size)).length > 0){
                     return (
                       <div key={index} onClick={(e) => this.displayModal(e, item)}>
                         <ItemCard item={item}  />
@@ -218,15 +306,11 @@ class CatalogPage extends Component {
                 })
               ) : (
                 this.state.items.map((item, index) => {
-                  if(!reservedIDs.includes(item.id)){
-                    return (
-                      <div key={index} onClick={(e) => this.displayModal(e, item)}>
-                        <ItemCard item={item}  />
-                      </div>
-                    )
-                  }else{
-                    return null
-                  }
+                  return (
+                    <div key={index} onClick={(e) => this.displayModal(e, item)}>
+                      <ItemCard item={item}  />
+                    </div>
+                  )
                 })
               )}
             </div>
@@ -245,21 +329,37 @@ class CatalogPage extends Component {
                 {this.state.modalSizes.forEach(size => {
                   size.available = selectedItem.sizes[size.value] > 0
                 })}
-                {this.state.modalSizes.map((size, index) => {
-                  return (
-                    <div
-                      key={index}
-                      onClick={(e) => this.toggleModalSizes(e)}
-                      className="modal_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center cursor_pointer"
-                      style={{background: !size.available ? "#F2F2F2" : size.selected ? "#333333" : "#FFFFFF", color: size.selected && size.available ? "#FFFFFF" : "#333333"}}
-                    >
-                      {size.value}
-                    </div>
-                  )
-                })}
+                {myRotationItemSelected || upNextItemSelected ? (
+                  this.state.modalSizes.map((size, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className="modal_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center cursor_pointer"
+                        style={{background: size.value === selectedItem.reservation.size ? "#333333" : size.available ? "#FFFFFF" : "#F2F2F2", color: size.value === selectedItem.reservation.size ? "#FFFFFF" : "#333333"}}
+                      >
+                        {size.value}
+                      </div>
+                    )
+                  })
+                ) : (
+                  this.state.modalSizes.map((size, index) => {
+                    return (
+                      <div
+                        key={index}
+                        onClick={(e) => this.toggleModalSizes(e)}
+                        className="modal_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center cursor_pointer"
+                        style={{background: !size.available ? "#F2F2F2" : size.selected ? "#333333" : "#FFFFFF", color: size.selected && size.available ? "#FFFFFF" : "#333333"}}
+                      >
+                        {size.value}
+                      </div>
+                    )
+                  })
+                )}
               </div>
               <div className="modal_buttons sides50 flex justify_between top40">
-                {this.state.upNext.some(item => item.id === selectedItem.id) ? (
+                {myRotationItemSelected ? (
+                  <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer green" onClick={(e) => this.requestToBuy(e)}>Request to Buy</div>
+                ) : upNextItemSelected ? (
                   <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer red" onClick={(e) => this.removeItem(e)}>Remove</div>
                 ) : (
                   <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveItem(e)}>Reserve</div>

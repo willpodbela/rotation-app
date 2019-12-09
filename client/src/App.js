@@ -8,8 +8,10 @@ import TermsPage from "./TermsPage"
 import PrivacyPage from "./PrivacyPage"
 import CatalogPage from "./CatalogPage"
 import AccountPage from "./AccountPage"
+import PrelauncherPage from "./PrelauncherPage"
 import Nav from "./Nav"
 import Footer from "./Footer"
+import Auth from "./modules/Auth"
 
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { fab } from "@fortawesome/free-brands-svg-icons"
@@ -29,6 +31,7 @@ class App extends Component {
           <Route path="/privacy" exact component={PrivacyPage} />
           <Route path="/catalog" exact component={CatalogPage} />
           <Route path="/account" exact component={AccountPage} />
+          <Route path="/prelauncher" exact component={PrelauncherPage} />
           <Footer />
         </div>
       </Router>

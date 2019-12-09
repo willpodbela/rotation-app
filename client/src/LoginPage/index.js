@@ -57,7 +57,7 @@ class LoginPage extends Component {
     }
     return (
       <div className="LoginPage light_background flex justify_center">
-        <img className="max_width400 top80 bottom80 sides70" src={image} />
+        <img className="login_image max_width400 top80 bottom80 sides70" src={image} alt="" />
         <div className="login_box gray_border white_background height300 width400 top180 bottom180 sides70">
           <div className="width300 margin_auto top20 druk_small rotation_gray">Log In</div>
           <form onSubmit={(e) => this.handleLoginSubmit(e)}>
@@ -71,7 +71,7 @@ class LoginPage extends Component {
             </div>
             <input type="submit" value="Log In" className="input_box rotation_gray_border rotation_gray_background width300 height50 margin_auto top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" />
           </form>
-          <Link to="/sign-up"><div className="proxima_small medium underline rotation_gray top10 text_center cursor_pointer">Don't have an account? Sign up</div></Link>
+          <Link to="/sign-up" className="proxima_small medium underline rotation_gray top10 flex justify_center cursor_pointer">Don't have an account? Sign up</Link>
         </div>
       </div>
     )

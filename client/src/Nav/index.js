@@ -5,12 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "./style.css"
 
 class Nav extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      authenticated: Auth.isUserAuthenticated()
-    }
-  }
+  // constructor(props){
+  //   super(props)
+  //   this.state = {
+  //     auth: Auth.isUserAuthenticated()
+  //   }
+  // }
 
   render(){
     return (
@@ -19,13 +19,13 @@ class Nav extends Component {
           <Link to="/" className="flex align_center">
             <img srcSet={"../images/The-Rotation.png 1x, ../images/The-Rotation@2x.png 2x"} src={"../images/The-Rotation.png"} className="max_width_full" alt="" />
           </Link>
-          {this.state.authenticated ? (
+          {/* {this.state.auth ? (
             <div className="flex">
               <Link className="right30 cursor_pointer" to="/catalog"><FontAwesomeIcon className="rotation_gray font26" icon="shopping-bag" /></Link>
               <Link className="right30 cursor_pointer" to="/account"><FontAwesomeIcon className="rotation_gray font26" icon="user" /></Link>
-              <FontAwesomeIcon className="rotation_gray font26 cursor_pointer" icon="sign-out-alt" />
+              <FontAwesomeIcon className="rotation_gray font26 cursor_pointer" icon="sign-out-alt" onClick={Auth.deauthenticateUser()} />
             </div>
-          ) : (
+          ) : ( */}
             <div className="flex align_center">
               <div className="proxima_small bold padding_right20">
                 <Link className="rotation_gray" to="/login">Log In</Link>
@@ -41,7 +41,7 @@ class Nav extends Component {
                 </div>
               </div>
             </div>
-          )}
+          {/* )} */}
         </nav>
       </div>
     )

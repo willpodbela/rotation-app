@@ -16,3 +16,16 @@
 .height15{
   height: 15px;
 }
+@media (max-width: 1085px) {
+  .login_image{
+    margin: 80px 20px !important;
+  }
+  .login_box{
+    margin: 180px 20px !important;
+  }
+}
+@media (max-width: 900px) {
+  .login_image{
+    display: none;
+  }
+}
