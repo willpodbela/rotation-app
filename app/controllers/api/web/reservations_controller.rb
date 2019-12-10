@@ -9,10 +9,15 @@ module Api
         inventory = Queries::Inventory.new
         item = Item.find_by_id(params[:item_id])
       
-        unless inventory.total_available(item) > 0
-          render_error(400, "Looks like this item is sold out right now. Please choose a different one.")
+        if inventory.total_available(item) > 0
+          r = current_user.reservations_remaining
+          if !r.nil? && r > 0
+            super
+          else
+            render_error(403, "No more reservations remaining.")
+          end
         else
-          super
+          render_error(403, "Looks like this item is sold out right now. Please choose a different one.")
         end
       end
       
