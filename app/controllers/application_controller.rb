@@ -6,7 +6,11 @@ class ApplicationController < ActionController::Base
   before_action :login_redirect
   
   def react_index_html
-    render :file => 'public/index.html'
+    render :file => 'public/index.html', layout: false
+  end
+  
+  def react_non_html
+    render :file => 'public/#{params[:other]}', layout: false
   end
   
   private
