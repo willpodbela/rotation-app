@@ -29,7 +29,12 @@ class AccountPage extends Component {
       billingZipcode: "",
       billingState: "",
       showError: false,
-      subscription: false //NOTE: Not exactly "convention", if you want to change, just function at line 90 and Ctrl+Find any references to 'subscription.'
+      subscription: false, //NOTE: Not exactly "convention", if you want to change, just function at line 90 and Ctrl+Find any references to 'subscription.'
+      planOptions: [
+        {itemQty: 2, monthlyCost: "$89", selected: false},
+        {itemQty: 3, monthlyCost: "$129", selected: false},
+        {itemQty: 4, monthlyCost: "$159", selected: false},
+      ]
     }
   }
 
@@ -65,6 +70,9 @@ class AccountPage extends Component {
     this.setState({
       subscription: (subscription || false)
     })
+    if (subscription) {
+      this.setSelectedPlan(subscription.item_qty)
+    }
   }
 
   getAccountDetails() {
@@ -190,8 +198,17 @@ class AccountPage extends Component {
     this.updateSubscription({ cancel_at_period_end: false })
   }
   
-  changeSubscriptionTier(itemQuantity) {
-    this.updateSubscription({ item_qty: itemQuantity })
+  updateSubscriptionTier(e) {
+    const plan = this.state.planOptions.find(plan => plan.selected)
+    if (plan) {
+      const itemQuantity = this.state.planOptions.find(plan => plan.selected).itemQty
+      this.updateSubscription({ item_qty: itemQuantity })
+    } else {
+      this.setState({
+        showError: true,
+        errorMessage: "Please select a plan."
+      })
+    }
   }
   
   updateSubscription(params) {
@@ -207,6 +224,20 @@ class AccountPage extends Component {
       //handle errors here
       this.setSubscription(res.subscription)
     })
+  }
+  
+  // -- Subscription View Helpers
+  
+  togglePlanOptions(e){
+    this.setSelectedPlan(parseInt(e.target.getAttribute("name")))
+  }
+  
+  setSelectedPlan(itemQty){
+    let plansOptionsCopy = [...this.state.planOptions]
+    plansOptionsCopy.forEach((plan, index) => {
+      plansOptionsCopy[index].selected = (plan.itemQty === itemQty)
+    })
+    this.setState({plansOptions: plansOptionsCopy})
   }
   
   // -- Stripe API Setup
@@ -286,7 +317,24 @@ class AccountPage extends Component {
             {this.state.subscription ? (
               this.state.subscription.status === "active" ? (
                 <div>
-                  <div>TODO: Change Plan buttons</div>
+                  <div className="flex">
+                    {this.state.planOptions.map((plan, index) => {
+                      return (
+                        <div
+                          key={index}
+                          className="input_box right20 rotation_gray_border rotation_gray_background width150 height100 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer text_center"
+                          style={{background: plan.selected ? "#333333" : "#FFFFFF", color: plan.selected ? "#FFFFFF" : "#333333"}}
+                          name={plan.itemQty}
+                          onClick={(e) => this.togglePlanOptions(e)}
+                        >
+                          {plan.itemQty} Items
+                          <br />
+                          {plan.monthlyCost}/Month
+                        </div>
+                      )
+                    })}
+                  </div>
+                  <div className="input_box rotation_gray_border rotation_gray_background width300 height50 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" onClick={(e) => this.updateSubscriptionTier(e)}>Change Plan</div>
                   <div className="cancel_subscription top20 padding_bottom85 proxima_small rotation_gray semibold spacing20 uppercase underline cursor_pointer" onClick={(e) => this.cancelSubscription(e)}>Cancel Subscription</div>
                 </div>
               ) : this.state.subscription.status === "canceled" ? (
