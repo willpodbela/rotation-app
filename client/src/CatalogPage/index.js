@@ -203,7 +203,7 @@ class CatalogPage extends Component {
     })
     //handle errors here
     this.hideModal(e)
-    // TODO SuccessMessage "We've recieved your request and a member of our team will be in contact with you shortly."
+    this.props.noticeHandler({message: "We've recieved your request and a member of our team will be in contact with you shortly."})
   }
 
   favoriteItem(e){
