@@ -1,4 +1,5 @@
 class ItemsController < AdminBaseController
+  before_action :enforce_access_control_admin!
   
   def index
     @items = Item

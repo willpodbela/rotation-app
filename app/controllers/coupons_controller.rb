@@ -1,4 +1,5 @@
 class CouponsController < ApplicationController
+  before_action :enforce_access_control_admin!
   before_action :set_code!
 
   def new
