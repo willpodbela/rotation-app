@@ -6,22 +6,23 @@ class ErrorMessage extends Component {
   constructor(props){
     super(props)
     this.state = {
-      error: props.error
+      error: (props.error || false)
     }
   }
 
   componentWillReceiveProps(nextProps){
-    this.setState({error: nextProps.error})
+    this.setState({error: (nextProps.error || false)})
   }
 
   handleDismiss(e){
-    this.setState({error: null})
+    this.props.onClose()
+    this.setState({error: false})
   }
 
   render(){
-    return (
-      <ReactCSSTransitionGroup transitionName="alert" transitionEnterTimeout={200} transitionLeaveTimeout={200}>
-        {this.state.error &&
+    if (this.state.error) {
+      return (
+        <ReactCSSTransitionGroup transitionName="alert" transitionEnterTimeout={200} transitionLeaveTimeout={200}>
           <div key="alert" className="ErrorMessage alert alert-danger alert-dismissible alert-form-error" role="alert">
             <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={(e) => this.handleDismiss(e)}><span aria-hidden="true">&times;</span></button>
             <span className="content">
@@ -31,9 +32,11 @@ class ErrorMessage extends Component {
               }
             </span>
           </div>
-        }
-      </ReactCSSTransitionGroup>
-    )
+        </ReactCSSTransitionGroup>
+      )
+    } else {
+      return(null)
+    }
   }
 }
 
