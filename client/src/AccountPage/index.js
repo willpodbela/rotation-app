@@ -34,27 +34,35 @@ class AccountPage extends Component {
 
   componentDidMount(){
     this.loadStripe()
-    fetch(`/api/web/users/${this.props.userLoggedIn.id}/profile`, {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Token ${Auth.getToken()}`
-      }
-    })
-    .then(results => {
-      results.json()
-        .then(results => {
-          const profile = results.profile
-          this.setState({
-            firstName: profile.first_name,
-            lastName: profile.last_name,
-            addressLine1: profile.address_line_one,
-            addressLine2: profile.address_line_two,
-            city: profile.address_city,
-            zipcode: profile.address_zip,
-            state: profile.address_state
+    const profile = this.props.userLoggedIn.profile
+    if (profile) {
+      this.setProfile(profile)
+    } else {
+      fetch(`/api/web/users/${this.props.userLoggedIn.id}/profile`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Token ${Auth.getToken()}`
+        }
+      })
+      .then(results => {
+        results.json()
+          .then(results => {
+            this.setProfile(results.profile)
           })
         })
-      })
+    }
+  }
+  
+  setProfile(profile) {
+    this.setState({
+      firstName: profile.first_name,
+      lastName: profile.last_name,
+      addressLine1: profile.address_line_one,
+      addressLine2: profile.address_line_two,
+      city: profile.address_city,
+      zipcode: profile.address_zip,
+      state: profile.address_state
+    })
   }
 
   updateAccountDetails(e){
@@ -121,6 +129,8 @@ class AccountPage extends Component {
       }
     })
   }
+  
+  // -- Subscription API Calls
 
   updatePayment(stripeID){
     fetch("/api/web/subscription/update-payment", {
@@ -138,8 +148,7 @@ class AccountPage extends Component {
     })
   }
 
-  createSubscription(stripeID){
-    const itemQuantity = 2
+  createSubscription(stripeID, itemQuantity){
     fetch("/api/web/subscription", {
       method: "POST",
       body: JSON.stringify({
@@ -155,6 +164,34 @@ class AccountPage extends Component {
       //handle errors here
     })
   }
+  
+  cancelSubscription(){
+    this.updateSubscription({ cancel_at_period_end: true })
+  }
+  
+  restoreSubscription(){
+    this.updateSubscription({ cancel_at_period_end: false })
+  }
+  
+  changeSubscriptionTier(itemQuantity) {
+    this.updateSubscription({ item_qty: itemQuantity })
+  }
+  
+  updateSubscription(params) {
+    fetch("/api/web/subscription", {
+      method: "PUT",
+      body: JSON.stringify(params),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${Auth.getToken()}`
+      }
+    }).then(res => res.json()).then(res => {
+      console.log(res)
+      //handle errors here
+    })
+  }
+  
+  // -- Stripe API Setup
 
   loadStripe(){
     if(!window.document.getElementById('stripe-script')) {
@@ -168,6 +205,8 @@ class AccountPage extends Component {
       window.document.body.appendChild(s);
     }
   }
+  
+  // -- Render
 
   render(){
     return (
@@ -219,7 +258,7 @@ class AccountPage extends Component {
             <div className="input_box rotation_gray_border rotation_gray_background width300 height50 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" onClick={(e) => this.updateAccountDetails(e)}>Save Changes</div>
             <div className="profile_divider rotation_gray_background top60"></div>
             <div className="druk_xs medium rotation_gray top60">Need a break?</div>
-            <div className="cancel_subscription top20 padding_bottom85 proxima_small rotation_gray semibold spacing20 uppercase underline cursor_pointer">Cancel Subscription</div>
+            <div className="cancel_subscription top20 padding_bottom85 proxima_small rotation_gray semibold spacing20 uppercase underline cursor_pointer" onClick={(e) => this.cancelSubscription(e)}>Cancel Subscription</div>
           </div>
         }
         {this.state.showBilling &&
