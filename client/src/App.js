@@ -26,6 +26,7 @@ class App extends Component {
       loginPassword: "",
       registerEmail: "",
       regsiterPassword: "",
+      registerConfirmPassword: "",
       showForgotPasswordMessage: false,
       userLoggedIn: {}
     }
@@ -46,7 +47,6 @@ class App extends Component {
         loginEmail: "",
         loginPassword: ""
       })
-      window.location.reload(true)
     })
   }
 
@@ -68,31 +68,34 @@ class App extends Component {
   }
 
   handleSignUp(e){
-    e.preventDefault()
-    fetch("/api/web/users", {
-      method: "POST",
-      body: JSON.stringify({
-        email: this.state.registerEmail,
-        password: this.state.registerPassword
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    //handle errors here
-    .then(res => res.json())
-    .then(res => {
-      const token = res.user.auth_token
-      if(token){
-        Auth.authenticateToken(token)
-        this.setState({
-          authenticated: Auth.isUserAuthenticated()
-        })
-        window.location.reload(true)
-      }
-    }).catch(err => {
-      console.log(err)
-    })
+    if(this.state.registerPassword !== this.state.registerConfirmPassword){
+      console.log("Passwords don't match.")
+    }else{
+      e.preventDefault()
+      fetch("/api/web/users", {
+        method: "POST",
+        body: JSON.stringify({
+          email: this.state.registerEmail,
+          password: this.state.registerPassword
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      //handle errors here
+      .then(res => res.json())
+      .then(res => {
+        const token = res.user.auth_token
+        if(token){
+          Auth.authenticateToken(token)
+          this.setState({
+            authenticated: Auth.isUserAuthenticated()
+          })
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    }
   }
 
   handleLoginSubmit(e){
@@ -119,7 +122,6 @@ class App extends Component {
           userLoggedIn: res.user,
           loginPassword: ""
         })
-        window.location.reload(true)
       }
     }).catch(err => {
       console.log(err)
@@ -167,6 +169,7 @@ class App extends Component {
                 handleSignUp={(e) => this.handleSignUp(e)}
                 registerEmail={this.state.registerEmail}
                 registerPassword={this.state.registerPassword}
+                registerConfirmPassword={this.state.registerConfirmPassword}
                 handleInputChange={(e) => this.handleInputChange(e)}
               />
           }/>
@@ -183,6 +186,7 @@ class App extends Component {
                 loginPassword={this.state.loginPassword}
                 registerEmail={this.state.registerEmail}
                 registerPassword={this.state.registerPassword}
+                registerConfirmPassword={this.state.registerConfirmPassword}
               />
           }/>
           <Route

@@ -438,11 +438,11 @@ class CatalogPage extends Component {
                   <form onSubmit={this.props.handleLoginSubmit}>
                     <div className="input_box gray_border width300 height50 margin_auto top15">
                       <div className="proxima_small medium very_light_gray left20 top5 height15">Email address</div>
-                      <input className="proxima_xl medium rotation_gray width260 left20" placeholder="mason@ramsey.com" name="loginEmail" value={this.props.loginEmail} onChange={this.props.handleInputChange} />
+                      <input className="proxima_xl medium rotation_gray width260 left20" name="loginEmail" value={this.props.loginEmail} onChange={this.props.handleInputChange} />
                     </div>
                     <div className="input_box gray_border width300 height50 margin_auto top20">
                       <div className="proxima_small medium very_light_gray left20 top5 height15">Password</div>
-                      <input type="password" className="proxima_xl medium rotation_gray width260 left20" placeholder="•••••••••••••••" name="loginPassword" value={this.props.loginPassword} onChange={this.props.handleInputChange} />
+                      <input type="password" className="proxima_xl medium rotation_gray width260 left20" name="loginPassword" value={this.props.loginPassword} onChange={this.props.handleInputChange} />
                     </div>
                     <div className="proxima_xs medium rotation_gray top10 text_center underline cursor_pointer" onClick={(e) => this.toggleModal(e, "plan")}>Forgot your password?</div>
                     {/* <div className="proxima_xs medium rotation_gray top10 text_center underline cursor_pointer" onClick={this.props.forgotPassword}>Forgot your password?</div> */}
@@ -460,11 +460,11 @@ class CatalogPage extends Component {
                   <form onSubmit={this.props.handleSignUp}>
                     <div className="input_box gray_border width300 height50 margin_auto top15">
                       <div className="proxima_small medium very_light_gray left20 top5 height15">Email address</div>
-                      <input className="proxima_xl medium rotation_gray width260 left20" placeholder="mason@ramsey.com" name="registerEmail" value={this.props.registerEmail} onChange={this.props.handleInputChange} />
+                      <input className="proxima_xl medium rotation_gray width260 left20" name="registerEmail" value={this.props.registerEmail} onChange={this.props.handleInputChange} />
                     </div>
                     <div className="input_box gray_border width300 height50 margin_auto top20">
                       <div className="proxima_small medium very_light_gray left20 top5 height15">Password</div>
-                      <input type="password" className="proxima_xl medium rotation_gray width260 left20" placeholder="•••••••••••••••" name="registerPassword" value={this.props.registerPassword} onChange={this.props.handleInputChange} />
+                      <input type="password" className="proxima_xl medium rotation_gray width260 left20" name="registerPassword" value={this.props.registerPassword} onChange={this.props.handleInputChange} />
                     </div>
                     <div className="proxima_xs medium rotation_gray top10 text_center">By registering, I accept the <Link to="/terms" className="underline cursor_pointer">Terms of Service</Link> and <Link to="/privacy" className="underline cursor_pointer">Privacy Policy</Link></div>
                     <input type="submit" value="Sign Up" className="input_box rotation_gray_border rotation_gray_background width300 height50 margin_auto top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" />
