@@ -18,13 +18,13 @@ module Api
                   render_error(403, "No more reservations remaining.")
                 end
               else
-                render_error(403, "Our latest payment attempt failed. Please update your billing info in the account page.")
+                render_error(403, "Our latest payment attempt failed. Please update your billing info at the bottom of the catalog.")
               end
             else
-              render_error(403, "Your subscription is not active. Please purcahse in the account page.")
+              render_error(403, "Your subscription is not active. Click on an item to purchase a subscription.")
             end
           else
-            render_error(403, "Your subscription is not active. Please purcahse in the account page.")
+            render_error(403, "Your subscription is not active. Click on an item to purchase a subscription.")
           end
         else
           render_error(403, "Looks like this item is sold out right now. Please choose a different one.")

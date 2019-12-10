@@ -17,16 +17,16 @@ module Api
                 if current_user.reservations_remaining > 0
                   super
                 else
-                  render_error(403, "No more reservations remaining.")
+                  render_error(403, "No more reservations remaining. Upgrade your plan in the account page or send an item back!")
                 end
               else
                 render_error(403, "Our latest payment attempt failed. Please update your billing info in the account page.")
               end
             else
-              render_error(403, "Your subscription is not active. Please purcahse in the account page.")
+              render_error(403, "Your subscription is not active. Please purchase in the account page.")
             end
           else
-            render_error(403, "Your subscription is not active. Please purcahse in the account page.")
+            render_error(403, "Your subscription is not active. Please purchase in the account page.")
           end
         else
           render_error(403, "Looks like this item is sold out right now. Please choose a different one.")
