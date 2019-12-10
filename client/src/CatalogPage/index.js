@@ -5,7 +5,8 @@ import "./bootstrap-modal.css"
 import ItemCard from "../ItemCard"
 import ErrorMessage from "../ErrorMessage"
 import Auth from "../modules/Auth"
-import { Redirect } from "react-router-dom"
+import { Link, Redirect } from "react-router-dom"
+// import EmptyHeart from "../img/Favorite.png"
 import "./style.css"
 
 class CatalogPage extends Component {
@@ -32,34 +33,55 @@ class CatalogPage extends Component {
         {value: "M", selected: false, available: false},
         {value: "L", selected: false, available: false},
         {value: "XL", selected: false, available: false}
-      ]
+      ],
+      showSignUpFlow: false
     }
   }
 
   componentDidMount(){
     window.scrollTo(0, 0)
-    fetch("/api/web/items?sort_by_section=true", {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Token ${Auth.getToken()}`
-      }
-    })
-    .then(results => {
-      results.json()
-        .then(results => {
-          this.setState({
-            myRotation: this.addSelectedProperty(results.items.my_rotation),
-            upNext: this.addSelectedProperty(results.items.up_next),
-            favorites: this.addSelectedProperty(results.items.catalog.filter(item => item.is_favorite)),
-            items: this.addSelectedProperty(results.items.catalog.filter(item => !item.is_favorite))
+    if(this.props.auth){
+      fetch("/api/web/items?sort_by_section=true", {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Token ${Auth.getToken()}`
+        }
+      })
+      .then(results => {
+        results.json()
+          .then(results => {
+            this.setState({
+              myRotation: this.addSelectedProperty(results.items.my_rotation),
+              upNext: this.addSelectedProperty(results.items.up_next),
+              favorites: this.addSelectedProperty(results.items.catalog.filter(item => item.is_favorite)),
+              items: this.addSelectedProperty(results.items.catalog.filter(item => !item.is_favorite))
+            })
+            let designers = this.state.items.map(item => item.title)
+            designers = Array.from(new Set(designers.map(designer => designer.value))).map(value => {
+              return designers.find(designer => designer.value === value)
+            })
+            this.setState({designers: designers})
           })
-          let designers = this.state.items.map(item => item.title)
-          designers = Array.from(new Set(designers.map(designer => designer.value))).map(value => {
-            return designers.find(designer => designer.value === value)
+      })
+    }else{
+      fetch("/api/web/items", {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(results => {
+        results.json()
+          .then(results => {
+            this.setState({items: this.addSelectedProperty(results.items)})
+            let designers = this.state.items.map(item => item.title)
+            designers = Array.from(new Set(designers.map(designer => designer.value))).map(value => {
+              return designers.find(designer => designer.value === value)
+            })
+            this.setState({designers: designers})
           })
-          this.setState({designers: designers})
-        })
-    })
+      })
+    }
+
   }
 
   addSelectedProperty(items){
@@ -203,10 +225,11 @@ class CatalogPage extends Component {
     return availableSizes
   }
 
+  toggleSignUpFlow(e){
+    this.setState({showSignUpFlow: true})
+  }
+
   render(){
-    if(!Auth.isUserAuthenticated()){
-      return <Redirect to="/" />
-    }
     const selectedItem = this.state.selectedItem
     const selectedSizes = this.state.sizes.filter(size => size.selected).map(size => size.value)
     const designersBeingFiltered = this.state.items.map(item => item.title.selected).includes(true)
@@ -282,18 +305,20 @@ class CatalogPage extends Component {
               <div className="catalog_headers flex justify_between width_full padding_bottom10">
                 <div className="catalog_title druk_xs rotation_gray medium left20">Catalog</div>
                 <div className="size_btns flex justify_between">
-                  {this.state.sizes.map((size, index) => {
-                    return (
-                      <div
-                        key={index}
-                        onClick={(e) => this.filterSizes(e)}
-                        className="rotation_gray_border height40 width40 flex justify_center align_center proxima_large rotation_gray cursor_pointer"
-                        style={{background: size.selected ? "#333333" : "#FFFFFF", color: size.selected ? "#FFFFFF" : "#333333"}}
-                      >
-                        {size.value}
-                      </div>
-                    )
-                  })}
+                  {this.props.auth &&
+                    this.state.sizes.map((size, index) => {
+                      return (
+                        <div
+                          key={index}
+                          onClick={(e) => this.filterSizes(e)}
+                          className="rotation_gray_border height40 width40 flex justify_center align_center proxima_large rotation_gray cursor_pointer"
+                          style={{background: size.selected ? "#333333" : "#FFFFFF", color: size.selected ? "#FFFFFF" : "#333333"}}
+                        >
+                          {size.value}
+                        </div>
+                      )
+                    })
+                  }
                 </div>
               </div>
               {designersBeingFiltered && sizesBeingFiltered ? (
@@ -349,56 +374,86 @@ class CatalogPage extends Component {
             <div className="modal_section height500 width_half light_background flex justify_center align_center">
               <img className="modal_image blend_background" src={selectedItem.image_url} alt="" />
             </div>
-            <div className="modal_section height500 width_half white_background">
-              <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
-              <div className="modal_brand proxima_small rotation_gray opacity6 uppercase top50 padding_sides50">{selectedItem.title.value}</div>
-              <div className="modal_description height180 overflow_scroll druk_medium rotation_gray line_height24 padding_top10 padding_sides50 capitalize">{selectedItem.subtitle}</div>
-              <div className="modal_size_btns flex top40 sides50 justify_between">
-                {this.state.modalSizes.forEach(size => {
-                  size.available = selectedItem.sizes[size.value] > 0
-                })}
-                {myRotationItemSelected || upNextItemSelected ? (
-                  this.state.modalSizes.map((size, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className="modal_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center cursor_pointer"
-                        style={{background: size.value === selectedItem.reservation.size ? "#333333" : size.available ? "#FFFFFF" : "#F2F2F2", color: size.value === selectedItem.reservation.size ? "#FFFFFF" : "#333333"}}
-                      >
-                        {size.value}
-                      </div>
-                    )
-                  })
+            {this.state.showSignUpFlow ? (
+              <div className="modal_section height500 width_half white_background">
+                {/* <div className="login_box gray_border white_background height330 width400 top180 bottom180 sides70"> */}
+                  <div className="width300 margin_auto top20 druk_small rotation_gray">Sign Up</div>
+                  <form onSubmit={this.props.handleSignUp}>
+                    <div className="input_box gray_border width300 height50 margin_auto top15">
+                      <div className="proxima_small medium very_light_gray left20 top5 height15">Email address</div>
+                      <input className="proxima_xl medium rotation_gray width260 left20" placeholder="mason@ramsey.com" name="registerEmail" value={this.props.registerEmail} onChange={this.props.handleInputChange} />
+                    </div>
+                    <div className="input_box gray_border width300 height50 margin_auto top20">
+                      <div className="proxima_small medium very_light_gray left20 top5 height15">Password</div>
+                      <input type="password" className="proxima_xl medium rotation_gray width260 left20" placeholder="•••••••••••••••" name="registerPassword" value={this.props.registerPassword} onChange={this.props.handleInputChange} />
+                    </div>
+                    <div className="proxima_xs medium rotation_gray top10 text_center">By registering, I accept the <Link to="/terms" className="underline cursor_pointer">Terms of Service</Link> and <Link to="/privacy" className="underline cursor_pointer">Privacy Policy</Link></div>
+                    <input type="submit" value="Sign Up" className="input_box rotation_gray_border rotation_gray_background width300 height50 margin_auto top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" />
+                  </form>
+                  <Link to="/login" className="proxima_small medium underline rotation_gray top10 flex justify_center cursor_pointer">Already have an account? Sign in</Link>
+                {/* </div> */}
+              </div>
+            ) : (
+              <div className="modal_section height500 width_half white_background">
+                <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
+                <div className="modal_brand proxima_small rotation_gray opacity6 uppercase top50 padding_sides50">{selectedItem.title.value}</div>
+                <div className="modal_description height180 overflow_scroll druk_medium rotation_gray line_height24 padding_top10 padding_sides50 capitalize">{selectedItem.subtitle}</div>
+                {this.props.auth ? (
+                  <div>
+                    <div className="modal_size_btns flex top40 sides50 justify_between">
+                      {this.state.modalSizes.forEach(size => {
+                        size.available = selectedItem.sizes[size.value] > 0
+                      })}
+                      {myRotationItemSelected || upNextItemSelected ? (
+                        this.state.modalSizes.map((size, index) => {
+                          return (
+                            <div
+                              key={index}
+                              className="modal_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center cursor_pointer"
+                              style={{background: size.value === selectedItem.reservation.size ? "#333333" : size.available ? "#FFFFFF" : "#F2F2F2", color: size.value === selectedItem.reservation.size ? "#FFFFFF" : "#333333"}}
+                            >
+                              {size.value}
+                            </div>
+                          )
+                        })
+                      ) : (
+                        this.state.modalSizes.map((size, index) => {
+                          return (
+                            <div
+                              key={index}
+                              onClick={(e) => this.toggleModalSizes(e)}
+                              className="modal_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center cursor_pointer"
+                              style={{background: !size.available ? "#F2F2F2" : size.selected ? "#333333" : "#FFFFFF", color: size.selected && size.available ? "#FFFFFF" : "#333333"}}
+                            >
+                              {size.value}
+                            </div>
+                          )
+                        })
+                      )}
+                    </div>
+                    <div className="modal_buttons sides50 flex justify_between top40">
+                      {myRotationItemSelected ? (
+                        <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer green request_to_buy" onClick={(e) => this.requestToBuy(e)}>Request to Buy</div>
+                      ) : upNextItemSelected ? (
+                        <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer red" onClick={(e) => this.removeItem(e)}>Remove</div>
+                      ) : (
+                        <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveItem(e)}>Reserve</div>
+                      )}
+                      {selectedItem.is_favorite ? (
+                        <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.unfavoriteItem(e)}><FontAwesomeIcon className="rotation_gray" icon="heart" /></div>
+                      ) : (
+                        <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.favoriteItem(e)}><FontAwesomeIcon className="rotation_gray" icon="bullseye" /></div>
+                      )}
+                    </div>
+                  </div>
                 ) : (
-                  this.state.modalSizes.map((size, index) => {
-                    return (
-                      <div
-                        key={index}
-                        onClick={(e) => this.toggleModalSizes(e)}
-                        className="modal_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center cursor_pointer"
-                        style={{background: !size.available ? "#F2F2F2" : size.selected ? "#333333" : "#FFFFFF", color: size.selected && size.available ? "#FFFFFF" : "#333333"}}
-                      >
-                        {size.value}
-                      </div>
-                    )
-                  })
+                  <div className="modal_buttons sides50 flex justify_between top130">
+                    <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.toggleSignUpFlow(e)}>Reserve</div>
+                    <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.toggleSignUpFlow(e)}><FontAwesomeIcon className="rotation_gray" icon="bullseye" /></div>
+                  </div>
                 )}
               </div>
-              <div className="modal_buttons sides50 flex justify_between top40">
-                {myRotationItemSelected ? (
-                  <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer green request_to_buy" onClick={(e) => this.requestToBuy(e)}>Request to Buy</div>
-                ) : upNextItemSelected ? (
-                  <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer red" onClick={(e) => this.removeItem(e)}>Remove</div>
-                ) : (
-                  <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveItem(e)}>Reserve</div>
-                )}
-                {selectedItem.is_favorite ? (
-                  <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.unfavoriteItem(e)}><FontAwesomeIcon className="rotation_gray" icon="heart" /></div>
-                ) : (
-                  <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.favoriteItem(e)}><FontAwesomeIcon className="rotation_gray" icon="bullseye" /></div>
-                )}
-              </div>
-            </div>
+            )}
           </Modal>
         }
       </div>

@@ -136,7 +136,13 @@ class App extends Component {
       <Router>
         <div className="App">
           <Nav logoutUser={(e) => this.logoutUser(e)} />
-          <Route exact path="/" component={LandingPage} />
+          <Route
+            exact path="/"
+            render={() =>
+              <LandingPage
+                auth={this.state.authenticated}
+              />
+          }/>
           <Route
             path="/login"
             render={() =>
@@ -161,9 +167,14 @@ class App extends Component {
                 handleInputChange={(e) => this.handleInputChange(e)}
               />
           }/>
-          <Route path="/terms" exact component={TermsPage} />
-          <Route path="/privacy" exact component={PrivacyPage} />
-          <Route path="/catalog" exact component={CatalogPage} />
+          <Route
+            path="/catalog"
+            render={() =>
+              <CatalogPage
+                auth={this.state.authenticated}
+                handleSignUp={(e) => this.handleSignUp(e)}
+              />
+          }/>
           <Route
             path="/account"
             render={() =>
@@ -171,6 +182,8 @@ class App extends Component {
                 userLoggedIn={this.state.userLoggedIn}
               />
           }/>
+          <Route path="/terms" exact component={TermsPage} />
+          <Route path="/privacy" exact component={PrivacyPage} />
           <Footer />
         </div>
       </Router>
