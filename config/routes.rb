@@ -109,6 +109,7 @@ Rails.application.routes.draw do
       resources :users, only: [:create, :show, :update] do
         resource :profile, only: [:show, :update]
         post 'lead', on: :collection
+        get 'me', on: :collection
       end
     
       resources :items, only: [:index, :show] do

@@ -45,6 +45,11 @@ module Api
           render :status=>400, :json => { "message": prelaunch_user.errors.full_messages.first }
         end
       end
+      
+      def me
+        @user = current_user
+        render :show
+      end
     
       private
     
