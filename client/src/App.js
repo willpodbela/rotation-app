@@ -28,7 +28,10 @@ class App extends Component {
       regsiterPassword: "",
       registerConfirmPassword: "",
       showForgotPasswordMessage: false,
-      userLoggedIn: {}
+      userLoggedIn: null
+    }
+    if(this.state.authenticated && !this.state.userLoggedIn){
+      this.getUser()
     }
   }
 
@@ -68,10 +71,10 @@ class App extends Component {
   }
 
   handleSignUp(e){
+    e.preventDefault()
     if(this.state.registerPassword !== this.state.registerConfirmPassword){
       console.log("Passwords don't match.")
     }else{
-      e.preventDefault()
       fetch("/api/web/users", {
         method: "POST",
         body: JSON.stringify({
@@ -96,6 +99,22 @@ class App extends Component {
         console.log(err)
       })
     }
+  }
+
+  getUser(){
+    console.log("HERE")
+    fetch("api/web/users/me", {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${Auth.getToken()}`
+      }
+    }).then(res => res.json()).then(res => {
+      console.log(res)
+      this.setState({
+        userLoggedIn: res.user
+      })
+      //handle errors here
+    })
   }
 
   handleLoginSubmit(e){

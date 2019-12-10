@@ -15,7 +15,7 @@ class SignUpPage extends Component {
     return (
       <div className="SignUpPage light_background flex justify_center">
         <img className="login_image max_width400 top80 bottom80 sides70" src={image} alt="" />
-        <div className="login_box gray_border white_background height330 width400 top180 bottom180 sides70">
+        <div className="login_box gray_border white_background height400 width400 top180 bottom180 sides70">
           <div className="width300 margin_auto top20 druk_small rotation_gray">Sign Up</div>
           <form onSubmit={this.props.handleSignUp}>
             <div className="input_box gray_border width300 height50 margin_auto top15">
