@@ -28,29 +28,25 @@ class AccountPage extends Component {
       billingCity: "",
       billingZipcode: "",
       billingState: "",
-      showError: false
+      showError: false,
+      subscription: false //NOTE: Not exactly "convention", if you want to change, just function at line 90 and Ctrl+Find any references to 'subscription.'
     }
   }
 
   componentDidMount(){
     this.loadStripe()
+    
+    // Set state with profile or refetch if null
     const profile = this.props.userLoggedIn.profile
     if (profile) {
       this.setProfile(profile)
     } else {
-      fetch(`/api/web/users/${this.props.userLoggedIn.id}/profile`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Token ${Auth.getToken()}`
-        }
-      })
-      .then(results => {
-        results.json()
-          .then(results => {
-            this.setProfile(results.profile)
-          })
-        })
+      this.getAccountDetails()
     }
+    
+    // Set state with subscription if present
+    const subscription = this.props.userLoggedIn.subscription
+    this.setSubscription(subscription)
   }
   
   setProfile(profile) {
@@ -63,6 +59,27 @@ class AccountPage extends Component {
       zipcode: profile.address_zip,
       state: profile.address_state
     })
+  }
+  
+  setSubscription(subscription) {
+    this.setState({
+      subscription: (subscription || false)
+    })
+  }
+
+  getAccountDetails() {
+    fetch(`/api/web/users/${this.props.userLoggedIn.id}/profile`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${Auth.getToken()}`
+      }
+    })
+    .then(results => {
+      results.json()
+        .then(results => {
+          this.setProfile(results.profile)
+        })
+      })
   }
 
   updateAccountDetails(e){
@@ -188,6 +205,7 @@ class AccountPage extends Component {
     }).then(res => res.json()).then(res => {
       console.log(res)
       //handle errors here
+      this.setSubscription(res.subscription)
     })
   }
   
@@ -209,6 +227,11 @@ class AccountPage extends Component {
   // -- Render
 
   render(){
+    let endDate = false
+    if (this.state.subscription) {
+      endDate = new Date(this.state.subscription.current_period_end)
+    }
+    
     return (
       <div className="AccountPage gray_border_top bottom70 flex">
         {this.state.showError &&
@@ -257,8 +280,24 @@ class AccountPage extends Component {
             </div>
             <div className="input_box rotation_gray_border rotation_gray_background width300 height50 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" onClick={(e) => this.updateAccountDetails(e)}>Save Changes</div>
             <div className="profile_divider rotation_gray_background top60"></div>
-            <div className="druk_xs medium rotation_gray top60">Need a break?</div>
-            <div className="cancel_subscription top20 padding_bottom85 proxima_small rotation_gray semibold spacing20 uppercase underline cursor_pointer" onClick={(e) => this.cancelSubscription(e)}>Cancel Subscription</div>
+            <div className="druk_xs medium rotation_gray top60">Manage Plan</div>
+            
+            
+            {this.state.subscription ? (
+              this.state.subscription.status === "active" ? (
+                <div>
+                  <div>TODO: Change Plan buttons</div>
+                  <div className="cancel_subscription top20 padding_bottom85 proxima_small rotation_gray semibold spacing20 uppercase underline cursor_pointer" onClick={(e) => this.cancelSubscription(e)}>Cancel Subscription</div>
+                </div>
+              ) : this.state.subscription.status === "canceled" ? (
+                <div>
+                  <span className="top20 padding_bottom85 proxima_small rotation_gray semibold spacing20">Your subscription ends {endDate ? ("on "+endDate.toDateString()) : ("soon")}. Be sure to send your clothes back by then!</span>
+                  <div className="cancel_subscription top20 padding_bottom85 proxima_small rotation_gray semibold spacing20 uppercase underline cursor_pointer" onClick={(e) => this.restoreSubscription(e)}>Resume Subscription</div>
+                </div>
+              ) : null
+            ) : (
+              <span className="top20 padding_bottom85 proxima_small rotation_gray semibold spacing20">You don't currently have an active subscription. Choose your first piece in the Catalog and click "Reserve" to shop our plans.</span>
+            )}
           </div>
         }
         {this.state.showBilling &&
