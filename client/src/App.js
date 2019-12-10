@@ -28,9 +28,11 @@ class App extends Component {
       regsiterPassword: "",
       registerConfirmPassword: "",
       showForgotPasswordMessage: false,
-      userLoggedIn: null
+      userLoggedIn: null,
+      isLoading: false
     }
     if(this.state.authenticated && !this.state.userLoggedIn){
+      this.state.isLoading = true
       this.getUser()
     }
   }
@@ -92,7 +94,8 @@ class App extends Component {
         if(token){
           Auth.authenticateToken(token)
           this.setState({
-            authenticated: Auth.isUserAuthenticated()
+            authenticated: Auth.isUserAuthenticated(),
+            isLoading: false
           })
         }
       }).catch(err => {
@@ -102,7 +105,6 @@ class App extends Component {
   }
 
   getUser(){
-    console.log("HERE")
     fetch("api/web/users/me", {
       headers: {
         "Content-Type": "application/json",
@@ -111,9 +113,9 @@ class App extends Component {
     }).then(res => res.json()).then(res => {
       console.log(res)
       this.setState({
-        userLoggedIn: res.user
+        userLoggedIn: res.user,
+        isLoading: false
       })
-      //handle errors here
     })
   }
 
@@ -139,7 +141,8 @@ class App extends Component {
           authenticated: Auth.isUserAuthenticated(),
           loginEmail: "",
           userLoggedIn: res.user,
-          loginPassword: ""
+          loginPassword: "",
+          isLoading: false
         })
       }
     }).catch(err => {
@@ -156,71 +159,77 @@ class App extends Component {
   }
 
   render(){
-    return (
-      <Router>
-        <div className="App">
-          <Nav logoutUser={(e) => this.logoutUser(e)} />
-          <Route
-            exact path="/"
-            render={() =>
-              <LandingPage
-                auth={this.state.authenticated}
-              />
-          }/>
-          <Route
-            path="/login"
-            render={() =>
-              <LoginPage
-                auth={this.state.authenticated}
-                handleLoginSubmit={(e) => this.handleLoginSubmit(e)}
-                loginEmail={this.state.loginEmail}
-                loginPassword={this.state.loginPassword}
-                handleInputChange={(e) => this.handleInputChange(e)}
-                forgotPassword={(e) => this.forgotPassword(e)}
-                showForgotPasswordMessage={this.state.showForgotPasswordMessage}
-              />
-          }/>
-          <Route
-            path="/sign-up"
-            render={() =>
-              <SignUpPage
-                auth={this.state.authenticated}
-                handleSignUp={(e) => this.handleSignUp(e)}
-                registerEmail={this.state.registerEmail}
-                registerPassword={this.state.registerPassword}
-                registerConfirmPassword={this.state.registerConfirmPassword}
-                handleInputChange={(e) => this.handleInputChange(e)}
-              />
-          }/>
-          <Route
-            path="/catalog"
-            render={() =>
-              <CatalogPage
-                auth={this.state.authenticated}
-                handleSignUp={(e) => this.handleSignUp(e)}
-                handleLoginSubmit={(e) => this.handleLoginSubmit(e)}
-                handleInputChange={(e) => this.handleInputChange(e)}
-                forgotPassword={(e) => this.forgotPassword(e)}
-                loginEmail={this.state.loginEmail}
-                loginPassword={this.state.loginPassword}
-                registerEmail={this.state.registerEmail}
-                registerPassword={this.state.registerPassword}
-                registerConfirmPassword={this.state.registerConfirmPassword}
-              />
-          }/>
-          <Route
-            path="/account"
-            render={() =>
-              <AccountPage
-                userLoggedIn={this.state.userLoggedIn}
-              />
-          }/>
-          <Route path="/terms" exact component={TermsPage} />
-          <Route path="/privacy" exact component={PrivacyPage} />
-          <Footer />
-        </div>
-      </Router>
-    )
+    if (this.state.isLoading) {
+      return (
+        <span>The application is loading... (TODO: Make it look nice)</span>
+      )
+    } else {
+      return (
+        <Router>
+          <div className="App">
+            <Nav logoutUser={(e) => this.logoutUser(e)} />
+            <Route
+              exact path="/"
+              render={() =>
+                <LandingPage
+                  auth={this.state.authenticated}
+                />
+            }/>
+            <Route
+              path="/login"
+              render={() =>
+                <LoginPage
+                  auth={this.state.authenticated}
+                  handleLoginSubmit={(e) => this.handleLoginSubmit(e)}
+                  loginEmail={this.state.loginEmail}
+                  loginPassword={this.state.loginPassword}
+                  handleInputChange={(e) => this.handleInputChange(e)}
+                  forgotPassword={(e) => this.forgotPassword(e)}
+                  showForgotPasswordMessage={this.state.showForgotPasswordMessage}
+                />
+            }/>
+            <Route
+              path="/sign-up"
+              render={() =>
+                <SignUpPage
+                  auth={this.state.authenticated}
+                  handleSignUp={(e) => this.handleSignUp(e)}
+                  registerEmail={this.state.registerEmail}
+                  registerPassword={this.state.registerPassword}
+                  registerConfirmPassword={this.state.registerConfirmPassword}
+                  handleInputChange={(e) => this.handleInputChange(e)}
+                />
+            }/>
+            <Route
+              path="/catalog"
+              render={() =>
+                <CatalogPage
+                  auth={this.state.authenticated}
+                  handleSignUp={(e) => this.handleSignUp(e)}
+                  handleLoginSubmit={(e) => this.handleLoginSubmit(e)}
+                  handleInputChange={(e) => this.handleInputChange(e)}
+                  forgotPassword={(e) => this.forgotPassword(e)}
+                  loginEmail={this.state.loginEmail}
+                  loginPassword={this.state.loginPassword}
+                  registerEmail={this.state.registerEmail}
+                  registerPassword={this.state.registerPassword}
+                  registerConfirmPassword={this.state.registerConfirmPassword}
+                />
+            }/>
+            <Route
+              path="/account"
+              render={() =>
+                <AccountPage
+                  userLoggedIn={this.state.userLoggedIn}
+                />
+            }/>
+            <Route path="/terms" exact component={TermsPage} />
+            <Route path="/privacy" exact component={PrivacyPage} />
+            <Footer />
+          </div>
+        </Router>
+      )
+    }    
   }
 }
 
