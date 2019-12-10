@@ -14,9 +14,15 @@ class Nav extends Component {
           </Link>
           {Auth.isUserAuthenticated() ? (
             <div className="flex">
-              <Link className="right30 cursor_pointer" to="/catalog"><FontAwesomeIcon className="rotation_gray font26" icon="shopping-bag" /></Link>
-              <Link className="right30 cursor_pointer" to="/account"><FontAwesomeIcon className="rotation_gray font26" icon="user" /></Link>
-              <FontAwesomeIcon className="rotation_gray font26 cursor_pointer" icon="sign-out-alt" onClick={this.props.logoutUser} />
+              <div className="proxima_small bold padding_right20">
+                <Link className="rotation_gray" to="/catalog">Catalog</Link>
+              </div>
+              <div className="proxima_small bold white padding_right20">
+                <Link className="rotation_gray" to="/account">Account</Link>
+              </div>
+              <div className="proxima_small bold white padding_right20">
+                <Link className="rotation_gray" onClick={this.props.logoutUser}>Log out</Link>
+              </div>
             </div>
           ) : (
             <div className="flex align_center">
