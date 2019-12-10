@@ -31,7 +31,7 @@ class App extends Component {
     }
   }
 
-  logoutUser(){
+  logoutUser(e){
     fetch("/api/web/auth/logout", {
       headers: {
         "Content-Type": "application/json",
@@ -135,7 +135,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Nav logoutUser={this.logoutUser} />
+          <Nav logoutUser={(e) => this.logoutUser(e)} />
           <Route exact path="/" component={LandingPage} />
           <Route
             path="/login"

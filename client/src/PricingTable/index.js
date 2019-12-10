@@ -88,7 +88,7 @@ class PricingTable extends Component {
             </div>
           </div>
           <div className="join_waitlist_btn rotation_gray_background margin_auto flex cursor_pointer">
-            <Link to="/sign-up" className="spacing10 line_height10 proxima_small semibold white flex align_center margin_auto uppercase">Sign Up</Link>
+            <Link to="/sign-up" className="spacing10 line_height10 proxima_small semibold white flex align_center margin_auto uppercase">Join Now</Link>
           </div>
         </section>
       </div>
