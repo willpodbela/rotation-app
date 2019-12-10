@@ -10,11 +10,23 @@ module Api
         item = Item.find_by_id(params[:item_id])
       
         if inventory.total_available(item) > 0
-          r = current_user.reservations_remaining
-          if !r.nil? && r > 0
-            super
+          s = user.current_subscription
+          if !s.nil?
+            if s.active? || s.canceled?
+              if !s.past_due?
+                if current_user.reservations_remaining > 0
+                  super
+                else
+                  render_error(403, "No more reservations remaining.")
+                end
+              else
+                render_error(403, "Our latest payment attempt failed. Please update your billing info in the account page.")
+              end
+            else
+              render_error(403, "Your subscription is not active. Please purcahse in the account page.")
+            end
           else
-            render_error(403, "No more reservations remaining.")
+            render_error(403, "Your subscription is not active. Please purcahse in the account page.")
           end
         else
           render_error(403, "Looks like this item is sold out right now. Please choose a different one.")
