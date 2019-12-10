@@ -1,14 +1,9 @@
 Rails.application.routes.draw do
-  root to: "landing#index"
-  post "sign_up", to: "landing#sign_up"
-  get "status", to: "landing#status"
-  get "update-payment", to: "landing#update_payment"
+  root to: "application#react_index_html"
+  
   get "admin", to: "landing#admin"
   get "download", to: "landing#download"
-  get "privacy", to: "landing#privacy"
-  get "terms", to: "landing#terms"
   
-  resource :prelauncher, only: [:create, :show]
   resources :jobs, only: [:index, :show]
   
   resources "users", only: :index do
@@ -16,7 +11,6 @@ Rails.application.routes.draw do
     get "release", on: :member
     get "become", on: :member
   end
-  devise_for :users
   
   resources :reservations, only: [:index]
   resources :fulfillment, only: [:index]
@@ -25,12 +19,6 @@ Rails.application.routes.draw do
     resources :reservations, shallow: true
     resources :units, shallow: true
     get 'image-matching-tool', on: :collection
-  end
-  
-  resources :subscriptions, only: [:create] do
-    get "cancel", on: :collection
-    get "restore", on: :collection
-    post "update-payment", on: :collection
   end
   
   resources :referral_codes do
