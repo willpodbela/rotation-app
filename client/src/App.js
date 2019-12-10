@@ -111,7 +111,6 @@ class App extends Component {
         "Authorization": `Token ${Auth.getToken()}`
       }
     }).then(res => res.json()).then(res => {
-      console.log(res)
       this.setState({
         userLoggedIn: res.user,
         isLoading: false
