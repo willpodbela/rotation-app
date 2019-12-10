@@ -20,8 +20,6 @@ class CatalogPage extends Component {
       designers: [],
       showModal: false,
       selectedItem: {},
-      showSizeSelectionError: false,
-      requestToBuyMessage: false,
       sizes: [
         {value: "S", selected: false},
         {value: "M", selected: false},
@@ -172,7 +170,7 @@ class CatalogPage extends Component {
         //handle errors here
       })
     }else{
-      this.setState({showSizeSelectionError: true})
+      this.props.errorHandler({message: "Please select a size."})
     }
   }
 
@@ -205,7 +203,7 @@ class CatalogPage extends Component {
     })
     //handle errors here
     this.hideModal(e)
-    this.setState({requestToBuyMessage: true})
+    // TODO SuccessMessage "We've recieved your request and a member of our team will be in contact with you shortly."
   }
 
   favoriteItem(e){
@@ -298,12 +296,6 @@ class CatalogPage extends Component {
     const displayConfirmModal = this.state.modalViews.find(view => view.view === "confirm").display
     return (
       <div className="CatalogPage gray_border_top">
-        {this.state.showSizeSelectionError &&
-          <ErrorMessage error={{message: "Please select a size."}}/>
-        }
-        {this.state.requestToBuyMessage &&
-          <ErrorMessage error={{message: "We've recieved your request and a member of our team will be in contact with you shortly."}}/>
-        }
         <div className="catalog_wrapper padding_top25 flex justify_between sides13pct">
           <div className="filters_and_designers width150 padding_right10">
             <div className="fixed_sidebar overflow_scroll width150">

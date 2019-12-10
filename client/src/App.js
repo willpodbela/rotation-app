@@ -28,7 +28,6 @@ class App extends Component {
       registerEmail: "",
       regsiterPassword: "",
       registerConfirmPassword: "",
-      showForgotPasswordMessage: false,
       userLoggedIn: null,
       isLoading: false,
       error: null,
@@ -70,7 +69,7 @@ class App extends Component {
     })
     //handle errors here
     .then(res => {
-      this.setState({showForgotPasswordMessage: true})
+      // TODO: SuccessMessage {message: "We've sent instructions to your email on resetting your password."}
     })
   }
 
@@ -195,7 +194,6 @@ class App extends Component {
                   loginPassword={this.state.loginPassword}
                   handleInputChange={(e) => this.handleInputChange(e)}
                   forgotPassword={(e) => this.forgotPassword(e)}
-                  showForgotPasswordMessage={this.state.showForgotPasswordMessage}
                   errorHandler={(error) => this.handleError(error)}
                 />
             }/>
