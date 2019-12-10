@@ -38,4 +38,7 @@
   .input_box{
     width: 250px;
   }
+  .input_field{
+    width: 200px;
+  }
 }

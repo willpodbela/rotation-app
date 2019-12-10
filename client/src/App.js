@@ -46,6 +46,7 @@ class App extends Component {
         loginEmail: "",
         loginPassword: ""
       })
+      window.location.reload(true)
     })
   }
 
@@ -87,6 +88,7 @@ class App extends Component {
         this.setState({
           authenticated: Auth.isUserAuthenticated()
         })
+        window.location.reload(true)
       }
     }).catch(err => {
       console.log(err)
@@ -117,6 +119,7 @@ class App extends Component {
           userLoggedIn: res.user,
           loginPassword: ""
         })
+        window.location.reload(true)
       }
     }).catch(err => {
       console.log(err)
@@ -173,6 +176,13 @@ class App extends Component {
               <CatalogPage
                 auth={this.state.authenticated}
                 handleSignUp={(e) => this.handleSignUp(e)}
+                handleLoginSubmit={(e) => this.handleLoginSubmit(e)}
+                handleInputChange={(e) => this.handleInputChange(e)}
+                forgotPassword={(e) => this.forgotPassword(e)}
+                loginEmail={this.state.loginEmail}
+                loginPassword={this.state.loginPassword}
+                registerEmail={this.state.registerEmail}
+                registerPassword={this.state.registerPassword}
               />
           }/>
           <Route
