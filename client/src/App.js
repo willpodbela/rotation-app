@@ -11,6 +11,7 @@ import AccountPage from "./AccountPage"
 import Nav from "./Nav"
 import Footer from "./Footer"
 import Auth from "./modules/Auth"
+import ErrorMessage from "./ErrorMessage"
 
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { fab } from "@fortawesome/free-brands-svg-icons"
@@ -29,7 +30,8 @@ class App extends Component {
       registerConfirmPassword: "",
       showForgotPasswordMessage: false,
       userLoggedIn: null,
-      isLoading: false
+      isLoading: false,
+      error: null,
     }
     if(this.state.authenticated && !this.state.userLoggedIn){
       this.state.isLoading = true
@@ -156,6 +158,14 @@ class App extends Component {
       [name]: value
     })
   }
+  
+  clearError(){
+    this.setState({error: null})
+  }
+  
+  handleError(error){
+    this.setState({error: error})
+  }
 
   render(){
     if (this.state.isLoading) {
@@ -167,6 +177,7 @@ class App extends Component {
         <Router>
           <div className="App">
             <Nav logoutUser={(e) => this.logoutUser(e)} />
+            <ErrorMessage error={this.state.error} onClose={() => this.clearError()} />
             <Route
               exact path="/"
               render={() =>
@@ -185,6 +196,7 @@ class App extends Component {
                   handleInputChange={(e) => this.handleInputChange(e)}
                   forgotPassword={(e) => this.forgotPassword(e)}
                   showForgotPasswordMessage={this.state.showForgotPasswordMessage}
+                  errorHandler={(error) => this.handleError(error)}
                 />
             }/>
             <Route
@@ -197,6 +209,7 @@ class App extends Component {
                   registerPassword={this.state.registerPassword}
                   registerConfirmPassword={this.state.registerConfirmPassword}
                   handleInputChange={(e) => this.handleInputChange(e)}
+                  errorHandler={(error) => this.handleError(error)}
                 />
             }/>
             <Route
@@ -213,6 +226,7 @@ class App extends Component {
                   registerEmail={this.state.registerEmail}
                   registerPassword={this.state.registerPassword}
                   registerConfirmPassword={this.state.registerConfirmPassword}
+                  errorHandler={(error) => this.handleError(error)}
                 />
             }/>
             <Route
@@ -220,6 +234,7 @@ class App extends Component {
               render={() =>
                 <AccountPage
                   userLoggedIn={this.state.userLoggedIn}
+                  errorHandler={(error) => this.handleError(error)}
                 />
             }/>
             <Route path="/terms" exact component={TermsPage} />
