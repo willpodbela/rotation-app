@@ -59,7 +59,12 @@ class CatalogPage extends Component {
         city: "",
         state: "",
         zip: ""
-      }
+      },
+      planOptions: [
+        {itemQty: 2, monthlyCost: "$89", selected: false},
+        {itemQty: 3, monthlyCost: "$129", selected: false},
+        {itemQty: 4, monthlyCost: "$159", selected: false},
+      ]
     }
   }
 
@@ -265,8 +270,16 @@ class CatalogPage extends Component {
     this.setState({modalViews: modalViewsCopy})
   }
 
-  handleCheckoutFlow(e){
-
+  togglePlanOptions(e){
+    let plansOptionsCopy = [...this.state.planOptions]
+    plansOptionsCopy.forEach((plan, index) => {
+      if(plan.itemQty === parseInt(e.target.getAttribute("name"))){
+        plansOptionsCopy[index].selected ? plansOptionsCopy[index].selected = false : plansOptionsCopy[index].selected = true
+      }else{
+        plansOptionsCopy[index].selected = false
+      }
+    })
+    this.setState({plansOptions: plansOptionsCopy})
   }
 
   render(){
@@ -418,15 +431,43 @@ class CatalogPage extends Component {
         </div>
         {this.state.showModal &&
           <Modal show={this.state.showModal} dialogClassName="modal_item" centered>
+            {displayBillingModal &&
+              <div className="modal_section height500 width_full white_background">
+                <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
+                <div className="top100 width500 margin_auto">
+
+                </div>
+              </div>
+            }
             {displayPlanModal &&
               <div className="modal_section height500 width_full white_background">
                 <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
-                <div className="top100">
-                  <div className="width300 margin_auto top20 druk_small rotation_gray">Choose Your Plan</div>
-                  <div className="width300 margin_auto top20 proxima_small rotation_gray">Three different ways to elevate your style.</div>
+                <div className="top100 width500 margin_auto">
+                  <div className="top20 druk_small rotation_gray">Choose Your Plan</div>
+                  <div className="top20 proxima_small rotation_gray">Three different ways to elevate your style.</div>
+                  <div className="flex justify_between">
+                    {this.state.planOptions.map((plan, index) => {
+                      return (
+                        <div
+                          key={index}
+                          className="input_box rotation_gray_border rotation_gray_background width150 height100 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer text_center"
+                          style={{background: plan.selected ? "#333333" : "#FFFFFF", color: plan.selected ? "#FFFFFF" : "#333333"}}
+                          name={plan.itemQty}
+                          onClick={(e) => this.togglePlanOptions(e)}
+                        >
+                          {plan.itemQty} Items
+                          <br />
+                          {plan.monthlyCost}/Month
+                        </div>
+                      )
+                    })}
+                  </div>
                   <div
-                    className="input_box rotation_gray_border rotation_gray_background width300 height50 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer"
-                    >2 Items - $89/Month</div>
+                    className="rotation_gray_border rotation_gray_background width300 height50 top40 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer"
+                    onClick={(e) => this.toggleModal(e, "billing")}
+                  >
+                    Add Credit Card<FontAwesomeIcon className="white font12 left20" icon="chevron-right" />
+                  </div>
                 </div>
               </div>
             }
