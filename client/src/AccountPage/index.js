@@ -292,7 +292,7 @@ class AccountPage extends Component {
               ) : this.state.subscription.status === "canceled" ? (
                 <div>
                   <span className="top20 padding_bottom85 proxima_small rotation_gray semibold spacing20">Your subscription ends {endDate ? ("on "+endDate.toDateString()) : ("soon")}. Be sure to send your clothes back by then!</span>
-                  <div className="cancel_subscription top20 padding_bottom85 proxima_small rotation_gray semibold spacing20 uppercase underline cursor_pointer" onClick={(e) => this.restoreSubscription(e)}>Resume Subscription</div>
+                  <div className="cancel_subscription top20 padding_bottom85 proxima_small rotation_gray semibold spacing20 uppercase underline cursor_pointer" onClick={(e) => this.restoreSubscription(e)}>Resume Subscription: {this.state.subscription.item_qty} Item Plan</div>
                 </div>
               ) : null
             ) : (
