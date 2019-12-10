@@ -53,8 +53,10 @@ class StripeService
       # NOTE: This logic may need to be removed / changed if user.available_tiers (in user.rb) is changed
       raise ArgumentError.new("Invalid item qty / tier selection for plan") if plan_qty > 4 || plan_qty < 2
       # Block from accidental double creation of subscriptions
-      loc_subscription = user.subscriptions.current.valid.first
-      raise StripeServiceError.new("User already has active subscription. Go to account page to cancel, restore, or change tiers.") if (loc_subscription.active? || loc_subscription.canceled?)
+      loc_subscription = user.current_subscription
+      unless loc_subscription.nil?
+        raise StripeServiceError.new("User already has active subscription. Go to account page to cancel, restore, or change tiers.") if (loc_subscription.active? || loc_subscription.canceled?)
+      end
       
       # Common Setup
       setup
