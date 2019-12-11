@@ -407,7 +407,7 @@ class CatalogPage extends Component {
     const displayConfirmModal = this.state.modalViews.find(view => view.view === "confirm").display
     const planSelected = this.state.planOptions.find(plan => plan.selected)
     return (
-      <div className="CatalogPage flex align_center gray_border_top">
+      <div className="CatalogPage flex align_center gray_border_top padding_bottom300">
         <div className="catalog_wrapper padding_top25 flex sides13pct">
           <div className="filters_and_designers width150 padding_right10">
             <div className="fixed_sidebar overflow_scroll width150">
