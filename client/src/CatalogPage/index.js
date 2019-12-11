@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Modal from "react-bootstrap/Modal"
 import "./bootstrap-modal.css"
 import ItemCard from "../ItemCard"
-import ErrorMessage from "../ErrorMessage"
 import Auth from "../modules/Auth"
 import { Link, Redirect } from "react-router-dom"
 // import EmptyHeart from "../img/Favorite.png"
@@ -333,7 +332,7 @@ class CatalogPage extends Component {
         this.setState({stripeID: response.id})
         this.toggleModal(e, "shipping")
       }else{
-        this.setState({showError: true, errorMessage: response.error.message})
+        this.props.errorHandler(response.error)
       }
     })
   }
@@ -342,7 +341,7 @@ class CatalogPage extends Component {
     if(this.state.planOptions.map(plan => plan.selected).includes(true)){
       this.toggleModal(e, "billing")
     }else{
-      this.setState({showPlanError: true})
+      this.props.errorHandler({message: "Please select a plan."})
     }
   }
 

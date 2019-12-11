@@ -2,7 +2,6 @@ import React, { Component } from "react"
 import { Link, Redirect } from "react-router-dom"
 import "./style.css"
 import image from "../img/login.jpg"
-import ErrorMessage from "../ErrorMessage"
 
 class LoginPage extends Component {
   render(){
