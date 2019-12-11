@@ -159,9 +159,11 @@ class App extends Component {
   
   showError(error){
     this.setState({error: error})
+    this.setState({notice: null})
   }
   
   showNotice(notice){
+    this.setState({error: null})
     this.setState({notice: notice})
   }
   
