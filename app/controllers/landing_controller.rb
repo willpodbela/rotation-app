@@ -1,37 +1,6 @@
 class LandingController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :sign_up, :download, :privacy, :terms]
+  skip_before_action :authenticate_user!, only: [:download]
   before_action :enforce_access_control_admin!, only: [:admin]
-  layout :resolve_layout
-  
-  prepend_before_action do
-    if display_params[:ios_init] == "true"
-      session[:ios_init] = true
-    end
-  end
-  
-  # Home Page
-  def index
-    @prelaunch_user = PrelaunchUser.new()
-    if params.has_key?(:ref) && PrelaunchUser.where(invite_code: params[:ref]).any?
-			@prelaunch_user[:inviter_id] = PrelaunchUser.find_by(invite_code: params[:ref]).id
-		end
-  
-    @items = Item.landing_featured.with_images.order(created_at: :desc)
-    @show_pricing = (ENV["PRICING_SECTION_ENABLED"] == "true")
-  end
-  
-  def status
-    Stripe.api_key = Rails.configuration.stripe[:secret_key]
-    @plan = Stripe::Plan.retrieve(stripe_plan_id)
-    
-    @current_subscription = current_user.current_subscription
-    @is_ios = browser.platform.ios?
-    @stripe_publishable_key = ENV['STRIPE_PUBLISHABLE_KEY']
-  end
-  
-  # Slimed down version of status page with just button directing user to update card
-  def update_payment
-  end
   
   # Admin Landing Page
   def admin
@@ -41,62 +10,4 @@ class LandingController < ApplicationController
     redirect_to "https://itunes.apple.com/us/app/com-rotationinc-rotation/id1404678165?ls=1&mt=8"
   end
   
-  # Privacy Page
-  def privacy
-  end
-  
-  # Terms Page
-  def terms
-  end
-  
-  # AJAX endpoint for sign-up form on Home Page to call
-  def sign_up
-    # Check if user exists
-    if User.find_by_email(user_params[:email])
-      link = view_context.link_to "Click here to Log In.", new_user_session_path
-      render :status=>400, :json => { "message":("The email is already registered. " + link) }
-    else
-      # Instantiate a new object using form parameters
-      @user = User.new(user_params)
-      @user.advertisement_code = session[:advertisement_code]
-      
-      # Save the object
-      if @user.save
-        # If save succeeds, sign them in and return 200
-        sign_in(@user)
-        if browser.platform.ios?
-          render :status=>200, :json => { "redirect":"/download" }
-        else
-          render :status=>200, :json => { "redirect":"/status" }
-        end
-      else
-        render :status=>400, :json => { "message": @user.errors.full_messages.first }
-      end
-    end
-  end
-  
-  private
-  
-  def user_params
-    params.permit(:email,:password, :password_confirmation)
-  end
-
-  def resolve_layout
-    case action_name
-    when "status"
-      "status"
-    when "update_payment"
-      "status"
-    else
-      "landing"
-    end
-  end
-  
-  def stripe_plan_id
-    ENV['STRIPE_PLAN_ID']
-  end
-  
-  def display_params
-    params.permit(:ios_init)
-  end
 end
