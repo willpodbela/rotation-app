@@ -1,6 +1,9 @@
 .item_card_large{
   height: 273.66px;
   width: 216px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .card_large{
   width: 216px;
