@@ -3,7 +3,8 @@ include Queries
 module Api
     module V1
     class ItemsController < Api::V1::BaseController
-      before_action :set_inventory, only: [:show, :index]
+      skip_before_action :authenticate_user_from_token!, only: [:list]
+      before_action :set_inventory, only: [:show, :index, :list]
       
       #Failsafe: Override endpoints that we don't want to make available
       def destroy
@@ -12,8 +13,12 @@ module Api
       def update
         render_error(405)
       end
-      def create  
+      def create
         render_error(405)
+      end
+      
+      def list
+        common_index
       end
     
       # Override: GET /api/{plural_resource_name}
@@ -33,11 +38,10 @@ module Api
         if display_params[:sort_by_section] == "true"          
           render :sorted_index
         else 
-          @items = @my_rotation + @up_next + @catalog
-          render :index
+          common_index(:index)
         end
       end
-    
+      
       private
       
       def item_params
@@ -54,7 +58,7 @@ module Api
       
       def set_inventory
         @inventory = Queries::Inventory.new
-        @favorite_item_ids = current_user.favorite_items.map(&:id)
+        @favorite_item_ids = current_user.favorite_items.map(&:id) unless current_user.nil? 
       end
       
     end

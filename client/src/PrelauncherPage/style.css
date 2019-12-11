@@ -1,0 +1,114 @@
+.share_link{
+  width: 178px;
+}
+.invite_friends_title{
+  width: 388px;
+}
+.invite_friends_description{
+  width: 388px;
+}
+.invite_friends_right{
+  width: 388px;
+}
+.rewards_text{
+  height: 38px;
+}
+.rewards_druk_text{
+  height: 38px;
+}
+.rotation_logo{
+  box-sizing: border-box;
+  height: 51.75px;
+  width: 51.75px;
+}
+@media (max-width: 1048px) {
+  .invite_friends{
+    justify-content: center !important;
+  }
+}
+@media (max-width: 499px) {
+  .invite_friends_title{
+    width: 250px;
+  }
+  .invite_friends_description{
+    width: 250px;
+  }
+  .invite_friends_right{
+    width: 250px;
+  }
+  .share_link_row{
+    padding-bottom: 0px !important;
+  }
+  .share_link{
+    margin: 12px auto;
+    width: 250px;
+  }
+  .personal_link{
+    padding-bottom: 12px !important;
+  }
+}
+.rewards_box{
+  width: 194px;
+  border-top: 2px solid #FFFFFF;
+  border-bottom: 2px solid #FFFFFF;
+  background-color: #333333 !important;
+  border-radius: 0px !important;
+}
+.rewards_divider{
+  height: 40px;
+  width: 2px;
+}
+@media (max-width: 1000px) {
+  .rewards_box{
+    width: 125px !important;
+  }
+  .rewards_druk_text{
+    font-size: 12px !important;
+  }
+  .rewards_text{
+    font-size: 10px !important;
+  }
+}
+@media (max-width: 650px) {
+  .rewards_bar_horizontal{
+    display: none !important;
+  }
+  .rewards_bar_vertical{
+    display: block !important;
+  }
+  .rewards_druk_text{
+    font-size: 18px !important;
+  }
+  .rewards_text{
+    font-size: 11.5px !important;
+    height: auto;
+  }
+}
+@media (max-width: 405px) {
+  .rewards_druk_text{
+    width: 90px !important;
+    font-size: 14px !important;
+  }
+  .rewards_text{
+    width: 90px !important;
+  }
+}
+@media (max-width: 345px) {
+  .rewards_druk_text{
+    width: 75px !important;
+  }
+  .rewards_text{
+    width: 75px !important;
+  }
+}
+.rewards_row{
+  height: 124px;
+}
+.vertical{
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.rewards_divider_vertical{
+  height: 2px;
+  width: 40px;
+}

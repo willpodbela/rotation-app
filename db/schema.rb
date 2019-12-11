@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191205170834) do
+ActiveRecord::Schema.define(version: 20191206203820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -191,6 +191,7 @@ ActiveRecord::Schema.define(version: 20191205170834) do
     t.string "advertisement_code_id"
     t.string "referral_code_id"
     t.boolean "has_used_promo", default: false
+    t.string "web_authentication_token"
     t.index ["advertisement_code_id"], name: "index_users_on_advertisement_code_id"
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

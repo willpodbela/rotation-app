@@ -1,0 +1,75 @@
+.background{
+  height: calc(100vw * 0.65);
+  background-image: url("../img/landing-bg-desktop.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.sign_up{
+  height: 55px;
+  width: 311px;
+}
+.sign_up_box{
+  width: 223px;
+}
+.i_want_in{
+  width: 88px;
+}
+.step_box{
+  height: 240px;
+  width: 290px;
+}
+.width388{
+  width: 388px;
+}
+@media (max-width: 1183px) {
+  .three_steps{
+    margin: 0 !important;
+    justify-content: space-evenly !important;
+  }
+}
+.step_title{
+  width: 173px;
+}
+.step_description{
+  width: 237px;
+}
+.scrolling_wrapper{
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.item_card{
+  height: 248px;
+  width: 163px;
+}
+@media (max-width: 640px) {
+  .background{
+    height: calc(100vh - 138px);
+    background-image: url("../img/landing-bg-mobile.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    align-items: flex-end !important;
+    padding-bottom: 50px;
+  }
+  .welcome_description{
+    display: none;
+  }
+  .how_it_works{
+    padding-top: 0px;
+  }
+}
+@media (max-width: 960px) {
+  .welcome_to_a_closet{
+    width: 311px !important;
+    font-size: 24px !important;
+    line-height: 29px !important;
+  }
+  .welcome_description{
+    width: 311px !important;
+    font-size: 14px !important;
+    line-height: 21px !important;
+  }
+}

@@ -1,0 +1,44 @@
+.login_box{
+  border-radius: 8px;
+}
+.input_box{
+  border-radius: 2px;
+}
+::-webkit-input-placeholder{
+  color: #333333;
+}
+.very_light_gray{
+  color: #949494;
+}
+.profile_divider{
+  height: 1px;
+  width: 55vw;
+}
+@media (max-width: 1065px) {
+  .account_inputs{
+    margin-left: 13%;
+  }
+  .profile_divider{
+    width: 70vw;
+  }
+}
+@media (max-width: 832px) {
+  .input_box{
+    margin-left: 0px;
+  }
+  .cancel_subscription{
+    margin-left: 0px;
+    margin-top: 20px;
+  }
+  .input_group{
+    display: block !important;
+  }
+}
+@media (max-width: 390px) {
+  .input_box{
+    width: 250px;
+  }
+  .input_field{
+    width: 200px;
+  }
+}

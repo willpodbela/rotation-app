@@ -1,0 +1,15 @@
+.Nav{
+  height: 88px;
+}
+@media (max-width: 640px) {
+  .nav_elements{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    justify-content: space-around !important;
+  }
+}
+.download_app_btn{
+  height: 39px;
+  width: 147px;
+  border-radius: 20px;
+}
