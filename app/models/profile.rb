@@ -17,11 +17,11 @@ class Profile < ApplicationRecord
           u.save
         end
       end
-    else {
+    else
       u = profile.user
       u.access_level = :standard
       u.save
-    }   
+    end
   end
   
   def async_fetch_instagram_data_if_needed
