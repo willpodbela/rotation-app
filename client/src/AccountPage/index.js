@@ -40,7 +40,7 @@ class AccountPage extends Component {
 
   componentDidMount(){
     this.loadStripe()
-    
+
     // Set state with profile or refetch if null
     const profile = this.props.userLoggedIn.profile
     if (profile) {
@@ -48,12 +48,12 @@ class AccountPage extends Component {
     } else {
       this.getAccountDetails()
     }
-    
+
     // Set state with subscription if present
     const subscription = this.props.userLoggedIn.subscription
     this.setSubscription(subscription)
   }
-  
+
   setProfile(profile) {
     this.setState({
       firstName: profile.first_name,
@@ -65,7 +65,7 @@ class AccountPage extends Component {
       state: profile.address_state
     })
   }
-  
+
   setSubscription(subscription) {
     this.setState({
       subscription: (subscription || false)
@@ -161,7 +161,7 @@ class AccountPage extends Component {
       })
     }
   }
-  
+
   // -- Subscription API Calls
 
   updatePayment(stripeID){
@@ -190,15 +190,15 @@ class AccountPage extends Component {
       }
     }).then(res => this.props.apiResponseHandler(res, "Subscription Created!"))
   }
-  
+
   cancelSubscription(){
     this.updateSubscription({ cancel_at_period_end: true })
   }
-  
+
   restoreSubscription(){
     this.updateSubscription({ cancel_at_period_end: false })
   }
-  
+
   updateSubscriptionTier(e) {
     const plan = this.state.planOptions.find(plan => plan.selected)
     if (plan) {
@@ -208,7 +208,7 @@ class AccountPage extends Component {
       this.props.errorHandler({message: "Please select a plan."})
     }
   }
-  
+
   updateSubscription(params, message = null) {
     fetch("/api/web/subscription", {
       method: "PUT",
@@ -221,13 +221,13 @@ class AccountPage extends Component {
       this.setSubscription(res.subscription)
     })
   }
-  
+
   // -- View Helpers
-  
+
   togglePlanOptions(e){
     this.setSelectedPlan(parseInt(e.target.getAttribute("name")))
   }
-  
+
   setSelectedPlan(itemQty){
     let plansOptionsCopy = [...this.state.planOptions]
     plansOptionsCopy.forEach((plan, index) => {
@@ -235,7 +235,7 @@ class AccountPage extends Component {
     })
     this.setState({plansOptions: plansOptionsCopy})
   }
-  
+
   // -- Stripe API Setup
 
   loadStripe(){
@@ -245,12 +245,12 @@ class AccountPage extends Component {
       s.type = "text/javascript";
       s.src = "https://js.stripe.com/v2/";
       s.onload = () => {
-        window['Stripe'].setPublishableKey(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+        window['Stripe'].setPublishableKey("pk_live_1Diz5oMjZzQlcZ2a4eLeHunm");
       }
       window.document.body.appendChild(s);
     }
   }
-  
+
   // -- Render
 
   render(){
@@ -258,7 +258,7 @@ class AccountPage extends Component {
     if (this.state.subscription) {
       endDate = new Date(this.state.subscription.current_period_end)
     }
-    
+
     if(!this.props.auth){
       return <Redirect to="/catalog" />
     }
@@ -309,8 +309,8 @@ class AccountPage extends Component {
             <div className="input_box rotation_gray_border rotation_gray_background width300 height50 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" onClick={(e) => this.updateAccountDetails(e)}>Save Changes</div>
             <div className="profile_divider rotation_gray_background top60"></div>
             <div className="druk_xs medium rotation_gray top60">Manage Plan</div>
-          
-          
+
+
             {this.state.subscription ? (
               this.state.subscription.status === "active" ? (
                 <div>
