@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
       if resource.admin?
         admin_path
       else
-        prelauncher_path
+        root_path
       end
     end
   end
