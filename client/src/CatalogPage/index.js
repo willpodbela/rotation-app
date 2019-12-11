@@ -293,7 +293,7 @@ class CatalogPage extends Component {
       window.document.body.appendChild(s);
     }
   }
-  
+
   attemptPayment(e){
     e.preventDefault()
     if (this.state.creditCardNumber === ""
@@ -407,8 +407,8 @@ class CatalogPage extends Component {
     const displayConfirmModal = this.state.modalViews.find(view => view.view === "confirm").display
     const planSelected = this.state.planOptions.find(plan => plan.selected)
     return (
-      <div className="CatalogPage gray_border_top">
-        <div className="catalog_wrapper padding_top25 flex justify_between sides13pct">
+      <div className="CatalogPage flex align_center gray_border_top padding_bottom300">
+        <div className="catalog_wrapper padding_top25 flex sides13pct">
           <div className="filters_and_designers width150 padding_right10">
             <div className="fixed_sidebar overflow_scroll width150">
               <div className="filters_title medium druk_xs rotation_gray padding_bottom5">Designers</div>
@@ -538,18 +538,18 @@ class CatalogPage extends Component {
             {displayConfirmModal &&
               <div className="modal_section height500 width_full white_background">
                 <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
-                <div className="top80 width400 margin_auto">
+                <div className="confirm_modal top80 width400 margin_auto">
                   <div className="druk_xs medium rotation_gray">Checkout</div>
                   <div className="proxima_large semibold rotation_gray top30">The Rotation</div>
                   <div className="proxima_large rotation_gray opacity6">{planSelected.itemQty} Items at a Time - {planSelected.monthlyCost} / month</div>
-                  <div className="width400 height100 rotation_gray_border top20">
+                  <div className="confirm_modal_box width400 height100 rotation_gray_border top20">
                     <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />You'll be charged xxx now for your first month</div>
                     <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />You'll be charged {planSelected.monthlyCost} for each month after that</div>
                     <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />Cancel at any time before your next cycle</div>
                     <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />By purchasing you agree to the full membership <Link to="/terms">terms & conditions</Link></div>
                   </div>
                   <div
-                    className="rotation_gray_border rotation_gray_background width400 height50 top30 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer"
+                    className="confirm_modal rotation_gray_border rotation_gray_background width400 height50 top30 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer"
                     onClick={(e) => this.createSubscription(e, this.state.stripeID, planSelected.itemQty)}
                   >
                     Purchase
@@ -560,32 +560,32 @@ class CatalogPage extends Component {
             {displayShippingModal &&
               <div className="modal_section height500 width_full white_background">
                 <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
-                <div className="top50 width300 margin_auto">
-                  <div className="druk_xs medium rotation_gray">Add Shipping Address</div>
-                  <div className="input_box gray_border width300 height50 top20">
+                <div className="shipping_input top50 width300 margin_auto">
+                  <div className="druk_xs medium rotation_gray text_center">Add Shipping Address</div>
+                  <div className="input_box margin_auto gray_border width300 height50 top20">
                     <div className="proxima_small medium very_light_gray left20 top5 height15">Address Line 1</div>
                     <input className="input_field proxima_xl medium rotation_gray width260 left20" name="shippingAddressLine1" value={this.state.shippingAddressLine1} onChange={(e) => this.handleInputChange(e)} />
                   </div>
-                  <div className="input_box gray_border width300 height50 top20">
+                  <div className="shipping_input input_box margin_auto gray_border width300 height50 top20">
                     <div className="proxima_small medium very_light_gray left20 top5 height15">Address Line 2</div>
                     <input className="input_field proxima_xl medium rotation_gray width260 left20" name="shippingAddressLine2" value={this.state.shippingAddressLine2} onChange={(e) => this.handleInputChange(e)} />
                   </div>
-                  <div className="input_box gray_border width300 height50 top20">
+                  <div className="shipping_input input_box margin_auto gray_border width300 height50 top20">
                     <div className="proxima_small medium very_light_gray left20 top5 height15">City</div>
                     <input className="input_field proxima_xl medium rotation_gray width260 left20" name="shippingCity" value={this.state.shippingCity} onChange={(e) => this.handleInputChange(e)} />
                   </div>
-                  <div className="input_group flex justify_between width300">
-                    <div className="input_box gray_border width130 height50 top20">
+                  <div className="shipping_input input_group margin_auto flex justify_between width300">
+                    <div className="shipping_input input_box gray_border width130 height50 top20">
                       <div className="proxima_small medium very_light_gray left20 top5 height15">State</div>
                       <input className="input_field proxima_xl medium rotation_gray width100 left20" name="shippingState" value={this.state.shippingState} onChange={(e) => this.handleInputChange(e)} />
                     </div>
-                    <div className="input_box gray_border width130 height50 top20 left20">
+                    <div className="shipping_input input_box gray_border width130 height50 top20 left20">
                       <div className="proxima_small medium very_light_gray left20 top5 height15">Zip</div>
                       <input className="input_field proxima_xl medium rotation_gray width100 left20" name="shippingZipcode" value={this.state.shippingZipcode} onChange={(e) => this.handleInputChange(e)} />
                     </div>
                   </div>
                   <div
-                    className="rotation_gray_border rotation_gray_background width300 height50 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer"
+                    className="shipping_input rotation_gray_border rotation_gray_background width300 height50 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer"
                     onClick={(e) => this.updateAccountDetails(e)}
                   >
                     Next Step<FontAwesomeIcon className="white font12 left20" icon="chevron-right" />
@@ -594,9 +594,65 @@ class CatalogPage extends Component {
               </div>
             }
             {displayBillingModal &&
-              <div className="modal_section height500 width_full white_background">
+              <div className="modal_section min_height500 width_full white_background">
                 <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
-                <div className="top80 left100">
+                <div className="mobile_billing_modal top80 hidden">
+                  <div className="druk_xs medium rotation_gray text_center">Add Billing Info</div>
+                  <div className="flex justify_center">
+                    <div>
+                      <div className="input_box gray_border width300 height50 top20">
+                        <div className="proxima_small medium very_light_gray left20 top5 height15">Name</div>
+                        <input className="input_field proxima_xl medium rotation_gray width260 left20" name="billingName" value={this.state.billingName} onChange={(e) => this.handleInputChange(e)} />
+                      </div>
+                      <div className="input_box gray_border width300 height50 top20">
+                        <div className="proxima_small medium very_light_gray left20 top5 height15">Credit Card Number</div>
+                        <input className="input_field proxima_xl medium rotation_gray width260 left20" name="creditCardNumber" value={this.state.creditCardNumber} onChange={(e) => this.handleInputChange(e)} />
+                      </div>
+                      <div className="input_group flex justify_between">
+                        <div className="input_box gray_border width130 height50 top20">
+                          <div className="proxima_small medium very_light_gray left20 top5 height15">Expiration</div>
+                          <input className="input_field proxima_xl medium rotation_gray width100 left20" name="expiration" value={this.state.expiration} onChange={(e) => this.handleInputChange(e)} />
+                        </div>
+                        <div className="input_box gray_border width130 height50 top20 left20">
+                          <div className="proxima_small medium very_light_gray left20 top5 height15">CVV</div>
+                          <input className="input_field proxima_xl medium rotation_gray width100 left20" name="cvv" value={this.state.cvv} onChange={(e) => this.handleInputChange(e)} />
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="input_box gray_border width300 height50 top20">
+                        <div className="proxima_small medium very_light_gray left20 top5 height15">Address Line 1</div>
+                        <input className="input_field proxima_xl medium rotation_gray width260 left20" name="billingAddressLine1" value={this.state.billingAddressLine1} onChange={(e) => this.handleInputChange(e)} />
+                      </div>
+                      <div className="input_box gray_border width300 height50 top20">
+                        <div className="proxima_small medium very_light_gray left20 top5 height15">Address Line 2</div>
+                        <input className="input_field proxima_xl medium rotation_gray width260 left20" name="billingAddressLine2" value={this.state.billingAddressLine2} onChange={(e) => this.handleInputChange(e)} />
+                      </div>
+                      <div className="input_box gray_border width300 height50 top20">
+                        <div className="proxima_small medium very_light_gray left20 top5 height15">City</div>
+                        <input className="input_field proxima_xl medium rotation_gray width260 left20" name="billingCity" value={this.state.billingCity} onChange={(e) => this.handleInputChange(e)} />
+                      </div>
+                      <div className="input_group flex justify_between">
+                        <div className="input_box gray_border width130 height50 top20">
+                          <div className="proxima_small medium very_light_gray left20 top5 height15">State</div>
+                          <input className="input_field proxima_xl medium rotation_gray width100 left20" name="billingState" value={this.state.billingState} onChange={(e) => this.handleInputChange(e)} />
+                        </div>
+                        <div className="input_box gray_border width130 height50 top20 left20">
+                          <div className="proxima_small medium very_light_gray left20 top5 height15">Zip</div>
+                          <input className="input_field proxima_xl medium rotation_gray width100 left20" name="billingZipcode" value={this.state.billingZipcode} onChange={(e) => this.handleInputChange(e)} />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="rotation_gray_border rotation_gray_background width250 height50 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer"
+                      onClick={(e) => this.attemptPayment(e)}
+                    >
+                      Next Step<FontAwesomeIcon className="white font12 left20" icon="chevron-right" />
+                    </div>
+                  </div>
+                  <div className="height200 white_background"></div>
+                </div>
+                <div className="non_mobile_billing_modal top80 left100">
                   <div className="druk_xs medium rotation_gray">Add Billing Info</div>
                   <div className="flex">
                     <div>
@@ -656,10 +712,10 @@ class CatalogPage extends Component {
             {displayPlanModal &&
               <div className="modal_section height500 width_full white_background">
                 <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
-                <div className="top100 width500 margin_auto">
+                <div className="plan_modal top100 width500 margin_auto">
                   <div className="top20 druk_small rotation_gray">Choose Your Plan</div>
                   <div className="top20 proxima_small rotation_gray">Three different ways to elevate your style.</div>
-                  <div className="flex justify_between">
+                  <div className="plan_btns flex justify_between">
                     {this.state.planOptions.map((plan, index) => {
                       return (
                         <div
@@ -677,8 +733,8 @@ class CatalogPage extends Component {
                     })}
                   </div>
                   <div
-                    className="rotation_gray_border rotation_gray_background width300 height50 top40 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer"
-                    onClick={(e) => this.toggleModal(e, "billing")}
+                    className="add_credit_card rotation_gray_border rotation_gray_background width300 height50 top40 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer"
+                    onClick={(e) => this.checkPlanSelected(e)}
                   >
                     Add Credit Card<FontAwesomeIcon className="white font12 left20" icon="chevron-right" />
                   </div>
