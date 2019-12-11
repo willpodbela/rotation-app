@@ -70,7 +70,7 @@ class AccountPage extends Component {
       subscription: (subscription || false)
     })
     if (subscription) {
-      //this.setSelectedPlan(subscription.item_qty)
+      this.setSelectedPlan(subscription.item_qty)
     }
   }
 
@@ -80,13 +80,9 @@ class AccountPage extends Component {
         "Content-Type": "application/json",
         "Authorization": `Token ${Auth.getToken()}`
       }
+    }).then(res => this.props.apiResponseHandler(res)).then(results => {
+      this.setProfile(results.profile)
     })
-    .then(results => {
-      results.json()
-        .then(results => {
-          this.setProfile(results.profile)
-        })
-      })
   }
 
   updateAccountDetails(e){
@@ -107,10 +103,7 @@ class AccountPage extends Component {
         "Content-Type": "application/json",
         "Authorization": `Token ${Auth.getToken()}`
       }
-    }).then(res => res.json()).then(res => {
-      console.log(res)
-      //handle errors here
-    })
+    }).then(res => this.props.apiResponseHandler(res, "Account Details Saved!"))
   }
 
   handleInputChange(e) {
@@ -166,10 +159,7 @@ class AccountPage extends Component {
         "Content-Type": "application/json",
         "Authorization": `Token ${Auth.getToken()}`
       }
-    }).then(res => res.json()).then(res => {
-      console.log(res)
-      //handle errors here
-    })
+    }).then(res => this.props.apiResponseHandler(res, "Payment Method Updated!"))
   }
 
   createSubscription(stripeID, itemQuantity){
@@ -183,10 +173,7 @@ class AccountPage extends Component {
         "Content-Type": "application/json",
         "Authorization": `Token ${Auth.getToken()}`
       }
-    }).then(res => res.json()).then(res => {
-      console.log(res)
-      //handle errors here
-    })
+    }).then(res => this.props.apiResponseHandler(res, "Subscription Created!"))
   }
   
   cancelSubscription(){
@@ -201,13 +188,13 @@ class AccountPage extends Component {
     const plan = this.state.planOptions.find(plan => plan.selected)
     if (plan) {
       const itemQuantity = this.state.planOptions.find(plan => plan.selected).itemQty
-      this.updateSubscription({ item_qty: itemQuantity })
+      this.updateSubscription({ item_qty: itemQuantity }, "Plan updated! Billing will be prorated for the remainder of the month.")
     } else {
       this.props.errorHandler({message: "Please select a plan."})
     }
   }
   
-  updateSubscription(params) {
+  updateSubscription(params, message = null) {
     fetch("/api/web/subscription", {
       method: "PUT",
       body: JSON.stringify(params),
@@ -215,9 +202,7 @@ class AccountPage extends Component {
         "Content-Type": "application/json",
         "Authorization": `Token ${Auth.getToken()}`
       }
-    }).then(res => res.json()).then(res => {
-      console.log(res)
-      //handle errors here
+    }).then(res => this.props.apiResponseHandler(res, message)).then(res => {
       this.setSubscription(res.subscription)
     })
   }

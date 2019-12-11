@@ -64,7 +64,7 @@ module Api
           if current_user
             sign_in current_user, store: false
           else
-            render_error(403, "Invalid or missing authentication token")
+            render_error(450, "Invalid or missing authentication token")
           end
         end      
       end
