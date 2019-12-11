@@ -29,6 +29,13 @@ class User < ApplicationRecord
     user.create_profile unless user.profile.present?
     MailChimpService.sync_and_tag(user)
   end
+  
+  after_create do |user|
+    unless ENV.has_key?('USER_AUTOENROLL_LIMIT')
+      user.access_level = :standard
+      user.save
+    end
+  end
 
   enum access_level: [ :waitlist, :standard, :admin ]
 
