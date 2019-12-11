@@ -11,6 +11,7 @@ import AccountPage from "./AccountPage"
 import Nav from "./Nav"
 import Footer from "./Footer"
 import Auth from "./modules/Auth"
+import AlertDialog from "./AlertDialog"
 
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { fab } from "@fortawesome/free-brands-svg-icons"
@@ -27,9 +28,10 @@ class App extends Component {
       registerEmail: "",
       regsiterPassword: "",
       registerConfirmPassword: "",
-      showForgotPasswordMessage: false,
       userLoggedIn: null,
-      isLoading: false
+      isLoading: false,
+      error: null,
+      notice: null,
     }
     if(this.state.authenticated && !this.state.userLoggedIn){
       this.state.isLoading = true
@@ -69,7 +71,7 @@ class App extends Component {
     })
     //handle errors here
     .then(res => {
-      this.setState({showForgotPasswordMessage: true})
+      this.handleNotice({message: "We've sent instructions to your email on resetting your password."})
     })
   }
 
@@ -159,6 +161,19 @@ class App extends Component {
       [name]: value
     })
   }
+  
+  dialogClosed(){
+    this.setState({error: null})
+    this.setState({notice: null})
+  }
+  
+  handleError(error){
+    this.setState({error: error})
+  }
+  
+  handleNotice(notice){
+    this.setState({notice: notice})
+  }
 
   render(){
     if (this.state.isLoading) {
@@ -170,6 +185,7 @@ class App extends Component {
         <Router>
           <div className="App">
             <Nav logoutUser={(e) => this.logoutUser(e)} />
+            <AlertDialog error={this.state.error} notice={this.state.notice} onClose={() => this.dialogClosed()} />
             <Route
               exact path="/"
               render={() =>
@@ -187,7 +203,8 @@ class App extends Component {
                   loginPassword={this.state.loginPassword}
                   handleInputChange={(e) => this.handleInputChange(e)}
                   forgotPassword={(e) => this.forgotPassword(e)}
-                  showForgotPasswordMessage={this.state.showForgotPasswordMessage}
+                  errorHandler={(error) => this.handleError(error)}
+                  noticeHandler={(notice) => this.handleNotice(notice)}
                 />
             }/>
             <Route
@@ -200,6 +217,8 @@ class App extends Component {
                   registerPassword={this.state.registerPassword}
                   registerConfirmPassword={this.state.registerConfirmPassword}
                   handleInputChange={(e) => this.handleInputChange(e)}
+                  errorHandler={(error) => this.handleError(error)}
+                  noticeHandler={(notice) => this.handleNotice(notice)}
                 />
             }/>
             <Route
@@ -217,6 +236,8 @@ class App extends Component {
                   registerEmail={this.state.registerEmail}
                   registerPassword={this.state.registerPassword}
                   registerConfirmPassword={this.state.registerConfirmPassword}
+                  errorHandler={(error) => this.handleError(error)}
+                  noticeHandler={(notice) => this.handleNotice(notice)}
                   userLoggedIn={this.state.userLoggedIn}
                 />
             }/>
@@ -225,6 +246,8 @@ class App extends Component {
               render={() =>
                 <AccountPage
                   userLoggedIn={this.state.userLoggedIn}
+                  errorHandler={(error) => this.handleError(error)}
+                  noticeHandler={(notice) => this.handleNotice(notice)}
                 />
             }/>
             <Route path="/terms" exact component={TermsPage} />

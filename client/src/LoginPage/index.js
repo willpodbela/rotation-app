@@ -11,9 +11,6 @@ class LoginPage extends Component {
     }
     return (
       <div className="LoginPage light_background flex justify_center">
-        {this.props.showForgotPasswordMessage &&
-          <ErrorMessage error={{message: "We've sent instructions to your email on resetting your password."}}/>
-        }
         <img className="login_image max_width400 top80 bottom80 sides70" src={image} alt="" />
         <div className="login_box gray_border white_background height330 width400 top180 bottom180 sides70">
           <div className="width300 margin_auto top20 druk_small rotation_gray">Log In</div>

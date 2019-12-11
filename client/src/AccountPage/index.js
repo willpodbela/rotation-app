@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import Auth from "../modules/Auth"
 import "./style.css"
-import ErrorMessage from "../ErrorMessage"
 
 class AccountPage extends Component {
   constructor(props){
@@ -28,7 +27,7 @@ class AccountPage extends Component {
       billingCity: "",
       billingZipcode: "",
       billingState: "",
-      showError: false,
+      error: null,
       subscription: false, //NOTE: Not exactly "convention", if you want to change, just function at line 90 and Ctrl+Find any references to 'subscription.'
       planOptions: [
         {itemQty: 2, monthlyCost: "$89", selected: false},
@@ -71,7 +70,7 @@ class AccountPage extends Component {
       subscription: (subscription || false)
     })
     if (subscription) {
-      this.setSelectedPlan(subscription.item_qty)
+      //this.setSelectedPlan(subscription.item_qty)
     }
   }
 
@@ -150,7 +149,7 @@ class AccountPage extends Component {
       if(status === 200){
         this.updatePayment(response.id)
       }else{
-        this.setState({showError: true, errorMessage: response.error.message})
+        this.props.errorHandler(response.error)
       }
     })
   }
@@ -204,10 +203,7 @@ class AccountPage extends Component {
       const itemQuantity = this.state.planOptions.find(plan => plan.selected).itemQty
       this.updateSubscription({ item_qty: itemQuantity })
     } else {
-      this.setState({
-        showError: true,
-        errorMessage: "Please select a plan."
-      })
+      this.props.errorHandler({message: "Please select a plan."})
     }
   }
   
@@ -226,7 +222,7 @@ class AccountPage extends Component {
     })
   }
   
-  // -- Subscription View Helpers
+  // -- View Helpers
   
   togglePlanOptions(e){
     this.setSelectedPlan(parseInt(e.target.getAttribute("name")))
@@ -265,9 +261,6 @@ class AccountPage extends Component {
     
     return (
       <div className="AccountPage gray_border_top bottom70 flex">
-        {this.state.showError &&
-          <ErrorMessage error={{message: this.state.errorMessage}}/>
-        }
         <div className="left13pct top40 proxima_small rotation_gray semibold spacing20 uppercase">
           <div className="cursor_pointer" style={{textDecoration: this.state.showProfile ? "underline" : "none"}} onClick={(e) => this.toggleProfilePage(e)}>Profile</div>
           <div className="top20 cursor_pointer" style={{textDecoration: this.state.showBilling ? "underline" : "none"}} onClick={(e) => this.toggleBillingPage(e)}>Billing</div>
