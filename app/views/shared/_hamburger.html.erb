@@ -6,7 +6,6 @@
     <div><%= link_to("Home", root_path, class: "nav_elem_hamberger font22 link white bottom20") %></div>
     <% if user_signed_in? %>
       <div><%= link_to("Logout", destroy_user_session_path, method: :delete, class: "nav_elem_hamberger font22 link white bottom20") %></div>
-      <div><%= link_to("Check Status", status_path, class: "nav_elem_hamberger font22 link white bottom20") %></div>
     <% else %>
       <div><%= link_to("Log in", new_user_session_path, class: "nav_elem_hamberger font22 link white bottom20") %></div>
       <div><%= link_to("Sign up", new_user_registration_path, class: "nav_elem_hamberger font22 link white bottom20") %></div>
