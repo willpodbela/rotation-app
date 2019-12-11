@@ -341,7 +341,10 @@ class AccountPage extends Component {
                 </div>
               ) : null
             ) : (
-              <span className="top20 padding_bottom85 proxima_small rotation_gray semibold spacing20">You don't currently have an active subscription. Choose your first piece in the Catalog and click "Reserve" to shop our plans.</span>
+              <div>
+                <span className="top20 padding_bottom85 proxima_small rotation_gray semibold spacing20">You don't currently have an active subscription. Choose your first piece in the Catalog and click "Reserve" to shop our plans.</span>
+                <div className="height130"></div>
+              </div>
             )}
           </div>
         }
