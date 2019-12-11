@@ -5,7 +5,8 @@ import "./bootstrap-modal.css"
 import ItemCard from "../ItemCard"
 import Auth from "../modules/Auth"
 import { Link, Redirect } from "react-router-dom"
-// import EmptyHeart from "../img/Favorite.png"
+import Unfavorite from "../img/Unfavorite.png"
+import Favorite from "../img/Favorite.png"
 import "./style.css"
 
 class CatalogPage extends Component {
@@ -789,16 +790,16 @@ class CatalogPage extends Component {
                           <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}>Reserve</div>
                         )}
                         {selectedItem.is_favorite ? (
-                          <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.unfavoriteItem(e)}><FontAwesomeIcon className="rotation_gray" icon="heart" /></div>
+                          <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.unfavoriteItem(e)}><img src={Favorite} height="14" width="14" /></div>
                         ) : (
-                          <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.favoriteItem(e)}><FontAwesomeIcon className="rotation_gray" icon="bullseye" /></div>
+                          <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.favoriteItem(e)}><img src={Unfavorite} height="14" width="14" /></div>
                         )}
                       </div>
                     </div>
                   ) : (
                     <div className="modal_buttons sides50 flex justify_between top130">
                       <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}>Reserve</div>
-                      <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}><FontAwesomeIcon className="rotation_gray" icon="bullseye" /></div>
+                      <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}><img src={Unfavorite} height="14" width="14" /></div>
                     </div>
                   )}
                 </div>
