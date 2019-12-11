@@ -395,7 +395,7 @@ class CatalogPage extends Component {
     }
     let cred = this.props.userLoggedIn.account_balance
     if (cred) {
-      subtotal = subtotal-(cred/100)
+      subtotal = subtotal-((cred * -1)/100)
     }
     if (subtotal < 0) {
       subtotal = 0
