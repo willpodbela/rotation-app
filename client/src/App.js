@@ -76,7 +76,7 @@ class App extends Component {
       fetch("/api/web/users", {
         method: "POST",
         body: JSON.stringify({
-          email: this.state.registerEmail,
+          email: this.state.registerEmail.toLowerCase(),
           password: this.state.registerPassword
         }),
         headers: {
@@ -112,7 +112,7 @@ class App extends Component {
         appFailed: true
       })
     })
-    
+
   }
 
   handleLoginSubmit(e){
@@ -120,7 +120,7 @@ class App extends Component {
     fetch("/api/web/auth/login", {
       method: "POST",
       body: JSON.stringify({
-        email: this.state.loginEmail,
+        email: this.state.loginEmail.toLowerCase(),
         password: this.state.loginPassword
       }),
       headers: {
@@ -151,22 +151,22 @@ class App extends Component {
       [name]: value
     })
   }
-  
+
   dialogClosed(){
     this.setState({error: null})
     this.setState({notice: null})
   }
-  
+
   showError(error){
     this.setState({error: error})
     this.setState({notice: null})
   }
-  
+
   showNotice(notice){
     this.setState({error: null})
     this.setState({notice: notice})
   }
-  
+
   apiResponseHandler(response, successMessage = null){
     if (response.ok) {
       if(successMessage) {
