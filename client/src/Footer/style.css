@@ -1,5 +1,9 @@
 footer{
   background: #141414;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }
 .footer_container{
   width: auto;
