@@ -9,8 +9,11 @@ class ItemCard extends Component {
     const item = this.props.item
     return (
       <div className="card_large padding_left20 padding_bottom20 cursor_pointer">
-        <div className="item_card_large light_background flex align_center justify_center">
-          <img className="blend_background max_width150" src={item.image_url} alt="" />
+        <div
+          className="item_card_large light_background flex align_center justify_center"
+          style={{
+            backgroundImage: `url(${item.image_url})`
+          }}>
         </div>
         <div className="flex justify_between align_center padding_top10">
           <div className="proxima_small semibold rotation_gray uppercase overflow_scroll nowrap width190">{item.title.value}</div>
