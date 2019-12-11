@@ -6,8 +6,6 @@
     <div class="nav_right_elems flex align_center">
       <% if user_signed_in? %>
         <%= link_to("Logout", destroy_user_session_path, method: :delete, class: "nav_elem padding_right40") %>
-        <%= link_to("Account", status_path, class: "nav_elem padding_right40") unless current_user.waitlist? %>
-        <%= link_to("Invite", prelauncher_path, class: "nav_elem padding_right20") %>
       <% else %>
         <%= link_to("Log in", new_user_session_path, class: "nav_elem padding_right40") %>
         <%= link_to("Sign up", new_user_registration_path, class: "nav_elem padding_right20") %>
