@@ -54,6 +54,7 @@ class App extends Component {
         loginEmail: "",
         loginPassword: ""
       })
+      window.location.reload(true)
     })
   }
 
@@ -99,6 +100,7 @@ class App extends Component {
             authenticated: Auth.isUserAuthenticated(),
             isLoading: false
           })
+          window.location.reload(true)
         }
       }).catch(err => {
         console.log(err)
@@ -145,6 +147,7 @@ class App extends Component {
           loginPassword: "",
           isLoading: false
         })
+        window.location.reload(true)
       }
     }).catch(err => {
       console.log(err)
@@ -225,15 +228,17 @@ class App extends Component {
                   auth={this.state.authenticated}
                   handleSignUp={(e) => this.handleSignUp(e)}
                   handleLoginSubmit={(e) => this.handleLoginSubmit(e)}
-                  handleInputChange={(e) => this.handleInputChange(e)}
                   forgotPassword={(e) => this.forgotPassword(e)}
+                  showForgotPasswordMessage={this.state.showForgotPasswordMessage}
                   loginEmail={this.state.loginEmail}
                   loginPassword={this.state.loginPassword}
+                  handleInputChange={(e) => this.handleInputChange(e)}
                   registerEmail={this.state.registerEmail}
                   registerPassword={this.state.registerPassword}
                   registerConfirmPassword={this.state.registerConfirmPassword}
                   errorHandler={(error) => this.handleError(error)}
                   noticeHandler={(notice) => this.handleNotice(notice)}
+                  userLoggedIn={this.state.userLoggedIn}
                 />
             }/>
             <Route
@@ -251,7 +256,7 @@ class App extends Component {
           </div>
         </Router>
       )
-    }    
+    }
   }
 }
 

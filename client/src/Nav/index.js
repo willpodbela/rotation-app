@@ -1,7 +1,6 @@
 import React, { Component }  from "react"
 import { Link } from "react-router-dom"
 import Auth from "../modules/Auth"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "./style.css"
 
 class Nav extends Component {
@@ -20,8 +19,8 @@ class Nav extends Component {
               <div className="proxima_small bold white padding_right20">
                 <Link className="rotation_gray" to="/account">Account</Link>
               </div>
-              <div className="proxima_small bold white padding_right20">
-                <Link className="rotation_gray" onClick={this.props.logoutUser}>Log out</Link>
+              <div className="proxima_small bold white">
+                <Link className="rotation_gray" onClick={this.props.logoutUser}>Log Out</Link>
               </div>
             </div>
           ) : (

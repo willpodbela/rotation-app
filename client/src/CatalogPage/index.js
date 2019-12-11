@@ -41,33 +41,35 @@ class CatalogPage extends Component {
         {view: "shipping", display: false},
         {view: "confirm", display: false}
       ],
-      newUser: {
-        item_qty: 0,
-        name: "",
-        creditCardNumber: "",
-        expiration: "",
-        cvv: "",
-        billingAddressLine1: "",
-        billingAddressLine2: "",
-        billingCity: "",
-        billingState: "",
-        billingZip: "",
-        addressLine1: "",
-        addressLine2: "",
-        city: "",
-        state: "",
-        zip: ""
-      },
       planOptions: [
         {itemQty: 2, monthlyCost: "$89", selected: false},
         {itemQty: 3, monthlyCost: "$129", selected: false},
         {itemQty: 4, monthlyCost: "$159", selected: false},
-      ]
+      ],
+      name: "",
+      creditCardNumber: "",
+      expiration: "",
+      cvv: "",
+      billingAddressLine1: "",
+      billingAddressLine2: "",
+      billingCity: "",
+      billingZipcode: "",
+      billingState: "",
+      shippingAddressLine1: "",
+      shippingAddressLine2: "",
+      shippingCity: "",
+      shippingZipcode: "",
+      shippingState: "",
+      stripeID: ""
+    }
+    if(this.props.userLoggedIn){
+      this.state.subscription = this.props.userLoggedIn.subscription || false
     }
   }
 
   componentDidMount(){
     window.scrollTo(0, 0)
+    this.loadStripe()
     if(this.props.auth){
       fetch("/api/web/items?sort_by_section=true", {
         headers: {
@@ -174,6 +176,18 @@ class CatalogPage extends Component {
     }
   }
 
+  reserveButtonClicked(e){
+    if(this.props.auth){
+      if(this.state.subscription){
+        this.reserveItem(e)
+      }else{
+        this.toggleModal(e, "plan")
+      }
+    }else{
+      this.toggleModal(e, "signUp")
+    }
+  }
+
   removeItem(e){
     fetch(`/api/web/reservations/${this.state.selectedItem.reservation.id}`, {
       method: "DELETE",
@@ -271,13 +285,118 @@ class CatalogPage extends Component {
   togglePlanOptions(e){
     let plansOptionsCopy = [...this.state.planOptions]
     plansOptionsCopy.forEach((plan, index) => {
-      if(plan.itemQty === parseInt(e.target.getAttribute("name"))){
-        plansOptionsCopy[index].selected ? plansOptionsCopy[index].selected = false : plansOptionsCopy[index].selected = true
-      }else{
-        plansOptionsCopy[index].selected = false
-      }
+      plansOptionsCopy[index].selected = (plan.itemQty === parseInt(e.target.getAttribute("name")))
     })
     this.setState({plansOptions: plansOptionsCopy})
+  }
+
+  handleInputChange(e) {
+    const name = e.target.name
+    const value = e.target.value
+    this.setState({
+      [name]: value
+    })
+  }
+
+  loadStripe(){
+    if(!window.document.getElementById('stripe-script')) {
+      var s = window.document.createElement("script");
+      s.id = "stripe-script";
+      s.type = "text/javascript";
+      s.src = "https://js.stripe.com/v2/";
+      s.onload = () => {
+        window['Stripe'].setPublishableKey(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+      }
+      window.document.body.appendChild(s);
+    }
+  }
+
+  attemptPayment(e){
+    e.preventDefault()
+    const expMonth = this.state.expiration.split("/")[0].replace(/ /g,'')
+    const expYear = this.state.expiration.split("/")[1].replace(/ /g,'')
+    window.Stripe.card.createToken({
+      number: this.state.creditCardNumber,
+      exp_month: expMonth,
+      exp_year: expYear,
+      cvc: this.state.cvv.replace(/ /g,''),
+      name: this.state.billingName,
+      address_line1: this.state.billingAddressLine1,
+      address_line2: this.state.billingAddressLine2,
+      address_city: this.state.billingCity,
+      address_state: this.state.billingState,
+      address_zip: this.state.billingZipcode,
+      address_country: "US"
+    }, (status, response) => {
+      if(status === 200){
+        console.log(response)
+        this.setState({stripeID: response.id})
+        this.toggleModal(e, "shipping")
+      }else{
+        this.setState({showError: true, errorMessage: response.error.message})
+      }
+    })
+  }
+
+  checkPlanSelected(e){
+    if(this.state.planOptions.map(plan => plan.selected).includes(true)){
+      this.toggleModal(e, "billing")
+    }else{
+      this.setState({showPlanError: true})
+    }
+  }
+
+  createSubscription(e, stripeID, itemQuantity){
+    fetch("/api/web/subscription", {
+      method: "POST",
+      body: JSON.stringify({
+        stripe_source_id: stripeID,
+        item_qty: itemQuantity
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${Auth.getToken()}`
+      }
+    }).then(res => res.json()).then(res => {
+      this.hideModal(e)
+      console.log(res)
+      //handle errors here
+    })
+  }
+
+  updateAccountDetails(e){
+    const firstName = this.state.billingName.substring(0, this.state.billingName.lastIndexOf(" "))
+    const lastName = this.state.billingName.substring(this.state.billingName.lastIndexOf(" "))
+    fetch(`/api/web/users/${this.props.userLoggedIn.id}/profile`, {
+      method: "PUT",
+      body: JSON.stringify({
+        profile: {
+          first_name: firstName,
+          last_name: lastName,
+      		address_line_one: this.state.shippingAddressLine1,
+          address_line_two: this.state.shippingAddressLine2,
+          address_city: this.state.shippingCity,
+          address_zip: this.state.shippingZipcode,
+          address_state: this.state.shippingState
+        }
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${Auth.getToken()}`
+      }
+    }).then(res => res.json()).then(res => {
+      console.log(res)
+      this.toggleModal(e, "confirm")
+      //handle errors here
+    })
+  }
+
+  handleInputChange(e) {
+    const name = e.target.name
+    const value = e.target.value
+    this.setState({
+      [name]: value
+    })
   }
 
   render(){
@@ -294,6 +413,7 @@ class CatalogPage extends Component {
     const displayBillingModal = this.state.modalViews.find(view => view.view === "billing").display
     const displayShippingModal = this.state.modalViews.find(view => view.view === "shipping").display
     const displayConfirmModal = this.state.modalViews.find(view => view.view === "confirm").display
+    const planSelected = this.state.planOptions.find(plan => plan.selected)
     return (
       <div className="CatalogPage gray_border_top">
         <div className="catalog_wrapper padding_top25 flex justify_between sides13pct">
@@ -357,7 +477,7 @@ class CatalogPage extends Component {
               <div className="catalog_headers flex justify_between width_full padding_bottom10">
                 <div className="catalog_title druk_xs rotation_gray medium left20">Catalog</div>
                 <div className="size_btns flex justify_between">
-                  {this.props.auth &&
+                  {(this.props.auth && this.state.subscription) &&
                     this.state.sizes.map((size, index) => {
                       return (
                         <div
@@ -423,11 +543,121 @@ class CatalogPage extends Component {
         </div>
         {this.state.showModal &&
           <Modal show={this.state.showModal} dialogClassName="modal_item" centered>
+            {displayConfirmModal &&
+              <div className="modal_section height500 width_full white_background">
+                <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
+                <div className="top80 width400 margin_auto">
+                  <div className="druk_xs medium rotation_gray">Checkout</div>
+                  <div className="proxima_large semibold rotation_gray top30">The Rotation</div>
+                  <div className="proxima_large rotation_gray opacity6">{planSelected.itemQty} Items at a Time - {planSelected.monthlyCost} / month</div>
+                  <div className="width400 height100 rotation_gray_border top20">
+                    <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />You'll be charged xxx now for your first month</div>
+                    <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />You'll be charged {planSelected.monthlyCost} for each month after that</div>
+                    <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />Cancel at any time before your next cycle</div>
+                    <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />By purchasing you agree to the full membership <Link to="/terms">terms & conditions</Link></div>
+                  </div>
+                  <div
+                    className="rotation_gray_border rotation_gray_background width400 height50 top30 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer"
+                    onClick={(e) => this.createSubscription(e, this.state.stripeID, planSelected.itemQty)}
+                  >
+                    Purchase
+                  </div>
+                </div>
+              </div>
+            }
+            {displayShippingModal &&
+              <div className="modal_section height500 width_full white_background">
+                <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
+                <div className="top50 width300 margin_auto">
+                  <div className="druk_xs medium rotation_gray">Add Shipping Address</div>
+                  <div className="input_box gray_border width300 height50 top20">
+                    <div className="proxima_small medium very_light_gray left20 top5 height15">Address Line 1</div>
+                    <input className="input_field proxima_xl medium rotation_gray width260 left20" name="shippingAddressLine1" value={this.state.shippingAddressLine1} onChange={(e) => this.handleInputChange(e)} />
+                  </div>
+                  <div className="input_box gray_border width300 height50 top20">
+                    <div className="proxima_small medium very_light_gray left20 top5 height15">Address Line 2</div>
+                    <input className="input_field proxima_xl medium rotation_gray width260 left20" name="shippingAddressLine2" value={this.state.shippingAddressLine2} onChange={(e) => this.handleInputChange(e)} />
+                  </div>
+                  <div className="input_box gray_border width300 height50 top20">
+                    <div className="proxima_small medium very_light_gray left20 top5 height15">City</div>
+                    <input className="input_field proxima_xl medium rotation_gray width260 left20" name="shippingCity" value={this.state.shippingCity} onChange={(e) => this.handleInputChange(e)} />
+                  </div>
+                  <div className="input_group flex justify_between width300">
+                    <div className="input_box gray_border width130 height50 top20">
+                      <div className="proxima_small medium very_light_gray left20 top5 height15">State</div>
+                      <input className="input_field proxima_xl medium rotation_gray width100 left20" name="shippingState" value={this.state.shippingState} onChange={(e) => this.handleInputChange(e)} />
+                    </div>
+                    <div className="input_box gray_border width130 height50 top20 left20">
+                      <div className="proxima_small medium very_light_gray left20 top5 height15">Zip</div>
+                      <input className="input_field proxima_xl medium rotation_gray width100 left20" name="shippingZipcode" value={this.state.shippingZipcode} onChange={(e) => this.handleInputChange(e)} />
+                    </div>
+                  </div>
+                  <div
+                    className="rotation_gray_border rotation_gray_background width300 height50 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer"
+                    onClick={(e) => this.updateAccountDetails(e)}
+                  >
+                    Next Step<FontAwesomeIcon className="white font12 left20" icon="chevron-right" />
+                  </div>
+                </div>
+              </div>
+            }
             {displayBillingModal &&
               <div className="modal_section height500 width_full white_background">
                 <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
-                <div className="top100 width500 margin_auto">
-
+                <div className="top80 left100">
+                  <div className="druk_xs medium rotation_gray">Add Billing Info</div>
+                  <div className="flex">
+                    <div>
+                      <div className="input_box gray_border width300 height50 top20">
+                        <div className="proxima_small medium very_light_gray left20 top5 height15">Name</div>
+                        <input className="input_field proxima_xl medium rotation_gray width260 left20" name="billingName" value={this.state.billingName} onChange={(e) => this.handleInputChange(e)} />
+                      </div>
+                      <div className="input_box gray_border width300 height50 top20">
+                        <div className="proxima_small medium very_light_gray left20 top5 height15">Credit Card Number</div>
+                        <input className="input_field proxima_xl medium rotation_gray width260 left20" name="creditCardNumber" value={this.state.creditCardNumber} onChange={(e) => this.handleInputChange(e)} />
+                      </div>
+                      <div className="input_group flex justify_between">
+                        <div className="input_box gray_border width130 height50 top20">
+                          <div className="proxima_small medium very_light_gray left20 top5 height15">Expiration</div>
+                          <input className="input_field proxima_xl medium rotation_gray width100 left20" name="expiration" value={this.state.expiration} onChange={(e) => this.handleInputChange(e)} />
+                        </div>
+                        <div className="input_box gray_border width130 height50 top20 left20">
+                          <div className="proxima_small medium very_light_gray left20 top5 height15">CVV</div>
+                          <input className="input_field proxima_xl medium rotation_gray width100 left20" name="cvv" value={this.state.cvv} onChange={(e) => this.handleInputChange(e)} />
+                        </div>
+                      </div>
+                      <div
+                        className="rotation_gray_border rotation_gray_background width300 height50 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer"
+                        onClick={(e) => this.attemptPayment(e)}
+                      >
+                        Next Step<FontAwesomeIcon className="white font12 left20" icon="chevron-right" />
+                      </div>
+                    </div>
+                    <div className="left20">
+                      <div className="input_box gray_border width300 height50 top20">
+                        <div className="proxima_small medium very_light_gray left20 top5 height15">Address Line 1</div>
+                        <input className="input_field proxima_xl medium rotation_gray width260 left20" name="billingAddressLine1" value={this.state.billingAddressLine1} onChange={(e) => this.handleInputChange(e)} />
+                      </div>
+                      <div className="input_box gray_border width300 height50 top20">
+                        <div className="proxima_small medium very_light_gray left20 top5 height15">Address Line 2</div>
+                        <input className="input_field proxima_xl medium rotation_gray width260 left20" name="billingAddressLine2" value={this.state.billingAddressLine2} onChange={(e) => this.handleInputChange(e)} />
+                      </div>
+                      <div className="input_box gray_border width300 height50 top20">
+                        <div className="proxima_small medium very_light_gray left20 top5 height15">City</div>
+                        <input className="input_field proxima_xl medium rotation_gray width260 left20" name="billingCity" value={this.state.billingCity} onChange={(e) => this.handleInputChange(e)} />
+                      </div>
+                      <div className="input_group flex justify_between">
+                        <div className="input_box gray_border width130 height50 top20">
+                          <div className="proxima_small medium very_light_gray left20 top5 height15">State</div>
+                          <input className="input_field proxima_xl medium rotation_gray width100 left20" name="billingState" value={this.state.billingState} onChange={(e) => this.handleInputChange(e)} />
+                        </div>
+                        <div className="input_box gray_border width130 height50 top20 left20">
+                          <div className="proxima_small medium very_light_gray left20 top5 height15">Zip</div>
+                          <input className="input_field proxima_xl medium rotation_gray width100 left20" name="billingZipcode" value={this.state.billingZipcode} onChange={(e) => this.handleInputChange(e)} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             }
@@ -477,8 +707,7 @@ class CatalogPage extends Component {
                       <div className="proxima_small medium very_light_gray left20 top5 height15">Password</div>
                       <input type="password" className="proxima_xl medium rotation_gray width260 left20" name="loginPassword" value={this.props.loginPassword} onChange={this.props.handleInputChange} />
                     </div>
-                    <div className="proxima_xs medium rotation_gray top10 text_center underline cursor_pointer" onClick={(e) => this.toggleModal(e, "plan")}>Forgot your password?</div>
-                    {/* <div className="proxima_xs medium rotation_gray top10 text_center underline cursor_pointer" onClick={this.props.forgotPassword}>Forgot your password?</div> */}
+                    <div className="proxima_xs medium rotation_gray top10 text_center underline cursor_pointer" onClick={this.props.forgotPassword}>Forgot your password?</div>
                     <input type="submit" value="Log In" className="input_box rotation_gray_border rotation_gray_background width300 height50 margin_auto top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" />
                   </form>
                   <div className="proxima_small medium underline rotation_gray top10 flex justify_center cursor_pointer" onClick={(e) => this.toggleModal(e, "signUp")}>Don't have an account? Sign up</div>
@@ -488,7 +717,7 @@ class CatalogPage extends Component {
             {displaySignUpModal &&
               <div className="modal_section height500 width_full white_background">
                 <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
-                <div className="top100">
+                <div className="top70">
                   <div className="width300 margin_auto top20 druk_small rotation_gray">Sign Up</div>
                   <form onSubmit={this.props.handleSignUp}>
                     <div className="input_box gray_border width300 height50 margin_auto top15">
@@ -498,6 +727,10 @@ class CatalogPage extends Component {
                     <div className="input_box gray_border width300 height50 margin_auto top20">
                       <div className="proxima_small medium very_light_gray left20 top5 height15">Password</div>
                       <input type="password" className="proxima_xl medium rotation_gray width260 left20" name="registerPassword" value={this.props.registerPassword} onChange={this.props.handleInputChange} />
+                    </div>
+                    <div className="input_box gray_border width300 height50 margin_auto top20">
+                      <div className="proxima_small medium very_light_gray left20 top5 height15">Confirm Password</div>
+                      <input type="password" className="proxima_xl medium rotation_gray width260 left20" name="registerConfirmPassword" value={this.props.registerConfirmPassword} onChange={this.props.handleInputChange} />
                     </div>
                     <div className="proxima_xs medium rotation_gray top10 text_center">By registering, I accept the <Link to="/terms" className="underline cursor_pointer">Terms of Service</Link> and <Link to="/privacy" className="underline cursor_pointer">Privacy Policy</Link></div>
                     <input type="submit" value="Sign Up" className="input_box rotation_gray_border rotation_gray_background width300 height50 margin_auto top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" />
@@ -515,7 +748,7 @@ class CatalogPage extends Component {
                   <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
                   <div className="modal_brand proxima_small rotation_gray opacity6 uppercase top50 padding_sides50">{selectedItem.title.value}</div>
                   <div className="modal_description height180 overflow_scroll druk_medium rotation_gray line_height24 padding_top10 padding_sides50 capitalize">{selectedItem.subtitle}</div>
-                  {this.props.auth ? (
+                  {this.props.auth && this.state.subscription ? (
                     <div>
                       <div className="modal_size_btns flex top40 sides50 justify_between">
                         {this.state.modalSizes.forEach(size => {
@@ -554,7 +787,7 @@ class CatalogPage extends Component {
                         ) : upNextItemSelected ? (
                           <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer red" onClick={(e) => this.removeItem(e)}>Remove</div>
                         ) : (
-                          <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveItem(e)}>Reserve</div>
+                          <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}>Reserve</div>
                         )}
                         {selectedItem.is_favorite ? (
                           <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.unfavoriteItem(e)}><FontAwesomeIcon className="rotation_gray" icon="heart" /></div>
@@ -565,8 +798,8 @@ class CatalogPage extends Component {
                     </div>
                   ) : (
                     <div className="modal_buttons sides50 flex justify_between top130">
-                      <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.toggleModal(e, "signUp")}>Reserve</div>
-                      <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.toggleModal(e, "signUp")}><FontAwesomeIcon className="rotation_gray" icon="bullseye" /></div>
+                      <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}>Reserve</div>
+                      <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}><FontAwesomeIcon className="rotation_gray" icon="bullseye" /></div>
                     </div>
                   )}
                 </div>
