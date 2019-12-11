@@ -184,7 +184,10 @@ class App extends Component {
   render(){
     if (this.state.isLoading) {
       return (
-        <span>The application is loading... (TODO: Make it look nice)</span>
+        <div className="middle_screen text_center">
+          <div className="rotation_gray druk_large">The Rotation</div>
+          <div className="rotation_gray proxima_large">Loading...</div>
+        </div>
       )
     } else {
       return (
