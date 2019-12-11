@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Link } from "react-router-dom"
+import { Redirect, Link } from "react-router-dom"
 import "./style.css"
 import PricingTable from "../PricingTable"
 
@@ -8,7 +8,8 @@ class LandingPage extends Component {
     super(props)
     this.state = {
       items: [],
-      landing_email: ""
+      landingEmail: "",
+      redirectToCatalog: false
     }
   }
 
@@ -28,16 +29,19 @@ class LandingPage extends Component {
   }
 
   addLeadEmail(e){
-    console.log(this.state.landing_email)
     fetch("/api/web/users/lead", {
       method: "POST",
       body: JSON.stringify({
-        "email": this.state.landing_email
+        email: this.state.landingEmail
       }),
       headers: {
         "Content-Type": "application/json"
       }
     })
+  }
+
+  redirectToCatalog(e){
+    this.setState({redirectToCatalog: true})
   }
 
   handleInputChange(e) {
@@ -49,6 +53,9 @@ class LandingPage extends Component {
   }
 
   render(){
+    if(this.state.redirectToCatalog){
+      return <Redirect to="/catalog" />
+    }
     return (
       <div className="LandingPage">
         <header className="background flex align_center">
@@ -56,9 +63,9 @@ class LandingPage extends Component {
             <div className="welcome_to_a_closet line_height40 width388 druk_large rotation_gray padding_bottom25">Welcome to a closet without boundaries.</div>
             <div className="welcome_description line_height28 width388 proxima_xl rotation_gray padding_bottom25">Rent unlimited streetwear, for one low monthly price. Choose from our massive catalog and swap items whenever you want. We curate the latest in style and keep your closet in season so you don’t have to.</div>
             <div className="flex sign_up">
-              <div className="sign_up_box white_background flex align_center"><input className="width200 spacing10 opacity7 proxima_small medium rotation_gray left20" placeholder="ENTER EMAIL ADDRESS" name="landing_email" value={this.state.landing_email} onChange={(e) => this.handleInputChange(e)} /></div>
+              <div className="sign_up_box white_background flex align_center"><input className="width200 spacing10 opacity7 proxima_small medium rotation_gray left20" placeholder="ENTER EMAIL ADDRESS" name="landingEmail" value={this.state.landingEmail} onChange={(e) => this.handleInputChange(e)} /></div>
               <Link
-                to="/sign-up"
+                to="/catalog"
                 className="i_want_in spacing10 proxima_small semibold white rotation_gray_background flex justify_center align_center cursor_pointer uppercase"
                 onClick={(e) => this.addLeadEmail(e)}>
                   I Want In
@@ -94,7 +101,7 @@ class LandingPage extends Component {
           <div className="scrolling_wrapper">
             {this.state.items.map((item, index) => {
               return (
-                <div key={index} className="padding_right30">
+                <div key={index} className="padding_right30 cursor_pointer" onClick={(e) => this.redirectToCatalog(e)}>
                   <div className="item_card light_background flex align_center justify_center">
                     <img className="blend_background max_width130" src={item.image_url} alt="" />
                   </div>
