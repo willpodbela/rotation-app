@@ -19,12 +19,8 @@ class LandingPage extends Component {
       headers: {
         "Content-Type": "application/json"
       }
-    })
-    .then(results => {
-      results.json()
-        .then(results => {
-          this.setState({items: results.items.filter(item => item.landing_featured)})
-        })
+    }).then(res => res.json()).then(results => {
+      this.setState({items: results.items.filter(item => item.landing_featured)})
     })
   }
 

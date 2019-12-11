@@ -46,16 +46,13 @@ class App extends Component {
         "Authorization": `Token ${Auth.getToken()}`
       }
     })
-    //handle errors here
-    .then(res => {
-      Auth.deauthenticateUser()
-      this.setState({
-        authenticated: Auth.isUserAuthenticated(),
-        loginEmail: "",
-        loginPassword: ""
-      })
-      window.location.reload(true)
+    Auth.deauthenticateUser()
+    this.setState({
+      authenticated: Auth.isUserAuthenticated(),
+      loginEmail: "",
+      loginPassword: ""
     })
+    window.location.reload(true)
   }
 
   forgotPassword(e){
@@ -68,11 +65,7 @@ class App extends Component {
       headers: {
         "Content-Type": "application/json"
       }
-    })
-    //handle errors here
-    .then(res => {
-      this.handleNotice({message: "We've sent instructions to your email on resetting your password."})
-    })
+    }).then(res => this.props.apiResponseHandler(res, "We've sent instructions to your email on resetting your password."))
   }
 
   handleSignUp(e){
@@ -89,10 +82,7 @@ class App extends Component {
         headers: {
           "Content-Type": "application/json"
         }
-      })
-      //handle errors here
-      .then(res => res.json())
-      .then(res => {
+      }).then(res => this.apiResponseHandler(res)).then(res => {
         const token = res.user.auth_token
         if(token){
           Auth.authenticateToken(token)
@@ -102,8 +92,6 @@ class App extends Component {
           })
           window.location.reload(true)
         }
-      }).catch(err => {
-        console.log(err)
       })
     }
   }
@@ -114,7 +102,7 @@ class App extends Component {
         "Content-Type": "application/json",
         "Authorization": `Token ${Auth.getToken()}`
       }
-    }).then(res => res.json()).then(res => {
+    }).then(res => this.apiResponseHandler(res)).then(res => {
       this.setState({
         userLoggedIn: res.user,
         isLoading: false
@@ -133,10 +121,7 @@ class App extends Component {
       headers: {
         "Content-Type": "application/json"
       }
-    })
-    //handle errors here
-    .then(res => res.json())
-    .then(res => {
+    }).then(res => this.apiResponseHandler(res)).then(res => {
       const token = res.user.auth_token
       if(token){
         Auth.authenticateToken(token)
@@ -167,12 +152,33 @@ class App extends Component {
     this.setState({notice: null})
   }
   
-  handleError(error){
+  showError(error){
     this.setState({error: error})
   }
   
-  handleNotice(notice){
+  showNotice(notice){
     this.setState({notice: notice})
+  }
+  
+  apiResponseHandler(response, successMessage = null){
+    if (response.ok) {
+      if(successMessage) {
+        this.showNotice({message: successMessage})
+      }
+      return response.json();
+    } else if (response.status == 450) {
+      // Invalid authentication token
+      this.logoutUser()
+    } else {
+      response.json().then(response => {
+        if (response.error && response.error.message) {
+          this.showError(response.error)
+        } else {
+          this.showError({message: "A network error occurred. Please try again later." })
+        }
+        return Promise.reject('server returned non-2xx');
+      })
+    }
   }
 
   render(){
@@ -203,8 +209,9 @@ class App extends Component {
                   loginPassword={this.state.loginPassword}
                   handleInputChange={(e) => this.handleInputChange(e)}
                   forgotPassword={(e) => this.forgotPassword(e)}
-                  errorHandler={(error) => this.handleError(error)}
-                  noticeHandler={(notice) => this.handleNotice(notice)}
+                  errorHandler={(error) => this.showError(error)}
+                  noticeHandler={(notice) => this.showNotice(notice)}
+                  apiResponseHandler={(res, successMessage) => this.apiResponseHandler(res, successMessage)}
                 />
             }/>
             <Route
@@ -217,8 +224,9 @@ class App extends Component {
                   registerPassword={this.state.registerPassword}
                   registerConfirmPassword={this.state.registerConfirmPassword}
                   handleInputChange={(e) => this.handleInputChange(e)}
-                  errorHandler={(error) => this.handleError(error)}
-                  noticeHandler={(notice) => this.handleNotice(notice)}
+                  errorHandler={(error) => this.showError(error)}
+                  noticeHandler={(notice) => this.showNotice(notice)}
+                  apiResponseHandler={(res, successMessage) => this.apiResponseHandler(res, successMessage)}
                 />
             }/>
             <Route
@@ -236,8 +244,9 @@ class App extends Component {
                   registerEmail={this.state.registerEmail}
                   registerPassword={this.state.registerPassword}
                   registerConfirmPassword={this.state.registerConfirmPassword}
-                  errorHandler={(error) => this.handleError(error)}
-                  noticeHandler={(notice) => this.handleNotice(notice)}
+                  errorHandler={(error) => this.showError(error)}
+                  noticeHandler={(notice) => this.showNotice(notice)}
+                  apiResponseHandler={(res, successMessage) => this.apiResponseHandler(res, successMessage)}
                   userLoggedIn={this.state.userLoggedIn}
                 />
             }/>
@@ -246,8 +255,9 @@ class App extends Component {
               render={() =>
                 <AccountPage
                   userLoggedIn={this.state.userLoggedIn}
-                  errorHandler={(error) => this.handleError(error)}
-                  noticeHandler={(notice) => this.handleNotice(notice)}
+                  errorHandler={(error) => this.showError(error)}
+                  noticeHandler={(notice) => this.showNotice(notice)}
+                  apiResponseHandler={(res, successMessage) => this.apiResponseHandler(res, successMessage)}
                 />
             }/>
             <Route path="/terms" exact component={TermsPage} />
