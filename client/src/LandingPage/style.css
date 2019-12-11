@@ -43,6 +43,9 @@
 .item_card{
   height: 248px;
   width: 163px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 @media (max-width: 640px) {
   .background{

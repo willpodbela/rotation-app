@@ -98,8 +98,11 @@ class LandingPage extends Component {
             {this.state.items.map((item, index) => {
               return (
                 <div key={index} className="padding_right30 cursor_pointer" onClick={(e) => this.redirectToCatalog(e)}>
-                  <div className="item_card light_background flex align_center justify_center">
-                    <img className="blend_background max_width130" src={item.image_url} alt="" />
+                  <div
+                    className="item_card light_background flex align_center justify_center"
+                    style={{
+                      backgroundImage: `url(${item.image_url})`
+                    }}>
                   </div>
                   <div className="proxima_small semibold rotation_gray padding_top10 uppercase">{item.title}</div>
                   <div className="padding_top2 opacity7 proxima_small rotation_gray lowercase">{item.subtitle}</div>
