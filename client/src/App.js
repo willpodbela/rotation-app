@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import "./App.css"
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom"
+import { BrowserRouter as Router, Route } from "react-router-dom"
 import LandingPage from "./LandingPage"
 import LoginPage from "./LoginPage"
 import SignUpPage from "./SignUpPage"
@@ -173,7 +173,7 @@ class App extends Component {
         this.showNotice({message: successMessage})
       }
       return response.json();
-    } else if (response.status == 450) {
+    } else if (response.status === 450) {
       // Invalid authentication token
       this.logoutUser()
       return Promise.reject('server returned non-2xx')

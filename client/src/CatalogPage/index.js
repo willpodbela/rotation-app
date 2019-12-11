@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal"
 import "./bootstrap-modal.css"
 import ItemCard from "../ItemCard"
 import Auth from "../modules/Auth"
-import { Link, Redirect } from "react-router-dom"
+import { Link } from "react-router-dom"
 import Unfavorite from "../img/Unfavorite.png"
 import Favorite from "../img/Favorite.png"
 import "./style.css"
@@ -382,13 +382,25 @@ class CatalogPage extends Component {
       this.toggleModal(e, "confirm")
     })
   }
-
-  handleInputChange(e) {
-    const name = e.target.name
-    const value = e.target.value
-    this.setState({
-      [name]: value
-    })
+  
+  subtotal() {
+    let subtotal = parseInt(this.state.planOptions.find(plan => plan.selected).monthlyCost.replace('$', ''))
+    let c = this.props.userLoggedIn.coupon
+    if (c) {
+      if(c.amount_off) {
+        subtotal = subtotal-(c.amount_off/100.0)
+      } else if (c.percent_off) {
+        subtotal = (subtotal*(1-(c.percent_off/100.0)))
+      }
+    }
+    let cred = this.props.userLoggedIn.account_balance
+    if (cred) {
+      subtotal = subtotal-(cred/100)
+    }
+    if (subtotal < 0) {
+      subtotal = 0
+    }
+    return subtotal
   }
 
   render(){
@@ -407,7 +419,7 @@ class CatalogPage extends Component {
     const displayConfirmModal = this.state.modalViews.find(view => view.view === "confirm").display
     const planSelected = this.state.planOptions.find(plan => plan.selected)
     return (
-      <div className="CatalogPage flex align_center gray_border_top padding_bottom300">
+      <div className="CatalogPage flex align_center justify_center gray_border_top padding_bottom300">
         <div className="catalog_wrapper padding_top25 flex sides13pct">
           <div className="filters_and_designers width150 padding_right10">
             <div className="fixed_sidebar overflow_scroll width150">
@@ -543,7 +555,7 @@ class CatalogPage extends Component {
                   <div className="proxima_large semibold rotation_gray top30">The Rotation</div>
                   <div className="proxima_large rotation_gray opacity6">{planSelected.itemQty} Items at a Time - {planSelected.monthlyCost} / month</div>
                   <div className="confirm_modal_box width400 height100 rotation_gray_border top20">
-                    <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />You'll be charged xxx now for your first month</div>
+                    <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />You'll be charged ${this.subtotal()} now for your first month</div>
                     <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />You'll be charged {planSelected.monthlyCost} for each month after that</div>
                     <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />Cancel at any time before your next cycle</div>
                     <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />By purchasing you agree to the full membership <Link to="/terms">terms & conditions</Link></div>
