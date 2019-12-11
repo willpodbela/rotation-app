@@ -10,7 +10,7 @@ class SignUpPage extends Component {
 
   render(){
     if(this.props.auth){
-      return <Redirect to="/account" />
+      return <Redirect to="/catalog" />
     }
     return (
       <div className="SignUpPage light_background flex justify_center">
