@@ -288,7 +288,7 @@ class CatalogPage extends Component {
       s.type = "text/javascript";
       s.src = "https://js.stripe.com/v2/";
       s.onload = () => {
-        window[‘Stripe’].setPublishableKey(process.env.STRIPE_PUBLISHABLE_KEY)
+        window["Stripe"].setPublishableKey(process.env.STRIPE_PUBLISHABLE_KEY)
       }
       window.document.body.appendChild(s);
     }
