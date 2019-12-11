@@ -95,6 +95,9 @@ a{
 .overflow_scroll{
   overflow: scroll;
 }
+.overflow_hidden{
+  overflow: hidden;
+}
 .nowrap{
   white-space: nowrap;
 }

@@ -789,7 +789,7 @@ class CatalogPage extends Component {
             }
             {displayReserveModal &&
               <div className="flex">
-                <div className="modal_section height500 width_half light_background flex justify_center align_center">
+                <div className="modal_section overflow_hidden height500 width_half light_background flex justify_center align_center">
                   <img className="modal_image blend_background" src={selectedItem.image_url} alt="" />
                 </div>
                 <div className="modal_section height500 width_half white_background">
