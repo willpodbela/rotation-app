@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import "./App.css"
-import { BrowserRouter as Router, Route } from "react-router-dom"
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom"
 import LandingPage from "./LandingPage"
 import LoginPage from "./LoginPage"
 import SignUpPage from "./SignUpPage"
@@ -32,6 +32,7 @@ class App extends Component {
       isLoading: false,
       error: null,
       notice: null,
+      appFailed: false,
     }
     if(this.state.authenticated && !this.state.userLoggedIn){
       this.state.isLoading = true
@@ -52,7 +53,6 @@ class App extends Component {
       loginEmail: "",
       loginPassword: ""
     })
-    window.location.reload(true)
   }
 
   forgotPassword(e){
@@ -107,7 +107,12 @@ class App extends Component {
         userLoggedIn: res.user,
         isLoading: false
       })
+    }).catch(res => {
+      this.setState({
+        appFailed: true
+      })
     })
+    
   }
 
   handleLoginSubmit(e){
@@ -169,20 +174,28 @@ class App extends Component {
     } else if (response.status == 450) {
       // Invalid authentication token
       this.logoutUser()
+      return Promise.reject('server returned non-2xx')
     } else {
-      response.json().then(response => {
-        if (response.error && response.error.message) {
+      return response.json().then(response => {
+        if (response && response.error && response.error.message) {
           this.showError(response.error)
         } else {
           this.showError({message: "A network error occurred. Please try again later." })
         }
-        return Promise.reject('server returned non-2xx');
+        return Promise.reject('server returned non-2xx')
       })
     }
   }
 
   render(){
-    if (this.state.isLoading) {
+    if (this.state.appFailed) {
+      return (
+        <div className="middle_screen text_center">
+          <div className="rotation_gray druk_large">The Rotation</div>
+          <div className="rotation_gray proxima_large">Our server is currently down for maintenance. Please come back later.</div>
+        </div>
+      )
+    } else if (this.state.isLoading) {
       return (
         <div className="middle_screen text_center">
           <div className="rotation_gray druk_large">The Rotation</div>
@@ -257,6 +270,7 @@ class App extends Component {
               path="/account"
               render={() =>
                 <AccountPage
+                  auth={this.state.authenticated}
                   userLoggedIn={this.state.userLoggedIn}
                   errorHandler={(error) => this.showError(error)}
                   noticeHandler={(notice) => this.showNotice(notice)}

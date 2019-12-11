@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { Redirect } from "react-router-dom"
 import Auth from "../modules/Auth"
 import "./style.css"
 
@@ -244,6 +245,10 @@ class AccountPage extends Component {
       endDate = new Date(this.state.subscription.current_period_end)
     }
     
+    if(!this.props.auth){
+      return <Redirect to="/catalog" />
+    }
+
     return (
       <div className="AccountPage gray_border_top bottom70 flex">
         <div className="left13pct top40 proxima_small rotation_gray semibold spacing20 uppercase">
@@ -290,8 +295,8 @@ class AccountPage extends Component {
             <div className="input_box rotation_gray_border rotation_gray_background width300 height50 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" onClick={(e) => this.updateAccountDetails(e)}>Save Changes</div>
             <div className="profile_divider rotation_gray_background top60"></div>
             <div className="druk_xs medium rotation_gray top60">Manage Plan</div>
-            
-            
+          
+          
             {this.state.subscription ? (
               this.state.subscription.status === "active" ? (
                 <div>
