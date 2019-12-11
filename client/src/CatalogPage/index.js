@@ -76,39 +76,31 @@ class CatalogPage extends Component {
           "Content-Type": "application/json",
           "Authorization": `Token ${Auth.getToken()}`
         }
-      })
-      .then(results => {
-        results.json()
-          .then(results => {
-            this.setState({
-              myRotation: this.addSelectedProperty(results.items.my_rotation),
-              upNext: this.addSelectedProperty(results.items.up_next),
-              favorites: this.addSelectedProperty(results.items.catalog.filter(item => item.is_favorite)),
-              items: this.addSelectedProperty(results.items.catalog.filter(item => !item.is_favorite))
-            })
-            let designers = this.state.items.map(item => item.title)
-            designers = Array.from(new Set(designers.map(designer => designer.value))).map(value => {
-              return designers.find(designer => designer.value === value)
-            })
-            this.setState({designers: designers})
-          })
+      }).then(res => this.props.apiResponseHandler(res)).then(results => {
+        this.setState({
+          myRotation: this.addSelectedProperty(results.items.my_rotation),
+          upNext: this.addSelectedProperty(results.items.up_next),
+          favorites: this.addSelectedProperty(results.items.catalog.filter(item => item.is_favorite)),
+          items: this.addSelectedProperty(results.items.catalog.filter(item => !item.is_favorite))
+        })
+        let designers = this.state.items.map(item => item.title)
+        designers = Array.from(new Set(designers.map(designer => designer.value))).map(value => {
+          return designers.find(designer => designer.value === value)
+        })
+        this.setState({designers: designers})
       })
     }else{
       fetch("/api/web/items", {
         headers: {
           "Content-Type": "application/json"
         }
-      })
-      .then(results => {
-        results.json()
-          .then(results => {
-            this.setState({items: this.addSelectedProperty(results.items)})
-            let designers = this.state.items.map(item => item.title)
-            designers = Array.from(new Set(designers.map(designer => designer.value))).map(value => {
-              return designers.find(designer => designer.value === value)
-            })
-            this.setState({designers: designers})
-          })
+      }).then(res => this.props.apiResponseHandler(res)).then(results => {
+        this.setState({items: this.addSelectedProperty(results.items)})
+        let designers = this.state.items.map(item => item.title)
+        designers = Array.from(new Set(designers.map(designer => designer.value))).map(value => {
+          return designers.find(designer => designer.value === value)
+        })
+        this.setState({designers: designers})
       })
     }
 
@@ -165,11 +157,9 @@ class CatalogPage extends Component {
           "Content-Type": "application/json",
           "Authorization": `Token ${Auth.getToken()}`
         }
-      }).then(res => res.json()).then(res => {
-        console.log(res)
+      }).then(res => this.props.apiResponseHandler(res)).then(res => {
         this.hideModal(e)
         this.componentDidMount()
-        //handle errors here
       })
     }else{
       this.props.errorHandler({message: "Please select a size."})
@@ -195,11 +185,9 @@ class CatalogPage extends Component {
         "Content-Type": "application/json",
         "Authorization": `Token ${Auth.getToken()}`
       }
-    }).then(res => res.json()).then(res => {
-      console.log(res)
+    }).then(res => this.props.apiResponseHandler(res)).then(res => {
       this.hideModal(e)
       this.componentDidMount()
-      //handle errors here
     })
   }
 
@@ -214,10 +202,8 @@ class CatalogPage extends Component {
         "Content-Type": "application/json",
         "Authorization": `Token ${Auth.getToken()}`
       }
-    })
-    //handle errors here
+    }).then(res => this.props.apiResponseHandler(res, "We've recieved your request and a member of our team will be in contact with you shortly."))
     this.hideModal(e)
-    this.props.noticeHandler({message: "We've recieved your request and a member of our team will be in contact with you shortly."})
   }
 
   favoriteItem(e){
@@ -227,11 +213,9 @@ class CatalogPage extends Component {
         "Content-Type": "application/json",
         "Authorization": `Token ${Auth.getToken()}`
       }
-    }).then(res => res.json()).then(res => {
-      console.log(res)
+    }).then(res => this.props.apiResponseHandler(res)).then(res => {
       this.hideModal(e)
       this.componentDidMount()
-      //handle errors here
     })
   }
 
@@ -243,10 +227,9 @@ class CatalogPage extends Component {
         "Authorization": `Token ${Auth.getToken()}`
       }
     }).then(res => {
-      console.log(res)
+      //TODO: Handle errors. Can't use apiResponseHandler in its current format since it always attempts to call .json()
       this.hideModal(e)
       this.componentDidMount()
-      //handle errors here
     })
   }
 
@@ -357,10 +340,8 @@ class CatalogPage extends Component {
         "Content-Type": "application/json",
         "Authorization": `Token ${Auth.getToken()}`
       }
-    }).then(res => res.json()).then(res => {
+    }).then(res => this.props.apiResponseHandler(res, "Welcome to the Rotation! You're going to like it here. Pick your first item below.")).then(res => {
       this.hideModal(e)
-      console.log(res)
-      //handle errors here
     })
   }
 
@@ -384,10 +365,8 @@ class CatalogPage extends Component {
         "Content-Type": "application/json",
         "Authorization": `Token ${Auth.getToken()}`
       }
-    }).then(res => res.json()).then(res => {
-      console.log(res)
+    }).then(res => this.props.apiResponseHandler(res)).then(res => {
       this.toggleModal(e, "confirm")
-      //handle errors here
     })
   }
 
