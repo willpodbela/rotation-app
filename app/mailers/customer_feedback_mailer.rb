@@ -10,6 +10,12 @@ class CustomerFeedbackMailer < ApplicationMailer
     mail(to: @user.email, subject: @subject)
   end
   
+  def waitlist_thank_you
+    @user = params[:user]
+    @subject = 'The Roation — Note from the Founders'
+    mail(to: @user.email, subject: @subject)
+  end
+  
   def self.preferred_time
     Time.zone.tomorrow.at_beginning_of_day.advance(hours: 10, minutes: rand(60))
   end
