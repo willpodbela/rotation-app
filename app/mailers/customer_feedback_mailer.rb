@@ -6,13 +6,13 @@ class CustomerFeedbackMailer < ApplicationMailer
   
   def founder_hello
     @user = params[:user]
-    @subject = 'The Roation — A personal hello from the founder'
+    @subject = 'The Rotation — A personal hello from the founder'
     mail(to: @user.email, subject: @subject)
   end
   
   def waitlist_thank_you
     @user = params[:user]
-    @subject = 'The Roation — Note from the Founders'
+    @subject = 'The Rotation — Note from the Founders'
     mail(to: @user.email, subject: @subject)
   end
   
