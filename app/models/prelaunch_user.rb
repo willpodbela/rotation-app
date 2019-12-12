@@ -7,6 +7,8 @@ class PrelaunchUser < ApplicationRecord
   
   after_create do |user|
     MailChimpService.register_prelauncher_user(user)
+    #Disable for now
+    #CustomerFeedbackMailer.with(user: user).founder_hello.deliver_later(wait_until: CustomerFeedbackMailer.preferred_time)
   end
 
   def valid_invited_users_count

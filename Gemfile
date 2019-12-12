@@ -62,6 +62,8 @@ gem 'gibbon', '~> 3.2'
 
 # For concurency and mulit-threading
 gem 'concurrent-ruby', require: 'concurrent'
+# For job queueing w mailers
+gem 'sidekiq', '~> 4.1', '>= 4.1.2'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

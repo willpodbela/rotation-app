@@ -34,6 +34,13 @@ ActiveRecord::Schema.define(version: 20191206203820) do
     t.index ["id"], name: "index_codes_on_id", unique: true
   end
 
+  create_table "communications", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "message_name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "devices", force: :cascade do |t|
     t.string "token", limit: 64, null: false
     t.integer "user_id", null: false
