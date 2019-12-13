@@ -33,7 +33,7 @@
       <td><%= unit.size %></td>
       <td><%= unit.status %></td>
       <% if unit.reservations.active.first %>
-      <td><%= link_to("#{unit.reservations.active.first.start_date.try(:strftime, "%Y-%m-%d") or ''}", reservation_path(unit.reservations.active.first)) %> <%=  %></td>
+      <td><%= link_to("#{unit.reservations.active.first.start_date.try(:strftime, "%Y-%m-%d") or ''}", reservation_path(unit.reservations.active.first)) %></td>
       <% else %>
       <td></td>
       <% end %>
