@@ -32,7 +32,7 @@
       <td><%= link_to("#{unit.item.title or ''} #{unit.item.subtitle or ''}", item_path(unit.item)) %></td>
       <td><%= unit.size %></td>
       <td><%= unit.status %></td>
-      <td><%= "#{unit.first.reservations.active.first or ''}" %></td>
+      <td><%= "#{unit.reservations.active.first or ''}" %></td>
       <td><%= unit.supplier %></td>
       <td><%= unit.supplier_order_id %></td>
       <td><%= unit.order_date.try(:strftime, "%Y-%m-%d") %></td>
