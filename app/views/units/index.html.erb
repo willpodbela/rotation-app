@@ -35,7 +35,7 @@
       <% r ||= unit.reservations.live.first %>
       <% r ||= unit.reservations.scheduled.first %>
       <% if r %>
-      <td><%= link_to("#{unit.reservations.active.first.start_date.try(:strftime, "%Y-%m-%d") or ''}", reservation_path(unit.reservations.active.first)) %></td>
+      <td><%= link_to("#{r.start_date.try(:strftime, "%Y-%m-%d") or ''}", reservation_path(r)) %></td>
       <% else %>
       <td></td>
       <% end %>
