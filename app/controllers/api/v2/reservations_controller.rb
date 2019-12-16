@@ -11,7 +11,7 @@ module Api
           s = current_user.current_subscription
           if !s.nil?
             if s.active? || s.canceled?
-              if !s.past_due?
+              if !s.payment_failed?
                 if current_user.reservations_remaining > 0
                   super
                 else
