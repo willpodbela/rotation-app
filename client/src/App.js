@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import "./App.css"
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom"
+import { BrowserRouter as Router, Route } from "react-router-dom"
 import LandingPage from "./LandingPage"
 import LoginPage from "./LoginPage"
 import SignUpPage from "./SignUpPage"
@@ -173,7 +173,7 @@ class App extends Component {
         this.showNotice({message: successMessage})
       }
       return response.json();
-    } else if (response.status == 450) {
+    } else if (response.status === 450) {
       // Invalid authentication token
       this.logoutUser()
       return Promise.reject('server returned non-2xx')
@@ -190,21 +190,21 @@ class App extends Component {
   }
 
   render(){
-    if (this.state.appFailed) {
-      return (
-        <div className="middle_screen text_center">
-          <div className="rotation_gray druk_large">The Rotation</div>
-          <div className="rotation_gray proxima_large">Our server is currently down for maintenance. Please come back later.</div>
-        </div>
-      )
-    } else if (this.state.isLoading) {
-      return (
-        <div className="middle_screen text_center">
-          <div className="rotation_gray druk_large">The Rotation</div>
-          <div className="rotation_gray proxima_large">Loading...</div>
-        </div>
-      )
-    } else {
+    // if (this.state.appFailed) {
+    //   return (
+    //     <div className="middle_screen text_center">
+    //       <div className="rotation_gray druk_large">The Rotation</div>
+    //       <div className="rotation_gray proxima_large">Our server is currently down for maintenance. Please come back later.</div>
+    //     </div>
+    //   )
+    // } else if (this.state.isLoading) {
+    //   return (
+    //     <div className="middle_screen text_center">
+    //       <div className="rotation_gray druk_large">The Rotation</div>
+    //       <div className="rotation_gray proxima_large">Loading...</div>
+    //     </div>
+    //   )
+    // } else {
       return (
         <Router>
           <div className="App">
@@ -285,7 +285,7 @@ class App extends Component {
           </div>
         </Router>
       )
-    }
+    // }
   }
 }
 

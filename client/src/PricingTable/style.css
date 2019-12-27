@@ -29,3 +29,9 @@
     padding-bottom: 15px !important;
   }
 }
+@media (max-width: 420px) {
+  .pricing_wrapper{
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

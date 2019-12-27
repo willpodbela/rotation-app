@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Unfavorite from "../img/Unfavorite.png"
 import Favorite from "../img/Favorite.png"
 import "./style.css"
@@ -18,9 +17,9 @@ class ItemCard extends Component {
         <div className="flex justify_between align_center padding_top10">
           <div className="proxima_small semibold rotation_gray uppercase overflow_scroll nowrap width190">{item.title.value}</div>
           {item.is_favorite ? (
-            <img src={Favorite} height="14" width="14" />
+            <img src={Favorite} height="14" width="14" alt="" />
           ) : (
-            <img src={Unfavorite} height="14" width="14" />
+            <img src={Unfavorite} height="14" width="14" alt="" />
           )}
         </div>
         <div className="padding_top2 opacity7 proxima_small rotation_gray lowercase">{item.subtitle}</div>
