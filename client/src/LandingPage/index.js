@@ -97,7 +97,7 @@ class LandingPage extends Component {
           <div className="scrolling_wrapper">
             {this.state.items.map((item, index) => {
               return (
-                <div key={index} className="padding_right30 cursor_pointer" onClick={(e) => this.redirectToCatalog(e)}>
+                <div key={index} className="card padding_right30 cursor_pointer" onClick={(e) => this.redirectToCatalog(e)}>
                   <div
                     className="item_card light_background flex align_center justify_center"
                     style={{

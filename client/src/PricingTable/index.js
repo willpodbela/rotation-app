@@ -11,8 +11,8 @@ class PricingTable extends Component {
           <div className="spacing10 proxima_small semibold rotation_gray padding_bottom15 uppercase">Plan + Pricing</div>
           <div className="subscribe_to_the_closet line_height30 medium druk_medium rotation_gray padding_bottom15 margin_auto">Subscribe to the closet of your future</div>
           <div className="proxima_large medium rotation_gray text_center">We've got three plans to choose from.</div>
-          <div className="padding_bottom30 padding_top30 flex justify_center">
-            <div className="pricing_wrapper sides30 top10 bottom10 flex">
+          <div className="pricing_options sides13pct padding_bottom30 padding_top30 flex justify_between">
+            <div className="pricing_wrapper top10 bottom10 flex">
               <div className="pricing_rectangle flex align_center justify_center">
                 <div>
                   <div className="medium druk_medium rotation_gray">2</div>
@@ -26,7 +26,7 @@ class PricingTable extends Component {
                 </div>
               </div>
             </div>
-            <div className="pricing_wrapper sides30 top10 bottom10 flex">
+            <div className="pricing_wrapper top10 bottom10 flex">
               <div className="pricing_rectangle flex align_center justify_center">
                 <div>
                   <div className="medium druk_medium rotation_gray">3</div>
@@ -40,7 +40,7 @@ class PricingTable extends Component {
                 </div>
               </div>
             </div>
-            <div className="pricing_wrapper sides30 top10 bottom10 flex">
+            <div className="pricing_wrapper top10 bottom10 flex">
               <div className="pricing_rectangle flex align_center justify_center">
                 <div>
                   <div className="medium druk_medium rotation_gray">4</div>

@@ -47,6 +47,9 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+.card{
+  width: 163px;
+}
 @media (max-width: 640px) {
   .background{
     height: calc(100vh - 138px);
