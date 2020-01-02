@@ -57,15 +57,20 @@ class App extends Component {
 
   forgotPassword(e){
     e.preventDefault()
-    fetch("/api/web/auth/forgot", {
-      method: "POST",
-      body: JSON.stringify({
-        email: this.state.loginEmail
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(res => this.props.apiResponseHandler(res, "We've sent instructions to your email on resetting your password."))
+    
+    if (this.state.loginEmail === "") {
+      this.showError({message: "Please enter your email address in the login form and click again."})
+    } else {
+      fetch("/api/web/auth/forgot", {
+        method: "POST",
+        body: JSON.stringify({
+          email: this.state.loginEmail
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then(res => this.apiResponseHandler(res, "We've sent instructions to your email on resetting your password."))  
+    }
   }
 
   handleSignUp(e){

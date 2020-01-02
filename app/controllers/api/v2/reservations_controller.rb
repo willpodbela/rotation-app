@@ -8,10 +8,10 @@ module Api
         item = Item.find_by_id(params[:item_id])
       
         if inventory.total_available(item) > 0
-          s = user.current_subscription
+          s = current_user.current_subscription
           if !s.nil?
             if s.active? || s.canceled?
-              if !s.past_due?
+              if !s.payment_failed?
                 if current_user.reservations_remaining > 0
                   super
                 else

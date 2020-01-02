@@ -5,6 +5,7 @@ class FulfillmentController < AdminBaseController
     @reservations = Reservation
     .includes(:unit, :user, :item)
     .where(status: [:scheduled, :processing, :active, :returned])
+    .where(query_params)
     .order("#{sort_column} #{sort_direction}")
     
     @offline_units = Unit.offline
@@ -14,6 +15,10 @@ class FulfillmentController < AdminBaseController
   
   def sortable_columns
     ["status", "created_at", "unit_id", "units.notes", "users.email", "id", "size", "items.title"]
+  end
+  
+  def query_params
+    params.permit(:status)
   end
   
 end

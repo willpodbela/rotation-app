@@ -55,6 +55,9 @@
     "RAILS_SERVE_STATIC_FILES": {
       "required": true
     },
+    "REDIS_PROVIDER": {
+      "required": true
+    },
     "SECRET_KEY_BASE": {
       "required": true
     },
@@ -92,7 +95,8 @@
     }
   },
   "addons": [
-    "heroku-postgresql"
+    "heroku-postgresql",
+    "redistogo:nano"
   ],
   "buildpacks": [
     {

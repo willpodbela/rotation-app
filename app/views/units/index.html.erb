@@ -18,6 +18,7 @@
       <th><%= sort_link "items.title", "Item" %></th>
       <th><%= sort_link "size" %></th>
       <th><%= sort_link "status" %></th>
+      <th>Current Reservation</th>
       <th><%= sort_link "supplier" %></th>
       <th><%= sort_link "supplier_order_id", "Order No." %></th>
       <th><%= sort_link "order_date", "Date Ordered" %></th>
@@ -31,6 +32,13 @@
       <td><%= link_to("#{unit.item.title or ''} #{unit.item.subtitle or ''}", item_path(unit.item)) %></td>
       <td><%= unit.size %></td>
       <td><%= unit.status %></td>
+      <% r ||= unit.reservations.live.first %>
+      <% r ||= unit.reservations.scheduled.first %>
+      <% if r %>
+      <td><%= link_to("#{r.start_date.try(:strftime, "%Y-%m-%d") or ''}", reservation_path(r)) %></td>
+      <% else %>
+      <td></td>
+      <% end %>
       <td><%= unit.supplier %></td>
       <td><%= unit.supplier_order_id %></td>
       <td><%= unit.order_date.try(:strftime, "%Y-%m-%d") %></td>

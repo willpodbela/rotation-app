@@ -118,7 +118,7 @@ $(document).ready(function(){
         <%= link_to("#{reservation.unit.id}: #{reservation.unit.size}", unit_path(reservation.unit)) unless reservation.unit.nil? %>
       </td>
       <td>
-        <%= link_to("#{reservation.unit.notes or ''}", unit_path(reservation.unit)) unless reservation.unit.nil? %>
+        <%= link_to("#{reservation.unit.cost ? "[Cost: $"+reservation.unit.cost.to_s+"]" : ''} #{reservation.unit.notes or ''}", unit_path(reservation.unit)) unless reservation.unit.nil? %>
       </td>
       <td class="actions">
         <%= link_to("Show", reservation_path(reservation), :class => 'action -show') %>
