@@ -195,21 +195,21 @@ class App extends Component {
   }
 
   render(){
-    // if (this.state.appFailed) {
-    //   return (
-    //     <div className="middle_screen text_center">
-    //       <div className="rotation_gray druk_large">The Rotation</div>
-    //       <div className="rotation_gray proxima_large">Our server is currently down for maintenance. Please come back later.</div>
-    //     </div>
-    //   )
-    // } else if (this.state.isLoading) {
-    //   return (
-    //     <div className="middle_screen text_center">
-    //       <div className="rotation_gray druk_large">The Rotation</div>
-    //       <div className="rotation_gray proxima_large">Loading...</div>
-    //     </div>
-    //   )
-    // } else {
+    if (this.state.appFailed) {
+      return (
+        <div className="middle_screen text_center">
+          <div className="rotation_gray druk_large">The Rotation</div>
+          <div className="rotation_gray proxima_large">Our server is currently down for maintenance. Please come back later.</div>
+        </div>
+      )
+    } else if (this.state.isLoading) {
+      return (
+        <div className="middle_screen text_center">
+          <div className="rotation_gray druk_large">The Rotation</div>
+          <div className="rotation_gray proxima_large">Loading...</div>
+        </div>
+      )
+    } else {
       return (
         <Router>
           <div className="App">
@@ -290,7 +290,7 @@ class App extends Component {
           </div>
         </Router>
       )
-    // }
+    }
   }
 }
 
