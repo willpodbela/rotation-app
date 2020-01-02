@@ -1,7 +1,7 @@
 .login_box{
   border-radius: 8px;
 }
-.input_box{
+.input_box_account{
   border-radius: 2px;
 }
 ::-webkit-input-placeholder{
@@ -12,19 +12,14 @@
 }
 .profile_divider{
   height: 1px;
-  width: 55vw;
 }
-@media (max-width: 1065px) {
-  .account_inputs{
-    margin-left: 13%;
+@media (max-width: 843px) {
+  .account_title{
+    text-align: center;
   }
-  .profile_divider{
-    width: 70vw;
-  }
-}
-@media (max-width: 832px) {
-  .input_box{
-    margin-left: 0px;
+  .input_box_account{
+    margin: 20px auto;
+    width: 250px;
   }
   .cancel_subscription{
     margin-left: 0px;
@@ -32,11 +27,6 @@
   }
   .input_group{
     display: block !important;
-  }
-}
-@media (max-width: 390px) {
-  .input_box{
-    width: 250px;
   }
   .input_field{
     width: 200px;

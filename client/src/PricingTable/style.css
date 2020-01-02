@@ -17,7 +17,22 @@
   height: 40px;
   width: 40px;
 }
+@media (max-width: 1500px) {
+  .pricing_options{
+    margin-left: 50px;
+    margin-right: 50px;
+    justify-content: center !important;
+  }
+  .pricing_wrapper{
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
 @media (max-width: 620px) {
+  .pricing_options{
+    margin-left: 0;
+    margin-right: 0;
+  }
   .pricing_row{
     display: block !important;
     padding-bottom: 60px !important;
@@ -27,5 +42,11 @@
     margin: 0 auto !important;
     padding-right: 0px !important;
     padding-bottom: 15px !important;
+  }
+}
+@media (max-width: 420px) {
+  .pricing_wrapper{
+    margin-left: 0;
+    margin-right: 0;
   }
 }
