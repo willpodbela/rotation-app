@@ -16,7 +16,7 @@
     <% Unit.sizes.keys.each do |size| %>
     <tr>
       <td><%= size %></td>
-      <td><%= @inventory.unique_available_item_count("S").keys.count %></td>
+      <td><%= @inventory.unique_available_item_count(size).keys.count %></td>
     </tr>
     <% end %>
   </table>
