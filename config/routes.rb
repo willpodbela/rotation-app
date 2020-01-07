@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root to: "application#react_index_html"
 
+  get 'kpi/index'
   get "admin", to: "landing#admin"
   get "download", to: "landing#download"
 

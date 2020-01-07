@@ -2,8 +2,9 @@ module Queries
   class Inventory
     def initialize
       # Instance variables that need to be computed:
-      @total_count_by_item = Hash.new     # For use with legacy versions (no sizing), 2D Map keys=[item_id][size] to integer
-      @sizes = Hash.new                   # For use with new versions, Maps key=item_id to integer
+      @total_count_by_item = Hash.new     # For use with legacy versions (no sizing), Maps key=item_id to integer
+      @sizes = Hash.new                   # For use with new versions, 2D Map keys=[item_id][size] to integer
+      @rev_sizes = Hash.new               # Used for analytics, 2D Map keys=[size][item_id] to integer
       
       # 1. For each item, compute qty by size that we actually own (non-virtual)
       available_sizes = Unit.available_for_rent.group(:item_id, :size).count    # Maps key=[item_id, size] to integer
@@ -53,10 +54,13 @@ module Queries
         cum_real_avail_qty = 0
         
         Unit.sizes.keys.each do |size|
+          @rev_sizes[size] = Hash.new if @rev_sizes[size].nil?
+          
           total_real_qty = (available_sizes[[item.id, size]] || 0)
           allocated_real_qty = (real_inventory_allocated[[item.id, size]] || 0)
           
           @sizes[item.id][size] = total_real_qty - allocated_real_qty + total_virtual_qty - allocated_virtual_qty
+          @rev_sizes[size][item.id] = @sizes[item.id][size]
           cum_real_avail_qty += (total_real_qty - allocated_real_qty)
         end
         
@@ -74,6 +78,22 @@ module Queries
     
     def total_available(item)
       @total_count_by_item[item.id] || 0
+    end
+    
+    def item_availability(size)
+      @rev_sizes[size] || Hash.new
+    end
+    
+    def unique_available_item_count(size = nil)
+      if size.nil?
+        @items = @total_count_by_item
+      else
+        @items = item_availability(size)
+      end
+      
+      @items.each do |k, v|
+        @items.except!(k) if v <= 0
+      end
     end
   end
 end
