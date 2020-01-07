@@ -3,6 +3,7 @@
     <div class="items index">
       <h2 class="font42 font_second light dark_gray bottom20">Administrative Control Panel</h2>
       <h3>Operations</h3>
+      <%= link_to("KPI Dashboard", kpi_index_path, :class => 'action index') %></br>
       <%= link_to("Fulfillment Assistant", fulfillment_index_path(:column => "status", :direction => "asc"), :class => 'action index') %></br>
       </br>
       <%= link_to("Item Manager", items_path, :class => 'action index') %></br>
