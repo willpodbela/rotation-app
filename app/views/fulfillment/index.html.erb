@@ -29,7 +29,7 @@ $(document).ready(function(){
       <th><%= sort_link "units.notes", "Inventory Notes" %></th>
     </tr>
     <% @reservations.each do |reservation| %>
-    <tr style="<%= reservation.user.current_subscription.nil? ? 'background-color: #ffcccc' : (reservation.user.current_subscription..billing_status != 'paid' ? 'background-color: #ffe5c2' : (reservation.user.current_subscription.status == 'canceled' ? 'background-color: #99ccff' : '')) %>">
+    <tr style="<%= reservation.user.current_subscription.nil? ? 'background-color: #ffcccc' : (reservation.user.current_subscription.billing_status != 'paid' ? 'background-color: #ffe5c2' : (reservation.user.current_subscription.status == 'canceled' ? 'background-color: #99ccff' : '')) %>">
       <% if reservation.active? || reservation.returned? %>
         <td>
           (4) Customer
