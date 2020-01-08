@@ -8,6 +8,7 @@
     <tr class="header">
       <th>Size Filter</th>
       <th>Displayed SKUs</th>
+      <th>Dist. of Paying Customers</th>
     </tr>
     <tr>
       <td>-</td>
@@ -17,6 +18,7 @@
     <tr>
       <td><%= size %></td>
       <td><%= @inventory.unique_available_item_count(size).keys.count %></td>
+      <td><%= number_with_precision(@customer_sizes[size], :precision => 2) %></td>
     </tr>
     <% end %>
     <tr>
