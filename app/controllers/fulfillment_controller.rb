@@ -3,7 +3,7 @@ class FulfillmentController < AdminBaseController
   
   def index
     @reservations = Reservation
-    .includes(:unit, :user, :item)
+    .includes(:unit, :item, :user => :current_valid_subscriptions)
     .where(status: [:scheduled, :processing, :active, :returned])
     .where(query_params)
     .order("#{sort_column} #{sort_direction}")
