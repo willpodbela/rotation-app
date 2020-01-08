@@ -10,7 +10,7 @@
       <th>Available SKUs</th>
     </tr>
     <tr>
-      <td>-</td>
+      <td>All</td>
       <td><%= @inventory.unique_available_item_count.keys.count %></td>
     </tr>
     <% Unit.sizes.keys.each do |size| %>
