@@ -9,6 +9,8 @@
       <th>Email</th>
       <th>Date Joined</th>
       <th>Access</th>
+      <th>Subscription Status</th>
+      <th>Name</th>
       <th>Actions</th>
     </tr>
     <% @users.each do |user| %>
@@ -17,6 +19,8 @@
       <td style"<%= 'text-color: red' unless user.confirmed? %>"><%= user.email %></td>
       <td><%= user.created_at %></td>
       <td><%= user.access_level %></td>
+      <td><%= user.current_subscription.nil? ? (user.subscriptions.empty? ? "none" : "churned") : "#{user.current_subscription.status}" %></td>
+      <td><%= user.profile.full_name %></td>
       <td class="actions">
         <%= link_to("Release From Waitlist", release_user_path(user), :class => 'action') if user.waitlist? %>
         <%= link_to("View Profile", user_profile_path(user), :class => 'action') %>
