@@ -7,17 +7,23 @@
   <table class="listing admin_table" summary="Unit list">
     <tr class="header">
       <th>Size Filter</th>
-      <th>Available SKUs</th>
+      <th>Displayed SKUs</th>
+      <th>Dist. of Paying Customers</th>
     </tr>
     <tr>
-      <td>All</td>
-      <td><%= @inventory.unique_available_item_count.keys.count %></td>
+      <td>-</td>
+      <td><%= @visible_count %></td>
     </tr>
     <% Unit.sizes.keys.each do |size| %>
     <tr>
       <td><%= size %></td>
       <td><%= @inventory.unique_available_item_count(size).keys.count %></td>
+      <td><%= number_with_precision(@customer_sizes[size], :precision => 2) %></td>
     </tr>
     <% end %>
+    <tr>
+      <td>All</td>
+      <td><%= @inventory.unique_available_item_count.keys.count %></td>
+    </tr>
   </table>
 </div>

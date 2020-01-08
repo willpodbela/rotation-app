@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :enforce_access_control_admin!
   
   def index
-    @users = User.all
+    @users = User.includes(:profile, :current_valid_subscriptions, :subscriptions)
   end
   
   def release
