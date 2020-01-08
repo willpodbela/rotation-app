@@ -23,7 +23,11 @@ class Subscription < ApplicationRecord
       self.status = :incomplete
     when "past_due"
       self.billing_status = :payment_failed
-      self.status = :active
+      if obj.cancel_at_period_end
+        self.status = :canceled
+      else
+        self.status = :active
+      end
     when "unpaid"
       self.billing_status = :payment_failed
       self.status = :ended
