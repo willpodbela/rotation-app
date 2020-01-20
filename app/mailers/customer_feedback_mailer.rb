@@ -2,23 +2,47 @@ class CustomerFeedbackMailer < ApplicationMailer
   default from: 'Zach Podbela <zach@therotation.club>'
   layout 'customer_feedback_mailer'
   
+  before_action :common_setup
   after_action :dont_send_duplicates
   
   def founder_hello
-    @user = params[:user]
     @subject = 'The Rotation — A personal hello from the founder'
     mail(to: @user.email, subject: @subject)
   end
   
+  def missed_conversion
+    @subject = 'The Rotation — Quick question'
+    mail(to: @user.email, subject: @subject)
+  end
+  
   def product_market_fit
-    @user = params[:user]
     @subject = "The Rotation — We'd love to get your feedback"
     @survey_url = "https://zacharypodbela911528.typeform.com/to/J63gcg"
     mail(to: @user.email, subject: @subject)
   end
   
+  def membership_purchased
+    @subject = "The Rotation — Thank you for joining"
+    @survey_url = "https://zacharypodbela911528.typeform.com/to/dyNqNv"
+    mail(to: @user.email, subject: @subject)
+  end
+  
+  def membership_cancelled
+    @subject = "The Rotation — Sorry to see you go"
+    mail(to: @user.email, subject: @subject)
+  end
+  
+  def heavy_user
+    @subject = "The Rotation — Quick feedback request"
+    mail(to: @user.email, subject: @subject)
+  end
+  
+  def inactive_user
+    @subject = "The Rotation — Checking in"
+    mail(to: @user.email, subject: @subject)
+  end
+  
   def waitlist_thank_you
-    @user = params[:user]
     @subject = 'The Rotation — Note from the Founders'
     mail(to: @user.email, subject: @subject)
   end
@@ -32,6 +56,11 @@ class CustomerFeedbackMailer < ApplicationMailer
   end
   
   private
+  
+  def common_setup
+    @user = params[:user]
+    @greeting_name = (@user.profile.first_name || "there") rescue "there"
+  end
   
   def dont_send_duplicates
     if Communication.find_by(email: @user.email, message_name: @subject)
