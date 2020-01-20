@@ -10,6 +10,13 @@ class CustomerFeedbackMailer < ApplicationMailer
     mail(to: @user.email, subject: @subject)
   end
   
+  def product_market_fit
+    @user = params[:user]
+    @subject = "The Rotation — We'd love to get your feedback"
+    @survey_url = "https://zacharypodbela911528.typeform.com/to/J63gcg"
+    mail(to: @user.email, subject: @subject)
+  end
+  
   def waitlist_thank_you
     @user = params[:user]
     @subject = 'The Rotation — Note from the Founders'
