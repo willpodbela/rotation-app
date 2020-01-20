@@ -126,7 +126,12 @@ Rails.application.routes.draw do
       end
     end
   end
-
+  
+  # Letter Opener UI for debugging mailer in development env
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+  
   # Fallback any routes that do not match above to React
   get '*path', to: "application#react_index_html", constraints: ->(request) do
     !request.xhr? && request.format.html?
