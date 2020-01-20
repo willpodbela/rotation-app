@@ -58,7 +58,7 @@ class CustomerFeedbackMailer < ApplicationMailer
   
   def self.preferred_time
     if Rails.env.production?
-      Time.zone.tomorrow.at_beginning_of_day.advance(hours: 10, minutes: rand(60))
+      Time.zone.tomorrow.at_beginning_of_day.advance(hours: 15, minutes: rand(60))
     else
       Time.zone.now.advance(seconds: 10)
     end
