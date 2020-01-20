@@ -11,8 +11,10 @@ class CustomerFeedbackMailer < ApplicationMailer
   end
   
   def missed_conversion
-    @subject = 'The Rotation — Quick question'
-    mail(to: @user.email, subject: @subject)
+    if user.current_subscription.nil?
+      @subject = 'The Rotation — Quick question'
+      mail(to: @user.email, subject: @subject)
+    end
   end
   
   def product_market_fit
