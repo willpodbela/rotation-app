@@ -35,6 +35,14 @@ class Reservation < ApplicationRecord
     end
     # We'll use Active Record Callbacks to send fulfillment notification emails to the team
     ReservationMailer.with(reservation: reservation).reservation_created.deliver
+    
+    u = reservation.user
+    CustomerFeedbackMailer.with(user: reservation.user).inactive_user.deliver_later(wait_until: CustomerFeedbackMailer.preferred_time.advance(months: 3, days: 1))
+    unless u.current_subscription.nil?
+      if u.reservations.not_cancelled.where("created_at  > ?", 1.month.ago).count >= 3*u.current_subscription.item_qty
+        CustomerFeedbackMailer.with(user: reservation.user).heavy_user.deliver_later(wait_until: CustomerFeedbackMailer.preferred_time)
+      end
+    end
   end
   
   after_save do |reservation|
