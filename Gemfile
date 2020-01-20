@@ -82,6 +82,8 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  # Use Letter Opener to develop, test, and debug emails
+  gem 'letter_opener_web'
 end
 
 group :development do
