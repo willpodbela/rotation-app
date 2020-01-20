@@ -57,6 +57,9 @@ class Subscription < ApplicationRecord
     if subscription.status == :canceled
       CustomerFeedbackMailer.with(user: subscription.user).membership_cancelled.deliver_later(wait_until: CustomerFeedbackMailer.preferred_time)
     end
+    if subscription.status == :active
+      CustomerFeedbackMailer.with(user: subscription.user).membership_purchase.deliver_later(wait_until: CustomerFeedbackMailer.preferred_time)
+    end
   end
   
   class << self
