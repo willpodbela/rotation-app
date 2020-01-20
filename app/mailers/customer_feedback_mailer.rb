@@ -72,12 +72,14 @@ class CustomerFeedbackMailer < ApplicationMailer
   end
   
   def dont_send_duplicates
-    if Communication.find_by(email: @user.email, message_name: @subject)
-      # This is a duplicate, do not send
-      mail.perform_deliveries = false
-    else
-      # We have not sent this message yet, record it in the database to avoid future dups
-      Communication.create(email: @user.email, message_name: @subject)
+    unless @user.nil? || @subject.nil?
+      if Communication.find_by(email: @user.email, message_name: @subject)
+        # This is a duplicate, do not send
+        mail.perform_deliveries = false
+      else
+        # We have not sent this message yet, record it in the database to avoid future dups
+        Communication.create(email: @user.email, message_name: @subject)
+      end
     end
   end
 end
