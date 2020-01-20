@@ -31,6 +31,8 @@ class User < ApplicationRecord
   end
   
   after_create do |user|
+    CustomerFeedbackMailer.with(user: user).founder_hello.deliver_later(wait_until: CustomerFeedbackMailer.preferred_time)
+    
     unless ENV.has_key?('USER_AUTOENROLL_LIMIT')
       user.access_level = :standard
       user.save
