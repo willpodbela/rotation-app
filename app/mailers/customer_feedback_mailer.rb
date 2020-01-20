@@ -28,8 +28,12 @@ class CustomerFeedbackMailer < ApplicationMailer
   end
   
   def membership_cancelled
-    @subject = "The Rotation — Sorry to see you go"
-    mail(to: @user.email, subject: @subject)
+    unless user.current_subscription.nil?
+      if user.current_subscription.status == 'canceled'
+        @subject = "The Rotation — Sorry to see you go"
+        mail(to: @user.email, subject: @subject)
+      end
+    end  
   end
   
   def heavy_user

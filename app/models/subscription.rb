@@ -54,6 +54,9 @@ class Subscription < ApplicationRecord
   
   after_save do |subscription|
     MailChimpService.sync_and_tag(subscription.user)
+    if subscription.status == :canceled
+      CustomerFeedbackMailer.with(user: subscription.user).membership_cancelled.deliver_later(wait_until: CustomerFeedbackMailer.preferred_time)
+    end
   end
   
   class << self
