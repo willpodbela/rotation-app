@@ -59,6 +59,7 @@ class Subscription < ApplicationRecord
     end
     if subscription.status == :active
       CustomerFeedbackMailer.with(user: subscription.user).membership_purchase.deliver_later(wait_until: CustomerFeedbackMailer.preferred_time)
+      CustomerFeedbackMailer.with(user: subscription.user).product_market_fit.deliver_later(wait_until: CustomerFeedbackMailer.preferred_time.advance(days: 30))
     end
   end
   
