@@ -11,7 +11,7 @@ class CustomerFeedbackMailer < ApplicationMailer
   end
   
   def missed_conversion
-    if user.current_subscription.nil?
+    if @user.current_subscription.nil?
       @subject = 'The Rotation — Quick question'
       mail(to: @user.email, subject: @subject)
     end
@@ -30,8 +30,8 @@ class CustomerFeedbackMailer < ApplicationMailer
   end
   
   def membership_cancelled
-    unless user.current_subscription.nil?
-      if user.current_subscription.status == 'canceled'
+    unless @user.current_subscription.nil?
+      if @user.current_subscription.status == 'canceled'
         @subject = "The Rotation — Sorry to see you go"
         mail(to: @user.email, subject: @subject)
       end

@@ -54,10 +54,10 @@ class Subscription < ApplicationRecord
   
   after_save do |subscription|
     MailChimpService.sync_and_tag(subscription.user)
-    if subscription.status == :canceled
+    if subscription.status == "canceled"
       CustomerFeedbackMailer.with(user: subscription.user).membership_cancelled.deliver_later(wait_until: CustomerFeedbackMailer.preferred_time)
     end
-    if subscription.status == :active
+    if subscription.status == "active" && subscription.created_at > 2.day.ago
       CustomerFeedbackMailer.with(user: subscription.user).membership_purchase.deliver_later(wait_until: CustomerFeedbackMailer.preferred_time)
       CustomerFeedbackMailer.with(user: subscription.user).product_market_fit.deliver_later(wait_until: CustomerFeedbackMailer.preferred_time.advance(days: 30))
     end
