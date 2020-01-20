@@ -226,8 +226,6 @@ render(){
         Reach out to us and we can help you get a new one - support@therotation.club
 
       </div>
-      <h2 className="font22 light title padding_top20">How do I know if my items will fit?**
-    </div>
     <h2 className="font22 light title padding_top20">Is there a waitlist for certain styles?</h2>
     <div className="top10 font18 light rotation_gray">
       We look forward to implementing item waitlists in the near future. For now, keep checking the app for your
