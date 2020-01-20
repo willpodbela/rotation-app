@@ -286,6 +286,7 @@ class App extends Component {
             }/>
             <Route path="/terms" exact component={TermsPage} />
             <Route path="/privacy" exact component={PrivacyPage} />
+            <Route path="/faq" exact component={FAQPage} />
             <Footer />
           </div>
         </Router>
