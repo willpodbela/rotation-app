@@ -24,16 +24,14 @@ class FaqPage extends Component {
         <div className="top10 font18 light rotation_gray">
           For one low monthly price, you get access to hundreds of items from the world's best designers and brands. Wear
           them as much as you want, and when you want something new, send it back in the box with the pre-paid label we
-          provided you. Your next rotation will arrive shortly after, and the process repeats. Endless fashion, at your
+          provided you. Your next rotation will arrive shortly after, and the process repeats. Endless fashion, right at your
           fingertips.
 
         </div>
         <h2 className="font22 light title padding_top20">What type of clothing do you carry?</h2>
         <div className="top10 font18 light rotation_gray">
-          We carry styles all over the fashion spectrum. Streetwear, Luxury, Avant Garde, Vintage, Tech Wear, Hypebeast,
-          or
-          Minimalist styles are our specialty. We focus on tops, outerwear, and accessories primarily, with occasional
-          special drops in new categories.
+          We carry styles and brands all over the fashion spectrum. Between streetwear, luxury, avant garde, vintage, tech wear, hypebeast,
+          and minimalist styles, our catalog and curation is limitless. We focus on tops, tees, outerwear, jackets, hoodies, parkas, and accessories primarily — with occasional special drops in more unique categories.
 
         </div>
         <h2 className="font22 light title padding_top20">Do you ship internationally?</h2>
@@ -70,14 +68,14 @@ class FaqPage extends Component {
         </div>
         <h2 className="font22 light title padding_top20">Can I refer a friend?</h2>
         <div className="top10 font18 light rotation_gray">
-          We look forward to launching our referral feature soon. For now, reach out to us at support@therotation.club and
+          We look forward to launching our referral feature soon. For now, reach out to us at <a href="mailto:support@therotation.club">support@therotation.club</a> and
           we'll give you a personalized discount promo code for your friends to use, and we'll be sure to credit you for
           each new member.
 
         </div>
         <h2 className="font22 light title padding_top20">Can I give a membership as a gift?</h2>
         <div className="top10 font18 light rotation_gray">
-          Reach out to us at support@therotation.club and we'll set your giftee up with the clothing membership of their
+          Reach out to us at <a href="mailto:support@therotation.club">support@therotation.club</a> and we'll set your giftee up with the clothing membership of their
           dreams.
 
         </div>
@@ -86,6 +84,10 @@ class FaqPage extends Component {
           Once you've filled your first rotation, depending on your plan size, we'll ship out all your items within 24
           hours. You'll receive your items between one and four days later, depending on where you're located.
 
+        </div>
+        <h2 className="font22 light title padding_top20">Where do I see tracking information for my order?</h2>
+        <div className="top10 font18 light rotation_gray">
+        We'll send over a tracking email the same day you make your order. Once your item arrives, you'll receive a delivery confirmation email.
         </div>
         <h2 className="font22 light title padding_top20">When will my card be charged?</h2>
         <div className="top10 font18 light rotation_gray">
@@ -140,7 +142,7 @@ class FaqPage extends Component {
           Once the drop is announced and live, head into the app and reserve your favorite styles. The Drop is first come
           first serve, but let us know if you're interested in the styles and we can source some extra for you. Just give
           us
-          a shout: support@therotation.club
+          a shout: <a href="mailto:support@therotation.club">support@therotation.club</a>
 
         </div>
         <h2 className="font22 light title padding_top20">How do I know what will look good on me?</h2>
@@ -150,7 +152,7 @@ class FaqPage extends Component {
 
           If you need any additional assistance, our style team would be happy to give you some personalized guidance.
           Send
-          over an email [concierge@therotation.club](mailto:concierge@therotation.club)
+          over an email to <a href="mailto:concierge@therotation.club">concierge@therotation.club</a>
 
         </div>
         <h2 className="font22 light title padding_top20">I'm overwhelmed with the options, where do I begin?</h2>
@@ -158,8 +160,7 @@ class FaqPage extends Component {
           We hear you. Our catalog is vast, but strong. We recommend all new members to take their time and not rush the
           process. You have room for experimentation here, and anything you don't love, you can always send back whenever
           you're ready. Start off by favoriting items you know you love, then reserve the styles that are in-stock. If you
-          need anymore help, our style team is waiting to help you out as well - just send over an email to
-          [concierge@therotation.club](mailto:concierge@therotation.club)
+          need anymore help, our style team is waiting to help you out as well - just send over an email to <a href="mailto:concierge@therotation.club">concierge@therotation.club</a>
 
         </div>
         <h2 className="font22 light title padding_top20">What if the styles aren't for me?</h2>
@@ -171,7 +172,7 @@ class FaqPage extends Component {
         </div>
         <h2 className="font22 light title padding_top20">What if I want more or less items at once?</h2>
         <div className="top10 font18 light rotation_gray">
-          If you want to increase the amount of item slots on your plan, just send an email to support@therotation.club
+          If you want to increase the amount of item slots on your plan, just send an email to <a href="mailto:support@therotation.club">support@therotation.club</a>
           and
           we'll upgrade your plan. If you want less item slots, the same process applied.
 
@@ -199,20 +200,18 @@ class FaqPage extends Component {
         </div>
         <h2 className="font22 light title padding_top20">Can I change my shipping address?</h2>
         <div className="top10 font18 light rotation_gray">
-          To change your shipping address, check the account settings page.
-          [https://www.therotation.club/account](https://www.therotation.club/account)
+          To change your shipping address, check the <a href="https://www.therotation.club/account">account settings page.</a>
 
         </div>
         <h2 className="font22 light title padding_top20">Do you have an app?</h2>
         <div className="top10 font18 light rotation_gray">
-          Members can enjoy The Rotation using our iOS app available on the App Store. therotation.club/download. You may
-          also
-          use our web application online at therotation.club/catalog
+          Members can enjoy The Rotation using our iOS app available on the <a href="therotation.club/download">App Store</a>. You may
+          also use our web application online at <a href="therotation.club/catalog">therotation.club/catalog</a>
 
         </div>
         <h2 className="font22 light title padding_top20">Can I use The Rotation if I have Android?</h2>
         <div className="top10 font18 light rotation_gray">
-          Yes! Simply browse to our mobile web app through your web browser - therotation.club/catalog
+          Yes! Simply browse <a href="therotation.club/catalog">our mobile web app</a> through your web browser. You can even add it to your homescreen for quick access.
 
         </div>
         <h2 className="font22 light title padding_top20">How long can I keep my items for?</h2>
@@ -223,20 +222,19 @@ class FaqPage extends Component {
         </div>
         <h2 className="font22 light title padding_top20">What happens if I lose my return label?</h2>
         <div className="top10 font18 light rotation_gray">
-          Reach out to us and we can help you get a new one - support@therotation.club
+          Reach out to us and we can help you get a new one - <a href="mailto:support@therotation.club">support@therotation.club</a>
 
         </div>
       <h2 className="font22 light title padding_top20">Is there a waitlist for certain styles?</h2>
       <div className="top10 font18 light rotation_gray">
         We look forward to implementing item waitlists in the near future. For now, keep checking the app for your
-        favorite items' availabilty, or reach out to concierge@therotation.club.
+        favorite items' availabilty, or reach out to <a href="mailto:concierge@therotation.club">concierge@therotation.club</a>.
 
       </div>
       <h2 className="font22 light title padding_top20">How do I return my items?</h2>
       <div className="top10 font18 light rotation_gray">
         To return your items, simply place them back in the package we originally sent you, and slap on the included
-        pre-paid shipping label. Drop off the box at any USPS Drop-off location or [schedule a
-        pick-up.](https://tools.usps.com/schedule-pickup-steps.htm) Don't worry about cleaning the clothing, we'll take
+        pre-paid shipping label. Drop off the box at any USPS Drop-off location or <a href="https://tools.usps.com/schedule-pickup-steps.htm">schedule a pick-up with USPS.</a> Don't worry about cleaning the clothing, we'll take
         care of it!
 
       </div>
@@ -262,6 +260,10 @@ class FaqPage extends Component {
         Some people call us that, but we believe we're more inclusive than just 'Rent the Runway for Men'. Anybody,
         regardless of gender, can subscribe to The Rotation. We believe our identity is in our style selection and
         curation, not gender lines.
+      </div>
+      <h2 className="font22 light title padding_top20">How are you different from Grailed, StockX, or Bump?</h2>
+      <div className="top10 font18 light rotation_gray">
+      We love those guys — but we're a very different platform. Those platforms allow their users to browse, buy, and sell new or used inventory. We believe in a different solution — instead of going through the hassle of committing to a piece, a potential purchase regret, and then inevitably re-listing the item and losing money, you can just have peace of mind using the flexibility of The Rotation. Give us a try, you'll see what we mean. 
       </div>
   </div>
   </section>
