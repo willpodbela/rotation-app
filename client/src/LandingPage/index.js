@@ -94,7 +94,7 @@ class LandingPage extends Component {
           </div>
         </section>
         <section className="padding_bottom100 sides13pct">
-          <h2 className="medium druk_medium rotation_gray padding_bottom35">What's In Store</h2>
+          <h2 className="rotation_gray padding_bottom35">Peek Into Our Closet</h2>
           <div className="scrolling_wrapper">
             {this.state.items.map((item, index) => {
               return (
