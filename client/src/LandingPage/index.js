@@ -57,6 +57,7 @@ class LandingPage extends Component {
         <header className="background flex align_center">
           <div className="left13pct">
             <div className="welcome_to_a_closet line_height40 width388 druk_large rotation_gray padding_bottom25">Welcome to a closet without boundaries.</div>
+            <h1>Welcome to a closet<br></br>without boundaries</h1>
             <div className="welcome_description line_height28 width388 proxima_xl rotation_gray padding_bottom25">Rent unlimited streetwear, for one low monthly price. Choose from our massive catalog and swap items whenever you want. We curate the latest in style and keep your closet in season so you don’t have to.</div>
             <div className="flex sign_up">
               <div className="sign_up_box white_background flex align_center"><input className="width200 spacing10 opacity7 proxima_small medium rotation_gray left20" placeholder="ENTER EMAIL ADDRESS" name="landingEmail" value={this.state.landingEmail} onChange={(e) => this.handleInputChange(e)} /></div>
