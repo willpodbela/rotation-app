@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { Redirect, Link } from "react-router-dom"
 import "./style.css"
 import PricingTable from "../PricingTable"
+import BannerImage from "../img/Rotation-Banner.jpg"
 import { Helmet } from "react-helmet";
 
 class LandingPage extends Component {
@@ -59,6 +60,7 @@ class LandingPage extends Component {
           <meta charSet="utf-8" />
           <title>The Rotation | Men's Streetwear &amp; Designer Rent the Runway</title>
           <meta name="description" content="The Rotation provides its members with exclusive access to a closet full of designer clothes &amp; streetwear. Our plans give you the ability to wear multiple styles at a time for as long as you want. Some people call us Rent the Runway for Men's Streetwear, but we believe our identity is in our style selection and curation, not gender lines."></meta>
+          <meta property="og:image" content={BannerImage}></meta>
         </Helmet>
         <header className="background flex align_center">
           <div className="left13pct">
