@@ -1,4 +1,6 @@
 import React, { Component } from "react"
+import BannerImage from "../img/Rotation-Banner.jpg"
+import { Helmet } from "react-helmet";
 
 class TermsPage extends Component {
   componentDidMount(){

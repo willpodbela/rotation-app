@@ -8,6 +8,8 @@ import { Link } from "react-router-dom"
 import Unfavorite from "../img/Unfavorite.png"
 import Favorite from "../img/Favorite.png"
 import "./style.css"
+import BannerImage from "../img/Rotation-Banner.jpg"
+import { Helmet } from "react-helmet";
 
 class CatalogPage extends Component {
   constructor(props){

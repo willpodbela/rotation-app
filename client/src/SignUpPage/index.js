@@ -2,6 +2,8 @@ import React, { Component } from "react"
 import { Link, Redirect } from "react-router-dom"
 import "./style.css"
 import image from "../img/sign-up.jpg"
+import BannerImage from "../img/Rotation-Banner.jpg"
+import { Helmet } from "react-helmet";
 
 class SignUpPage extends Component {
   componentDidMount(){
