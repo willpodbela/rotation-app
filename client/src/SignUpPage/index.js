@@ -14,6 +14,13 @@ class SignUpPage extends Component {
     }
     return (
       <div className="SignUpPage light_background flex justify_center">
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>The Rotation | Sign Up</title>
+          <meta name="description" content="The Rotation provides its members with exclusive access to a closet full of designer clothes &amp; streetwear. Our plans give you the ability to wear multiple styles at a time for as long as you want. Some people call us Rent the Runway for Men's Streetwear, but we believe our identity is in our style selection and curation, not gender lines."></meta>
+          <meta property="og:image" content={'therotation.club'+ BannerImage}></meta>
+          <meta name="twitter:site" content="@therotation.club"></meta>
+        </Helmet>
         <img className="login_image max_width400 top80 bottom80 sides70" src={image} alt="" />
         <div className="login_box gray_border white_background height400 width400 top180 bottom180 sides70">
           <div className="width300 margin_auto top20 druk_small rotation_gray">Sign Up</div>
