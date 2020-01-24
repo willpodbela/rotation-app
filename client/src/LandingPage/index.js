@@ -68,7 +68,7 @@ class LandingPage extends Component {
         <header className="background flex align_center">
           <div className="left13pct">
             {/* <div className="welcome_to_a_closet line_height40 width388 druk_large rotation_gray padding_bottom25">Welcome to a closet without boundaries.</div> */}
-            <h1 class="padding_bottom25 width388">Welcome to a closet without boundaries.</h1>
+            <h1 className="padding_bottom25 width388 welcome_to_a_closet">Welcome to a closet without boundaries.</h1>
             <div className="welcome_description line_height28 width388 proxima_xl rotation_gray padding_bottom25">Rent unlimited streetwear, for one low monthly price. Choose from our massive catalog and swap items whenever you want. We curate the latest in style and keep your closet in season so you don’t have to.</div>
             <div className="flex sign_up">
               <div className="sign_up_box white_background flex align_center"><input className="width200 spacing10 opacity7 proxima_small medium rotation_gray left20" placeholder="ENTER EMAIL ADDRESS" name="landingEmail" value={this.state.landingEmail} onChange={(e) => this.handleInputChange(e)} /></div>
@@ -85,21 +85,21 @@ class LandingPage extends Component {
           <div className="step_box rotation_gray_border">
             <div className="flex justify_evenly align_center rotation_gray_background padding_top10 padding_bottom10">
               <div className="druk_large white">1.</div>
-              <div className="step_title line_height22 druk_small white">Select Your Pieces</div>
+              <h3 className="step_title line_height22 druk_small white">Select Your Pieces</h3>
             </div>
             <div className="step_description line_height20 proxima_medium rotation_gray top30 margin_auto">Browse our curated catalog from the world’s most coveted designers. New items are added every two weeks, ensuring you always have access to the freshest closet.</div>
           </div>
           <div className="step_box rotation_gray_border">
             <div className="flex justify_evenly align_center rotation_gray_background padding_top10 padding_bottom10">
               <div className="druk_large white">2.</div>
-              <div className="step_title line_height22 druk_small white">Rotate Without Limits</div>
+              <h3 className="step_title line_height22 druk_small white">Rotate Without Limits</h3>
             </div>
             <div className="step_description line_height20 proxima_medium rotation_gray top30 margin_auto">Whether it's a special occasion or your next daily wear, The Rotation holds no limits above your head. Wear, purchase, or exchange amongst our catalog as much as you like.</div>
           </div>
           <div className="step_box rotation_gray_border">
             <div className="flex justify_evenly align_center rotation_gray_background padding_top10 padding_bottom10">
               <div className="druk_large white">3.</div>
-              <div className="step_title line_height22 druk_small white">We Handle The Rest</div>
+              <h3 className="step_title line_height22 druk_small white">We Handle The Rest</h3>
             </div>
             <div className="step_description line_height20 proxima_medium rotation_gray top30 margin_auto">When you're ready for something new, send your pieces back dirty using the provided pre-paid shipping label.</div>
           </div>
