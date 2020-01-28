@@ -10,6 +10,7 @@ import Favorite from "../img/Favorite.png"
 import "./style.css"
 import BannerImage from "../img/Rotation-Banner.jpg"
 import { Helmet } from "react-helmet";
+import RotationHelmet from "../RotationHelmet"
 
 class CatalogPage extends Component {
   constructor(props){
@@ -422,13 +423,7 @@ class CatalogPage extends Component {
     const planSelected = this.state.planOptions.find(plan => plan.selected)
     return (
       <div className="CatalogPage flex justify_center align_center gray_border_top padding_bottom300">
-        <Helmet>
-          <meta charSet="utf-8" />
-          <title>The Rotation | Men's Rent the Runway for Streetwear &amp; Designer</title>
-          <meta name="description" content="The Rotation provides its members with exclusive access to a closet full of designer clothes &amp; streetwear. Our plans give you the ability to wear multiple styles at a time for as long as you want. Some people call us Rent the Runway for Men's Streetwear, but we believe our identity is in our style selection and curation, not gender lines."></meta>
-          <meta property="og:image" content={'therotation.club'+ BannerImage}></meta>
-          <meta name="twitter:site" content="@therotation.club"></meta>
-        </Helmet>
+        <RotationHelmet title = "Clothing | The Rotation" />
         <div className="catalog_wrapper padding_top25 flex sides13pct">
           <div className="filters_and_designers width150 padding_right10">
             <div className="fixed_sidebar overflow_scroll width150">

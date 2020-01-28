@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import BannerImage from "../img/Rotation-Banner.jpg"
 import { Helmet } from "react-helmet";
+import RotationHelmet from "../RotationHelmet";
 
 class TermsPage extends Component {
   componentDidMount(){
@@ -10,13 +11,7 @@ class TermsPage extends Component {
   render(){
     return (
       <div className="TermsPage gray_border_top proxima">
-        <Helmet>
-          <meta charSet="utf-8" />
-          <title>The Rotation | Terms of Service</title>
-          <meta name="description" content="The Rotation provides its members with exclusive access to a closet full of designer clothes &amp; streetwear. Our plans give you the ability to wear multiple styles at a time for as long as you want. Some people call us Rent the Runway for Men's Streetwear, but we believe our identity is in our style selection and curation, not gender lines."></meta>
-          <meta property="og:image" content={'therotation.club'+ BannerImage}></meta>
-          <meta name="twitter:site" content="@therotation.club"></meta>
-        </Helmet>
+        <RotationHelmet title="Terms of Service | The Rotation" />
         <section className="padding_top25 padding_bottom80 sides13pct">
         	<div>
         		<h2 className="font42 font_second light rotation_gray bottom20">Terms of Service</h2>
