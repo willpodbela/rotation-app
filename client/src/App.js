@@ -8,6 +8,7 @@ import TermsPage from "./TermsPage"
 import PrivacyPage from "./PrivacyPage"
 import CatalogPage from "./CatalogPage"
 import AccountPage from "./AccountPage"
+import FaqPage from "./FAQPage"
 import Nav from "./Nav"
 import Footer from "./Footer"
 import Auth from "./modules/Auth"
@@ -286,6 +287,7 @@ class App extends Component {
             }/>
             <Route path="/terms" exact component={TermsPage} />
             <Route path="/privacy" exact component={PrivacyPage} />
+            <Route path="/faq" exact component={FaqPage} />
             <Footer />
           </div>
         </Router>
