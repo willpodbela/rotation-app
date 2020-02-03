@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import RotationHelmet from "../RotationHelmet"
 
 class PrivacyPage extends Component {
   componentDidMount(){
@@ -8,6 +9,7 @@ class PrivacyPage extends Component {
   render(){
     return (
       <div className="PrivacyPage gray_border_top proxima">
+        <RotationHelmet title="Privacy Policy | The Rotation" />
         <section className="padding_top25 padding_bottom80 sides13pct">
         	<div>
         		<h2 className="font42 font_second light rotation_gray bottom20">Privacy Policy</h2>

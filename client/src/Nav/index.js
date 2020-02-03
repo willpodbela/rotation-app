@@ -34,6 +34,9 @@ class Nav extends Component {
               <div className="proxima_small bold white padding_right20">
                 <Link className="rotation_gray" to="/sign-up">Sign Up</Link>
               </div>
+              <div className="proxima_small bold white padding_right20">
+                <Link className="rotation_gray" to="/catalog">Catalog</Link>
+              </div>
               <div className="proxima_small bold padding_right20">
                 <Link className="rotation_gray" to="/faq">FAQ</Link>
               </div>

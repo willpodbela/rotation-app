@@ -1,4 +1,7 @@
 import React, { Component } from "react"
+import BannerImage from "../img/Rotation-Banner.jpg"
+import { Helmet } from "react-helmet";
+import RotationHelmet from "../RotationHelmet";
 
 class TermsPage extends Component {
   componentDidMount(){
@@ -8,6 +11,7 @@ class TermsPage extends Component {
   render(){
     return (
       <div className="TermsPage gray_border_top proxima">
+        <RotationHelmet title="Terms of Service | The Rotation" />
         <section className="padding_top25 padding_bottom80 sides13pct">
         	<div>
         		<h2 className="font42 font_second light rotation_gray bottom20">Terms of Service</h2>

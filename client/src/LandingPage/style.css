@@ -28,8 +28,8 @@
     justify-content: space-evenly !important;
   }
 }
-.step_title{
-  width: 173px;
+.step_title {
+  width: 173px !important;
 }
 .step_description{
   width: 237px;
@@ -68,14 +68,28 @@
   }
 }
 @media (max-width: 960px) {
-  .welcome_to_a_closet{
-    width: 311px !important;
-    font-size: 24px !important;
-    line-height: 29px !important;
+
+  h1 {
+    font-size: 24px;
+    line-height: 1.2em;
   }
-  .welcome_description{
+
+  h2 {
+    font-size: 20px;
+    line-height: 1.2em;
+  }
+
+  .welcome_to_a_closet {
+    width: 311px !important;
+  }
+  .welcome_description {
     width: 311px !important;
     font-size: 14px !important;
     line-height: 21px !important;
+  }
+
+  .step_box {
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 }

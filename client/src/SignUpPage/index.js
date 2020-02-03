@@ -2,6 +2,9 @@ import React, { Component } from "react"
 import { Link, Redirect } from "react-router-dom"
 import "./style.css"
 import image from "../img/sign-up.jpg"
+import BannerImage from "../img/Rotation-Banner.jpg"
+import { Helmet } from "react-helmet";
+import RotationHelmet from "../RotationHelmet"
 
 class SignUpPage extends Component {
   componentDidMount(){
@@ -14,6 +17,7 @@ class SignUpPage extends Component {
     }
     return (
       <div className="SignUpPage light_background flex justify_center">
+        <RotationHelmet title="Sign Up | The Rotation"/>
         <img className="login_image max_width400 top80 bottom80 sides70" src={image} alt="" />
         <div className="login_box gray_border white_background height400 width400 top180 bottom180 sides70">
           <div className="width300 margin_auto top20 druk_small rotation_gray">Sign Up</div>

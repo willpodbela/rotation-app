@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { Link, Redirect } from "react-router-dom"
 import "./style.css"
 import image from "../img/login.jpg"
+import RotationHelmet from "../RotationHelmet"
 
 class LoginPage extends Component {
   render(){
@@ -10,6 +11,7 @@ class LoginPage extends Component {
     }
     return (
       <div className="LoginPage light_background flex justify_center">
+        <RotationHelmet title="Log In | The Rotation" />
         <img className="login_image max_width400 top80 bottom80 sides70" src={image} alt="" />
         <div className="login_box gray_border white_background height330 width400 top180 bottom180 sides70">
           <div className="width300 margin_auto top20 druk_small rotation_gray">Log In</div>

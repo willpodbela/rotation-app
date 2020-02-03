@@ -8,6 +8,9 @@ import { Link } from "react-router-dom"
 import Unfavorite from "../img/Unfavorite.png"
 import Favorite from "../img/Favorite.png"
 import "./style.css"
+import BannerImage from "../img/Rotation-Banner.jpg"
+import { Helmet } from "react-helmet";
+import RotationHelmet from "../RotationHelmet"
 
 class CatalogPage extends Component {
   constructor(props){
@@ -420,6 +423,7 @@ class CatalogPage extends Component {
     const planSelected = this.state.planOptions.find(plan => plan.selected)
     return (
       <div className="CatalogPage flex justify_center align_center gray_border_top padding_bottom300">
+        <RotationHelmet title = "Clothing | The Rotation" />
         <div className="catalog_wrapper padding_top25 flex sides13pct">
           <div className="filters_and_designers width150 padding_right10">
             <div className="fixed_sidebar overflow_scroll width150">
