@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191206203820) do
+ActiveRecord::Schema.define(version: 20200208192644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,10 @@ ActiveRecord::Schema.define(version: 20191206203820) do
     t.integer "virtual_qty", default: 1, null: false
     t.boolean "landing_featured", default: false, null: false
     t.boolean "special", default: false, null: false
+    t.string "category"
+    t.string "sub_category"
+    t.string "meta_category"
+    t.string "supplier_color"
   end
 
   create_table "prelaunch_users", force: :cascade do |t|

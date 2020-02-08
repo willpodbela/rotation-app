@@ -1,5 +1,6 @@
 class ItemsController < AdminBaseController
   before_action :enforce_access_control_admin!
+  before_action :set_options
   
   def index
     @items = Item
@@ -65,7 +66,7 @@ class ItemsController < AdminBaseController
   private
   
   def item_params
-    params.require(:item).permit(:title, :description, :image_url, :image, :subtitle, :retail_value, :color, :hidden, :image_remote_url, :virtual_qty, :landing_featured, :special)
+    params.require(:item).permit(:title, :description, :image_url, :image, :subtitle, :retail_value, :color, :hidden, :image_remote_url, :virtual_qty, :landing_featured, :special, :category, :sub_category, :meta_category, :supplier_color)
   end
   
   def query_params
@@ -74,5 +75,11 @@ class ItemsController < AdminBaseController
   
   def sortable_columns
     ["id", "title", "subtitle", "virtual_qty", "hidden", "landing_featured", "special"]
+  end
+  
+  def set_options
+    @color_options = ["Black", "Beige", "White", "Grey", "Navy", "Denim", "Tie-Dye", "Brown", "Metallic", "Purple", "Blue", "Pink", "Green", "Yellow", "Orange", "Red", "Other"]
+    @category_options = ["Jackets & Coats", "Tops", "Pants", "Shirts", "Shorts", "Sweaters", "Jewelry", "Jeans"]
+    @sub_category_options = ["Bombers", "Coats", "Denim Jackets", "Down", "Fur & Shearling", "Jackets", "Leather Jackets", "Peacoats", "Trench Coats", "Vests", "Cargo Pants", "Leather Pants", "Sweatpants", "Trousers", "Cardigans", "Sweaters", "Hoodies & Zipups", "Sweatshirts", "Turtlenecks", "V-Necks", "Henleys", "Polos", "T-Shirts", "Tank Tops", "Rings", "Necklaces", "Bracelets"]
   end
 end
