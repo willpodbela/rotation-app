@@ -58,6 +58,11 @@ class Item < ApplicationRecord
     self.update_counter_cache
   end
   
+  def image_remote_url=(url_value)
+    self.image = URI.parse(url_value)
+    @image_remote_url = url_value
+  end
+  
   # Rental stat functions
   # All calculations output in days and do not include cancelled reservations.
   # Controller should include/preload not_cancelled_reservations if using in UI
