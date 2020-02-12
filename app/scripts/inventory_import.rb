@@ -27,7 +27,7 @@ module Scripts
       
       CSV.foreach(file_path, headers: true, header_converters: :symbol) do |line|
         item_keyset = [:title, :subtitle, :color, :supplier_color]
-        unit, item = line.to_hash.partition {|k,v| item_keyset.include? k }
+        item, unit = line.to_hash.partition {|k,v| item_keyset.include? k }
         unit = Hash[unit]
         item = Hash[item]
         
