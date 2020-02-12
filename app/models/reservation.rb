@@ -43,6 +43,8 @@ class Reservation < ApplicationRecord
         CustomerFeedbackMailer.with(user: u).heavy_user.deliver_later(wait_until: CustomerFeedbackMailer.preferred_time)
       end
     end
+
+    ShippingConfirmationMailer.with(user: u).shipping_confirmed.deliver
   end
   
   after_save do |reservation|
