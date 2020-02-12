@@ -59,8 +59,10 @@ class Item < ApplicationRecord
   end
   
   def image_remote_url=(url_value)
-    self.image = URI.parse(url_value)
-    @image_remote_url = url_value
+    unless url_value.nil?
+      self.image = URI.parse(url_value)
+      @image_remote_url = url_value
+    end
   end
   
   # Rental stat functions
