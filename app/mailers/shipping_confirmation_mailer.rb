@@ -19,20 +19,14 @@ class ShippingConfirmationMailer < ApplicationMailer
             if Communication.find_by(email: @user.email, message_name: @subject)
             # This is a duplicate, do not send
             mail.perform_deliveries = false
-            puts "Did not send, duplicate!"
             else
             # We have not sent this message yet, record it in the database to avoid future dups
             Communication.create(email: @user.email, message_name: @subject)
-            puts "not a duplicate, sending!"
             end
         end
     end
 
     def common_setup
         @user = params[:user]
-        # @greeting_name = (@user.profile.first_name || "there") rescue "there"
     end
 end
-
-
-# user function current_subscription
