@@ -82,6 +82,9 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "rotation-app_#{Rails.env}"
   config.action_mailer.perform_caching = false
 
+  # To solve Image Tags not working on email (https://stackoverflow.com/questions/24196717/rails-4-image-tag-not-working-for-images-in-emails)
+  config.action_mailer.asset_host = 'http://therotation.club'
+
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
