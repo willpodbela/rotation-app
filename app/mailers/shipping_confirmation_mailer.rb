@@ -6,10 +6,14 @@ class ShippingConfirmationMailer < ApplicationMailer
     after_action :dont_send_duplicates
     
     def shipping_confirmed
+        puts "User reservations remaining = " + @user.reservations_remaining.to_s
+        puts "User data = " + @user.email.to_s
         if @user.reservations_remaining == 0
-            @subject = 'Your Rotation order made on ' + Time.strftime("%B %d") + ' is on its way.'
-            # Date included in subject for de-duping
+            # @subject = 'Your Rotation order made on ' + Time.now.strftime("%B %d") + ' is on its way.'
+            @subject = 'Your Rotation order is on its way'
+            mail(to: @user.email, subject: @subject)
         end
+    end
     
     def dont_send_duplicates
         unless @user.nil? || @subject.nil?
@@ -23,7 +27,11 @@ class ShippingConfirmationMailer < ApplicationMailer
         end
     end
 
+    def common_setup
+        @user = params[:user]
+        # @greeting_name = (@user.profile.first_name || "there") rescue "there"
+    end
 end
 
 
-user function current_subscription
+# user function current_subscription
