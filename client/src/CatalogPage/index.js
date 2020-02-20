@@ -359,6 +359,10 @@ class CatalogPage extends Component {
         "Authorization": `Token ${Auth.getToken()}`
       }
     }).then(res => this.props.apiResponseHandler(res, "Welcome to the Rotation! You're going to like it here. Pick your first item below.")).then(res => {
+      window.analytics.track('Subscription Purchased', {
+        item_qty: itemQuantity
+      });
+      
       window.location.reload(true)
     })
   }

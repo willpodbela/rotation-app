@@ -101,6 +101,10 @@ class App extends Component {
             isLoading: false
           })
           
+          window.analytics.track('Sign Up', {
+            email: res.user.email
+          });
+          
           // Identify User for for analytics purposes
           window.analytics.identify(res.user.id, {
             email: res.user.email

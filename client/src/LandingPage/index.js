@@ -30,6 +30,10 @@ class LandingPage extends Component {
   }
 
   addLeadEmail(e){
+    window.analytics.track('Email Lead', {
+      email: this.state.landingEmail
+    });
+    
     fetch("/api/web/users/lead", {
       method: "POST",
       body: JSON.stringify({
