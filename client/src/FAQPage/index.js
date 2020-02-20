@@ -2,6 +2,7 @@ import React, { Component } from "react"
 
 class FaqPage extends Component {
   componentDidMount(){
+    window.analytics.page("FAQs"); // Name of this page view for analytics purposes
     window.scrollTo(0, 0)
   }
 

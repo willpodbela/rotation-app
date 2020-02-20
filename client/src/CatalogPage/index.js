@@ -71,7 +71,9 @@ class CatalogPage extends Component {
   }
 
   componentDidMount(){
+    window.analytics.page("Catalog"); // Name of this page view for analytics purposes
     window.scrollTo(0, 0)
+    
     this.loadStripe()
     if(this.props.auth){
       fetch("/api/web/items?sort_by_section=true", {

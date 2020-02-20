@@ -5,6 +5,7 @@ import RotationHelmet from "../RotationHelmet";
 
 class TermsPage extends Component {
   componentDidMount(){
+    window.analytics.page("Terms"); // Name of this page view for analytics purposes
     window.scrollTo(0, 0)
   }
 
