@@ -49,6 +49,10 @@ class App extends Component {
       }
     })
     Auth.deauthenticateUser()
+    
+    // Reset User Identification for for analytics purposes
+    window.analytics.reset()
+    
     this.setState({
       authenticated: Auth.isUserAuthenticated(),
       loginEmail: "",
@@ -96,6 +100,12 @@ class App extends Component {
             authenticated: Auth.isUserAuthenticated(),
             isLoading: false
           })
+          
+          // Identify User for for analytics purposes
+          window.analytics.identify(res.user.id, {
+            email: res.user.email
+          });
+          
           window.location.reload(true)
         }
       })
@@ -143,6 +153,12 @@ class App extends Component {
           loginPassword: "",
           isLoading: false
         })
+        
+        // Identify User for for analytics purposes
+        window.analytics.identify(res.user.id, {
+          email: res.user.email
+        });
+        
         window.location.reload(true)
       }
     }).catch(err => {
