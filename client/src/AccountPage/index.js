@@ -39,8 +39,10 @@ class AccountPage extends Component {
   }
 
   componentDidMount(){
+    window.analytics.page("Account"); // Name of this page view for analytics purposes
+    window.scrollTo(0, 0)
+    
     if(this.props.auth){
-      window.scrollTo(0, 0)
       this.loadStripe()
       // Set state with profile or refetch if null
       const profile = this.props.userLoggedIn.profile

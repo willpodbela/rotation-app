@@ -71,7 +71,9 @@ class CatalogPage extends Component {
   }
 
   componentDidMount(){
+    window.analytics.page("Catalog"); // Name of this page view for analytics purposes
     window.scrollTo(0, 0)
+    
     this.loadStripe()
     if(this.props.auth){
       fetch("/api/web/items?sort_by_section=true", {
@@ -357,6 +359,10 @@ class CatalogPage extends Component {
         "Authorization": `Token ${Auth.getToken()}`
       }
     }).then(res => this.props.apiResponseHandler(res, "Welcome to the Rotation! You're going to like it here. Pick your first item below.")).then(res => {
+      window.analytics.track('Subscription Purchased', {
+        item_qty: itemQuantity
+      });
+      
       window.location.reload(true)
     })
   }

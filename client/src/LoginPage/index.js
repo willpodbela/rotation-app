@@ -5,6 +5,11 @@ import image from "../img/login.jpg"
 import RotationHelmet from "../RotationHelmet"
 
 class LoginPage extends Component {
+  componentDidMount(){
+    window.analytics.page("Log In"); // Name of this page view for analytics purposes
+    window.scrollTo(0, 0)
+  }
+  
   render(){
     if(this.props.auth){
       return <Redirect to="/catalog" />
