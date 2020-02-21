@@ -78,6 +78,9 @@
     a {
       color: #00b9ff;
     }
+    a.btn {
+      color: #ffffff;
+    }
 
     hr {
       margin: 32px 0;
@@ -138,7 +141,7 @@
 
     .hero {
       font-family: -apple-system, BlinkMacSystemFont, “Segoe UI”, “Roboto”, “Oxygen”, “Ubuntu”, “Cantarell”, “Fira Sans”, “Droid Sans”, “Helvetica Neue”, sans-serif;
-      color: #37517e;
+      color: #4A4A4A;
       font-weight: bold;
       font-size: 22px;
       line-height: 30px;
@@ -171,9 +174,8 @@
       vertical-align: middle;
       cursor: pointer;
       border: 0;
-      border-radius: 3px;
-      color: #fff;
-      background-color: #00b9ff;
+      color: #ffffff;
+      background-color: #4A4A4A;
       text-decoration: none;
       -webkit-transition: all .15s ease-in-out;
       -o-transition: all .15s ease-in-out;
@@ -254,8 +256,9 @@
                                   <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0">
                                     <tbody>
                                       <tr>
-                                        <td style="width:150px; font-family: 'Ubuntu', sans-serif; font-size: 22px; font-weight:500;display:block;text-align:center;">
-                                          the rotation
+                                       <td class="col" align="center" width="100%"
+                                        style="font-size:13px;line-height:22px;vertical-align:top;">
+                                          <%= image_tag("The-Rotation-Logo.png", width: '128') %>
                                         </td>
                                       </tr>
                                     </tbody>
@@ -342,7 +345,7 @@
                                       <p class="hero">It’s time to confirm your email address.</p>
                                       <p>Have we got the right email address to reach you on? To confirm that you can get our emails, just click the button below.</p>
                                       <p>
-                                        <%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token), :class => 'btn width_full size60 blue radius6 top30' %>
+                                        <%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token), :class => 'btn width_full size60 top30' %>
                                       </p>
                                       <p>If you don’t know why you got this email, please tell us straight away so we can fix this for you.</p>
                                       <hr style="margin-top: 56px">
@@ -491,7 +494,7 @@
                                   <div style="cursor:auto;color:#5d7079;font-family: -apple-system, BlinkMacSystemFont,
     'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans',
-    'Droid Sans', 'Helvetica Neue', sans-serif; font-size:14px;line-height:24px;letter-spacing:0.4px;text-align:center;">Rotation, Inc. (c) 2018. All rights reserved.</div>
+    'Droid Sans', 'Helvetica Neue', sans-serif; font-size:14px;line-height:24px;letter-spacing:0.4px;text-align:center;">Rotation, Inc. (c) 2020. All rights reserved.</div>
                                 </td>
                               </tr>
                             </tbody>
