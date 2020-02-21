@@ -19,9 +19,7 @@ class AccountPage extends Component {
     }
   }
 
-  componentDidMount(){
-    window.scrollTo(0, 0)
-    
+  componentDidMount(){    
     if(this.props.auth){
       // Set state with profile or refetch if null
       const profile = this.props.userLoggedIn.profile

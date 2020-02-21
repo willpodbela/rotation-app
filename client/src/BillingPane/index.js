@@ -20,9 +20,7 @@ class BillingPane extends Component {
     }
   }
 
-  componentDidMount(){
-    window.scrollTo(0, 0)
-    
+  componentDidMount(){    
     this.loadStripe()
   }
 
