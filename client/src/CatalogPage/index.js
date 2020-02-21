@@ -5,6 +5,7 @@ import "./bootstrap-modal.css"
 import ItemCard from "../ItemCard"
 import LoginPane from "../LoginPane"
 import BillingPane from "../BillingPane"
+import ItemActionPane from "../ItemActionPane"
 import SignUpPane from "../SignUpPane"
 import ShippingAddressPane from "../ShippingAddressPane"
 import OnboardingModal from "../OnboardingModal"
@@ -135,52 +136,6 @@ class CatalogPage extends Component {
     this.setState({modalSizes: sizesCopy})
   }
 
-  reserveItem(e){
-    if(this.state.modalSizes.some(size => size.selected === true)){
-      fetch("/api/web/reservations", {
-        method: "POST",
-        body: JSON.stringify({
-          "item_id": this.state.selectedItem.id,
-          "size": this.state.modalSizes.find(size => size.selected).value
-        }),
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Token ${Auth.getToken()}`
-        }
-      }).then(res => this.props.apiResponseHandler(res)).then(res => {
-        this.hideModal(e)
-        this.componentDidMount()
-      })
-    }else{
-      this.props.errorHandler({message: "Please select a size."})
-    }
-  }
-
-  reserveButtonClicked(e){
-    if(this.props.auth){
-      if(this.state.subscription){
-        this.reserveItem(e)
-      }else{
-        this.toggleModal(e, "onboarding")
-      }
-    }else{
-      this.toggleModal(e, "onboarding")
-    }
-  }
-
-  removeItem(e){
-    fetch(`/api/web/reservations/${this.state.selectedItem.reservation.id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Token ${Auth.getToken()}`
-      }
-    }).then(res => this.props.apiResponseHandler(res)).then(res => {
-      this.hideModal(e)
-      this.componentDidMount()
-    })
-  }
-
   displayModal(e, item){
     this.setState({showModal: true, selectedItem: item})
     this.setBrowserURLwithoutRerender(this.itemDetailUrlForItem(item), ("The Rotation | "+item.title+" | "+item.subtitle))
@@ -194,44 +149,6 @@ class CatalogPage extends Component {
     var str = item.title.value+"-"+item.subtitle+"-"+item.id;
     str = str.replace(/\s+/g, '-').toLowerCase();
     return ("/catalog/"+str)
-  }
-
-  requestToBuy(e){
-    fetch(`/api/web/reservations/${this.state.selectedItem.reservation.id}/buy`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Token ${Auth.getToken()}`
-      }
-    }).then(res => this.props.apiResponseHandler(res, "We've recieved your request and a member of our team will be in contact with you shortly."))
-    this.hideModal(e)
-  }
-
-  favoriteItem(e){
-    fetch(`/api/web/items/${this.state.selectedItem.id}/favorite`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Token ${Auth.getToken()}`
-      }
-    }).then(res => this.props.apiResponseHandler(res)).then(res => {
-      this.hideModal(e)
-      this.componentDidMount()
-    })
-  }
-
-  unfavoriteItem(e){
-    fetch(`/api/web/items/${this.state.selectedItem.id}/favorite`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Token ${Auth.getToken()}`
-      }
-    }).then(res => {
-      //TODO: Handle errors. Can't use apiResponseHandler in its current format since it always attempts to call .json()
-      this.hideModal(e)
-      this.componentDidMount()
-    })
   }
 
   hideModal(e){
@@ -271,6 +188,12 @@ class CatalogPage extends Component {
     this.setState({modalViews: modalViewsCopy})
   }
   
+  itemUpdated(e, item) {
+    //TODO: Update item in place
+    this.hideModal(e)
+    this.componentDidMount()
+  }
+  
   render(){
     const selectedItem = this.state.selectedItem
     const selectedSizes = this.state.sizes.filter(size => size.selected).map(size => size.value)
@@ -280,7 +203,6 @@ class CatalogPage extends Component {
     const upNextItemSelected = this.state.upNext.some(item => item.id === selectedItem.id)
     const displayReserveModal = this.state.modalViews.find(view => view.view === "reserve").display
     const displayOnboardingModal = this.state.modalViews.find(view => view.view === "onboarding").display
-    const planSelected = this.state.planOptions.find(plan => plan.selected)
     return (
       <div className="CatalogPage flex justify_center align_center gray_border_top padding_bottom300">
         <RotationHelmet title = "Clothing | The Rotation" />
@@ -427,62 +349,14 @@ class CatalogPage extends Component {
               </div>
               <div className="modal_section height500 width_half white_background">
                 <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
-                <div className="modal_brand proxima_small rotation_gray opacity6 uppercase top50 padding_sides50">{selectedItem.title.value}</div>
-                <div className="modal_description height180 overflow_scroll druk_medium rotation_gray line_height24 padding_top10 padding_sides50 capitalize">{selectedItem.subtitle}</div>
-                {this.props.auth && this.state.subscription ? (
-                  <div>
-                    <div className="modal_size_btns flex top40 sides50 justify_between">
-                      {this.state.modalSizes.forEach(size => {
-                        size.available = selectedItem.sizes[size.value] > 0
-                      })}
-                      {myRotationItemSelected || upNextItemSelected ? (
-                        this.state.modalSizes.map((size, index) => {
-                          return (
-                            <div
-                              key={index}
-                              className="modal_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center cursor_pointer"
-                              style={{background: size.value === selectedItem.reservation.size ? "#333333" : size.available ? "#FFFFFF" : "#F2F2F2", color: size.value === selectedItem.reservation.size ? "#FFFFFF" : "#333333"}}
-                            >
-                              {size.value}
-                            </div>
-                          )
-                        })
-                      ) : (
-                        this.state.modalSizes.map((size, index) => {
-                          return (
-                            <div
-                              key={index}
-                              onClick={(e) => this.toggleModalSizes(e)}
-                              className="modal_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center cursor_pointer"
-                              style={{background: !size.available ? "#F2F2F2" : size.selected ? "#333333" : "#FFFFFF", color: size.selected && size.available ? "#FFFFFF" : "#333333"}}
-                            >
-                              {size.value}
-                            </div>
-                          )
-                        })
-                      )}
-                    </div>
-                    <div className="modal_buttons sides50 flex justify_between top40">
-                      {myRotationItemSelected ? (
-                        <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer green request_to_buy" onClick={(e) => this.requestToBuy(e)}>Request to Buy</div>
-                      ) : upNextItemSelected ? (
-                        <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer red" onClick={(e) => this.removeItem(e)}>Remove</div>
-                      ) : (
-                        <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}>Reserve</div>
-                      )}
-                      {selectedItem.is_favorite ? (
-                        <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.unfavoriteItem(e)}><img src={Favorite} height="14" width="14" alt="" /></div>
-                      ) : (
-                        <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.favoriteItem(e)}><img src={Unfavorite} height="14" width="14" alt="" /></div>
-                      )}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="modal_buttons sides50 flex justify_between top130">
-                    <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}>Reserve</div>
-                    <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}><img src={Unfavorite} height="14" width="14" alt="" /></div>
-                  </div>
-                )}
+                <ItemActionPane
+                  item={selectedItem}
+                  auth={this.props.auth}
+                  userLoggedIn={this.props.userLoggedIn}
+                  apiResponseHandler={this.props.apiResponseHandler}
+                  showOnboardingModal={(e) => this.toggleModal(e, "onboarding")}
+                  actionComplete={(e) => this.itemUpdated(e, selectedItem)}
+                />
               </div>
             </div>
           </Modal>
