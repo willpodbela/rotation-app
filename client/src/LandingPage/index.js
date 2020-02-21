@@ -44,10 +44,6 @@ class LandingPage extends Component {
     })
   }
 
-  redirectToCatalog(e){
-    this.setState({redirectToCatalog: true})
-  }
-
   handleInputChange(e) {
     const name = e.target.name
     const value = e.target.value

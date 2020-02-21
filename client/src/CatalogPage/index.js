@@ -197,6 +197,17 @@ class CatalogPage extends Component {
 
   displayModal(e, item){
     this.setState({showModal: true, selectedItem: item})
+    this.setBrowserURLwithoutRerender(this.itemDetailUrlForItem(item), ("The Rotation | "+item.title+" | "+item.subtitle))
+  }
+  
+  setBrowserURLwithoutRerender(url, title="The Rotation | Catalog") {
+    window.history.pushState({"pageTitle":title},"", url);
+  }
+  
+  itemDetailUrlForItem(item) {
+    var str = item.title.value+"-"+item.subtitle+"-"+item.id;
+    str = str.replace(/\s+/g, '-').toLowerCase();
+    return str
   }
 
   requestToBuy(e){
@@ -238,6 +249,11 @@ class CatalogPage extends Component {
   }
 
   hideModal(e){
+    var displayReserveModal = this.state.modalViews.find(view => view.view === "reserve").display
+    if(displayReserveModal) {
+      this.setBrowserURLwithoutRerender("/catalog")
+    }
+    
     this.setState({
       showModal: false,
       modalSizes: [
