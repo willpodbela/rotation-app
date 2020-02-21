@@ -78,6 +78,9 @@
     a {
       color: #00b9ff;
     }
+    a.btn {
+      color: #ffffff;
+    }
 
     hr {
       margin: 32px 0;
@@ -172,8 +175,8 @@
       cursor: pointer;
       border: 0;
       border-radius: 3px;
-      color: #fff;
-      background-color: #00b9ff;
+      color: #ffffff;
+      background-color: #4A4A4A;
       text-decoration: none;
       -webkit-transition: all .15s ease-in-out;
       -o-transition: all .15s ease-in-out;
@@ -343,7 +346,7 @@
                                       <p class="hero">It’s time to confirm your email address.</p>
                                       <p>Have we got the right email address to reach you on? To confirm that you can get our emails, just click the button below.</p>
                                       <p>
-                                        <%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token), :class => 'btn width_full size60 blue top30' :style => 'background: #4A4A4A color: #ffffff' %>
+                                        <%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token), :class => 'btn width_full size60 top30' %>
                                       </p>
                                       <p>If you don’t know why you got this email, please tell us straight away so we can fix this for you.</p>
                                       <hr style="margin-top: 56px">
