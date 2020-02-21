@@ -215,7 +215,7 @@ class AccountPage extends Component {
             <div className="top20 cursor_pointer" style={{textDecoration: this.state.showBilling ? "underline" : "none"}} onClick={(e) => this.toggleBillingPage(e)}>Billing</div>
           </div>
           {this.state.showProfile &&
-            <div className="width630 top40 padding_bottom20">
+            <div className="width646 top40 padding_bottom20">
               <ShippingAddressPane auth={this.props.auth} userLoggedIn={this.props.userLoggedIn} apiResponseHandler={this.props.apiResponseHandler} />
               
               <div className="profile_divider rotation_gray_background top60"></div>
