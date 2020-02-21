@@ -12,11 +12,11 @@ class ItemDetailPage extends Component {
     }
   }
 
-  componentDidMount(){
+  componentDidMount(){   
     window.scrollTo(0, 0)
+    
     const itemInfo = this.props.match.params.itemInfo.split("-")
     const id = itemInfo[itemInfo.length - 1]
-    console.log(id)
     fetch(`/api/web/items/${id}`, {
       headers: {
         "Content-Type": "application/json",
@@ -24,6 +24,10 @@ class ItemDetailPage extends Component {
       }
     }).then(res => this.props.apiResponseHandler(res)).then(result => {
       this.setState({item: result.item})
+      window.analytics.page("Item Detail", {
+        item: result.item.title+" "+result.item.subtitle,
+        id: result.item.id
+      }); // Name of this page view for analytics purposes 
     })
   }
 
