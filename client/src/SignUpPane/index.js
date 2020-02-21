@@ -6,8 +6,8 @@ import RTUIFormSubmit from "../RTUIFormSubmit"
 class SignUpPane extends Component {
   render(){
     return (
-      <div className="SignUpPane">
-        <div className="width300 margin_auto top20 druk_small rotation_gray">Sign Up</div>
+      <div className="SignUpPane width300 margin_auto">
+        <div className="top20 druk_small rotation_gray">Sign Up</div>
         <form onSubmit={this.props.handleSignUp}>
           <RTUIFormInput title="Email address" name="registerEmail" value={this.props.registerEmail} onChange={this.props.handleInputChange}/>
           <RTUIFormInput title="Password" name="registerPassword" value={this.props.registerPassword} onChange={this.props.handleInputChange} type="password"/>
