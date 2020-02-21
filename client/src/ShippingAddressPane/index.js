@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom"
 import Auth from "../modules/Auth"
 import "./style.css"
 import RTUIFormInput from "../RTUIFormInput"
-import RTUIFormSubmit from "../RTUIFormSubmit"
+import RTUIButton from "../RTUIButton"
 
 class AccountPage extends Component {
   constructor(props){
@@ -56,9 +56,7 @@ class AccountPage extends Component {
     })
   }
   
-  updateAccountDetails(e){
-    e.preventDefault()
-    
+  updateAccountDetails(e){    
     fetch(`/api/web/users/${this.props.userLoggedIn.id}/profile`, {
       method: "PUT",
       body: JSON.stringify({
@@ -76,7 +74,11 @@ class AccountPage extends Component {
         "Content-Type": "application/json",
         "Authorization": `Token ${Auth.getToken()}`
       }
-    }).then(res => this.props.apiResponseHandler(res, "Account Details Saved!"))
+    }).then(res => this.props.apiResponseHandler(res, "Account Details Saved!")).then(res => {
+      if(this.props.onSuccessfulUpdate) {
+       this.props.onSuccessfulUpdate(e)
+      }
+    })
   }
   
   handleInputChange(e) {
@@ -90,23 +92,21 @@ class AccountPage extends Component {
   render(){
     return (
       <div className="ShippingAddressPane width620">
-        <form onSubmit={(e) => this.updateAccountDetails(e)}>
-          <div className="account_title druk_xs medium rotation_gray">Shipping Address</div>
-          <div className="input_group flex justify_between width_full">
-            <RTUIFormInput title="First Name" name="firstName" value={this.state.firstName} onChange={(e) => this.handleInputChange(e)}/>
-            <RTUIFormInput title="Last Name" name="lastName" value={this.state.lastName} onChange={(e) => this.handleInputChange(e)}/>
-          </div>
-          <div className="input_group flex justify_between width_full">
-            <RTUIFormInput title="Address Line 1" name="addressLine1" value={this.state.addressLine1} onChange={(e) => this.handleInputChange(e)}/>
-            <RTUIFormInput title="Address Line 2" name="addressLine2" value={this.state.addressLine2} onChange={(e) => this.handleInputChange(e)}/>
-          </div>
-          <div className="input_group flex justify_between width_full">
-            <RTUIFormInput title="City" name="city" value={this.state.city} onChange={(e) => this.handleInputChange(e)}/>
-            <RTUIFormInput title="Zip" name="zipcode" value={this.state.zipcode} onChange={(e) => this.handleInputChange(e)} width="140" />
-            <RTUIFormInput title="State" name="state" value={this.state.state} onChange={(e) => this.handleInputChange(e)} width="140" />
-          </div>
-          <RTUIFormSubmit title="Save Changes" />
-        </form>
+        <div className="account_title druk_xs medium rotation_gray">Shipping Address</div>
+        <div className="input_group flex justify_between width_full">
+          <RTUIFormInput title="First Name" name="firstName" value={this.state.firstName} onChange={(e) => this.handleInputChange(e)}/>
+          <RTUIFormInput title="Last Name" name="lastName" value={this.state.lastName} onChange={(e) => this.handleInputChange(e)}/>
+        </div>
+        <div className="input_group flex justify_between width_full">
+          <RTUIFormInput title="Address Line 1" name="addressLine1" value={this.state.addressLine1} onChange={(e) => this.handleInputChange(e)}/>
+          <RTUIFormInput title="Address Line 2" name="addressLine2" value={this.state.addressLine2} onChange={(e) => this.handleInputChange(e)}/>
+        </div>
+        <div className="input_group flex justify_between width_full">
+          <RTUIFormInput title="City" name="city" value={this.state.city} onChange={(e) => this.handleInputChange(e)}/>
+          <RTUIFormInput title="Zip" name="zipcode" value={this.state.zipcode} onChange={(e) => this.handleInputChange(e)} width="140" />
+          <RTUIFormInput title="State" name="state" value={this.state.state} onChange={(e) => this.handleInputChange(e)} width="140" />
+        </div>
+        <RTUIButton title={this.props.callToActionTitle || "Save Changes"} onClick={(e) => this.updateAccountDetails(e)} />
       </div>
     )
   }

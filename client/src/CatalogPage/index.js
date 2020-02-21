@@ -5,6 +5,7 @@ import "./bootstrap-modal.css"
 import ItemCard from "../ItemCard"
 import LoginPane from "../LoginPane"
 import SignUpPane from "../SignUpPane"
+import ShippingAddressPane from "../ShippingAddressPane"
 import Auth from "../modules/Auth"
 import { Link } from "react-router-dom"
 import Unfavorite from "../img/Unfavorite.png"
@@ -295,7 +296,7 @@ class CatalogPage extends Component {
       s.type = "text/javascript";
       s.src = "https://js.stripe.com/v2/";
       s.onload = () => {
-        window["Stripe"].setPublishableKey("pk_live_1Diz5oMjZzQlcZ2a4eLeHunm")
+        window["Stripe"].setPublishableKey("pk_test_Nfvb3ZjRZMUfa9HxzXsz0PnZ")
       }
       window.document.body.appendChild(s);
     }
@@ -585,36 +586,16 @@ class CatalogPage extends Component {
             {displayShippingModal &&
               <div className="modal_section height500 width_full white_background">
                 <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
-                <div className="shipping_input top50 width300 margin_auto">
-                  <div className="druk_xs medium rotation_gray text_center">Add Shipping Address</div>
-                  <div className="shipping_input input_box margin_auto gray_border width300 height50 top20">
-                    <div className="proxima_small medium very_light_gray left20 top5 height15">Address Line 1</div>
-                    <input className="input_field proxima_xl medium rotation_gray width260 left20" name="shippingAddressLine1" value={this.state.shippingAddressLine1} onChange={(e) => this.handleInputChange(e)} />
-                  </div>
-                  <div className="shipping_input input_box margin_auto gray_border width300 height50 top20">
-                    <div className="proxima_small medium very_light_gray left20 top5 height15">Address Line 2</div>
-                    <input className="input_field proxima_xl medium rotation_gray width260 left20" name="shippingAddressLine2" value={this.state.shippingAddressLine2} onChange={(e) => this.handleInputChange(e)} />
-                  </div>
-                  <div className="shipping_input input_box margin_auto gray_border width300 height50 top20">
-                    <div className="proxima_small medium very_light_gray left20 top5 height15">City</div>
-                    <input className="input_field proxima_xl medium rotation_gray width260 left20" name="shippingCity" value={this.state.shippingCity} onChange={(e) => this.handleInputChange(e)} />
-                  </div>
-                  <div className="shipping_input  margin_auto flex justify_between width300">
-                    <div className="shipping_input input_box gray_border width130 height50 top20">
-                      <div className="proxima_small medium very_light_gray left20 top5 height15">State</div>
-                      <input className="input_field proxima_xl medium rotation_gray width100 left20" name="shippingState" value={this.state.shippingState} onChange={(e) => this.handleInputChange(e)} />
-                    </div>
-                    <div className="shipping_input input_box gray_border width130 height50 top20 left20">
-                      <div className="proxima_small medium very_light_gray left20 top5 height15">Zip</div>
-                      <input className="input_field proxima_xl medium rotation_gray width100 left20" name="shippingZipcode" value={this.state.shippingZipcode} onChange={(e) => this.handleInputChange(e)} />
-                    </div>
-                  </div>
-                  <div
-                    className="shipping_input rotation_gray_border rotation_gray_background width300 height50 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer"
-                    onClick={(e) => this.updateAccountDetails(e)}
-                  >
-                    Next Step<FontAwesomeIcon className="white font12 left20" icon="chevron-right" />
-                  </div>
+                <div className="top50 flex justify_center" style={{clear: "right"}}>
+                  <ShippingAddressPane
+                    auth={this.props.auth}
+                    userLoggedIn={this.props.userLoggedIn}
+                    apiResponseHandler={this.props.apiResponseHandler}
+                    onSuccessfulUpdate={(e) => this.toggleModal(e, "confirm")}
+                    callToActionTitle={
+                      ["Next Step",<FontAwesomeIcon className="white font12 left20" icon="chevron-right" />]
+                    }
+                  />
                 </div>
               </div>
             }
