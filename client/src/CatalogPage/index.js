@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Modal from "react-bootstrap/Modal"
 import "./bootstrap-modal.css"
 import ItemCard from "../ItemCard"
-import ModalContainer from "../ModalContainer"
+import RTUIModal from "../RTUIModal"
 import LoginPane from "../LoginPane"
 import SignUpPane from "../SignUpPane"
 import ShippingAddressPane from "../ShippingAddressPane"
@@ -529,50 +529,40 @@ class CatalogPage extends Component {
             </div>
           </div>
         </div>
-        {this.state.showModal &&
-          <Modal show={this.state.showModal} dialogClassName="modal_item" centered>
+        
+        {(this.state.showModal && !displayReserveModal) &&
+          <RTUIModal onClose={(e) => this.hideModal(e)}>
             {displayConfirmModal &&
-              <div className="modal_section height500 width_full white_background">
-                <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
-                <div className="confirm_modal top80 width400 margin_auto">
-                  <div className="druk_xs medium rotation_gray">Checkout</div>
-                  <div className="proxima_large semibold rotation_gray top30">The Rotation</div>
-                  <div className="proxima_large rotation_gray opacity6">{planSelected.itemQty} Items at a Time - {planSelected.monthlyCost} / month</div>
-                  <div className="confirm_modal_box width400 height100 rotation_gray_border top20">
-                    <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />You'll be charged ${this.subtotal()} now for your first month</div>
-                    <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />You'll be charged {planSelected.monthlyCost} for each month after that</div>
-                    <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />Cancel at any time before your next cycle</div>
-                    <div className="non_mobile_overflow proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />By purchasing you agree to the full membership <Link to="/terms">terms & conditions</Link></div>
-                    <div className="mobile_overflow hidden proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" /><div className="width260">By purchasing you agree to the full membership <Link to="/terms">terms & conditions</Link></div></div>
-                  </div>
-                  <div
-                    className="confirm_modal rotation_gray_border rotation_gray_background width400 height50 top30 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer"
-                    onClick={(e) => this.createSubscription(e, this.state.stripeID, planSelected.itemQty)}
-                  >
-                    Purchase
-                  </div>
+              <div>
+                <div className="druk_xs medium rotation_gray">Checkout</div>
+                <div className="proxima_large semibold rotation_gray top30">The Rotation</div>
+                <div className="proxima_large rotation_gray opacity6">{planSelected.itemQty} Items at a Time - {planSelected.monthlyCost} / month</div>
+                <div className="confirm_modal_box width400 height100 rotation_gray_border top20">
+                  <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />You'll be charged ${this.subtotal()} now for your first month</div>
+                  <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />You'll be charged {planSelected.monthlyCost} for each month after that</div>
+                  <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />Cancel at any time before your next cycle</div>
+                  <div className="non_mobile_overflow proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />By purchasing you agree to the full membership <Link to="/terms">terms & conditions</Link></div>
+                  <div className="mobile_overflow hidden proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" /><div className="width260">By purchasing you agree to the full membership <Link to="/terms">terms & conditions</Link></div></div>
+                </div>
+                <div className="confirm_modal rotation_gray_border rotation_gray_background width400 height50 top30 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" onClick={(e) => this.createSubscription(e, this.state.stripeID, planSelected.itemQty)} >
+                  Purchase
                 </div>
               </div>
             }
             {displayShippingModal &&
-              <ModalContainer
-                inside={
-                  <ShippingAddressPane
-                    auth={this.props.auth}
-                    userLoggedIn={this.props.userLoggedIn}
-                    apiResponseHandler={this.props.apiResponseHandler}
-                    onSuccessfulUpdate={(e) => this.toggleModal(e, "confirm")}
-                    callToActionTitle={
-                      ["Next Step",<FontAwesomeIcon className="white font12 left20" icon="chevron-right" />]
-                    }
-                  />
+              <ShippingAddressPane
+                auth={this.props.auth}
+                userLoggedIn={this.props.userLoggedIn}
+                apiResponseHandler={this.props.apiResponseHandler}
+                onSuccessfulUpdate={(e) => this.toggleModal(e, "confirm")}
+                callToActionTitle={
+                  ["Next Step",<FontAwesomeIcon className="white font12 left20" icon="chevron-right" />]
                 }
               />
             }
             {displayBillingModal &&
-              <div className="modal_section min_height500 width_full white_background">
-                <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
-                <div className="mobile_billing_modal top80 hidden">
+              <div>
+                <div>
                   <div className="druk_xs medium rotation_gray text_center">Add Billing Info</div>
                   <div className="flex justify_center">
                     <div>
@@ -686,133 +676,122 @@ class CatalogPage extends Component {
               </div>
             }
             {displayPlanModal &&
-              <div className="modal_section height500 width_full white_background">
-                <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
-                <div className="plan_modal top100 width500 margin_auto">
-                  <div className="top20 druk_small rotation_gray">Choose Your Plan</div>
-                  <div className="top20 proxima_small rotation_gray">Three different ways to elevate your style.</div>
-                  <div className="plan_btns flex justify_between">
-                    {this.state.planOptions.map((plan, index) => {
-                      return (
-                        <div
-                          key={index}
-                          className="input_box rotation_gray_border rotation_gray_background width150 height100 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer text_center"
-                          style={{background: plan.selected ? "#333333" : "#FFFFFF", color: plan.selected ? "#FFFFFF" : "#333333"}}
-                          name={plan.itemQty}
-                          onClick={(e) => this.togglePlanOptions(e)}
-                        >
-                          {plan.itemQty} Items
-                          <br />
-                          {plan.monthlyCost}/Month
-                        </div>
-                      )
-                    })}
-                  </div>
-                  <div
-                    className="add_credit_card rotation_gray_border rotation_gray_background width300 height50 top40 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer"
-                    onClick={(e) => this.checkPlanSelected(e)}
-                  >
-                    Add Credit Card<FontAwesomeIcon className="white font12 left20" icon="chevron-right" />
-                  </div>
+              <div className="width500">
+                <div className="top20 druk_small rotation_gray">Choose Your Plan</div>
+                <div className="top20 proxima_small rotation_gray">Three different ways to elevate your style.</div>
+                <div className="plan_btns flex justify_between">
+                  {this.state.planOptions.map((plan, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className="input_box rotation_gray_border rotation_gray_background width150 height100 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer text_center"
+                        style={{background: plan.selected ? "#333333" : "#FFFFFF", color: plan.selected ? "#FFFFFF" : "#333333"}}
+                        name={plan.itemQty}
+                        onClick={(e) => this.togglePlanOptions(e)}
+                      >
+                        {plan.itemQty} Items
+                        <br />
+                        {plan.monthlyCost}/Month
+                      </div>
+                    )
+                  })}
+                </div>
+                <div
+                  className="add_credit_card rotation_gray_border rotation_gray_background width300 height50 top40 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer"
+                  onClick={(e) => this.checkPlanSelected(e)}
+                >
+                  Add Credit Card<FontAwesomeIcon className="white font12 left20" icon="chevron-right" />
                 </div>
               </div>
             }
             {displayLoginModal &&
-              <div className="modal_section height500 width_full white_background">
-                <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
-                <div className="top100 login_modal">
-                  <LoginPane
-                    handleLoginSubmit={this.props.handleLoginSubmit}
-                    loginEmail={this.state.loginEmail}
-                    loginPassword={this.props.loginPassword}
-                    handleInputChange={this.props.handleInputChange}
-                    forgotPassword={this.props.forgotPassword}
-                    handleSignUpClicked={(e) => this.toggleModal(e, "signUp")}
-                  />
-                </div>
-              </div>
+              <LoginPane
+                handleLoginSubmit={this.props.handleLoginSubmit}
+                loginEmail={this.state.loginEmail}
+                loginPassword={this.props.loginPassword}
+                handleInputChange={this.props.handleInputChange}
+                forgotPassword={this.props.forgotPassword}
+                handleSignUpClicked={(e) => this.toggleModal(e, "signUp")}
+              />
             }
             {displaySignUpModal &&
-              <div className="modal_section height500 width_full white_background">
+              <SignUpPane
+                handleSignUp={this.props.handleSignUp}
+                registerEmail={this.props.registerEmail}
+                registerPassword={this.props.registerPassword}
+                registerConfirmPassword={this.props.registerConfirmPassword}
+                handleInputChange={this.props.handleInputChange}
+                handleLogInClicked={(e) => this.toggleModal(e, "login")}
+              />
+            }
+          </RTUIModal>
+        }
+        {(this.state.showModal && displayReserveModal) &&
+          <Modal show={this.state.showModal} dialogClassName="modal_item" centered>
+            <div className="flex">
+              <div className="modal_section overflow_hidden height500 width_half light_background flex justify_center align_center">
+                <img className="modal_image blend_background" src={selectedItem.image_url} alt="" />
+              </div>
+              <div className="modal_section height500 width_half white_background">
                 <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
-                <div className="top70 sign_up_modal">
-                  <SignUpPane
-                    handleSignUp={this.props.handleSignUp}
-                    registerEmail={this.props.registerEmail}
-                    registerPassword={this.props.registerPassword}
-                    registerConfirmPassword={this.props.registerConfirmPassword}
-                    handleInputChange={this.props.handleInputChange}
-                    handleLogInClicked={(e) => this.toggleModal(e, "login")}
-                  />
-                </div>
-              </div>
-            }
-            {displayReserveModal &&
-              <div className="flex">
-                <div className="modal_section overflow_hidden height500 width_half light_background flex justify_center align_center">
-                  <img className="modal_image blend_background" src={selectedItem.image_url} alt="" />
-                </div>
-                <div className="modal_section height500 width_half white_background">
-                  <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
-                  <div className="modal_brand proxima_small rotation_gray opacity6 uppercase top50 padding_sides50">{selectedItem.title.value}</div>
-                  <div className="modal_description height180 overflow_scroll druk_medium rotation_gray line_height24 padding_top10 padding_sides50 capitalize">{selectedItem.subtitle}</div>
-                  {this.props.auth && this.state.subscription ? (
-                    <div>
-                      <div className="modal_size_btns flex top40 sides50 justify_between">
-                        {this.state.modalSizes.forEach(size => {
-                          size.available = selectedItem.sizes[size.value] > 0
-                        })}
-                        {myRotationItemSelected || upNextItemSelected ? (
-                          this.state.modalSizes.map((size, index) => {
-                            return (
-                              <div
-                                key={index}
-                                className="modal_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center cursor_pointer"
-                                style={{background: size.value === selectedItem.reservation.size ? "#333333" : size.available ? "#FFFFFF" : "#F2F2F2", color: size.value === selectedItem.reservation.size ? "#FFFFFF" : "#333333"}}
-                              >
-                                {size.value}
-                              </div>
-                            )
-                          })
-                        ) : (
-                          this.state.modalSizes.map((size, index) => {
-                            return (
-                              <div
-                                key={index}
-                                onClick={(e) => this.toggleModalSizes(e)}
-                                className="modal_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center cursor_pointer"
-                                style={{background: !size.available ? "#F2F2F2" : size.selected ? "#333333" : "#FFFFFF", color: size.selected && size.available ? "#FFFFFF" : "#333333"}}
-                              >
-                                {size.value}
-                              </div>
-                            )
-                          })
-                        )}
-                      </div>
-                      <div className="modal_buttons sides50 flex justify_between top40">
-                        {myRotationItemSelected ? (
-                          <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer green request_to_buy" onClick={(e) => this.requestToBuy(e)}>Request to Buy</div>
-                        ) : upNextItemSelected ? (
-                          <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer red" onClick={(e) => this.removeItem(e)}>Remove</div>
-                        ) : (
-                          <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}>Reserve</div>
-                        )}
-                        {selectedItem.is_favorite ? (
-                          <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.unfavoriteItem(e)}><img src={Favorite} height="14" width="14" alt="" /></div>
-                        ) : (
-                          <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.favoriteItem(e)}><img src={Unfavorite} height="14" width="14" alt="" /></div>
-                        )}
-                      </div>
+                <div className="modal_brand proxima_small rotation_gray opacity6 uppercase top50 padding_sides50">{selectedItem.title.value}</div>
+                <div className="modal_description height180 overflow_scroll druk_medium rotation_gray line_height24 padding_top10 padding_sides50 capitalize">{selectedItem.subtitle}</div>
+                {this.props.auth && this.state.subscription ? (
+                  <div>
+                    <div className="modal_size_btns flex top40 sides50 justify_between">
+                      {this.state.modalSizes.forEach(size => {
+                        size.available = selectedItem.sizes[size.value] > 0
+                      })}
+                      {myRotationItemSelected || upNextItemSelected ? (
+                        this.state.modalSizes.map((size, index) => {
+                          return (
+                            <div
+                              key={index}
+                              className="modal_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center cursor_pointer"
+                              style={{background: size.value === selectedItem.reservation.size ? "#333333" : size.available ? "#FFFFFF" : "#F2F2F2", color: size.value === selectedItem.reservation.size ? "#FFFFFF" : "#333333"}}
+                            >
+                              {size.value}
+                            </div>
+                          )
+                        })
+                      ) : (
+                        this.state.modalSizes.map((size, index) => {
+                          return (
+                            <div
+                              key={index}
+                              onClick={(e) => this.toggleModalSizes(e)}
+                              className="modal_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center cursor_pointer"
+                              style={{background: !size.available ? "#F2F2F2" : size.selected ? "#333333" : "#FFFFFF", color: size.selected && size.available ? "#FFFFFF" : "#333333"}}
+                            >
+                              {size.value}
+                            </div>
+                          )
+                        })
+                      )}
                     </div>
-                  ) : (
-                    <div className="modal_buttons sides50 flex justify_between top130">
-                      <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}>Reserve</div>
-                      <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}><img src={Unfavorite} height="14" width="14" alt="" /></div>
+                    <div className="modal_buttons sides50 flex justify_between top40">
+                      {myRotationItemSelected ? (
+                        <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer green request_to_buy" onClick={(e) => this.requestToBuy(e)}>Request to Buy</div>
+                      ) : upNextItemSelected ? (
+                        <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer red" onClick={(e) => this.removeItem(e)}>Remove</div>
+                      ) : (
+                        <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}>Reserve</div>
+                      )}
+                      {selectedItem.is_favorite ? (
+                        <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.unfavoriteItem(e)}><img src={Favorite} height="14" width="14" alt="" /></div>
+                      ) : (
+                        <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.favoriteItem(e)}><img src={Unfavorite} height="14" width="14" alt="" /></div>
+                      )}
                     </div>
-                  )}
-                </div>
+                  </div>
+                ) : (
+                  <div className="modal_buttons sides50 flex justify_between top130">
+                    <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}>Reserve</div>
+                    <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}><img src={Unfavorite} height="14" width="14" alt="" /></div>
+                  </div>
+                )}
               </div>
-            }
+            </div>
           </Modal>
         }
       </div>
