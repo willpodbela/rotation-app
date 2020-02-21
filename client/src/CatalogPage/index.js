@@ -49,20 +49,6 @@ class CatalogPage extends Component {
         {view: "shipping", display: false},
         {view: "confirm", display: false}
       ],
-      planOptions: [
-        {itemQty: 2, monthlyCost: "$89", selected: false},
-        {itemQty: 3, monthlyCost: "$129", selected: false},
-        {itemQty: 4, monthlyCost: "$159", selected: false},
-      ],
-      name: "",
-      creditCardNumber: "",
-      expiration: "",
-      cvv: "",
-      billingAddressLine1: "",
-      billingAddressLine2: "",
-      billingCity: "",
-      billingZipcode: "",
-      billingState: "",
       stripeID: ""
     }
     if(this.props.userLoggedIn){
