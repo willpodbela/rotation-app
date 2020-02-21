@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { Redirect } from "react-router-dom"
 import Auth from "../modules/Auth"
 import "./style.css"
+import ShippingAddressPane from "../ShippingAddressPane"
 
 class AccountPage extends Component {
   constructor(props){
@@ -9,13 +10,6 @@ class AccountPage extends Component {
     this.state = {
       showProfile: true,
       showBilling: false,
-      firstName: "",
-      lastName: "",
-      addressLine1: "",
-      addressLine2: "",
-      city: "",
-      zipcode: "",
-      state: "",
       currentPassword: "",
       newPassword: "",
       newPasswordConfirm: "",
@@ -44,29 +38,10 @@ class AccountPage extends Component {
     
     if(this.props.auth){
       this.loadStripe()
-      // Set state with profile or refetch if null
-      const profile = this.props.userLoggedIn.profile
-      if (profile) {
-        this.setProfile(profile)
-      } else {
-        this.getAccountDetails()
-      }
       // Set state with subscription if present
       const subscription = this.props.userLoggedIn.subscription
       this.setSubscription(subscription)
     }
-  }
-
-  setProfile(profile) {
-    this.setState({
-      firstName: profile.first_name,
-      lastName: profile.last_name,
-      addressLine1: profile.address_line_one,
-      addressLine2: profile.address_line_two,
-      city: profile.address_city,
-      zipcode: profile.address_zip,
-      state: profile.address_state
-    })
   }
 
   setSubscription(subscription) {
@@ -76,38 +51,6 @@ class AccountPage extends Component {
     if (subscription) {
       this.setSelectedPlan(subscription.item_qty)
     }
-  }
-
-  getAccountDetails() {
-    fetch(`/api/web/users/${this.props.userLoggedIn.id}/profile`, {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Token ${Auth.getToken()}`
-      }
-    }).then(res => this.props.apiResponseHandler(res)).then(results => {
-      this.setProfile(results.profile)
-    })
-  }
-
-  updateAccountDetails(e){
-    fetch(`/api/web/users/${this.props.userLoggedIn.id}/profile`, {
-      method: "PUT",
-      body: JSON.stringify({
-        profile: {
-          first_name: this.state.firstName,
-          last_name: this.state.lastName,
-      		address_line_one: this.state.addressLine1,
-          address_line_two: this.state.addressLine2,
-          address_city: this.state.city,
-          address_zip: this.state.zipcode,
-          address_state: this.state.state
-        }
-      }),
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Token ${Auth.getToken()}`
-      }
-    }).then(res => this.props.apiResponseHandler(res, "Account Details Saved!"))
   }
 
   handleInputChange(e) {
@@ -273,42 +216,8 @@ class AccountPage extends Component {
           </div>
           {this.state.showProfile &&
             <div className="width630 top40 padding_bottom20">
-              <div className="account_title druk_xs medium rotation_gray">Shipping Address</div>
-              <div className="input_group flex">
-                <div className="input_box_account gray_border width300 height50 top20">
-                  <div className="proxima_small medium very_light_gray left20 top5 height15">First Name</div>
-                  <input className="input_field proxima_xl medium rotation_gray width260 left20" name="firstName" value={this.state.firstName} onChange={(e) => this.handleInputChange(e)} />
-                </div>
-                <div className="input_box_account gray_border width300 height50 top20 left20">
-                  <div className="proxima_small medium very_light_gray left20 top5 height15">Last Name</div>
-                  <input className="input_field proxima_xl medium rotation_gray width260 left20" name="lastName" value={this.state.lastName} onChange={(e) => this.handleInputChange(e)} />
-                </div>
-              </div>
-              <div className="input_group flex">
-                <div className="input_box_account gray_border width300 height50 top20">
-                  <div className="proxima_small medium very_light_gray left20 top5 height15">Address Line 1</div>
-                  <input className="input_field proxima_xl medium rotation_gray width260 left20" name="addressLine1" value={this.state.addressLine1} onChange={(e) => this.handleInputChange(e)} />
-                </div>
-                <div className="input_box_account gray_border width300 height50 top20 left20">
-                  <div className="proxima_small medium very_light_gray left20 top5 height15">Address Line 2</div>
-                  <input className="input_field proxima_xl medium rotation_gray width260 left20" name="addressLine2" value={this.state.addressLine2} onChange={(e) => this.handleInputChange(e)} />
-                </div>
-              </div>
-              <div className="input_group flex">
-                <div className="input_box_account gray_border width300 height50 top20">
-                  <div className="proxima_small medium very_light_gray left20 top5 height15">City</div>
-                  <input className="input_field proxima_xl medium rotation_gray width260 left20" name="city" value={this.state.city} onChange={(e) => this.handleInputChange(e)} />
-                </div>
-                <div className="input_box_account gray_border width100 height50 top20 left20">
-                  <div className="proxima_small medium very_light_gray left20 top5 height15">Zip</div>
-                  <input className="input_field proxima_xl medium rotation_gray width60 left20" name="zipcode" value={this.state.zipcode} onChange={(e) => this.handleInputChange(e)} />
-                </div>
-                <div className="input_box_account gray_border width100 height50 top20 left20">
-                  <div className="proxima_small medium very_light_gray left20 top5 height15">State</div>
-                  <input className="input_field proxima_xl medium rotation_gray width60 left20" name="state" value={this.state.state} onChange={(e) => this.handleInputChange(e)} />
-                </div>
-              </div>
-              <div className="input_box_account rotation_gray_border rotation_gray_background width300 height50 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" onClick={(e) => this.updateAccountDetails(e)}>Save Changes</div>
+              <ShippingAddressPane auth={this.props.auth} userLoggedIn={this.props.userLoggedIn} apiResponseHandler={this.props.apiResponseHandler} />
+              
               <div className="profile_divider rotation_gray_background top60"></div>
               <div className="druk_xs medium rotation_gray top60">Manage Plan</div>
               {this.state.subscription ? (

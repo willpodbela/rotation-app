@@ -1,12 +1,6 @@
 ::-webkit-input-placeholder{
   color: #333333;
 }
-.very_light_gray{
-  color: #949494;
-}
-.profile_divider{
-  height: 1px;
-}
 @media (max-width: 843px) {
   .account_title{
     text-align: center;
@@ -14,10 +8,6 @@
   .input_box {
     margin: 20px auto;
     width: 250px;
-  }
-  .cancel_subscription{
-    margin-left: 0px;
-    margin-top: 20px;
   }
   .input_group{
     display: block !important;
