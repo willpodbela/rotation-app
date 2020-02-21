@@ -61,11 +61,6 @@ class CatalogPage extends Component {
       billingCity: "",
       billingZipcode: "",
       billingState: "",
-      shippingAddressLine1: "",
-      shippingAddressLine2: "",
-      shippingCity: "",
-      shippingZipcode: "",
-      shippingState: "",
       stripeID: ""
     }
     if(this.props.userLoggedIn){
@@ -367,31 +362,6 @@ class CatalogPage extends Component {
       });
       
       window.location.reload(true)
-    })
-  }
-
-  updateAccountDetails(e){
-    const firstName = this.state.billingName.substring(0, this.state.billingName.lastIndexOf(" "))
-    const lastName = this.state.billingName.substring(this.state.billingName.lastIndexOf(" "))
-    fetch(`/api/web/users/${this.props.userLoggedIn.id}/profile`, {
-      method: "PUT",
-      body: JSON.stringify({
-        profile: {
-          first_name: firstName,
-          last_name: lastName,
-      		address_line_one: this.state.shippingAddressLine1,
-          address_line_two: this.state.shippingAddressLine2,
-          address_city: this.state.shippingCity,
-          address_zip: this.state.shippingZipcode,
-          address_state: this.state.shippingState
-        }
-      }),
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Token ${Auth.getToken()}`
-      }
-    }).then(res => this.props.apiResponseHandler(res)).then(res => {
-      this.toggleModal(e, "confirm")
     })
   }
   
