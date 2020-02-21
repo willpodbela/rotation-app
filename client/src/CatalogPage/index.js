@@ -5,6 +5,7 @@ import "./bootstrap-modal.css"
 import ItemCard from "../ItemCard"
 import RTUIModal from "../RTUIModal"
 import LoginPane from "../LoginPane"
+import BillingPane from "../BillingPane"
 import SignUpPane from "../SignUpPane"
 import ShippingAddressPane from "../ShippingAddressPane"
 import Auth from "../modules/Auth"
@@ -73,7 +74,6 @@ class CatalogPage extends Component {
     window.analytics.page("Catalog"); // Name of this page view for analytics purposes
     window.scrollTo(0, 0)
     
-    this.loadStripe()
     if(this.props.auth){
       fetch("/api/web/items?sort_by_section=true", {
         headers: {
@@ -284,58 +284,10 @@ class CatalogPage extends Component {
       [name]: value
     })
   }
-
-  loadStripe(){
-    if(!window.document.getElementById('stripe-script')) {
-      var s = window.document.createElement("script");
-      s.id = "stripe-script";
-      s.type = "text/javascript";
-      s.src = "https://js.stripe.com/v2/";
-      s.onload = () => {
-        window["Stripe"].setPublishableKey("pk_test_Nfvb3ZjRZMUfa9HxzXsz0PnZ")
-      }
-      window.document.body.appendChild(s);
-    }
-  }
-
-  attemptPayment(e){
-    e.preventDefault()
-    if (this.state.creditCardNumber === ""
-    || this.state.cvv === ""
-    || this.state.billingName === ""
-    || this.state.expiration === "") {
-      this.props.errorHandler({message: "Please fill out all credit card fields."})
-    } else if(this.state.billingAddressLine1 === ""
-    || this.state.billingCity === ""
-    || this.state.billingState === ""
-    || this.state.billingZipcode === "") {
-      this.props.errorHandler({message: "Please enter a valid billing address."})
-    } else if (this.state.expiration.split("/").length !== 2) {
-      this.props.errorHandler({message: "Please enter expiration date in the form of MM/YY."})
-    } else {
-      const expMonth = this.state.expiration.split("/")[0].replace(/ /g,'')
-      const expYear = this.state.expiration.split("/")[1].replace(/ /g,'')
-      window.Stripe.card.createToken({
-        number: this.state.creditCardNumber,
-        exp_month: expMonth,
-        exp_year: expYear,
-        cvc: this.state.cvv.replace(/ /g,''),
-        name: this.state.billingName,
-        address_line1: this.state.billingAddressLine1,
-        address_line2: this.state.billingAddressLine2,
-        address_city: this.state.billingCity,
-        address_state: this.state.billingState,
-        address_zip: this.state.billingZipcode,
-        address_country: "US"
-      }, (status, response) => {
-        if(status === 200){
-          this.setState({stripeID: response.id})
-          this.toggleModal(e, "shipping")
-        }else{
-          this.props.errorHandler(response.error)
-        }
-      })
-    }
+  
+  successfulBillingTokenization(token) {
+    this.setState({stripeID: token})
+    this.toggleModal("", "shipping")
   }
 
   checkPlanSelected(e){
@@ -562,119 +514,17 @@ class CatalogPage extends Component {
               />
             }
             {displayBillingModal &&
-              <div>
-                <div>
-                  <div className="druk_xs medium rotation_gray text_center">Add Billing Info</div>
-                  <div className="flex justify_center">
-                    <div>
-                      <div className="input_box gray_border width300 height50 top20">
-                        <div className="proxima_small medium very_light_gray left20 top5 height15">Name</div>
-                        <input className="input_field proxima_xl medium rotation_gray width260 left20" name="billingName" value={this.state.billingName} onChange={(e) => this.handleInputChange(e)} />
-                      </div>
-                      <div className="input_box gray_border width300 height50 top20">
-                        <div className="proxima_small medium very_light_gray left20 top5 height15">Credit Card Number</div>
-                        <input className="input_field proxima_xl medium rotation_gray width260 left20" name="creditCardNumber" value={this.state.creditCardNumber} onChange={(e) => this.handleInputChange(e)} />
-                      </div>
-                      <div className=" flex justify_between">
-                        <div className="input_box gray_border width130 height50 top20">
-                          <div className="proxima_small medium very_light_gray left20 top5 height15">Expiration</div>
-                          <input className="input_field proxima_xl medium rotation_gray width100 left20" name="expiration" value={this.state.expiration} onChange={(e) => this.handleInputChange(e)} />
-                        </div>
-                        <div className="input_box gray_border width130 height50 top20 left20">
-                          <div className="proxima_small medium very_light_gray left20 top5 height15">CVV</div>
-                          <input className="input_field proxima_xl medium rotation_gray width100 left20" name="cvv" value={this.state.cvv} onChange={(e) => this.handleInputChange(e)} />
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <div className="input_box gray_border width300 height50 top20">
-                        <div className="proxima_small medium very_light_gray left20 top5 height15">Address Line 1</div>
-                        <input className="input_field proxima_xl medium rotation_gray width260 left20" name="billingAddressLine1" value={this.state.billingAddressLine1} onChange={(e) => this.handleInputChange(e)} />
-                      </div>
-                      <div className="input_box gray_border width300 height50 top20">
-                        <div className="proxima_small medium very_light_gray left20 top5 height15">Address Line 2</div>
-                        <input className="input_field proxima_xl medium rotation_gray width260 left20" name="billingAddressLine2" value={this.state.billingAddressLine2} onChange={(e) => this.handleInputChange(e)} />
-                      </div>
-                      <div className="input_box gray_border width300 height50 top20">
-                        <div className="proxima_small medium very_light_gray left20 top5 height15">City</div>
-                        <input className="input_field proxima_xl medium rotation_gray width260 left20" name="billingCity" value={this.state.billingCity} onChange={(e) => this.handleInputChange(e)} />
-                      </div>
-                      <div className=" flex justify_between">
-                        <div className="input_box gray_border width130 height50 top20">
-                          <div className="proxima_small medium very_light_gray left20 top5 height15">State</div>
-                          <input className="input_field proxima_xl medium rotation_gray width100 left20" name="billingState" value={this.state.billingState} onChange={(e) => this.handleInputChange(e)} />
-                        </div>
-                        <div className="input_box gray_border width130 height50 top20 left20">
-                          <div className="proxima_small medium very_light_gray left20 top5 height15">Zip</div>
-                          <input className="input_field proxima_xl medium rotation_gray width100 left20" name="billingZipcode" value={this.state.billingZipcode} onChange={(e) => this.handleInputChange(e)} />
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      className="rotation_gray_border rotation_gray_background width300 height50 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer"
-                      onClick={(e) => this.attemptPayment(e)}
-                    >
-                      Next Step<FontAwesomeIcon className="white font12 left20" icon="chevron-right" />
-                    </div>
-                  </div>
-                  <div className="height200 white_background"></div>
-                </div>
-                <div className="non_mobile_billing_modal top80 left40">
-                  <div className="druk_xs medium rotation_gray">Add Billing Info</div>
-                  <div className="flex">
-                    <div>
-                      <div className="input_box gray_border width250 height50 top20">
-                        <div className="proxima_small medium very_light_gray left20 top5 height15">Name</div>
-                        <input className="input_field proxima_xl medium rotation_gray width220 left20" name="billingName" value={this.state.billingName} onChange={(e) => this.handleInputChange(e)} />
-                      </div>
-                      <div className="input_box gray_border width250 height50 top20">
-                        <div className="proxima_small medium very_light_gray left20 top5 height15">Credit Card Number</div>
-                        <input className="input_field proxima_xl medium rotation_gray width220 left20" name="creditCardNumber" value={this.state.creditCardNumber} onChange={(e) => this.handleInputChange(e)} />
-                      </div>
-                      <div className=" flex justify_between">
-                        <div className="input_box gray_border width100 height50 top20">
-                          <div className="proxima_small medium very_light_gray left20 top5 height15">Expiration</div>
-                          <input className="input_field proxima_xl medium rotation_gray width70 left20" name="expiration" value={this.state.expiration} onChange={(e) => this.handleInputChange(e)} />
-                        </div>
-                        <div className="input_box gray_border width100 height50 top20 left20">
-                          <div className="proxima_small medium very_light_gray left20 top5 height15">CVV</div>
-                          <input className="input_field proxima_xl medium rotation_gray width70 left20" name="cvv" value={this.state.cvv} onChange={(e) => this.handleInputChange(e)} />
-                        </div>
-                      </div>
-                      <div
-                        className="rotation_gray_border rotation_gray_background width250 height50 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer"
-                        onClick={(e) => this.attemptPayment(e)}
-                      >
-                        Next Step<FontAwesomeIcon className="white font12 left20" icon="chevron-right" />
-                      </div>
-                    </div>
-                    <div className="left20">
-                      <div className="input_box gray_border width250 height50 top20">
-                        <div className="proxima_small medium very_light_gray left20 top5 height15">Address Line 1</div>
-                        <input className="input_field proxima_xl medium rotation_gray width220 left20" name="billingAddressLine1" value={this.state.billingAddressLine1} onChange={(e) => this.handleInputChange(e)} />
-                      </div>
-                      <div className="input_box gray_border width250 height50 top20">
-                        <div className="proxima_small medium very_light_gray left20 top5 height15">Address Line 2</div>
-                        <input className="input_field proxima_xl medium rotation_gray width220 left20" name="billingAddressLine2" value={this.state.billingAddressLine2} onChange={(e) => this.handleInputChange(e)} />
-                      </div>
-                      <div className="input_box gray_border width250 height50 top20">
-                        <div className="proxima_small medium very_light_gray left20 top5 height15">City</div>
-                        <input className="input_field proxima_xl medium rotation_gray width220 left20" name="billingCity" value={this.state.billingCity} onChange={(e) => this.handleInputChange(e)} />
-                      </div>
-                      <div className=" flex justify_between">
-                        <div className="input_box gray_border width100 height50 top20">
-                          <div className="proxima_small medium very_light_gray left20 top5 height15">State</div>
-                          <input className="input_field proxima_xl medium rotation_gray width80 left20" name="billingState" value={this.state.billingState} onChange={(e) => this.handleInputChange(e)} />
-                        </div>
-                        <div className="input_box gray_border width100 height50 top20 left20">
-                          <div className="proxima_small medium very_light_gray left20 top5 height15">Zip</div>
-                          <input className="input_field proxima_xl medium rotation_gray width80 left20" name="billingZipcode" value={this.state.billingZipcode} onChange={(e) => this.handleInputChange(e)} />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <BillingPane
+                auth={this.props.auth}
+                userLoggedIn={this.props.userLoggedIn}
+                apiResponseHandler={this.props.apiResponseHandler}
+                onSuccessfulTokenization={(token) => this.successfulBillingTokenization(token)}
+                errorHandler={(error) => this.props.errorHandler}
+                headerText="Add Billing Info"
+                callToActionTitle={
+                  ["Next Step",<FontAwesomeIcon className="white font12 left20" icon="chevron-right" />]
+                }
+              />
             }
             {displayPlanModal &&
               <div className="width500">

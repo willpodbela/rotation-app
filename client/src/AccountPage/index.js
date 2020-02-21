@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom"
 import Auth from "../modules/Auth"
 import "./style.css"
 import ShippingAddressPane from "../ShippingAddressPane"
+import BillingPane from "../BillingPane"
 
 class AccountPage extends Component {
   constructor(props){
@@ -13,15 +14,6 @@ class AccountPage extends Component {
       currentPassword: "",
       newPassword: "",
       newPasswordConfirm: "",
-      billingName: "",
-      creditCardNumber: "",
-      expiration: "",
-      cvv: "",
-      billingAddressLine1: "",
-      billingAddressLine2: "",
-      billingCity: "",
-      billingZipcode: "",
-      billingState: "",
       error: null,
       subscription: false, //NOTE: Not exactly "convention", if you want to change, just function at line 90 and Ctrl+Find any references to 'subscription.'
       planOptions: [
@@ -37,7 +29,6 @@ class AccountPage extends Component {
     window.scrollTo(0, 0)
     
     if(this.props.auth){
-      this.loadStripe()
       // Set state with subscription if present
       const subscription = this.props.userLoggedIn.subscription
       this.setSubscription(subscription)
@@ -68,47 +59,6 @@ class AccountPage extends Component {
   toggleProfilePage(e){
     this.setState({showProfile: true, showBilling: false})
   }
-
-  attemptPayment(e){
-    e.preventDefault()
-    if (this.state.creditCardNumber === ""
-    || this.state.cvv === ""
-    || this.state.billingName === ""
-    || this.state.expiration === "") {
-      this.props.errorHandler({message: "Please fill out all credit card fields."})
-    } else if(this.state.billingAddressLine1 === ""
-    || this.state.billingCity === ""
-    || this.state.billingState === ""
-    || this.state.billingZipcode === "") {
-      this.props.errorHandler({message: "Please enter a valid billing address."})
-    } else if (this.state.expiration.split("/").length !== 2) {
-      this.props.errorHandler({message: "Please enter expiration date in the form of MM/YY."})
-    } else {
-      const expMonth = this.state.expiration.split("/")[0].replace(/ /g,'')
-      const expYear = this.state.expiration.split("/")[1].replace(/ /g,'')
-      window.Stripe.card.createToken({
-        number: this.state.creditCardNumber,
-        exp_month: expMonth,
-        exp_year: expYear,
-        cvc: this.state.cvv.replace(/ /g,''),
-        name: this.state.billingName,
-        address_line1: this.state.billingAddressLine1,
-        address_line2: this.state.billingAddressLine2,
-        address_city: this.state.billingCity,
-        address_state: this.state.billingState,
-        address_zip: this.state.billingZipcode,
-        address_country: "US"
-      }, (status, response) => {
-        if(status === 200){
-          this.updatePayment(response.id)
-        }else{
-          this.props.errorHandler(response.error)
-        }
-      })
-    }
-  }
-
-  // -- Subscription API Calls
 
   updatePayment(stripeID){
     fetch("/api/web/subscription/update-payment", {
@@ -167,9 +117,7 @@ class AccountPage extends Component {
       this.setSubscription(res.subscription)
     })
   }
-
-  // -- View Helpers
-
+  
   togglePlanOptions(e){
     this.setSelectedPlan(parseInt(e.target.getAttribute("name")))
   }
@@ -181,24 +129,7 @@ class AccountPage extends Component {
     })
     this.setState({plansOptions: plansOptionsCopy})
   }
-
-  // -- Stripe API Setup
-
-  loadStripe(){
-    if(!window.document.getElementById('stripe-script')) {
-      var s = window.document.createElement("script");
-      s.id = "stripe-script";
-      s.type = "text/javascript";
-      s.src = "https://js.stripe.com/v2/";
-      s.onload = () => {
-        window['Stripe'].setPublishableKey("pk_live_1Diz5oMjZzQlcZ2a4eLeHunm");
-      }
-      window.document.body.appendChild(s);
-    }
-  }
-
-  // -- Render
-
+  
   render(){
     let endDate = false
     if (this.state.subscription) {
@@ -215,7 +146,7 @@ class AccountPage extends Component {
             <div className="top20 cursor_pointer" style={{textDecoration: this.state.showBilling ? "underline" : "none"}} onClick={(e) => this.toggleBillingPage(e)}>Billing</div>
           </div>
           {this.state.showProfile &&
-            <div className="width646 top40 padding_bottom20">
+            <div className="width620 top40 padding_bottom20">
               <ShippingAddressPane auth={this.props.auth} userLoggedIn={this.props.userLoggedIn} apiResponseHandler={this.props.apiResponseHandler} />
               
               <div className="profile_divider rotation_gray_background top60"></div>
@@ -255,54 +186,16 @@ class AccountPage extends Component {
             </div>
           }
           {this.state.showBilling &&
-            <div className="width630 top40 padding_bottom60">
-              <form onSubmit={(e) => this.attemptPayment(e)}>
-                <div className="account_title druk_xs medium rotation_gray">Update Credit Card</div>
-                <div className="input_box_account gray_border width300 height50 top20">
-                  <div className="proxima_small medium very_light_gray left20 top5 height15">Name on Card</div>
-                  <input className="input_field proxima_xl medium rotation_gray width260 left20" name="billingName" value={this.state.billingName} onChange={(e) => this.handleInputChange(e)} />
-                </div>
-                <div className="input_box_account gray_border width300 height50 top20">
-                  <div className="proxima_small medium very_light_gray left20 top5 height15">Credit Card Number</div>
-                  <input className="input_field proxima_xl medium rotation_gray width260 left20" name="creditCardNumber" value={this.state.creditCardNumber} onChange={(e) => this.handleInputChange(e)} />
-                </div>
-                <div className="input_group flex">
-                  <div className="input_box_account gray_border width300 height50 top20">
-                    <div className="proxima_small medium very_light_gray left20 top5 height15">Expiration</div>
-                    <input className="input_field proxima_xl medium rotation_gray width260 left20" name="expiration" value={this.state.expiration} onChange={(e) => this.handleInputChange(e)} />
-                  </div>
-                  <div className="input_box_account gray_border width300 height50 top20 left20">
-                    <div className="proxima_small medium very_light_gray left20 top5 height15">CVV</div>
-                    <input className="input_field proxima_xl medium rotation_gray width260 left20" name="cvv" value={this.state.cvv} onChange={(e) => this.handleInputChange(e)} />
-                  </div>
-                </div>
-                <div className="account_title druk_xs medium rotation_gray top60">Billing Address</div>
-                <div className="input_group flex">
-                  <div className="input_box_account gray_border width300 height50 top20">
-                    <div className="proxima_small medium very_light_gray left20 top5 height15">Address Line 1</div>
-                    <input className="input_field proxima_xl medium rotation_gray width260 left20" name="billingAddressLine1" value={this.state.billingAddressLine1} onChange={(e) => this.handleInputChange(e)} />
-                  </div>
-                  <div className="input_box_account gray_border width300 height50 top20 left20">
-                    <div className="proxima_small medium very_light_gray left20 top5 height15">Address Line 2</div>
-                    <input className="input_field proxima_xl medium rotation_gray width260 left20" name="billingAddressLine2" value={this.state.billingAddressLine2} onChange={(e) => this.handleInputChange(e)} />
-                  </div>
-                </div>
-                <div className="input_group flex">
-                  <div className="input_box_account gray_border width300 height50 top20">
-                    <div className="proxima_small medium very_light_gray left20 top5 height15">City</div>
-                    <input className="input_field proxima_xl medium rotation_gray width260 left20" name="billingCity" value={this.state.billingCity} onChange={(e) => this.handleInputChange(e)} />
-                  </div>
-                  <div className="input_box_account gray_border width100 height50 top20 left20">
-                    <div className="proxima_small medium very_light_gray left20 top5 height15">Zip</div>
-                    <input className="input_field proxima_xl medium rotation_gray width60 left20" name="billingZipcode" value={this.state.billingZipcode} onChange={(e) => this.handleInputChange(e)} />
-                  </div>
-                  <div className="input_box_account gray_border width100 height50 top20 left20">
-                    <div className="proxima_small medium very_light_gray left20 top5 height15">State</div>
-                    <input className="input_field proxima_xl medium rotation_gray width60 left20" name="billingState" value={this.state.billingState} onChange={(e) => this.handleInputChange(e)} />
-                  </div>
-                </div>
-                <input type="submit" value="Save Changes" className="input_box_account rotation_gray_border rotation_gray_background width300 height50 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer"></input>
-              </form>
+            <div className="top40 padding_bottom20">
+              <BillingPane
+                auth={this.props.auth}
+                userLoggedIn={this.props.userLoggedIn}
+                apiResponseHandler={this.props.apiResponseHandler}
+                onSuccessfulTokenization={(token) => this.updatePayment(token)}
+                errorHandler={(error) => this.props.errorHandler}
+              />
+              <div className="height400">
+              </div>
             </div>
           }
         </div>

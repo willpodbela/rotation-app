@@ -1,0 +1,14 @@
+.non_mobile_billing_modal{
+  display: block;
+}
+.mobile_billing_modal{
+  display: none;
+}
+@media (max-width: 749px) {
+  .mobile_billing_modal{
+    display: block !important;
+  }
+  .non_mobile_billing_modal{
+    display: none  !important;
+  }
+}
