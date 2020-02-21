@@ -106,7 +106,9 @@ class AccountPage extends Component {
           <RTUIFormInput title="Zip" name="zipcode" value={this.state.zipcode} onChange={(e) => this.handleInputChange(e)} width="140" />
           <RTUIFormInput title="State" name="state" value={this.state.state} onChange={(e) => this.handleInputChange(e)} width="140" />
         </div>
-        <RTUIButton title={this.props.callToActionTitle || "Save Changes"} onClick={(e) => this.updateAccountDetails(e)} />
+        <RTUIButton onClick={(e) => this.updateAccountDetails(e)}>
+          {this.props.callToActionTitle || "Save Changes"}
+        </RTUIButton>
       </div>
     )
   }
