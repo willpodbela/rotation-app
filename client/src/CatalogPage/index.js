@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Modal from "react-bootstrap/Modal"
 import "./bootstrap-modal.css"
 import ItemCard from "../ItemCard"
+import ModalContainer from "../ModalContainer"
 import LoginPane from "../LoginPane"
 import SignUpPane from "../SignUpPane"
 import ShippingAddressPane from "../ShippingAddressPane"
@@ -554,9 +555,8 @@ class CatalogPage extends Component {
               </div>
             }
             {displayShippingModal &&
-              <div className="modal_section height500 width_full white_background">
-                <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
-                <div className="top50 flex justify_center" style={{clear: "right"}}>
+              <ModalContainer
+                inside={
                   <ShippingAddressPane
                     auth={this.props.auth}
                     userLoggedIn={this.props.userLoggedIn}
@@ -566,8 +566,8 @@ class CatalogPage extends Component {
                       ["Next Step",<FontAwesomeIcon className="white font12 left20" icon="chevron-right" />]
                     }
                   />
-                </div>
-              </div>
+                }
+              />
             }
             {displayBillingModal &&
               <div className="modal_section min_height500 width_full white_background">
