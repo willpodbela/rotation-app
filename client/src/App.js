@@ -261,7 +261,7 @@ class App extends Component {
                       loginPassword={this.state.loginPassword}
                       handleInputChange={(e) => this.handleInputChange(e)}
                       forgotPassword={(e) => this.forgotPassword(e)}
-                      handleSignUpClicked={""}
+                      handleSignUpClicked={(e) => window.location.replace("/sign-up")}
                     />
                   }
                 />
@@ -280,7 +280,7 @@ class App extends Component {
                       registerPassword={this.state.registerPassword}
                       registerConfirmPassword={this.state.registerConfirmPassword}
                       handleInputChange={(e) => this.handleInputChange(e)}
-                      handleLogInClicked={""}
+                      handleLogInClicked={(e) => window.location.replace("/login")}
                     />
                   }
                 />

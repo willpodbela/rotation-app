@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Modal from "react-bootstrap/Modal"
 import "./bootstrap-modal.css"
 import ItemCard from "../ItemCard"
+import LoginPane from "../LoginPane"
+import SignUpPane from "../SignUpPane"
 import Auth from "../modules/Auth"
 import { Link } from "react-router-dom"
 import Unfavorite from "../img/Unfavorite.png"
@@ -768,20 +770,14 @@ class CatalogPage extends Component {
               <div className="modal_section height500 width_full white_background">
                 <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
                 <div className="top100 login_modal">
-                  <div className="width300 margin_auto top20 druk_small rotation_gray">Log In</div>
-                  <form onSubmit={this.props.handleLoginSubmit}>
-                    <div className="input_box gray_border width300 height50 margin_auto top15">
-                      <div className="proxima_small medium very_light_gray left20 top5 height15">Email address</div>
-                      <input className="proxima_xl medium rotation_gray width260 left20" name="loginEmail" value={this.props.loginEmail} onChange={this.props.handleInputChange} />
-                    </div>
-                    <div className="input_box gray_border width300 height50 margin_auto top20">
-                      <div className="proxima_small medium very_light_gray left20 top5 height15">Password</div>
-                      <input type="password" className="proxima_xl medium rotation_gray width260 left20" name="loginPassword" value={this.props.loginPassword} onChange={this.props.handleInputChange} />
-                    </div>
-                    <div className="proxima_xs medium rotation_gray top10 text_center underline cursor_pointer" onClick={this.props.forgotPassword}>Forgot your password?</div>
-                    <input type="submit" value="Log In" className="input_box rotation_gray_border rotation_gray_background width300 height50 margin_auto top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" />
-                  </form>
-                  <div className="proxima_small medium underline rotation_gray top10 flex justify_center cursor_pointer" onClick={(e) => this.toggleModal(e, "signUp")}>Don't have an account? Sign up</div>
+                  <LoginPane
+                    handleLoginSubmit={this.props.handleLoginSubmit}
+                    loginEmail={this.state.loginEmail}
+                    loginPassword={this.props.loginPassword}
+                    handleInputChange={this.props.handleInputChange}
+                    forgotPassword={this.props.forgotPassword}
+                    handleSignUpClicked={(e) => this.toggleModal(e, "signUp")}
+                  />
                 </div>
               </div>
             }
@@ -789,24 +785,14 @@ class CatalogPage extends Component {
               <div className="modal_section height500 width_full white_background">
                 <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
                 <div className="top70 sign_up_modal">
-                  <div className="width300 margin_auto top20 druk_small rotation_gray">Sign Up</div>
-                  <form onSubmit={this.props.handleSignUp}>
-                    <div className="input_box gray_border width300 height50 margin_auto top15">
-                      <div className="proxima_small medium very_light_gray left20 top5 height15">Email address</div>
-                      <input className="proxima_xl medium rotation_gray width260 left20" name="registerEmail" value={this.props.registerEmail} onChange={this.props.handleInputChange} />
-                    </div>
-                    <div className="input_box gray_border width300 height50 margin_auto top20">
-                      <div className="proxima_small medium very_light_gray left20 top5 height15">Password</div>
-                      <input type="password" className="proxima_xl medium rotation_gray width260 left20" name="registerPassword" value={this.props.registerPassword} onChange={this.props.handleInputChange} />
-                    </div>
-                    <div className="input_box gray_border width300 height50 margin_auto top20">
-                      <div className="proxima_small medium very_light_gray left20 top5 height15">Confirm Password</div>
-                      <input type="password" className="proxima_xl medium rotation_gray width260 left20" name="registerConfirmPassword" value={this.props.registerConfirmPassword} onChange={this.props.handleInputChange} />
-                    </div>
-                    <div className="proxima_xs medium rotation_gray top10 text_center">By registering, I accept the <Link to="/terms" className="underline cursor_pointer">Terms of Service</Link> and <Link to="/privacy" className="underline cursor_pointer">Privacy Policy</Link></div>
-                    <input type="submit" value="Sign Up" className="input_box rotation_gray_border rotation_gray_background width300 height50 margin_auto top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" />
-                  </form>
-                  <div className="proxima_small medium underline rotation_gray top10 flex justify_center cursor_pointer" onClick={(e) => this.toggleModal(e, "login")}>Already have an account? Sign in</div>
+                  <SignUpPane
+                    handleSignUp={this.props.handleSignUp}
+                    registerEmail={this.props.registerEmail}
+                    registerPassword={this.props.registerPassword}
+                    registerConfirmPassword={this.props.registerConfirmPassword}
+                    handleInputChange={this.props.handleInputChange}
+                    handleLogInClicked={(e) => this.toggleModal(e, "login")}
+                  />
                 </div>
               </div>
             }
