@@ -31,7 +31,7 @@ class OnboardingModal extends Component {
   }
   
   showModal(name) {
-    capitalized = name.charAt(0).toUpperCase() + str.slice(1);
+    const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
     window.analytics.page(capitalized.concat(" Modal")); // Name of this page view for analytics purposes
     
     this.setState({ currentModal: name })

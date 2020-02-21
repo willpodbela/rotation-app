@@ -9,6 +9,7 @@ import TermsPage from "./TermsPage"
 import PrivacyPage from "./PrivacyPage"
 import CatalogPage from "./CatalogPage"
 import AccountPage from "./AccountPage"
+import ItemDetailPage from "./ItemDetailPage"
 import FaqPage from "./FAQPage"
 import Nav from "./Nav"
 import Footer from "./Footer"
@@ -248,7 +249,7 @@ class App extends Component {
                 />
             }/>
             <Route
-              path="/login"
+              exact path="/login"
               render={() =>
                 <AuthPage
                   auth={this.state.authenticated}
@@ -267,7 +268,7 @@ class App extends Component {
                 />
             }/>
             <Route
-              path="/sign-up"
+              exact path="/sign-up"
               render={() =>
                 <AuthPage
                   auth={this.state.authenticated}
@@ -286,7 +287,7 @@ class App extends Component {
                 />
             }/>
             <Route
-              path="/catalog"
+              exact path="/catalog"
               render={() =>
                 <CatalogPage
                   auth={this.state.authenticated}
@@ -307,13 +308,22 @@ class App extends Component {
                 />
             }/>
             <Route
-              path="/account"
+              exact path="/account"
               render={() =>
                 <AccountPage
                   auth={this.state.authenticated}
                   userLoggedIn={this.state.userLoggedIn}
                   errorHandler={(error) => this.showError(error)}
                   noticeHandler={(notice) => this.showNotice(notice)}
+                  apiResponseHandler={(res, successMessage) => this.apiResponseHandler(res, successMessage)}
+                />
+            }/>
+            <Route
+              path="/:itemInfo"
+              render={(props) =>
+                <ItemDetailPage
+                  {...props}
+                  auth={this.state.authenticated}
                   apiResponseHandler={(res, successMessage) => this.apiResponseHandler(res, successMessage)}
                 />
             }/>
