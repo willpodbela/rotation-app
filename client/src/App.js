@@ -2,8 +2,9 @@ import React, { Component } from "react"
 import "./App.css"
 import { BrowserRouter as Router, Route } from "react-router-dom"
 import LandingPage from "./LandingPage"
-import LoginPage from "./LoginPage"
-import SignUpPage from "./SignUpPage"
+import AuthPage from "./AuthPage"
+import LoginPane from "./LoginPane"
+import SignUpPane from "./SignUpPane"
 import TermsPage from "./TermsPage"
 import PrivacyPage from "./PrivacyPage"
 import CatalogPage from "./CatalogPage"
@@ -13,6 +14,9 @@ import Nav from "./Nav"
 import Footer from "./Footer"
 import Auth from "./modules/Auth"
 import AlertDialog from "./AlertDialog"
+
+import login_img from "./img/login.jpg"
+import signup_img from "./img/sign-up.jpg"
 
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { fab } from "@fortawesome/free-brands-svg-icons"
@@ -246,31 +250,39 @@ class App extends Component {
             <Route
               path="/login"
               render={() =>
-                <LoginPage
+                <AuthPage
                   auth={this.state.authenticated}
-                  handleLoginSubmit={(e) => this.handleLoginSubmit(e)}
-                  loginEmail={this.state.loginEmail}
-                  loginPassword={this.state.loginPassword}
-                  handleInputChange={(e) => this.handleInputChange(e)}
-                  forgotPassword={(e) => this.forgotPassword(e)}
-                  errorHandler={(error) => this.showError(error)}
-                  noticeHandler={(notice) => this.showNotice(notice)}
-                  apiResponseHandler={(res, successMessage) => this.apiResponseHandler(res, successMessage)}
+                  pageTitle={"Log In"}
+                  image={login_img}
+                  authPane={
+                    <LoginPane
+                      handleLoginSubmit={(e) => this.handleLoginSubmit(e)}
+                      loginEmail={this.state.loginEmail}
+                      loginPassword={this.state.loginPassword}
+                      handleInputChange={(e) => this.handleInputChange(e)}
+                      forgotPassword={(e) => this.forgotPassword(e)}
+                      handleSignUpClicked={""}
+                    />
+                  }
                 />
             }/>
             <Route
               path="/sign-up"
               render={() =>
-                <SignUpPage
+                <AuthPage
                   auth={this.state.authenticated}
-                  handleSignUp={(e) => this.handleSignUp(e)}
-                  registerEmail={this.state.registerEmail}
-                  registerPassword={this.state.registerPassword}
-                  registerConfirmPassword={this.state.registerConfirmPassword}
-                  handleInputChange={(e) => this.handleInputChange(e)}
-                  errorHandler={(error) => this.showError(error)}
-                  noticeHandler={(notice) => this.showNotice(notice)}
-                  apiResponseHandler={(res, successMessage) => this.apiResponseHandler(res, successMessage)}
+                  pageTitle={"Sign Up"}
+                  image={signup_img}
+                  authPane={
+                    <SignUpPane
+                      handleSignUp={(e) => this.handleSignUp(e)}
+                      registerEmail={this.state.registerEmail}
+                      registerPassword={this.state.registerPassword}
+                      registerConfirmPassword={this.state.registerConfirmPassword}
+                      handleInputChange={(e) => this.handleInputChange(e)}
+                      handleLogInClicked={""}
+                    />
+                  }
                 />
             }/>
             <Route
