@@ -122,7 +122,7 @@ class App extends Component {
   }
 
   getUser(){
-    fetch("api/web/users/me", {
+    fetch("/api/web/users/me", {
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Token ${Auth.getToken()}`
@@ -319,7 +319,7 @@ class App extends Component {
                 />
             }/>
             <Route
-              path="/:itemInfo"
+              path="/catalog/:itemInfo"
               render={(props) =>
                 <ItemDetailPage
                   {...props}

@@ -201,13 +201,13 @@ class CatalogPage extends Component {
   }
   
   setBrowserURLwithoutRerender(url, title="The Rotation | Catalog") {
-    window.history.pushState({"pageTitle":title},"", url);
+    window.history.pushState({"pageTitle":title},title, url);
   }
   
   itemDetailUrlForItem(item) {
     var str = item.title.value+"-"+item.subtitle+"-"+item.id;
     str = str.replace(/\s+/g, '-').toLowerCase();
-    return str
+    return ("/catalog/"+str)
   }
 
   requestToBuy(e){
