@@ -324,6 +324,9 @@ class App extends Component {
                 <ItemDetailPage
                   {...props}
                   auth={this.state.authenticated}
+                  userLoggedIn={this.state.userLoggedIn}
+                  errorHandler={(error) => this.showError(error)}
+                  noticeHandler={(notice) => this.showNotice(notice)}
                   apiResponseHandler={(res, successMessage) => this.apiResponseHandler(res, successMessage)}
                 />
             }/>

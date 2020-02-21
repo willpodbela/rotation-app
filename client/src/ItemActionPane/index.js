@@ -186,7 +186,7 @@ class ItemActionPane extends Component {
     
     return (
       <div className="ItemActionPane">
-        <div className="modal_brand proxima_small rotation_gray opacity6 uppercase top50 padding_sides50">{selectedItem.title.value}</div>
+        <div className="modal_brand proxima_small rotation_gray opacity6 uppercase padding_sides50">{selectedItem.title.value}</div>
         <div className="modal_description height180 overflow_scroll druk_medium rotation_gray line_height24 padding_top10 padding_sides50 capitalize">{selectedItem.subtitle}</div>
         {this.props.auth && this.state.subscription ? (
           <div>

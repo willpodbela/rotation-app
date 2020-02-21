@@ -322,14 +322,16 @@ class CatalogPage extends Component {
               </div>
               <div className="modal_section height500 width_half white_background">
                 <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
-                <ItemActionPane
-                  item={selectedItem}
-                  auth={this.props.auth}
-                  userLoggedIn={this.props.userLoggedIn}
-                  apiResponseHandler={this.props.apiResponseHandler}
-                  showOnboardingModal={(e) => this.toggleModal(e, "onboarding")}
-                  actionComplete={(e) => this.itemUpdated(e, selectedItem)}
-                />
+                <div className="top50">
+                  <ItemActionPane
+                    item={selectedItem}
+                    auth={this.props.auth}
+                    userLoggedIn={this.props.userLoggedIn}
+                    apiResponseHandler={this.props.apiResponseHandler}
+                    showOnboardingModal={(e) => this.toggleModal(e, "onboarding")}
+                    actionComplete={(e) => this.itemUpdated(e, selectedItem)}
+                  />
+                </div>
               </div>
             </div>
           </Modal>
