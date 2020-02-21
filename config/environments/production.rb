@@ -114,7 +114,7 @@ Rails.application.configure do
   
   
   # Config mailer
-  config.action_mailer.asset_host = 'http://rotation-app-staging-pr-140.herokuapp.com'
+  config.action_mailer.asset_host = 'http://therotation.club'
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = { :host => 'rotation-app.herokuapp.com' }
