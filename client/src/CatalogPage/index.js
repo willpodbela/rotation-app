@@ -35,12 +35,6 @@ class CatalogPage extends Component {
         {value: "L", selected: false},
         {value: "XL", selected: false}
       ],
-      modalSizes: [
-        {value: "S", selected: false, available: false},
-        {value: "M", selected: false, available: false},
-        {value: "L", selected: false, available: false},
-        {value: "XL", selected: false, available: false}
-      ],
       modalViews: [
         {view: "reserve", display: true},
         {view: "onboarding", display: false},
@@ -49,8 +43,7 @@ class CatalogPage extends Component {
         {view: "billing", display: false},
         {view: "shipping", display: false},
         {view: "confirm", display: false}
-      ],
-      stripeID: ""
+      ]
     }
     if(this.props.userLoggedIn){
       this.state.subscription = this.props.userLoggedIn.subscription || false
@@ -124,18 +117,6 @@ class CatalogPage extends Component {
     this.setState({sizes: sizesCopy})
   }
 
-  toggleModalSizes(e){
-    let sizesCopy = [...this.state.modalSizes]
-    this.state.modalSizes.forEach((size, index) => {
-      if(size.available && size.value === e.target.innerHTML){
-        sizesCopy[index].selected ? sizesCopy[index].selected = false : sizesCopy[index].selected = true
-      }else{
-        sizesCopy[index].selected = false
-      }
-    })
-    this.setState({modalSizes: sizesCopy})
-  }
-
   displayModal(e, item){
     this.setState({showModal: true, selectedItem: item})
     this.setBrowserURLwithoutRerender(this.itemDetailUrlForItem(item), ("The Rotation | "+item.title+" | "+item.subtitle))
@@ -157,15 +138,7 @@ class CatalogPage extends Component {
       this.setBrowserURLwithoutRerender("/catalog")
     }
     
-    this.setState({
-      showModal: false,
-      modalSizes: [
-        {value: "S", selected: false, available: false},
-        {value: "M", selected: false, available: false},
-        {value: "L", selected: false, available: false},
-        {value: "XL", selected: false, available: false}
-      ]
-    })
+    this.setState({ showModal: false })
     this.toggleModal(e, "reserve")
   }
 
@@ -189,7 +162,7 @@ class CatalogPage extends Component {
   }
   
   itemUpdated(e, item) {
-    //TODO: Update item in place
+    //TODO: Update item in place to avoid networking call every time.
     this.hideModal(e)
     this.componentDidMount()
   }
