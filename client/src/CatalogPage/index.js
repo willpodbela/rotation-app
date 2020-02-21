@@ -555,6 +555,7 @@ class CatalogPage extends Component {
                 userLoggedIn={this.props.userLoggedIn}
                 apiResponseHandler={this.props.apiResponseHandler}
                 onSuccessfulUpdate={(e) => this.toggleModal(e, "confirm")}
+                headerText="Add Shipping Address"
                 callToActionTitle={
                   ["Next Step",<FontAwesomeIcon className="white font12 left20" icon="chevron-right" />]
                 }

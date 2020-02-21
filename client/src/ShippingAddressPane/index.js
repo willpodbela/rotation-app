@@ -92,7 +92,7 @@ class AccountPage extends Component {
   render(){
     return (
       <div className="ShippingAddressPane width620">
-        <div className="account_title druk_xs medium rotation_gray">Shipping Address</div>
+        <div className="account_title druk_xs medium rotation_gray">{this.props.headerText || "Shipping Address"}</div>
         <div className="input_group flex justify_between width_full">
           <RTUIFormInput title="First Name" name="firstName" value={this.state.firstName} onChange={(e) => this.handleInputChange(e)}/>
           <RTUIFormInput title="Last Name" name="lastName" value={this.state.lastName} onChange={(e) => this.handleInputChange(e)}/>
