@@ -3,8 +3,8 @@ include Queries
 module Api
   module Web
     class ItemsController < Api::Web::BaseController
-      skip_before_action :authenticate_user_from_token!, only: [:index]
-      before_action :authenticate_user_from_token, only: [:index]
+      skip_before_action :authenticate_user_from_token!, only: [:show, :index]
+      before_action :authenticate_user_from_token, only: [:show, :index]
       before_action :set_inventory, only: [:show, :index]
       
       #Failsafe: Override endpoints that we don't want to make available
