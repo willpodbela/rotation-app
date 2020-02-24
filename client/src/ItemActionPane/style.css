@@ -18,6 +18,12 @@
   max-width: 1312px;
   margin: auto;
 }
+.product_description{
+  height: 200px;
+  position: absolute;
+  top: 180px;
+}
+
 @media (max-width: 1491px) {
   .catalog_section{
     width: 708px !important;

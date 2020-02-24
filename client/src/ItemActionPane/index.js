@@ -187,7 +187,10 @@ class ItemActionPane extends Component {
     return (
       <div className="ItemActionPane">
         <div className="modal_brand proxima_small rotation_gray opacity6 uppercase padding_sides50">{selectedItem.title.value}</div>
-        <div className="modal_description height180 overflow_scroll druk_medium rotation_gray line_height24 padding_top10 padding_sides50 capitalize">{selectedItem.subtitle}</div>
+        <div className="modal_description overflow_scroll druk_medium rotation_gray line_height24 padding_top10 padding_sides50 capitalize">{selectedItem.subtitle}</div>
+        {/* description should be fixed position from top of container */}
+        <div className="modal_brand proxima_small overflow_scroll rotation_gray padding_sides50">{selectedItem.description}</div>
+        {/* Buttons should be fixed position from bottom of container */}
         {this.props.auth && this.state.subscription ? (
           <div>
             <div className="modal_size_btns flex top40 sides50 justify_between">
