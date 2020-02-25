@@ -7,12 +7,14 @@ import ShippingAddressPane from "../ShippingAddressPane"
 import BillingPane from "../BillingPane"
 import LoginPane from "../LoginPane"
 import SignUpPane from "../SignUpPane"
+import PromoCodePane from "../PromoCodePane"
 
 class OnboardingModal extends Component {
   constructor(props){
     super(props)
     this.state = {
       currentModal: false,
+      showPromoCode: false,
       planOptions: [
         {itemQty: 2, monthlyCost: "$89", selected: false},
         {itemQty: 3, monthlyCost: "$129", selected: false},
@@ -65,6 +67,10 @@ class OnboardingModal extends Component {
       this.props.errorHandler({message: "Please select a plan."})
     }
   }
+  
+  showPromoCodePane(e){
+    this.setState({showPromoCode: true})
+  }
 
   createSubscription(e, stripeID, itemQuantity){
     fetch("/api/web/subscription", {
@@ -86,8 +92,12 @@ class OnboardingModal extends Component {
     })
   }
   
+  selectedPlanMonthlyCostInt() {
+    return parseInt(this.state.planOptions.find(plan => plan.selected).monthlyCost.replace('$', ''))
+  }
+  
   subtotal() {
-    let subtotal = parseInt(this.state.planOptions.find(plan => plan.selected).monthlyCost.replace('$', ''))
+    let subtotal = this.selectedPlanMonthlyCostInt()
     let c = this.props.userLoggedIn.coupon
     if (c) {
       if(c.amount_off) {
@@ -117,7 +127,7 @@ class OnboardingModal extends Component {
               <div>
                 <div className="druk_xs medium rotation_gray">Checkout</div>
                 <div className="proxima_large semibold rotation_gray top30">The Rotation</div>
-                <div className="proxima_large rotation_gray opacity6">{planSelected.itemQty} Items at a Time - {planSelected.monthlyCost} / month</div>
+                <div className="proxima_large rotation_gray opacity6">{planSelected.itemQty} Items at a Time - {this.subtotal()!==this.selectedPlanMonthlyCostInt() && "$"+this.subtotal()+" today, "}{planSelected.monthlyCost}/month {this.subtotal()!==this.selectedPlanMonthlyCostInt() && "after that"}</div>
                 <div className="confirm_modal_box width400 height100 rotation_gray_border top20">
                   <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />You'll be charged ${this.subtotal()} now for your first month</div>
                   <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />You'll be charged {planSelected.monthlyCost} for each month after that</div>
@@ -143,17 +153,28 @@ class OnboardingModal extends Component {
               />
             }
             {this.state.currentModal == "billing" &&
-              <BillingPane
-                auth={this.props.auth}
-                userLoggedIn={this.props.userLoggedIn}
-                apiResponseHandler={this.props.apiResponseHandler}
-                onSuccessfulTokenization={(token) => this.successfulBillingTokenization(token)}
-                errorHandler={(error) => this.props.errorHandler}
-                headerText="Add Billing Info"
-                callToActionTitle={
-                  ["Next Step",<FontAwesomeIcon className="white font12 left20" icon="chevron-right" />]
-                }
-              />
+              <div>
+                <BillingPane
+                  auth={this.props.auth}
+                  userLoggedIn={this.props.userLoggedIn}
+                  apiResponseHandler={this.props.apiResponseHandler}
+                  onSuccessfulTokenization={(token) => this.successfulBillingTokenization(token)}
+                  errorHandler={(error) => this.props.errorHandler}
+                  headerText="Add Billing Info"
+                  callToActionTitle={
+                    ["Next Step",<FontAwesomeIcon className="white font12 left20" icon="chevron-right" />]
+                  }
+                />
+                {this.state.showPromoCode ? (
+                  <PromoCodePane
+                    auth={this.props.auth}
+                    userLoggedIn={this.props.userLoggedIn}
+                    apiResponseHandler={this.props.apiResponseHandler}
+                  />
+                ) : (
+                  <div className="proxima_small medium underline rotation_gray top10 bottom20 flex justify_start cursor_pointer" onClick={(e) => this.showPromoCodePane(e)}>Have a promo or referral code?</div>
+                )}
+              </div>
             }
             {this.state.currentModal == "plans" &&
               <div className="width500">
