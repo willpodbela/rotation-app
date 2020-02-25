@@ -24,6 +24,11 @@
   top: 180px;
 }
 
+.modal_buttons{
+  position: absolute;
+  bottom: 24px;
+}
+
 @media (max-width: 1491px) {
   .catalog_section{
     width: 708px !important;

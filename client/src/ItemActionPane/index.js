@@ -189,7 +189,7 @@ class ItemActionPane extends Component {
         <div className="modal_brand proxima_small rotation_gray opacity6 uppercase padding_sides50">{selectedItem.title.value}</div>
         <div className="modal_description overflow_scroll druk_medium rotation_gray line_height24 padding_top10 padding_sides50 capitalize">{selectedItem.subtitle}</div>
         {/* description should be fixed position from top of container */}
-        <div className="modal_brand proxima_small overflow_scroll rotation_gray padding_sides50">{selectedItem.description}</div>
+        <div className="modal_brand product_description proxima_small overflow_scroll rotation_gray padding_sides50">{selectedItem.description}</div>
         {/* Buttons should be fixed position from bottom of container */}
         {this.props.auth && this.state.subscription ? (
           <div>
@@ -240,7 +240,7 @@ class ItemActionPane extends Component {
             </div>
           </div>
         ) : (
-          <div className="modal_buttons sides50 flex justify_between top130">
+          <div className="modal_buttons sides50 flex justify_between">
             <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}>Reserve</div>
             <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}><img src={Unfavorite} height="14" width="14" alt="" /></div>
           </div>
