@@ -92,8 +92,12 @@ class OnboardingModal extends Component {
     })
   }
   
+  selectedPlanMonthlyCostInt() {
+    return parseInt(this.state.planOptions.find(plan => plan.selected).monthlyCost.replace('$', ''))
+  }
+  
   subtotal() {
-    let subtotal = parseInt(this.state.planOptions.find(plan => plan.selected).monthlyCost.replace('$', ''))
+    let subtotal = this.selectedPlanMonthlyCostInt()
     let c = this.props.userLoggedIn.coupon
     if (c) {
       if(c.amount_off) {
@@ -123,7 +127,7 @@ class OnboardingModal extends Component {
               <div>
                 <div className="druk_xs medium rotation_gray">Checkout</div>
                 <div className="proxima_large semibold rotation_gray top30">The Rotation</div>
-                <div className="proxima_large rotation_gray opacity6">{planSelected.itemQty} Items at a Time - {planSelected.monthlyCost} / month</div>
+                <div className="proxima_large rotation_gray opacity6">{planSelected.itemQty} Items at a Time - {this.subtotal()!==this.selectedPlanMonthlyCostInt() && "$"+this.subtotal()+" today, "}{planSelected.monthlyCost}/month {this.subtotal()!==this.selectedPlanMonthlyCostInt() && "after that"}</div>
                 <div className="confirm_modal_box width400 height100 rotation_gray_border top20">
                   <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />You'll be charged ${this.subtotal()} now for your first month</div>
                   <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />You'll be charged {planSelected.monthlyCost} for each month after that</div>
