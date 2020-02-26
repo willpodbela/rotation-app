@@ -11,10 +11,13 @@
       <th><%= sort_link "id", "#" %></th>
       <th><%= sort_link "title" %></th>
       <th><%= sort_link "subtitle" %></th>
-      <th><%= sort_link "virtual_qty", "Max V-Qty" %></th>
+      <th><%= sort_link "category" %></th>
+      <th><%= sort_link "sub_category" %></th>
+      <th><%= sort_link "meta_category" %></th>
+      <th><%= sort_link "color" %></th>
+      <th><%= sort_link "supplier_color" %></th>
       <th>Owned Inventory</th>
       <th><%= sort_link "hidden", "Visible?" %></th>
-      <th><%= sort_link "special", "Special?" %></th>
       <th><%= sort_link "landing_featured", "Featured?" %></th>
     </tr>
     <% @items.each do |item| %>
@@ -22,7 +25,11 @@
       <td><%= item.id %></td>
       <td><%= item.title %></td>
       <td><%= item.subtitle %></td>
-      <td><%= item.virtual_qty %></td>
+      <td><%= item.category %></td>
+      <td><%= item.sub_category %></td>
+      <td><%= item.meta_category %></td>
+      <td><%= item.color %></td>
+      <td><%= item.supplier_color %></td>
       <td>
         <% Unit.sizes.keys.each do |size| %>
           <% num = @owned_inventory_counts[[item.id, size]] %>
@@ -32,7 +39,6 @@
         <% end %>
       </td>
       <td><%= item.hidden ? '✗' : '✓' %></td>
-      <td><%= item.special ? '✓' : '✗' %></td>
       <td><%= item.landing_featured ? '✓' : '✗'  %></td>
       <td class="actions">
         <%= link_to("Show", item_path(item), :class => 'action -show') %>
