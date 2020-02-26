@@ -73,7 +73,7 @@ class ItemsController < AdminBaseController
   end
   
   def sortable_columns
-    ["id", "title", "subtitle", "virtual_qty", "hidden", "landing_featured", "special"]
+    ["id", "title", "subtitle", "hidden", "landing_featured", "category", "sub_category", "meta_category", "supplier_color", "color"]
   end
   
   def set_options
