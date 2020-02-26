@@ -29,11 +29,6 @@ class App extends Component {
     super(props)
     this.state = {
       authenticated: Auth.isUserAuthenticated(),
-      loginEmail: "",
-      loginPassword: "",
-      registerEmail: "",
-      regsiterPassword: "",
-      registerConfirmPassword: "",
       userLoggedIn: null,
       isLoading: false,
       error: null,
@@ -59,22 +54,20 @@ class App extends Component {
     window.analytics.reset()
     
     this.setState({
-      authenticated: Auth.isUserAuthenticated(),
-      loginEmail: "",
-      loginPassword: ""
+      authenticated: Auth.isUserAuthenticated()
     })
   }
 
-  forgotPassword(e){
+  forgotPassword(e, email){
     e.preventDefault()
     
-    if (this.state.loginEmail === "") {
+    if (email === "") {
       this.showError({message: "Please enter your email address in the login form and click again."})
     } else {
       fetch("/api/web/auth/forgot", {
         method: "POST",
         body: JSON.stringify({
-          email: this.state.loginEmail
+          email: email
         }),
         headers: {
           "Content-Type": "application/json"
@@ -83,16 +76,16 @@ class App extends Component {
     }
   }
 
-  handleSignUp(e){
+  handleSignUp(e, email, password, confirm){
     e.preventDefault()
-    if(this.state.registerPassword !== this.state.registerConfirmPassword){
-      console.log("Passwords don't match.")
+    if(password !== confirm){
+      this.showError({message: "Passwords don't match."})
     }else{
       fetch("/api/web/users", {
         method: "POST",
         body: JSON.stringify({
-          email: this.state.registerEmail.toLowerCase(),
-          password: this.state.registerPassword
+          email: email.toLowerCase(),
+          password: password
         }),
         headers: {
           "Content-Type": "application/json"
@@ -140,13 +133,13 @@ class App extends Component {
 
   }
 
-  handleLoginSubmit(e){
+  handleLoginSubmit(e, email, password){
     e.preventDefault()
     fetch("/api/web/auth/login", {
       method: "POST",
       body: JSON.stringify({
-        email: this.state.loginEmail.toLowerCase(),
-        password: this.state.loginPassword
+        email: email.toLowerCase(),
+        password: password
       }),
       headers: {
         "Content-Type": "application/json"
@@ -257,11 +250,8 @@ class App extends Component {
                   image={login_img}
                   authPane={
                     <LoginPane
-                      handleLoginSubmit={(e) => this.handleLoginSubmit(e)}
-                      loginEmail={this.state.loginEmail}
-                      loginPassword={this.state.loginPassword}
-                      handleInputChange={(e) => this.handleInputChange(e)}
-                      forgotPassword={(e) => this.forgotPassword(e)}
+                      handleLoginSubmit={(e, email, pass) => this.handleLoginSubmit(e, email, pass)}
+                      forgotPassword={(e, email) => this.forgotPassword(e, email)}
                       handleSignUpClicked={(e) => window.location.replace("/sign-up")}
                     />
                   }
@@ -276,11 +266,7 @@ class App extends Component {
                   image={signup_img}
                   authPane={
                     <SignUpPane
-                      handleSignUp={(e) => this.handleSignUp(e)}
-                      registerEmail={this.state.registerEmail}
-                      registerPassword={this.state.registerPassword}
-                      registerConfirmPassword={this.state.registerConfirmPassword}
-                      handleInputChange={(e) => this.handleInputChange(e)}
+                      handleSignUp={(e, email, pass, confirm) => this.handleSignUp(e, email, pass, confirm)}
                       handleLogInClicked={(e) => window.location.replace("/login")}
                     />
                   }
@@ -291,16 +277,9 @@ class App extends Component {
               render={() =>
                 <CatalogPage
                   auth={this.state.authenticated}
-                  handleSignUp={(e) => this.handleSignUp(e)}
-                  handleLoginSubmit={(e) => this.handleLoginSubmit(e)}
+                  handleSignUp={(e, email, pass, confirm) => this.handleSignUp(e, email, pass, confirm)}
+                  handleLoginSubmit={(e, email, pass) => this.handleLoginSubmit(e, email, pass)}
                   forgotPassword={(e) => this.forgotPassword(e)}
-                  showForgotPasswordMessage={this.state.showForgotPasswordMessage}
-                  loginEmail={this.state.loginEmail}
-                  loginPassword={this.state.loginPassword}
-                  handleInputChange={(e) => this.handleInputChange(e)}
-                  registerEmail={this.state.registerEmail}
-                  registerPassword={this.state.registerPassword}
-                  registerConfirmPassword={this.state.registerConfirmPassword}
                   errorHandler={(error) => this.showError(error)}
                   noticeHandler={(notice) => this.showNotice(notice)}
                   apiResponseHandler={(res, successMessage) => this.apiResponseHandler(res, successMessage)}
@@ -328,8 +307,9 @@ class App extends Component {
                   errorHandler={(error) => this.showError(error)}
                   noticeHandler={(notice) => this.showNotice(notice)}
                   apiResponseHandler={(res, successMessage) => this.apiResponseHandler(res, successMessage)}
-                  handleSignUp={(e) => this.handleSignUp(e)}
-                  handleLoginSubmit={(e) => this.handleLoginSubmit(e)}
+                  handleSignUp={(e, email, pass) => this.handleSignUp(e, email, pass)}
+                  handleLoginSubmit={(e, email, pass, confirm) => this.handleLoginSubmit(e, email, pass, confirm)}
+                  forgotPassword={(e, email) => this.forgotPassword(e, email)}
                 />
             }/>
             <Route path="/terms" exact component={TermsPage} />

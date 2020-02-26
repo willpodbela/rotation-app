@@ -314,6 +314,7 @@ class CatalogPage extends Component {
             errorHandler={this.props.errorHandler}
             handleSignUp={this.props.handleSignUp}
             handleLoginSubmit={this.props.handleLoginSubmit}
+            forgotPassword={this.props.forgotPassword}
           />
         }
         {(this.state.showModal && displayReserveModal) &&

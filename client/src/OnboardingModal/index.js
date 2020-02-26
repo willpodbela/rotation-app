@@ -208,9 +208,6 @@ class OnboardingModal extends Component {
             {this.state.currentModal == "login" &&
               <LoginPane
                 handleLoginSubmit={this.props.handleLoginSubmit}
-                loginEmail={this.state.loginEmail}
-                loginPassword={this.props.loginPassword}
-                handleInputChange={this.props.handleInputChange}
                 forgotPassword={this.props.forgotPassword}
                 handleSignUpClicked={(e) => this.showModal("signup")}
               />
@@ -218,10 +215,6 @@ class OnboardingModal extends Component {
             {this.state.currentModal == "signup" &&
               <SignUpPane
                 handleSignUp={this.props.handleSignUp}
-                registerEmail={this.props.registerEmail}
-                registerPassword={this.props.registerPassword}
-                registerConfirmPassword={this.props.registerConfirmPassword}
-                handleInputChange={this.props.handleInputChange}
                 handleLogInClicked={(e) => this.showModal("login")}
               />
             }
