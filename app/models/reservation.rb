@@ -14,8 +14,14 @@ class Reservation < ApplicationRecord
   enum status: [ :scheduled, :processing, :active, :returned, :ended, :cancelled ]
   
   def days
-    d = end_date || Time.zone.now
-    (d - start_date).to_i/1.day
+    d = (end_date || Date.today).to_date
+    (d - start_date.to_date).to_i
+  end
+  
+  def days_active(since = nil)
+    d = [(end_date || Date.today), since].compact.max.to_date
+    s = [start_date, since].compact.max.to_date
+    (d - s).to_i
   end
   
   before_create do |reservation|

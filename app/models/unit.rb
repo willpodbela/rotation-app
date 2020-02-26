@@ -15,6 +15,12 @@ class Unit < ApplicationRecord
     (cost || 0) + (supplier_shipping_cost || 0)
   end
   
+  def days_in_service(since = nil)
+    d = [(retire_date || Date.today), since].compact.max.to_date
+    s = [(order_date || created_at), since].compact.max.to_date
+    (d - s).to_i
+  end
+  
   before_save do |unit|
     # If unit is sold, returned, or retired, set its retire_date
     unit.retire_date = Date.today if ((["pending", "in_transit_from_supplier", "available"].include? unit.status_was) && (["sold", "returned", "retired"].include? unit.status))
