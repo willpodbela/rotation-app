@@ -29,7 +29,7 @@
   
   <h3>Penetration</h3>
   <%= form_tag('index', :method => "get") do %>
-    <%= select_tag "slice_by", options_from_collection_for_select(@slice_options, "to_s", "titleize", @slice_by), include_blank: true %>
+    <%= select_tag "slice_by", options_from_collection_for_select(@slice_options, "to_s", "titleize", @slice_by), include_blank: true, class: "width200" %>
     <%= submit_tag 'Filter' %>
   <% end %>
   <p class="top10"><i>Total days rented / total days available across all the units.</i></p>

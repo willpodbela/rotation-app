@@ -1,13 +1,13 @@
 class KpiController < ApplicationController
+  before_action :slice_setup
+
   def index
     @visible_count = Item.visible.with_images.count
     @inventory = Queries::Inventory.new
     
-    @slice_options = slice_options
-    @slice_by = slice_by
     @penetration_items = Item.visible
     .includes(:not_cancelled_reservations, :units)
-    .group_by(&slice_by.to_sym)
+    .group_by(&@slice_by.to_sym)
     
     @customer_sizes = Hash.new
     User.paying_customers.each do |u|
@@ -23,12 +23,9 @@ class KpiController < ApplicationController
     params.permit(:slice_by)
   end
   
-  def slice_by
-    slice_options.include?(params[:slice_by]) ? params[:slice_by] : "category"
+  def slice_setup
+    @slice_options = ["title", "color", "category", "sub_category", "meta_category", "supplier_color"]
+    @slice_by = @slice_options.include?(params[:slice_by]) ? params[:slice_by] : "category"
   end
-  
-  def slice_options
-    ["title", "color", "category", "sub_category", "meta_category", "supplier_color"]
-  end
-  
+   
 end
