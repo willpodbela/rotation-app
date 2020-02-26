@@ -67,14 +67,14 @@ class Item < ApplicationRecord
   
   # Total days rented across all reservations and units (active and ended)
   # eager_load not_cancelled_reservations when planning to make this call
-  def cum_days_rented
-    not_cancelled_reservations.to_a.sum(&:days)
+  def cum_days_rented(since = nil)
+    not_cancelled_reservations.to_a.sum {|e| e.days_active(since) }
   end
   
   # Sum of total days all units were in service for rental
   # eager_load units when planning to make this call
-  def cum_days_units_in_service
-    units.to_a.sum(&:days_in_service)
+  def cum_days_units_in_service(since = nil)
+    units.to_a.sum {|e| e.days_in_service(since) }
   end
   
   # Days since last rental ended. Will return 0 if there is an active rental. Will return

@@ -15,9 +15,9 @@ class Unit < ApplicationRecord
     (cost || 0) + (supplier_shipping_cost || 0)
   end
   
-  def days_in_service
-    d = retire_date || Time.zone.now
-    s = (order_date || created_at).to_datetime
+  def days_in_service(since = nil)
+    d = [(retire_date || Time.zone.now), since].compact.max
+    s = [(order_date || created_at).to_datetime, since].compact.max
     (d - s).to_i/1.day
   end
   

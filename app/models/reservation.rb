@@ -18,6 +18,12 @@ class Reservation < ApplicationRecord
     (d - start_date).to_i/1.day
   end
   
+  def days_active(since = nil)
+    d = [(end_date || Time.zone.now), since].compact.max
+    s = [start_date, since].compact.max
+    (d - s).to_i/1.day
+  end
+  
   before_create do |reservation|
     reservation.start_date = Date.today
   end
