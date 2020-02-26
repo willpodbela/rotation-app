@@ -17,7 +17,7 @@ class Unit < ApplicationRecord
   
   def days_in_service
     d = retire_date || Time.zone.now
-    s = order_date || created_at
+    s = (order_date || created_at).to_datetime
     (d - s).to_i/1.day
   end
   
