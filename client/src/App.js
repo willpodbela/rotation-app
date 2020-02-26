@@ -328,6 +328,8 @@ class App extends Component {
                   errorHandler={(error) => this.showError(error)}
                   noticeHandler={(notice) => this.showNotice(notice)}
                   apiResponseHandler={(res, successMessage) => this.apiResponseHandler(res, successMessage)}
+                  handleSignUp={(e) => this.handleSignUp(e)}
+                  handleLoginSubmit={(e) => this.handleLoginSubmit(e)}
                 />
             }/>
             <Route path="/terms" exact component={TermsPage} />

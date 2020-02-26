@@ -83,7 +83,9 @@ class ItemDetailPage extends Component {
             userLoggedIn={this.props.userLoggedIn}
             onClose={(e) => this.hideOnboardingModal(e)}
             apiResponseHandler={this.props.apiResponseHandler}
-            errorHandler={(error) => this.props.errorHandler}
+            errorHandler={this.props.errorHandler}
+            handleSignUp={this.props.handleSignUp}
+            handleLoginSubmit={this.props.handleLoginSubmit}
           />
         }
       </div>
