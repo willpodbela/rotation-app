@@ -4,7 +4,7 @@
   <h2>Inventory KPIs</h2>
   
   <h3>Product Availability</h3>
-  <table class="listing admin_table" summary="Unit list">
+  <table class="listing admin_table" summary="Currently available SKUs when filtering by size">
     <tr class="header">
       <th>Size Filter</th>
       <th>Displayed SKUs</th>
@@ -25,5 +25,24 @@
       <td>All</td>
       <td><%= @inventory.unique_available_item_count.keys.count %></td>
     </tr>
+  </table>
+  
+  <h3>Penetration</h3>
+  <%= form_tag('index', :method => "get") do %>
+    <%= select_tag "slice_by", options_from_collection_for_select(@slice_options, "to_s", "titleize", @slice_by), include_blank: true %>
+    <%= submit_tag 'Filter' %>
+  <% end %>
+  <p class="top10"><i>Total days rented / total days available across all the units.</i></p>
+  <table class="listing admin_table" summary="Unit list">
+    <tr class="header">
+      <th><%= @slice_by.titleize %></th>
+      <th>All-time</th>
+    </tr>
+    <% @penetration_items.each do |value, array| %>
+    <tr>
+      <td><%= value || "*No Value" %></td>
+      <td><%= array.first.cum_days_rented / (array.first.cum_days_units_in_service.to_f.nonzero? || 1) %></td>
+    </tr>
+    <% end %>
   </table>
 </div>

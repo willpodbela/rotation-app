@@ -65,17 +65,21 @@ class Item < ApplicationRecord
     end
   end
   
-  # Rental stat functions
-  # All calculations output in days and do not include cancelled reservations.
-  # Controller should include/preload not_cancelled_reservations if using in UI
-  
-  # Total days rented across all reservations (active and ended)
+  # Total days rented across all reservations and units (active and ended)
+  # eager_load not_cancelled_reservations when planning to make this call
   def cum_days_rented
     not_cancelled_reservations.to_a.sum(&:days)
   end
   
+  # Sum of total days all units were in service for rental
+  # eager_load units when planning to make this call
+  def cum_days_units_in_service
+    units.to_a.sum(&:days_in_service)
+  end
+  
   # Days since last rental ended. Will return 0 if there is an active rental. Will return
   # nil if item has never been rented.
+  # eager_load not_cancelled_reservations when planning to make this call
   def days_since_last_rental
     if not_cancelled_reservations.length == 0
       return nil
