@@ -46,7 +46,7 @@ module Scripts
         end
       end
       
-      output << "Succesfully added #{success} items."
+      output << "Succesfully added #{success} units."
       puts output
     end
   end

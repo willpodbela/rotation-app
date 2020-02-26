@@ -6,7 +6,7 @@
       <%= link_to("KPI Dashboard", kpi_index_path, :class => 'action index') %></br>
       <%= link_to("Fulfillment Assistant", fulfillment_index_path(:column => "status", :direction => "asc"), :class => 'action index') %></br>
       </br>
-      <%= link_to("Item Manager", items_path, :class => 'action index') %></br>
+      <%= link_to("Item Manager", items_path(:hidden => "false"), :class => 'action index') %></br>
       <%= link_to("Inventory Manager", units_path, :class => 'action index') %></br>
       <%= link_to("Reservation Manager", reservations_path, :class => 'action index') %></br>
       <%= link_to("User Manager", users_path, :class => 'action index') %></br>
