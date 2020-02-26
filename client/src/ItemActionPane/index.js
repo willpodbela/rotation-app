@@ -191,7 +191,7 @@ class ItemActionPane extends Component {
         <div className="product_description proxima_small overflow_scroll rotation_gray">{selectedItem.description}</div>
         {this.props.auth && this.state.subscription ? (
           <div>
-            <div className="modal_size_btns flex top40 sides50 justify_between">
+            <div className="modal_size_btns flex top40 justify_between">
               {this.state.modalSizes.forEach(size => {
                 size.available = selectedItem.sizes[size.value] > 0
               })}
@@ -222,7 +222,7 @@ class ItemActionPane extends Component {
                 })
               )}
             </div>
-            <div className="modal_buttons sides50 flex justify_between top40">
+            <div className="modal_buttons flex justify_between top40">
               {myRotationItemSelected ? (
                 <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer green request_to_buy" onClick={(e) => this.requestToBuy(e)}>Request to Buy</div>
               ) : upNextItemSelected ? (
@@ -238,7 +238,7 @@ class ItemActionPane extends Component {
             </div>
           </div>
         ) : (
-          <div className="modal_buttons sides50 flex justify_between">
+          <div className="modal_buttons flex">
             <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}>Reserve</div>
             <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}><img src={Unfavorite} height="14" width="14" alt="" /></div>
           </div>

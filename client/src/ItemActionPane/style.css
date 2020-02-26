@@ -25,11 +25,11 @@
   margin-bottom: 30px;
 }
 .product_description{
-  height: 100%;
   max-height: 300px;
+  margin: 30px 0px;
 }
 .modal_buttons{
-  margin-top: 30px;
+  margin: 30px 5px;
 }
 
 @media (max-width: 1491px) {
@@ -84,10 +84,12 @@
 }
 .reserve_btn{
   height: 44px;
+  margin: 0px 5px;
 }
 .modal_btn{
   width: 44px;
   height: 44px;
+  margin: 0px 5px;
 }
 .modal_item{
   max-width: 800px !important;
@@ -119,10 +121,7 @@
     width: 100%;
   }
   .modal_description{
-    text-align: center;
     font-size: 18px;
-    padding-left: 10px;
-    padding-right: 10px;
   }
   .plan_modal{
     margin-top: 250px;
