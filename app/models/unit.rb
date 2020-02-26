@@ -16,9 +16,9 @@ class Unit < ApplicationRecord
   end
   
   def days_in_service(since = nil)
-    d = [(retire_date || Time.zone.now), since].compact.max
-    s = [(order_date || created_at).to_datetime, since].compact.max
-    (d - s).to_i/1.day
+    d = [(retire_date || Date.today), since].compact.max.to_date
+    s = [(order_date || created_at), since].compact.max.to_date
+    (d - s).to_i
   end
   
   before_save do |unit|
