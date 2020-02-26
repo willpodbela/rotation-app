@@ -15,7 +15,7 @@
       <th>Owned Inventory</th>
       <th><%= sort_link "hidden", "Visible?" %></th>
       <th><%= sort_link "special", "Special?" %></th>
-      <th class="black-border-right"><%= sort_link "landing_featured", "Featured?" %></th>
+      <th><%= sort_link "landing_featured", "Featured?" %></th>
     </tr>
     <% @items.each do |item| %>
     <tr>
@@ -33,7 +33,7 @@
       </td>
       <td><%= item.hidden ? '✗' : '✓' %></td>
       <td><%= item.special ? '✓' : '✗' %></td>
-      <td class="black-border-right"><%= item.landing_featured ? '✓' : '✗'  %></td>
+      <td><%= item.landing_featured ? '✓' : '✗'  %></td>
       <td class="actions">
         <%= link_to("Show", item_path(item), :class => 'action -show') %>
         <%= link_to("Edit", edit_item_path(item), :class => 'action edit') %>
