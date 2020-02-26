@@ -94,24 +94,12 @@
   .modal_section{
     min-height: 1000px !important;
   }
-  .modal_brand{
-    margin-top: 250px;
-  }
   .reserve_btn{
     width: 100%;
   }
   .like_btn{
     margin-top: 20px;
     width: 100%;
-  }
-  .modal_brand{
-    text-align: center;
-  }
-  .modal_description{
-    text-align: center;
-    font-size: 18px;
-    padding-left: 10px;
-    padding-right: 10px;
   }
   .plan_modal{
     margin-top: 250px;

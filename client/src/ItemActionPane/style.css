@@ -18,6 +18,20 @@
   max-width: 1312px;
   margin: auto;
 }
+.modal_brand{
+  margin: 10px 20px;
+}
+.modal_description{
+  margin: 30px 20px;
+}
+.product_description{
+  max-height: 300px;
+  margin: 30px 20px;
+}
+.modal_buttons{
+  margin: 30px 20px;
+}
+
 @media (max-width: 1491px) {
   .catalog_section{
     width: 708px !important;
@@ -70,10 +84,12 @@
 }
 .reserve_btn{
   height: 44px;
+  margin: 0px 5px;
 }
 .modal_btn{
   width: 44px;
   height: 44px;
+  margin: 0px 5px;
 }
 .modal_item{
   max-width: 800px !important;
@@ -95,7 +111,7 @@
     min-height: 1000px !important;
   }
   .modal_brand{
-    margin-top: 250px;
+    margin-top: 25px;
   }
   .reserve_btn{
     width: 100%;
@@ -104,14 +120,8 @@
     margin-top: 20px;
     width: 100%;
   }
-  .modal_brand{
-    text-align: center;
-  }
   .modal_description{
-    text-align: center;
     font-size: 18px;
-    padding-left: 10px;
-    padding-right: 10px;
   }
   .plan_modal{
     margin-top: 250px;
