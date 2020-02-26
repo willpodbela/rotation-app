@@ -96,6 +96,7 @@ class App extends Component {
           Auth.authenticateToken(token)
           this.setState({
             authenticated: Auth.isUserAuthenticated(),
+            userLoggedIn: res.user,
             isLoading: false
           })
           
@@ -150,9 +151,7 @@ class App extends Component {
         Auth.authenticateToken(token)
         this.setState({
           authenticated: Auth.isUserAuthenticated(),
-          loginEmail: "",
           userLoggedIn: res.user,
-          loginPassword: "",
           isLoading: false
         })
         
