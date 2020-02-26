@@ -42,8 +42,8 @@
     <% @penetration_items.each do |value, array| %>
     <tr>
       <td><%= value || "*No Value" %></td>
-      <td><%= number_with_precision(array.first.cum_days_rented(Time.zone.now-90.day) * 100 / (array.first.cum_days_units_in_service(Time.zone.now-90.day).to_f.nonzero? || 1), :precision => 2) %>%</td>
-      <td><%= number_with_precision(array.first.cum_days_rented(Time.zone.now-30.day) * 100 / (array.first.cum_days_units_in_service(Time.zone.now-30.day).to_f.nonzero? || 1), :precision => 2) %>%</td>
+      <td><%= number_with_precision((array.sum {|e| e.cum_days_rented(Time.zone.now-90.day) }) * 100 / ((array.sum {|e| e.cum_days_units_in_service(Time.zone.now-90.day)}).to_f.nonzero? || 1), :precision => 2) %>%</td>
+      <td><%= number_with_precision((array.sum {|e| e.cum_days_rented(Time.zone.now-30.day) }) * 100 / ((array.sum {|e| e.cum_days_units_in_service(Time.zone.now-30.day)}).to_f.nonzero? || 1), :precision => 2) %>%</td>
     </tr>
     <% end %>
   </table>
