@@ -18,15 +18,18 @@
   max-width: 1312px;
   margin: auto;
 }
-.product_description{
-  height: 200px;
-  position: absolute;
-  top: 180px;
+.modal_brand{
+  margin-bottom: 10px;
 }
-
+.modal_description{
+  margin-bottom: 30px;
+}
+.product_description{
+  height: 100%;
+  max-height: 300px;
+}
 .modal_buttons{
-  position: absolute;
-  bottom: 24px;
+  margin-top: 30px;
 }
 
 @media (max-width: 1491px) {
@@ -106,7 +109,7 @@
     min-height: 1000px !important;
   }
   .modal_brand{
-    margin-top: 250px;
+    margin-top: 25px;
   }
   .reserve_btn{
     width: 100%;
@@ -114,9 +117,6 @@
   .like_btn{
     margin-top: 20px;
     width: 100%;
-  }
-  .modal_brand{
-    text-align: center;
   }
   .modal_description{
     text-align: center;
