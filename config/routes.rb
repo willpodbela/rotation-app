@@ -16,10 +16,15 @@ Rails.application.routes.draw do
 
   resources :reservations, only: [:index]
   resources :fulfillment, only: [:index]
-  resources :units, only: [:index]
+  resources :units, only: [:index] do
+    post :edit_multiple, on: :collection
+    post :update_multiple, on: :collection
+  end
   resources :items do
     resources :reservations, shallow: true
     resources :units, shallow: true
+    post :edit_multiple, on: :collection
+    post :update_multiple, on: :collection
     get 'image-matching-tool', on: :collection
   end
 
