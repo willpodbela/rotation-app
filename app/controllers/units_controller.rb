@@ -61,6 +61,19 @@ class UnitsController < AdminBaseController
   def destroy
     # TODO render 404.
   end
+  
+  def edit_multiple
+    @units = Unit.find(params[:unit_ids])
+  end
+  
+  def update_multiple
+    @units = Unit.find(params[:unit_ids])
+    @units.each do |unit|
+      unit.update_attributes!(unit_params.reject { |k,v| v.blank? })
+    end
+    flash[:notice] = "Updated units!"
+    redirect_to units_path
+  end
 
   private
 

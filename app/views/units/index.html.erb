@@ -11,10 +11,12 @@
   </p>
   <% end %>
   
+  <%= form_tag edit_multiple_units_path do %>
   <%= link_to("Add New Unit", new_item_unit_path(@item), :class => 'action new') unless @item.nil? %>
-  
+  <%= submit_tag "Edit Multiple" %>
   <table class="listing admin_table" summary="Unit list">
     <tr class="header">
+      <th></th>
       <th><%= sort_link "items.title", "Item" %></th>
       <th><%= sort_link "size" %></th>
       <th><%= sort_link "status" %></th>
@@ -29,6 +31,7 @@
     </tr>
     <% @units.each do |unit| %>
     <tr>
+      <td><%= check_box_tag "unit_ids[]", unit.id %></td>
       <td><%= link_to("#{unit.item.title or ''} #{unit.item.subtitle or ''}", item_path(unit.item)) %></td>
       <td><%= unit.size %></td>
       <td><%= unit.status %></td>
@@ -54,4 +57,5 @@
     </tr>
     <% end %>
   </table>
+  <% end %>
 </div>

@@ -62,6 +62,19 @@ class ItemsController < AdminBaseController
     redirect_to(items_path)
   end
   
+  def edit_multiple
+    @items = Item.find(params[:item_ids])
+  end
+  
+  def update_multiple
+    @items = Item.find(params[:item_ids])
+    @items.each do |item|
+      item.update_attributes!(item_params.reject { |k,v| v.blank? })
+    end
+    flash[:notice] = "Updated items!"
+    redirect_to items_path
+  end
+  
   private
   
   def item_params

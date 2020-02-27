@@ -4,10 +4,12 @@
   <h2>Items</h2>
   <p>All rental stat calculations are in days and do not include cancelled reservations.</p>
 
+  <%= form_tag edit_multiple_items_path do %>
   <%= link_to("Add New Item", new_item_path, :class => 'action new') %>
-
+  <%= submit_tag "Edit Multiple" %>
   <table class="listing admin_table" summary="Item list">
     <tr class="header">
+      <th></th>
       <th><%= sort_link "id", "#" %></th>
       <th><%= sort_link "title" %></th>
       <th><%= sort_link "subtitle" %></th>
@@ -22,6 +24,7 @@
     </tr>
     <% @items.each do |item| %>
     <tr>
+      <td><%= check_box_tag "item_ids[]", item.id %></td>
       <td><%= item.id %></td>
       <td><%= item.title %></td>
       <td><%= item.subtitle %></td>
@@ -49,4 +52,5 @@
     </tr>
     <% end %>
   </table>
+  <% end %>
 </div>

@@ -1,0 +1,78 @@
+<%= link_to("<< Back to List", items_path, :class => 'back-link') %>
+
+<div class="items edit">
+  <h2>Update Multiple Items</h2>
+
+  <%= form_for(:item, url: update_multiple_items_path) do |f| %>
+    <ul>
+      <% for item in @items %>
+        <li>
+          <%= hidden_field_tag "item_ids[]", item.id %>
+          <%= "#{item.title} #{item.subtitle}" %>
+        </li>
+      <% end %>
+    </ul>
+    <table summary="Item form fields">
+      <tr>
+        <th>Title</th>
+        <td><%= f.text_field(:title) %></td>
+      </tr>
+      <tr>
+        <th>Subtitle</th>
+        <td><%= f.text_field(:subtitle) %></td>
+      </tr>
+       <tr>
+        <th>Retail Value</th>
+        <td><%= f.text_field(:retail_value) %></td>
+      </tr>
+      <tr>
+        <th>Description</th>
+        <td><%= f.text_area(:description) %></td>
+      </tr>
+      
+      <tr>
+        <th>Color</th>
+        <td><%= f.collection_select(:color, @color_options, :to_s, :to_s, include_blank: true) %></td>
+      </tr>
+      <tr>
+        <th>Supplier Color</th>
+        <td><%= f.text_field(:supplier_color) %></td>
+      </tr>
+      
+      <tr>
+        <th>Category</th>
+        <td><%= f.collection_select(:category, @category_options, :to_s, :to_s, include_blank: true) %></td>
+      </tr>
+      <tr>
+        <th>Sub Category</th>
+        <td><%= f.collection_select(:sub_category, @sub_category_options, :to_s, :to_s, include_blank: true) %></td>
+      </tr>
+      <tr>
+        <th>Meta Category</th>
+        <td><%= f.text_field(:meta_category) %></td>
+      </tr>
+      
+      <tr>
+        <th>Max Virtual Quanity</th>
+        <td><%= f.text_field(:virtual_qty) %></td>
+      </tr>
+      <tr>
+        <th>Hidden?</th>
+        <td><%= f.select(:hidden, [["Yes", true], ["No", false]], include_blank: true) %></td>
+      </tr>
+      <tr>
+        <th>Featured?</th>
+        <td><%= f.select(:landing_featured, [["Yes", true], ["No", false]], include_blank: true) %></td>
+      </tr>
+      <tr>
+        <th>Special?</th>
+        <td><%= f.select(:special, [["Yes", true], ["No", false]], include_blank: true) %></td>
+      </tr>
+    </table>
+
+    <div class="form-buttons">
+      <%= f.submit("Update Item") %>
+    </div>
+
+  <% end %>
+</div>
