@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Redirect, Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 import "./style.css"
 import PricingTable from "../PricingTable"
 import BannerImage from "../img/Rotation-Banner.jpg"
@@ -11,8 +11,7 @@ class LandingPage extends Component {
     super(props)
     this.state = {
       items: [],
-      landingEmail: "",
-      redirectToCatalog: false
+      landingEmail: ""
     }
   }
 
@@ -45,10 +44,6 @@ class LandingPage extends Component {
     })
   }
 
-  redirectToCatalog(e){
-    this.setState({redirectToCatalog: true})
-  }
-
   handleInputChange(e) {
     const name = e.target.name
     const value = e.target.value
@@ -58,9 +53,6 @@ class LandingPage extends Component {
   }
 
   render(){
-    if(this.state.redirectToCatalog){
-      return <Redirect to="/catalog" />
-    }
     return (
       <div className="LandingPage">
         <RotationHelmet />
@@ -107,16 +99,18 @@ class LandingPage extends Component {
           <div className="scrolling_wrapper">
             {this.state.items.map((item, index) => {
               return (
-                <div key={index} className="card padding_right30 cursor_pointer" onClick={(e) => this.redirectToCatalog(e)}>
-                  <div
-                    className="item_card light_background flex align_center justify_center"
-                    style={{
-                      backgroundImage: `url(${item.image_url})`
-                    }}>
+                <Link to="/catalog">
+                  <div key={index} className="card padding_right30 cursor_pointer">
+                    <div
+                      className="item_card light_background flex align_center justify_center"
+                      style={{
+                        backgroundImage: `url(${item.image_url})`
+                      }}>
+                    </div>
+                    <div className="proxima_small semibold rotation_gray padding_top10 uppercase">{item.title}</div>
+                    <div className="padding_top2 opacity7 proxima_small rotation_gray lowercase">{item.subtitle}</div>
                   </div>
-                  <div className="proxima_small semibold rotation_gray padding_top10 uppercase">{item.title}</div>
-                  <div className="padding_top2 opacity7 proxima_small rotation_gray lowercase">{item.subtitle}</div>
-                </div>
+                </Link>
               )
             })}
           </div>
