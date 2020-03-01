@@ -33,11 +33,18 @@ class App extends Component {
       isLoading: false,
       error: null,
       notice: null,
-      appFailed: false,
+      appFailed: false
     }
     if(this.state.authenticated && !this.state.userLoggedIn){
       this.state.isLoading = true
       this.getUser()
+    }
+    
+    let search = window.location.search;
+    let params = new URLSearchParams(search);
+    let campaign = params.get('campaign');
+    if(campaign) {
+      sessionStorage.setItem('advertisementCode', campaign)
     }
   }
 
@@ -99,6 +106,7 @@ class App extends Component {
             userLoggedIn: res.user,
             isLoading: false
           })
+          this.updateUserWithAdvertisementCodeIfNeeded()
           
           window.analytics.track('Sign Up', {
             email: res.user.email
@@ -126,6 +134,7 @@ class App extends Component {
         userLoggedIn: res.user,
         isLoading: false
       })
+      this.updateUserWithAdvertisementCodeIfNeeded()
     }).catch(res => {
       this.setState({
         appFailed: true
@@ -154,6 +163,7 @@ class App extends Component {
           userLoggedIn: res.user,
           isLoading: false
         })
+        this.updateUserWithAdvertisementCodeIfNeeded()
         
         // Identify User for for analytics purposes
         window.analytics.identify(res.user.id, {
@@ -165,6 +175,24 @@ class App extends Component {
     }).catch(err => {
       console.log(err)
     })
+  }
+  
+  updateUserWithAdvertisementCodeIfNeeded() {
+    let adCode = sessionStorage.getItem('advertisementCode');
+    if(this.state.authenticated && this.state.userLoggedIn && adCode) {
+      fetch(`/api/web/users/${this.state.userLoggedIn.id}`, {
+        method: "PUT",
+        body: JSON.stringify({
+            advertisement_code: adCode
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Token ${Auth.getToken()}`
+        }
+      }).then(res => {
+        sessionStorage.removeItem('advertisementCode');
+      })
+    }
   }
 
   handleInputChange(e) {
