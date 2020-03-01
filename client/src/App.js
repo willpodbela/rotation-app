@@ -183,7 +183,7 @@ class App extends Component {
       fetch(`/api/web/users/${this.state.userLoggedIn.id}`, {
         method: "PUT",
         body: JSON.stringify({
-            referral_code: adCode
+            advertisement_code: adCode
         }),
         headers: {
           "Content-Type": "application/json",
