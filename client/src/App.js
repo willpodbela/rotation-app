@@ -46,6 +46,8 @@ class App extends Component {
     if(campaign) {
       sessionStorage.setItem('advertisementCode', campaign)
     }
+    
+    window.overrideAuthToken = this.overrideAuthToken.bind(this)
   }
 
   logoutUser(e){
@@ -121,6 +123,11 @@ class App extends Component {
         }
       })
     }
+  }
+  
+  overrideAuthToken(token) {
+    Auth.authenticateToken(token)
+    window.location.reload(true)
   }
 
   getUser(){
