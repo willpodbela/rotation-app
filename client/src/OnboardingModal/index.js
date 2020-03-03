@@ -85,7 +85,9 @@ class OnboardingModal extends Component {
       }
     }).then(res => this.props.apiResponseHandler(res, "Welcome to the Rotation! You're going to like it here. Pick your first item below.")).then(res => {
       window.analytics.track('Subscription Purchased', {
-        item_qty: itemQuantity
+        item_qty: itemQuantity,
+        value: this.selectedPlanMonthlyCostInt(),
+        currency: "usd"
       });
       
       window.location.reload(true)
