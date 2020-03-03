@@ -1,0 +1,3 @@
+.stop_child_clicks > * {
+  pointer-events: none;
+}
