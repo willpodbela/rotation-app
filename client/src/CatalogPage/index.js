@@ -214,7 +214,8 @@ class CatalogPage extends Component {
             }
             {this.state.upNext.length > 0 &&
               <div className="catalog_section padding_bottom10 flex">
-                <div className="catalog_title width_full left20 medium druk_xs rotation_gray padding_bottom20">Up Next</div>
+                <div className="catalog_title width_full left20 medium druk_xs rotation_gray padding_bottom10">Shipping Soon</div>
+                <div className="width_full proxima_small rotation_gray left20 padding_bottom20">You can change these items anytime until your order leaves our warehouse.</div>
                 {this.state.upNext.map((item, index) => {
                   return (
                     <div key={index} onClick={(e) => this.displayModal(e, item)}>
@@ -223,6 +224,7 @@ class CatalogPage extends Component {
                   )
                 })}
               </div>
+              
             }
             {this.state.favorites.length > 0 &&
               <div className="catalog_section padding_bottom10 flex">

@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import "./style.css"
 import Modal from "react-bootstrap/Modal"
 import Auth from "../modules/Auth"
 import ShippingAddressPane from "../ShippingAddressPane"
@@ -95,11 +96,15 @@ class OnboardingModal extends Component {
   }
   
   selectedPlanMonthlyCostInt() {
-    return parseInt(this.state.planOptions.find(plan => plan.selected).monthlyCost.replace('$', ''))
+    return this.monthlyCostStringToInt(this.state.planOptions.find(plan => plan.selected).monthlyCost)
   }
   
-  subtotal() {
-    let subtotal = this.selectedPlanMonthlyCostInt()
+  monthlyCostStringToInt(string) {
+    return parseInt(string.replace('$', ''))
+  }
+  
+  subtotal(standard_cost = this.selectedPlanMonthlyCostInt()) {
+    let subtotal = standard_cost
     let c = this.props.userLoggedIn.coupon
     if (c) {
       if(c.amount_off) {
@@ -187,14 +192,20 @@ class OnboardingModal extends Component {
                     return (
                       <div
                         key={index}
-                        className="input_box rotation_gray_border rotation_gray_background width150 height100 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer text_center"
+                        className="input_box rotation_gray_border rotation_gray_background width150 height100 top20 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer text_center stop_child_clicks"
                         style={{background: plan.selected ? "#333333" : "#FFFFFF", color: plan.selected ? "#FFFFFF" : "#333333"}}
                         name={plan.itemQty}
                         onClick={(e) => this.togglePlanOptions(e)}
                       >
-                        {plan.itemQty} Items
-                        <br />
-                        {plan.monthlyCost}/Month
+                        <div>
+                          <span>{plan.itemQty} Items</span>
+                          <br />
+                          <span style={{ textDecoration: this.monthlyCostStringToInt(plan.monthlyCost) !== this.subtotal(this.monthlyCostStringToInt(plan.monthlyCost)) ? 'line-through' : 'none' }}>{plan.monthlyCost}/Month</span>
+                          <br />
+                          {this.monthlyCostStringToInt(plan.monthlyCost) !== this.subtotal(this.monthlyCostStringToInt(plan.monthlyCost)) &&
+                            <span>${this.subtotal(this.monthlyCostStringToInt(plan.monthlyCost))}/Month</span>
+                          }
+                        </div>
                       </div>
                     )
                   })}
