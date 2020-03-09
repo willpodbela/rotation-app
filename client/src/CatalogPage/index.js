@@ -191,7 +191,7 @@ class CatalogPage extends Component {
               </div>
             </div>
           </div>
-          <div className="text-block-4">The Rotation</div>
+          {/* <div className="text-block-4">The Rotation</div> */}
         </div>
         <div className="catalog_wrapper padding_top25 flex sides13pct">
           <div className="filters_and_designers width150 padding_right10">
