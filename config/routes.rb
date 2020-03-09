@@ -139,7 +139,7 @@ Rails.application.routes.draw do
   
   # Fallback any routes that do not match above to React
   get '*path', to: "application#react_index_html", constraints: ->(request) do
-    !request.xhr? && request.format.html?
+    !request.xhr? && (request.format.html? || request.format.all?)
   end
   get '*path', to: "application#react_non_html"
 end
