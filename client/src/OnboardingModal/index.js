@@ -166,7 +166,7 @@ class OnboardingModal extends Component {
                   userLoggedIn={this.props.userLoggedIn}
                   apiResponseHandler={this.props.apiResponseHandler}
                   onSuccessfulTokenization={(token) => this.successfulBillingTokenization(token)}
-                  errorHandler={(error) => this.props.errorHandler}
+                  errorHandler={(error) => this.props.errorHandler(error)}
                   headerText="Add Billing Info"
                   callToActionTitle={
                     ["Next Step",<FontAwesomeIcon className="white font12 left20" icon="chevron-right" />]
