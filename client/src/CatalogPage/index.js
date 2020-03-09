@@ -184,13 +184,14 @@ class CatalogPage extends Component {
             <div className="cta-row w-row">
               <div className="w-col w-col-6 w-col-stack"></div>
               <div className="w-col w-col-6 w-col-stack">
-              <div class="left-block">
-                  <h2 class="section-tittle cta">Access the largest private collection of men's streetwear and designer clothing - without limits.</h2>
-                  <div class="cta-button-block"><a href="#" class="button white w-button">JOIN NOW</a></div>
+              <div className="left-block">
+                  <h2 className="section-tittle cta">Access the largest private collection of men's streetwear and designer clothing - without limits.</h2>
+                  <div className="cta-button-block"><a href="#" className="button white w-button">JOIN NOW</a></div>
               </div>
               </div>
             </div>
           </div>
+          <div className="text-block-4">The Rotation</div>
         </div>
         <div className="catalog_wrapper padding_top25 flex sides13pct">
           <div className="filters_and_designers width150 padding_right10">
