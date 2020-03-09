@@ -139,18 +139,6 @@ Rails.application.routes.draw do
   
   # Fallback any routes that do not match above to React
   get '*path', to: "application#react_index_html", constraints: ->(request) do
-    print "mime type: "
-    print request.format
-    print "/n"
-    print "all?: "
-    print request.format == "*/*"
-    print "/n"
-    print "html?: "
-    print request.format.html?
-    print "/n"
-    print "!xhr?: "
-    print !request.xhr?
-    print "/n"
     !request.xhr? && (request.format.html? || request.format == "*/*")
   end
   get '*path', to: "application#react_non_html"
