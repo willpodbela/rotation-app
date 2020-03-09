@@ -143,7 +143,7 @@ Rails.application.routes.draw do
     print request.format
     print "/n"
     print "all?: "
-    print request.format.all?
+    print request.format == "*/*"
     print "/n"
     print "html?: "
     print request.format.html?
@@ -151,7 +151,7 @@ Rails.application.routes.draw do
     print "!xhr?: "
     print !request.xhr?
     print "/n"
-    !request.xhr? && (request.format.html? || request.format.all?)
+    !request.xhr? && (request.format.html? || request.format == "*/*")
   end
   get '*path', to: "application#react_non_html"
 end
