@@ -214,6 +214,52 @@
   margin-left: 0;
   margin-right: 0;
 }
+.w-col {
+  position: relative;
+  float: left;
+  width: 100%;
+  min-height: 1px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.w-col .w-col {
+  padding-left: 0;
+  padding-right: 0;
+}
+.w-col-6 {
+  width: 50%;
+}
+.left-block {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  text-align: left;
+}
+.section-tittle {
+  font-family: Poppins, sans-serif;
+  color: #000;
+  font-size: 40px;
+  line-height: 50px;
+  font-weight: 500;
+}
+.section-tittle.cta {
+  margin-top: 10px;
+  margin-bottom: 0px;
+  font-family: 'Proxima Nova', sans-serif;
+  color: #fff;
+  font-size: 36px;
+  line-height: 46px;
+}
 
 @media screen and (max-width:991px) {
   .section.cta{
@@ -225,6 +271,28 @@
   }
   .w-container {
     max-width: 728px;
+  }
+  .w-col-stack {
+    width: 100%;
+    left: auto;
+    right: auto;
+  }
+  .left-block {
+    display: block;
+    margin-bottom: 0px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+  }
+  .section-tittle.cta {
+    font-size: 24px;
+    line-height: 140%;
   }
 }
 
@@ -246,6 +314,14 @@
   }
   .cta-row {
     display: block;
+  }
+  .w-col {
+    width: 100%;
+    left: auto;
+    right: auto;
+  }
+  .left-block {
+    margin-bottom: 60px;
   }
 }
 
@@ -276,5 +352,14 @@
     -webkit-align-items: flex-start;
     -ms-flex-align: start;
     align-items: flex-start;
+  }
+  .w-col {
+    width: 100%;
+    left: auto;
+    right: auto;
+  }
+  .section-tittle {
+    font-size: 30px;
+    line-height: 40px;
   }
 }
