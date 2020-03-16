@@ -1,21 +1,10 @@
 import React, { Component } from "react"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import Modal from "react-bootstrap/Modal"
 import "./bootstrap-modal.css"
 import ItemCard from "../ItemCard"
-import LoginPane from "../LoginPane"
-import BillingPane from "../BillingPane"
-import ItemActionPane from "../ItemActionPane"
-import SignUpPane from "../SignUpPane"
-import ShippingAddressPane from "../ShippingAddressPane"
 import OnboardingModal from "../OnboardingModal"
+import ItemModal from "../ItemModal"
 import Auth from "../modules/Auth"
-import { Link } from "react-router-dom"
-import Unfavorite from "../img/Unfavorite.png"
-import Favorite from "../img/Favorite.png"
 import "./style.css"
-import BannerImage from "../img/Rotation-Banner.jpg"
-import { Helmet } from "react-helmet";
 import RotationHelmet from "../RotationHelmet"
 
 class CatalogPage extends Component {
@@ -172,8 +161,6 @@ class CatalogPage extends Component {
     const selectedSizes = this.state.sizes.filter(size => size.selected).map(size => size.value)
     const designersBeingFiltered = this.state.items.map(item => item.title.selected).includes(true)
     const sizesBeingFiltered = selectedSizes.length > 0
-    const myRotationItemSelected = this.state.myRotation.some(item => item.id === selectedItem.id)
-    const upNextItemSelected = this.state.upNext.some(item => item.id === selectedItem.id)
     const displayReserveModal = this.state.modalViews.find(view => view.view === "reserve").display
     const displayOnboardingModal = this.state.modalViews.find(view => view.view === "onboarding").display
     return (
@@ -320,26 +307,15 @@ class CatalogPage extends Component {
           />
         }
         {(this.state.showModal && displayReserveModal) &&
-          <Modal show={this.state.showModal} dialogClassName="modal_item" centered>
-            <div className="flex">
-              <div className="modal_section overflow_hidden height500 width_half light_background flex justify_center align_center">
-                <img className="modal_image blend_background" src={selectedItem.image_url} alt="" />
-              </div>
-              <div className="modal_section height500 width_half white_background">
-                <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={(e) => this.hideModal(e)} icon="times" />
-                <div className="top50">
-                  <ItemActionPane
-                    item={selectedItem}
-                    auth={this.props.auth}
-                    userLoggedIn={this.props.userLoggedIn}
-                    apiResponseHandler={this.props.apiResponseHandler}
-                    showOnboardingModal={(e) => this.toggleModal(e, "onboarding")}
-                    actionComplete={(e) => this.itemUpdated(e, selectedItem)}
-                  />
-                </div>
-              </div>
-            </div>
-          </Modal>
+          <ItemModal
+            item={selectedItem}
+            auth={this.props.auth}
+            userLoggedIn={this.props.userLoggedIn}
+            apiResponseHandler={this.props.apiResponseHandler}
+            showOnboardingModal={(e) => this.toggleModal(e, "onboarding")}
+            actionComplete={(e) => this.itemUpdated(e, selectedItem)}
+            onClose={(e) => this.hideModal(e)}
+          />
         }
       </div>
     )
