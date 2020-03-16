@@ -1,7 +1,7 @@
 import React, { Component }  from "react"
 import "./style.css"
 import Auth from "../modules/Auth"
-import { Link, Redirect } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import OnboardingModal from "../OnboardingModal"
 import ItemActionPane from "../ItemActionPane"

@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import Auth from "../modules/Auth"
 import "./style.css"
 import RTUIFormInput from "../RTUIFormInput"
 import RTUIButton from "../RTUIButton"

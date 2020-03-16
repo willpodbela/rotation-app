@@ -1,6 +1,4 @@
 import React, { Component }  from "react"
-import { Link } from "react-router-dom"
-import Auth from "../modules/Auth"
 import { Helmet } from "react-helmet";
 import BannerImage from "../img/Rotation-Banner.jpg"
 

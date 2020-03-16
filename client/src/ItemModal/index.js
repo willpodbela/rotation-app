@@ -2,7 +2,6 @@ import React, { Component } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "./style.css"
 import Modal from "react-bootstrap/Modal"
-import Auth from "../modules/Auth"
 import ItemActionPane from "../ItemActionPane"
 
 class ItemModal extends Component {

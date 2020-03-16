@@ -1,6 +1,4 @@
 import React, { Component } from "react"
-import BannerImage from "../img/Rotation-Banner.jpg"
-import { Helmet } from "react-helmet";
 import RotationHelmet from "../RotationHelmet";
 
 class TermsPage extends Component {

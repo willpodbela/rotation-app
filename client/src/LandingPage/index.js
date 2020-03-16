@@ -2,8 +2,6 @@ import React, { Component } from "react"
 import { Link } from "react-router-dom"
 import "./style.css"
 import PricingTable from "../PricingTable"
-import BannerImage from "../img/Rotation-Banner.jpg"
-import { Helmet } from "react-helmet";
 import RotationHelmet from "../RotationHelmet"
 
 class LandingPage extends Component {
