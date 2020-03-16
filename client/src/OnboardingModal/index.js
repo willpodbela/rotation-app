@@ -21,7 +21,8 @@ class OnboardingModal extends Component {
         {itemQty: 3, monthlyCost: "$129", selected: false},
         {itemQty: 4, monthlyCost: "$159", selected: false},
       ],
-      stripeID: ""
+      stripeID: "",
+      hasAdCode: !!sessionStorage.advertisementCode
     }
   }
   
@@ -29,7 +30,7 @@ class OnboardingModal extends Component {
     if(this.props.auth){
       this.showModal("plans")
     }else{
-      this.showModal("login")
+      this.showModal(this.state.hasAdCode ? "signup" : "login")
     }
   }
   
