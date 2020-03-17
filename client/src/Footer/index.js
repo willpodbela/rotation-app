@@ -15,8 +15,9 @@ class Footer extends Component {
                   <Link to="/" className="druk_wide_logo font20 font_second white">The Rotation</Link>
                 </div>
               </div>
-              <div className="width300">
+              <div className="width330">
                 <div className="top10 bottom30 block block_center text_center">
+                  <Link to="/terms" className="font12 uppercase spacing15 link white sides15">Terms</Link>
                   <Link to="/privacy" className="font12 uppercase spacing15 link white sides15">Privacy</Link>
                   <Link to="/faq" className="font12 uppercase spacing15 link white sides15">FAQ</Link>
                   <a href="mailto:support@therotation.club" target="_top" className="font12 uppercase spacing15 link white sides15">Contact</a>
