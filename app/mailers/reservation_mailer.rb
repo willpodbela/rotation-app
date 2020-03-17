@@ -7,13 +7,13 @@ class ReservationMailer < ActionMailer::Base
     @user = @reservation.user
     @profile = @user.profile
   
-    @to_address = "support@therotation.club"
+    @to_address = "reservations@therotation.club"
     
     @subject = ENV["EMAIL_PREFIX"]
     @subject ||= ""
   end
   
-  default to:       -> { 'support@therotation.club' },
+  default to:       -> { 'reservations@therotation.club' },
           from:     -> { 'rotation-app@therotation.club' },
           subject:  -> { @subject }
   
