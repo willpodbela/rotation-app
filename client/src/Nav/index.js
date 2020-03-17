@@ -12,7 +12,7 @@ class Nav extends Component {
             <img srcSet={"../images/The-Rotation.png 1x, ../images/The-Rotation@2x.png 2x"} src={"../images/The-Rotation.png"} className="max_width_full" alt="" />
           </Link>
           {Auth.isUserAuthenticated() ? (
-            <div className="flex">
+            <div className="menu_buttons logged_in flex align_center">
               <div className="proxima_small bold padding_right20">
                 <Link className="rotation_gray" to="/catalog">Catalog</Link>
               </div>
