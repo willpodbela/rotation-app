@@ -27,7 +27,7 @@ class Nav extends Component {
               </div>
             </div>
           ) : (
-            <div className="flex align_center">
+            <div className="menu_buttons flex align_center">
               <div className="proxima_small bold padding_right20">
                 <Link className="rotation_gray" to="/login">Log In</Link>
               </div>
