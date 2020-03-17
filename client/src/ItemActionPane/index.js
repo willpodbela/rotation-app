@@ -1,21 +1,9 @@
 import React, { Component } from "react"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import Modal from "react-bootstrap/Modal"
 import "./bootstrap-modal.css"
-import ItemCard from "../ItemCard"
-import LoginPane from "../LoginPane"
-import BillingPane from "../BillingPane"
-import SignUpPane from "../SignUpPane"
-import ShippingAddressPane from "../ShippingAddressPane"
-import OnboardingModal from "../OnboardingModal"
 import Auth from "../modules/Auth"
-import { Link } from "react-router-dom"
 import Unfavorite from "../img/Unfavorite.png"
 import Favorite from "../img/Favorite.png"
 import "./style.css"
-import BannerImage from "../img/Rotation-Banner.jpg"
-import { Helmet } from "react-helmet";
-import RotationHelmet from "../RotationHelmet"
 
 class ItemActionPane extends Component {
   constructor(props){
@@ -180,7 +168,6 @@ class ItemActionPane extends Component {
   
   render(){
     const selectedItem = this.props.item
-    const selectedSizes = this.state.sizes.filter(size => size.selected).map(size => size.value)    
     const myRotationItemSelected = this.isMyRotation(selectedItem)
     const upNextItemSelected = this.isUpNext(selectedItem)
     

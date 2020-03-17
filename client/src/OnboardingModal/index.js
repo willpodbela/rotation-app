@@ -21,7 +21,8 @@ class OnboardingModal extends Component {
         {itemQty: 3, monthlyCost: "$129", selected: false},
         {itemQty: 4, monthlyCost: "$159", selected: false},
       ],
-      stripeID: ""
+      stripeID: "",
+      hasAdCode: !!sessionStorage.advertisementCode
     }
   }
   
@@ -29,7 +30,7 @@ class OnboardingModal extends Component {
     if(this.props.auth){
       this.showModal("plans")
     }else{
-      this.showModal("login")
+      this.showModal(this.state.hasAdCode ? "signup" : "login")
     }
   }
   
@@ -130,7 +131,7 @@ class OnboardingModal extends Component {
         <div className="modal_section height500 width_full white_background">
           <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={this.props.onClose} icon="times" />
           <div className="top50 flex justify_center" style={{clear: "right"}}>
-            {this.state.currentModal == "confirm" &&
+            {this.state.currentModal === "confirm" &&
               <div>
                 <div className="druk_xs medium rotation_gray">Checkout</div>
                 <div className="proxima_large semibold rotation_gray top30">The Rotation</div>
@@ -147,7 +148,7 @@ class OnboardingModal extends Component {
                 </div>
               </div>
             }
-            {this.state.currentModal == "shipping" &&
+            {this.state.currentModal === "shipping" &&
               <ShippingAddressPane
                 auth={this.props.auth}
                 userLoggedIn={this.props.userLoggedIn}
@@ -159,7 +160,7 @@ class OnboardingModal extends Component {
                 }
               />
             }
-            {this.state.currentModal == "billing" &&
+            {this.state.currentModal === "billing" &&
               <div>
                 <BillingPane
                   auth={this.props.auth}
@@ -183,7 +184,7 @@ class OnboardingModal extends Component {
                 )}
               </div>
             }
-            {this.state.currentModal == "plans" &&
+            {this.state.currentModal === "plans" &&
               <div className="width500">
                 <div className="top20 druk_small rotation_gray">Choose Your Plan</div>
                 <div className="top20 proxima_small rotation_gray">Three different ways to elevate your style.</div>
@@ -218,14 +219,14 @@ class OnboardingModal extends Component {
                 </div>
               </div>
             }
-            {this.state.currentModal == "login" &&
+            {this.state.currentModal === "login" &&
               <LoginPane
                 handleLoginSubmit={this.props.handleLoginSubmit}
                 forgotPassword={this.props.forgotPassword}
                 handleSignUpClicked={(e) => this.showModal("signup")}
               />
             }
-            {this.state.currentModal == "signup" &&
+            {this.state.currentModal === "signup" &&
               <SignUpPane
                 handleSignUp={this.props.handleSignUp}
                 handleLogInClicked={(e) => this.showModal("login")}
