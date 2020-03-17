@@ -176,9 +176,30 @@ class CatalogPage extends Component {
     const upNextItemSelected = this.state.upNext.some(item => item.id === selectedItem.id)
     const displayReserveModal = this.state.modalViews.find(view => view.view === "reserve").display
     const displayOnboardingModal = this.state.modalViews.find(view => view.view === "onboarding").display
+    
+    var displayJoinBannerCTA = true
+    if(this.props.userLoggedIn){
+      displayJoinBannerCTA = !(this.props.auth && (this.props.userLoggedIn.subscription || false))
+    }
+    
     return (
       <div className="CatalogPage flex justify_center align_center gray_border_top padding_bottom300">
         <RotationHelmet title = "Clothing | The Rotation" />
+        {displayJoinBannerCTA &&
+          <div className="section cta">
+            <div className="container w-container">
+              <div className="cta-row w-row">
+                <div className="w-col w-col-6 w-col-stack"></div>
+                <div className="w-col w-col-6 w-col-stack">
+                  <div className="left-block">
+                    <h2 className="section-tittle cta">Access the largest private collection of men's streetwear and designer clothing - without limits.</h2>
+                    <div className="cta-button-block"><a href="#" className="button white w-button">JOIN NOW</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        }          
         <div className="catalog_wrapper padding_top25 flex sides13pct">
           <div className="filters_and_designers width150 padding_right10">
             <div className="fixed_sidebar overflow_scroll width150">
