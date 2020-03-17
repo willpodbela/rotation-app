@@ -22,7 +22,7 @@ class OnboardingModal extends Component {
         {itemQty: 4, monthlyCost: "$159", selected: false},
       ],
       stripeID: "",
-      hasAdCode: !!sessionStorage.advertisementCode
+      promptSignUpFirst: (!!sessionStorage.advertisementCode || props.promptSignUpFirst)
     }
   }
   
@@ -30,7 +30,7 @@ class OnboardingModal extends Component {
     if(this.props.auth){
       this.showModal("plans")
     }else{
-      this.showModal(this.state.hasAdCode ? "signup" : "login")
+      this.showModal(this.state.promptSignUpFirst ? "signup" : "login")
     }
   }
   
