@@ -16,7 +16,6 @@ class CatalogPage extends Component {
       favorites: [],
       items: [],
       designers: [],
-      showModal: false,
       selectedItem: {},
       sizes: [
         {value: "S", selected: false},
