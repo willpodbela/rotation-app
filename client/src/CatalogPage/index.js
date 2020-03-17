@@ -16,7 +16,6 @@ class CatalogPage extends Component {
       favorites: [],
       items: [],
       designers: [],
-      showModal: false,
       selectedItem: {},
       sizes: [
         {value: "S", selected: false},
@@ -24,15 +23,8 @@ class CatalogPage extends Component {
         {value: "L", selected: false},
         {value: "XL", selected: false}
       ],
-      modalViews: [
-        {view: "reserve", display: true},
-        {view: "onboarding", display: false},
-        {view: "login", display: false},
-        {view: "plan", display: false},
-        {view: "billing", display: false},
-        {view: "shipping", display: false},
-        {view: "confirm", display: false}
-      ]
+      currentModal: false,
+      forceSignUpFirst: false,
     }
     if(this.props.userLoggedIn){
       this.state.subscription = this.props.userLoggedIn.subscription || false
@@ -106,8 +98,8 @@ class CatalogPage extends Component {
     this.setState({sizes: sizesCopy})
   }
 
-  displayModal(e, item){
-    this.setState({showModal: true, selectedItem: item})
+  displayItemModal(e, item){
+    this.setState({currentModal: "item", selectedItem: item})
     this.setBrowserURLwithoutRerender(this.itemDetailUrlForItem(item), ("The Rotation | "+item.title+" | "+item.subtitle))
   }
   
@@ -122,13 +114,11 @@ class CatalogPage extends Component {
   }
 
   hideModal(e){
-    var displayReserveModal = this.state.modalViews.find(view => view.view === "reserve").display
-    if(displayReserveModal) {
+    if(this.state.currentModal === "item") {
       this.setBrowserURLwithoutRerender("/catalog")
     }
     
-    this.setState({ showModal: false })
-    this.toggleModal(e, "reserve")
+    this.setState({ currentModal: false })
   }
 
   getSizesAvailable(item){
@@ -142,12 +132,8 @@ class CatalogPage extends Component {
     return availableSizes
   }
 
-  toggleModal(e, viewToToggle){
-    let modalViewsCopy = [...this.state.modalViews]
-    modalViewsCopy.forEach(view => {
-      view.view === viewToToggle ? view.display = true : view.display = false
-    })
-    this.setState({modalViews: modalViewsCopy})
+  displayOnboardingModal(forceSignUpFirst = false) {
+    this.setState({ currentModal: "onboarding", forceSignUpFirst: forceSignUpFirst })
   }
   
   itemUpdated(e, item) {
@@ -161,8 +147,6 @@ class CatalogPage extends Component {
     const selectedSizes = this.state.sizes.filter(size => size.selected).map(size => size.value)
     const designersBeingFiltered = this.state.items.map(item => item.title.selected).includes(true)
     const sizesBeingFiltered = selectedSizes.length > 0
-    const displayReserveModal = this.state.modalViews.find(view => view.view === "reserve").display
-    const displayOnboardingModal = this.state.modalViews.find(view => view.view === "onboarding").display
     
     var displayJoinBannerCTA = true
     if(this.props.userLoggedIn){
@@ -180,7 +164,9 @@ class CatalogPage extends Component {
                 <div className="w-col w-col-6 w-col-stack">
                   <div className="left-block">
                     <h2 className="section-tittle cta">Access the largest private collection of men's streetwear and designer clothing - without limits.</h2>
-                    <div className="cta-button-block"><a href="#" className="button white w-button">JOIN NOW</a></div>
+                    <div className="cta-button-block">
+                      <div onClick={(e) => this.displayOnboardingModal(true)} className="button white w-button">JOIN NOW</div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -213,7 +199,7 @@ class CatalogPage extends Component {
                 <div className="catalog_title width_full left20 filters_title medium druk_xs rotation_gray padding_bottom20">My Rotation</div>
                 {this.state.myRotation.map((item, index) => {
                   return (
-                    <div key={index} onClick={(e) => this.displayModal(e, item)}>
+                    <div key={index} onClick={(e) => this.displayItemModal(e, item)}>
                       <ItemCard item={item} />
                     </div>
                   )
@@ -226,7 +212,7 @@ class CatalogPage extends Component {
                 <div className="width_full proxima_small rotation_gray left20 padding_bottom20">You can change these items anytime until your order leaves our warehouse.</div>
                 {this.state.upNext.map((item, index) => {
                   return (
-                    <div key={index} onClick={(e) => this.displayModal(e, item)}>
+                    <div key={index} onClick={(e) => this.displayItemModal(e, item)}>
                       <ItemCard item={item} />
                     </div>
                   )
@@ -239,7 +225,7 @@ class CatalogPage extends Component {
                 <div className="catalog_title width_full left20 medium druk_xs rotation_gray padding_bottom20">Favorites</div>
                 {this.state.favorites.map((item, index) => {
                   return (
-                    <div key={index} onClick={(e) => this.displayModal(e, item)}>
+                    <div key={index} onClick={(e) => this.displayItemModal(e, item)}>
                       <ItemCard item={item} />
                     </div>
                   )
@@ -270,7 +256,7 @@ class CatalogPage extends Component {
                 this.state.items.map((item, index) => {
                   if(item.title.selected && this.getSizesAvailable(item).filter(size => selectedSizes.includes(size)).length > 0){
                     return (
-                      <div key={index} onClick={(e) => this.displayModal(e, item)}>
+                      <div key={index} onClick={(e) => this.displayItemModal(e, item)}>
                         <ItemCard item={item} />
                       </div>
                     )
@@ -282,7 +268,7 @@ class CatalogPage extends Component {
                 this.state.items.map((item, index) => {
                   if(item.title.selected){
                     return (
-                      <div key={index} onClick={(e) => this.displayModal(e, item)}>
+                      <div key={index} onClick={(e) => this.displayItemModal(e, item)}>
                         <ItemCard item={item} />
                       </div>
                     )
@@ -294,7 +280,7 @@ class CatalogPage extends Component {
                 this.state.items.map((item, index) => {
                   if(this.getSizesAvailable(item).filter(size => selectedSizes.includes(size)).length > 0){
                     return (
-                      <div key={index} onClick={(e) => this.displayModal(e, item)}>
+                      <div key={index} onClick={(e) => this.displayItemModal(e, item)}>
                         <ItemCard item={item} />
                       </div>
                     )
@@ -305,7 +291,7 @@ class CatalogPage extends Component {
               ) : (
                 this.state.items.map((item, index) => {
                   return (
-                    <div key={index} onClick={(e) => this.displayModal(e, item)}>
+                    <div key={index} onClick={(e) => this.displayItemModal(e, item)}>
                       <ItemCard item={item} />
                     </div>
                   )
@@ -315,7 +301,7 @@ class CatalogPage extends Component {
           </div>
         </div>
         
-        {(this.state.showModal && displayOnboardingModal) &&
+        {this.state.currentModal === "onboarding" &&
           <OnboardingModal
             auth={this.props.auth}
             userLoggedIn={this.props.userLoggedIn}
@@ -325,15 +311,16 @@ class CatalogPage extends Component {
             handleSignUp={this.props.handleSignUp}
             handleLoginSubmit={this.props.handleLoginSubmit}
             forgotPassword={this.props.forgotPassword}
+            promptSignUpFirst={this.state.forceSignUpFirst}
           />
         }
-        {(this.state.showModal && displayReserveModal) &&
+        {this.state.currentModal === "item" &&
           <ItemModal
             item={selectedItem}
             auth={this.props.auth}
             userLoggedIn={this.props.userLoggedIn}
             apiResponseHandler={this.props.apiResponseHandler}
-            showOnboardingModal={(e) => this.toggleModal(e, "onboarding")}
+            showOnboardingModal={(e) => this.displayOnboardingModal()}
             actionComplete={(e) => this.itemUpdated(e, selectedItem)}
             onClose={(e) => this.hideModal(e)}
           />
