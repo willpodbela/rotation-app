@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :generate_access_control_methods!
-  before_action :authenticate_user!, except: [:react_index_html]
+  before_action :authenticate_user!, except: [:react_index_html, :react_non_html]
   before_action :advertisement_tracking
   before_action :login_redirect
   
@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   end
   
   def react_non_html
-    render :file => 'public/#{params[:other]}', layout: false
+    render :file => "public/#{params[:path]}", layout: false
   end
   
   private
