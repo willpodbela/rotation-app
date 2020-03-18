@@ -13,7 +13,7 @@ const filterConfig = {
 		/\*/,
 	],
 };
-const base_url = "http://www.therotation.club"
+const base_url = "https://www.therotation.club"
 
 function itemInfoForItem(item) {
   var str = item.title+"-"+item.subtitle+"-"+item.id;
