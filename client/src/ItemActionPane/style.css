@@ -31,21 +31,7 @@
 .modal_buttons{
   margin: 30px 20px;
 }
-
-@media (max-width: 1491px) {
-  .catalog_section{
-    width: 708px !important;
-  }
-}
-@media (max-width: 1174px) {
-  .catalog_section{
-    width: 472px !important;
-  }
-}
 @media (max-width: 856px) {
-  .catalog_section{
-    width: 236px !important;
-  }
   .catalog_headers{
     display: block;
   }
@@ -62,12 +48,6 @@
 @media (max-width: 440px) {
   .filters_and_designers{
     display: none;
-  }
-  .catalog_wrapper{
-    justify-content: center !important;
-  }
-  .catalog_section{
-    justify-content: center !important;
   }
   .card_large{
     padding-left: 0 !important;

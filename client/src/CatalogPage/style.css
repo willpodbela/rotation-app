@@ -20,17 +20,17 @@
 }
 @media (max-width: 1491px) {
   .catalog_section{
-    width: 708px !important;
+    width: 708px;
   }
 }
 @media (max-width: 1174px) {
   .catalog_section{
-    width: 472px !important;
+    width: 472px;
   }
 }
 @media (max-width: 856px) {
   .catalog_section{
-    width: 236px !important;
+    width: 490px; /* causing 1 column catalog on mobile */ 
   }
   .catalog_headers{
     display: block;
@@ -46,17 +46,17 @@
   }
 }
 @media (max-width: 440px) {
-  .filters_and_designers{
-    display: none;
-  }
   .catalog_wrapper{
     justify-content: center !important;
   }
   .catalog_section{
     justify-content: center !important;
+    width: auto;
   }
   .card_large{
     padding-left: 0 !important;
+    width: 150px;
+    padding: 10px 10px 10px 10px;
   }
   .size_btns{
     margin-left: 10px;
@@ -77,6 +77,11 @@
 }
 .modal_item{
   max-width: 800px !important;
+}
+@media (max-width: 650px) {
+  .filters_and_designers{
+    display: none;
+  }
 }
 @media (max-width: 1000px) and (min-width: 750px) {
   .modal_item{
