@@ -123,7 +123,15 @@ class ItemActionPane extends Component {
       }
     }).then(res => this.props.apiResponseHandler(res)).then(res => {
       if(this.props.actionComplete) {
-        this.props.actionComplete(e) 
+        this.props.actionComplete(e)
+        window.analytics.track('Product Added to Wishlist', {
+          product_id: this.props.item.id,
+          category: this.props.item.category,
+          name: this.props.item.subtitle,
+          brand: this.props.item.title.value,
+          url: this.props.item.url,
+          image_url: this.props.item.image_url
+        }) 
       }
     })
   }
