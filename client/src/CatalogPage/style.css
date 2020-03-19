@@ -46,9 +46,6 @@
   }
 }
 @media (max-width: 440px) {
-  .filters_and_designers{
-    display: none;
-  }
   .catalog_wrapper{
     justify-content: center !important;
   }
@@ -80,6 +77,11 @@
 }
 .modal_item{
   max-width: 800px !important;
+}
+@media (max-width: 650px) {
+  .filters_and_designers{
+    display: none;
+  }
 }
 @media (max-width: 1000px) and (min-width: 750px) {
   .modal_item{
