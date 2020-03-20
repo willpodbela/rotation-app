@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { StickyContainer, Sticky } from 'react-sticky'
 import "./bootstrap-modal.css"
 import ItemCard from "../ItemCard"
 import OnboardingModal from "../OnboardingModal"
@@ -162,7 +163,7 @@ class CatalogPage extends Component {
     
     return (
       <div className="CatalogPage flex justify_center align_center gray_border_top padding_bottom300">
-        <RotationHelmet title = "Clothing | The Rotation" />
+      <RotationHelmet title = "Clothing | The Rotation" />
         {displayJoinBannerCTA &&
           <div className="section cta">
             <div className="container w-container">
@@ -181,21 +182,31 @@ class CatalogPage extends Component {
           </div>
         }          
         <div className="catalog_wrapper padding_top25 flex sides13pct">
-          <div className="filters_and_designers width150 padding_right10">
-            <div className="fixed_sidebar overflow_scroll width150">
-              <RTUIFilterSidebar
-                options={this.state.designers}
-                onFilterChange={(s) => this.filterDesigners(s)}
-              />
-              <RTUIFilterSidebar
-                options={this.state.categories}
-                onFilterChange={(s) => this.filterCategories(s)}
-              />
+          <StickyContainer>
+            <div className="filters_and_designers width150 padding_right10">
+              <Sticky>
+                {({
+                  style
+                }) => (
+                  <div className="overflow_scroll width150 padding_top10" style={style}>
+                    <RTUIFilterSidebar
+                      options={this.state.categories}
+                      title={"Categories"}
+                      onFilterChange={(s) => this.filterCategories(s)}
+                    />
+                    <RTUIFilterSidebar
+                      options={this.state.designers}
+                      title={"Designers"}
+                      onFilterChange={(s) => this.filterDesigners(s)}
+                    />
+                  </div>
+                )}
+              </Sticky>
             </div>
-          </div>
+          </StickyContainer>
           <div>
             {displayItems.rotation.length > 0 &&
-              <div className="catalog_section padding_bottom10 flex">
+              <div className="catalog_section padding_top10 flex">
                 <div className="catalog_title width_full left20 filters_title medium druk_xs rotation_gray padding_bottom20">My Rotation</div>
                 {displayItems.rotation.map((item, index) => {
                   return (
@@ -207,7 +218,7 @@ class CatalogPage extends Component {
               </div>
             }
             {displayItems.next.length > 0 &&
-              <div className="catalog_section padding_bottom10 flex">
+              <div className="catalog_section padding_top10 flex">
                 <div className="catalog_title width_full left20 medium druk_xs rotation_gray padding_bottom10">Shipping Soon</div>
                 <div className="width_full proxima_small rotation_gray left20 padding_bottom20">You can change these items anytime until your order leaves our warehouse.</div>
                 {displayItems.next.map((item, index) => {
@@ -218,10 +229,10 @@ class CatalogPage extends Component {
                   )
                 })}
               </div>
-              
+            
             }
             {displayItems.favorites.length > 0 &&
-              <div className="catalog_section padding_bottom10 flex">
+              <div className="catalog_section padding_top10 flex">
                 <div className="catalog_title width_full left20 medium druk_xs rotation_gray padding_bottom20">Favorites</div>
                 {displayItems.favorites.map((item, index) => {
                   return (
@@ -264,7 +275,7 @@ class CatalogPage extends Component {
             }
           </div>
         </div>
-        
+      
         {this.state.currentModal === "onboarding" &&
           <OnboardingModal
             auth={this.props.auth}
@@ -289,7 +300,7 @@ class CatalogPage extends Component {
             onClose={(e) => this.hideModal(e)}
           />
         }
-      </div>
+    </div>
     )
   }
 }
