@@ -17,7 +17,7 @@ class RTUIFilterSidebar extends Component {
   }
   
   dressOptions(options) {
-    if(options.constructor == Object) {
+    if(options.constructor === Object) {
       var ret = []
       for (var opt in options) {
         ret.push({value: opt, selected: false, children: this.dressOptions(options[opt])})
