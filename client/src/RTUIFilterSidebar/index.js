@@ -37,24 +37,22 @@ class RTUIFilterSidebar extends Component {
 
   render(){
     return (
-      <div className="filters_and_designers width150 padding_right10">
-        <div className="fixed_sidebar overflow_scroll width150">
-          <div className="filters_title medium druk_xs rotation_gray padding_bottom5">Designers</div>
-          <div>
-            {this.state.options.map((option, index) => {
-              return (
-                <div
-                  key={index}
-                  data-key={option.value}
-                  onClick={(e) => this.filterClicked(e)}
-                  className="line_height16 proxima_small rotation_gray cursor_pointer padding_bottom5 uppercase"
-                  style={{fontWeight: option.selected ? "bold" : "normal"}}
-                >
-                  {option.value}
-                </div>
-              )
-            })}
-          </div>
+      <div className="padding_bottom20">
+        <div className="filters_title medium druk_xs rotation_gray padding_bottom5">Designers</div>
+        <div>
+          {this.state.options.map((option, index) => {
+            return (
+              <div
+                key={index}
+                data-key={option.value}
+                onClick={(e) => this.filterClicked(e)}
+                className="line_height16 proxima_small rotation_gray cursor_pointer padding_bottom5 uppercase"
+                style={{fontWeight: option.selected ? "bold" : "normal"}}
+              >
+                {option.value}
+              </div>
+            )
+          })}
         </div>
       </div>
     )

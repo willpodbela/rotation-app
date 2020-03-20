@@ -14,7 +14,9 @@ class CatalogPage extends Component {
     this.state = {
       items:[],
       designers: [],
+      categories: [],
       selectedDesigners: [],
+      selectedCategories: [],
       selectedItem: {},
       sizes: [
         {value: "S", selected: false},
@@ -41,9 +43,11 @@ class CatalogPage extends Component {
     fetch("/api/web/items", {
       headers: headers
     }).then(res => this.props.apiResponseHandler(res)).then(results => {
+      console.log(results.items)
       this.setState({
         items: results.items,
-        designers: [...new Set(results.items.map(item => item.title))]
+        designers: [...new Set(results.items.map(item => item.title))],
+        categories: [...new Set(results.items.map(item => item.category))]
       })
     })
   }
@@ -78,13 +82,19 @@ class CatalogPage extends Component {
     if(this.state.selectedDesigners.length) {
       displayItems.catalog = displayItems.catalog.filter(item => this.state.selectedDesigners.includes(item.title))
     }
+    if(this.state.selectedCategories.length) {
+      displayItems.catalog = displayItems.catalog.filter(item => this.state.selectedCategories.includes(item.category))
+    }
     
     return displayItems
   }
   
   filterDesigners(selectedFilters){
-    console.log(selectedFilters)
     this.setState({selectedDesigners: selectedFilters})
+  }
+  
+  filterCategories(selectedFilters){
+    this.setState({selectedCategories: selectedFilters})
   }
 
   filterSizes(e){
@@ -171,10 +181,18 @@ class CatalogPage extends Component {
           </div>
         }          
         <div className="catalog_wrapper padding_top25 flex sides13pct">
-          <RTUIFilterSidebar
-            options={this.state.designers}
-            onFilterChange={(selectedFilters) => this.filterDesigners(selectedFilters)}
-          />
+          <div className="filters_and_designers width150 padding_right10">
+            <div className="fixed_sidebar overflow_scroll width150">
+              <RTUIFilterSidebar
+                options={this.state.designers}
+                onFilterChange={(s) => this.filterDesigners(s)}
+              />
+              <RTUIFilterSidebar
+                options={this.state.categories}
+                onFilterChange={(s) => this.filterCategories(s)}
+              />
+            </div>
+          </div>
           <div>
             {displayItems.rotation.length > 0 &&
               <div className="catalog_section padding_bottom10 flex">
