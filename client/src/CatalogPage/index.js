@@ -4,6 +4,7 @@ import ItemCard from "../ItemCard"
 import OnboardingModal from "../OnboardingModal"
 import ItemModal from "../ItemModal"
 import Auth from "../modules/Auth"
+import RTUIFilterSidebar from "../RTUIFilterSidebar"
 import "./style.css"
 import RotationHelmet from "../RotationHelmet"
 
@@ -11,11 +12,9 @@ class CatalogPage extends Component {
   constructor(props){
     super(props)
     this.state = {
-      myRotation: [],
-      upNext:[],
-      favorites: [],
-      items: [],
+      items:[],
       designers: [],
+      selectedDesigners: [],
       selectedItem: {},
       sizes: [
         {value: "S", selected: false},
@@ -35,57 +34,57 @@ class CatalogPage extends Component {
     window.analytics.page("Catalog"); // Name of this page view for analytics purposes
     window.scrollTo(0, 0)
     
+    var headers = { "Content-Type": "application/json" }
     if(this.props.auth){
-      fetch("/api/web/items?sort_by_section=true", {
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Token ${Auth.getToken()}`
-        }
-      }).then(res => this.props.apiResponseHandler(res)).then(results => {
-        this.setState({
-          myRotation: this.addSelectedProperty(results.items.my_rotation),
-          upNext: this.addSelectedProperty(results.items.up_next),
-          favorites: this.addSelectedProperty(results.items.catalog.filter(item => item.is_favorite)),
-          items: this.addSelectedProperty(results.items.catalog.filter(item => !item.is_favorite))
-        })
-        let designers = this.state.items.map(item => item.title)
-        designers = Array.from(new Set(designers.map(designer => designer.value))).map(value => {
-          return designers.find(designer => designer.value === value)
-        })
-        this.setState({designers: designers})
-      })
-    }else{
-      fetch("/api/web/items", {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }).then(res => this.props.apiResponseHandler(res)).then(results => {
-        this.setState({items: this.addSelectedProperty(results.items)})
-        let designers = this.state.items.map(item => item.title)
-        designers = Array.from(new Set(designers.map(designer => designer.value))).map(value => {
-          return designers.find(designer => designer.value === value)
-        })
-        this.setState({designers: designers})
-      })
+      headers["Authorization"] = `Token ${Auth.getToken()}`
     }
-
-  }
-
-  addSelectedProperty(items){
-    items.forEach(item => {
-      item.title = {value: item.title, selected: false}
+    fetch("/api/web/items", {
+      headers: headers
+    }).then(res => this.props.apiResponseHandler(res)).then(results => {
+      this.setState({
+        items: results.items,
+        designers: [...new Set(results.items.map(item => item.title))]
+      })
     })
-    return items
   }
-
-  filterDesigners(e){
-    let itemsCopy = [...this.state.items]
-    this.state.items.forEach((item, index) => {
-      if(item.title.value === e.target.innerHTML){
-        itemsCopy[index].title.selected ? itemsCopy[index].title.selected = false : itemsCopy[index].title.selected = true
+    
+  filteredAndSortedItems() {
+    var displayItems = {
+      rotation: [],
+      next: [],
+      favorites: [],
+      catalog: []
+    }
+    
+    for (var item of this.state.items) {
+      if(item.reservation) {
+        var res = item.reservation
+        if (res.status === "active" || res.status === "processing") {
+            displayItems.rotation.push(item)
+        } else if (res.status === "scheduled") {
+            displayItems.next.push(item)
+        }
+      } else if (item.is_favorite) {
+        displayItems.favs.push(item)
+      } else {
+        displayItems.catalog.push(item)
       }
-    })
-    this.setState({items: itemsCopy})
+    }
+    
+    var selectedSizes = this.state.sizes.filter(size => size.selected).map(size => size.value)
+    if(selectedSizes.length) {
+      displayItems.catalog = displayItems.catalog.filter(item => this.getSizesAvailable(item).filter(size => selectedSizes.includes(size)).length > 0)
+    }
+    if(this.state.selectedDesigners.length) {
+      displayItems.catalog = displayItems.catalog.filter(item => this.state.selectedDesigners.includes(item.title))
+    }
+    
+    return displayItems
+  }
+  
+  filterDesigners(selectedFilters){
+    console.log(selectedFilters)
+    this.setState({selectedDesigners: selectedFilters})
   }
 
   filterSizes(e){
@@ -144,10 +143,8 @@ class CatalogPage extends Component {
   
   render(){
     const selectedItem = this.state.selectedItem
-    const selectedSizes = this.state.sizes.filter(size => size.selected).map(size => size.value)
-    const designersBeingFiltered = this.state.items.map(item => item.title.selected).includes(true)
-    const sizesBeingFiltered = selectedSizes.length > 0
-    
+    const displayItems = this.filteredAndSortedItems()
+        
     var displayJoinBannerCTA = true
     if(this.props.userLoggedIn){
       displayJoinBannerCTA = !(this.props.auth && (this.props.userLoggedIn.subscription || false))
@@ -174,30 +171,15 @@ class CatalogPage extends Component {
           </div>
         }          
         <div className="catalog_wrapper padding_top25 flex sides13pct">
-          <div className="filters_and_designers width150 padding_right10">
-            <div className="fixed_sidebar overflow_scroll width150">
-              <div className="filters_title medium druk_xs rotation_gray padding_bottom5">Designers</div>
-              <div>
-                {this.state.designers.map((designer, index) => {
-                  return (
-                    <div
-                      key={index}
-                      onClick={(e) => this.filterDesigners(e)}
-                      className="line_height16 proxima_small rotation_gray cursor_pointer padding_bottom5 uppercase"
-                      style={{fontWeight: designer.selected ? "bold" : "normal"}}
-                    >
-                      {designer.value}
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-          </div>
+          <RTUIFilterSidebar
+            options={this.state.designers}
+            onFilterChange={(selectedFilters) => this.filterDesigners(selectedFilters)}
+          />
           <div>
-            {this.state.myRotation.length > 0 &&
+            {displayItems.rotation.length > 0 &&
               <div className="catalog_section padding_bottom10 flex">
                 <div className="catalog_title width_full left20 filters_title medium druk_xs rotation_gray padding_bottom20">My Rotation</div>
-                {this.state.myRotation.map((item, index) => {
+                {displayItems.rotation.map((item, index) => {
                   return (
                     <div key={index} onClick={(e) => this.displayItemModal(e, item)}>
                       <ItemCard item={item} />
@@ -206,11 +188,11 @@ class CatalogPage extends Component {
                 })}
               </div>
             }
-            {this.state.upNext.length > 0 &&
+            {displayItems.next.length > 0 &&
               <div className="catalog_section padding_bottom10 flex">
                 <div className="catalog_title width_full left20 medium druk_xs rotation_gray padding_bottom10">Shipping Soon</div>
                 <div className="width_full proxima_small rotation_gray left20 padding_bottom20">You can change these items anytime until your order leaves our warehouse.</div>
-                {this.state.upNext.map((item, index) => {
+                {displayItems.next.map((item, index) => {
                   return (
                     <div key={index} onClick={(e) => this.displayItemModal(e, item)}>
                       <ItemCard item={item} />
@@ -220,10 +202,10 @@ class CatalogPage extends Component {
               </div>
               
             }
-            {this.state.favorites.length > 0 &&
+            {displayItems.favorites.length > 0 &&
               <div className="catalog_section padding_bottom10 flex">
                 <div className="catalog_title width_full left20 medium druk_xs rotation_gray padding_bottom20">Favorites</div>
-                {this.state.favorites.map((item, index) => {
+                {displayItems.favorites.map((item, index) => {
                   return (
                     <div key={index} onClick={(e) => this.displayItemModal(e, item)}>
                       <ItemCard item={item} />
@@ -232,72 +214,36 @@ class CatalogPage extends Component {
                 })}
               </div>
             }
-            <div className="catalog_section padding_top10 flex">
-              <div className="catalog_headers flex justify_between width_full padding_bottom10">
-                <div className="catalog_title druk_xs rotation_gray medium left20">Catalog</div>
-                <div className="size_btns flex justify_between">
-                  {(this.props.auth && this.state.subscription) &&
-                    this.state.sizes.map((size, index) => {
-                      return (
-                        <div
-                          key={index}
-                          onClick={(e) => this.filterSizes(e)}
-                          className="rotation_gray_border height40 width40 flex justify_center align_center proxima_large rotation_gray cursor_pointer"
-                          style={{background: size.selected ? "#333333" : "#FFFFFF", color: size.selected ? "#FFFFFF" : "#333333"}}
-                        >
-                          {size.value}
-                        </div>
-                      )
-                    })
-                  }
+            {displayItems.catalog.length > 0 &&
+              <div className="catalog_section padding_top10 flex">
+                <div className="catalog_headers flex justify_between width_full padding_bottom10">
+                  <div className="catalog_title druk_xs rotation_gray medium left20">Catalog</div>
+                  <div className="size_btns flex justify_between">
+                    {this.props.auth &&
+                      this.state.sizes.map((size, index) => {
+                        return (
+                          <div
+                            key={index}
+                            onClick={(e) => this.filterSizes(e)}
+                            className="rotation_gray_border height40 width40 flex justify_center align_center proxima_large rotation_gray cursor_pointer"
+                            style={{background: size.selected ? "#333333" : "#FFFFFF", color: size.selected ? "#FFFFFF" : "#333333"}}
+                          >
+                            {size.value}
+                          </div>
+                        )
+                      })
+                    }
+                  </div>
                 </div>
-              </div>
-              {designersBeingFiltered && sizesBeingFiltered ? (
-                this.state.items.map((item, index) => {
-                  if(item.title.selected && this.getSizesAvailable(item).filter(size => selectedSizes.includes(size)).length > 0){
-                    return (
-                      <div key={index} onClick={(e) => this.displayItemModal(e, item)}>
-                        <ItemCard item={item} />
-                      </div>
-                    )
-                  }else{
-                    return null
-                  }
-                })
-              ) : designersBeingFiltered && !sizesBeingFiltered ? (
-                this.state.items.map((item, index) => {
-                  if(item.title.selected){
-                    return (
-                      <div key={index} onClick={(e) => this.displayItemModal(e, item)}>
-                        <ItemCard item={item} />
-                      </div>
-                    )
-                  }else{
-                    return null
-                  }
-                })
-              ) : !designersBeingFiltered && sizesBeingFiltered ? (
-                this.state.items.map((item, index) => {
-                  if(this.getSizesAvailable(item).filter(size => selectedSizes.includes(size)).length > 0){
-                    return (
-                      <div key={index} onClick={(e) => this.displayItemModal(e, item)}>
-                        <ItemCard item={item} />
-                      </div>
-                    )
-                  }else{
-                    return null
-                  }
-                })
-              ) : (
-                this.state.items.map((item, index) => {
+                {displayItems.catalog.map((item, index) => {
                   return (
                     <div key={index} onClick={(e) => this.displayItemModal(e, item)}>
                       <ItemCard item={item} />
                     </div>
                   )
-                })
-              )}
-            </div>
+                })}
+              </div>
+            }
           </div>
         </div>
         
