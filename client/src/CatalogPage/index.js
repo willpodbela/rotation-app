@@ -103,12 +103,10 @@ class CatalogPage extends Component {
   }
   
   filterDesigners(selectedFilters){
-    console.log(selectedFilters)
     this.setState({selectedDesigners: selectedFilters})
   }
   
   filterCategories(selectedFilters){
-    console.log(selectedFilters)
     this.setState({selectedCategories: selectedFilters})
   }
 
