@@ -5,57 +5,125 @@ class RTUIFilterSidebar extends Component {
     super(props)
     
     this.state = {
-      options: this.computeOptionsFromProps()
+      options: this.dressOptions(this.props.options),
+      singleSelect: (this.props.singleSelect || false)
     }
   }
   
   componentDidUpdate(prevProps) {
     if (this.props.options !== prevProps.options) {
-      this.setState({ options: this.computeOptionsFromProps() })
+      this.setState({ options: this.dressOptions(this.props.options) })
     }
   }
   
-  computeOptionsFromProps() {
-    return this.props.options.map(option => { return {value: option, selected: false} })
+  dressOptions(options) {
+    if(options.constructor == Object) {
+      var ret = []
+      for (var opt in options) {
+        ret.push({value: opt, selected: false, children: this.dressOptions(options[opt])})
+      }
+      return ret
+    } else {
+      return options.map(option => {
+        return {value: option, selected: false, children: null}
+      })
+    }
+  }
+  
+  // returns an array, first value is the new options true, second value is wether or not the value was found in that tree
+  toggleSelected(options, value) {
+    if(options) {
+      var found = false
+      var copy = [...options]
+      options.forEach((option, index) => {
+        var foundInChildren = false
+        if(option.children) {
+          var childrenValues = this.toggleSelected(option.children, value)
+          copy[index].children = childrenValues[0]
+          foundInChildren = childrenValues[1]
+        }
+        if(this.state.singleSelect) {
+          copy[index].selected = (option.value === value) || foundInChildren
+        } else {
+          if(option.value === value){
+            copy[index].selected = !copy[index].selected
+          }
+        }
+        found = found || (option.value === value) || foundInChildren
+      })
+      return [copy, found]
+    } else {
+      return [null, false]
+    }
+  }
+  
+  getSelectedValues(options) {
+    if(options) {
+      var ret = []
+      options.forEach(option => {
+        var selectedChildren = this.getSelectedValues(option.children)
+        if(this.state.singleSelect) {
+          if(selectedChildren.length) {
+            ret = ret.concat(selectedChildren)
+          } else if(option.selected) {
+            ret.push(option.value)
+          }
+        } else {
+          ret = ret.concat(selectedChildren)
+          if(option.selected) {
+            ret.push(option.value)
+          }
+        }
+      })
+      return ret
+    } else {
+      return []
+    }
   }
   
   filterClicked(e) {
-    var copy = [...this.state.options]
-    this.state.options.forEach((option, index) => {
-      if(option.value === e.target.getAttribute('data-key')){
-        copy[index].selected = !copy[index].selected
-      }
-    })
-    
+    var newOptions = this.toggleSelected(this.state.options, e.target.getAttribute('data-key'))[0]
     if(this.props.onFilterChange) {
-      var selected = [...new Set(this.state.options.map(opt => { return opt.selected ? opt.value : null }).filter(el => { return el != null }))]
-      this.props.onFilterChange(selected)
+      this.props.onFilterChange(this.getSelectedValues(newOptions))
     }
-    
-    this.setState({options: copy})
+    this.setState({options: newOptions})
   }
-
-  render(){
-    return (
-      <div className="padding_bottom20">
-        {this.props.title &&
-          <div className="catalog_title druk_xs rotation_gray medium padding_bottom10">{this.props.title}</div>
-        }
+  
+  render(){    
+    const OptionsList = ({ options }) => {
+      return (
         <div>
-          {this.state.options.map((option, index) => {
-            return (
+          {options.map(option => (
+            <div>
               <div
-                key={index}
                 data-key={option.value}
                 onClick={(e) => this.filterClicked(e)}
                 className="line_height16 proxima_small rotation_gray cursor_pointer padding_bottom5 uppercase"
                 style={{fontWeight: option.selected ? "bold" : "normal"}}
               >
-                {option.value}
+              {option.value}
               </div>
-            )
-          })}
+              {(option.children && option.selected) &&
+                <div className="left10">
+                  <OptionsList
+                    options={option.children}
+                  />
+                </div>
+              }
+            </div>
+          ))}
         </div>
+      )
+    }
+  
+    return (
+      <div className="padding_bottom20">
+        {this.props.title &&
+          <div className="catalog_title druk_xs rotation_gray medium padding_bottom10">{this.props.title}</div>
+        }
+        <OptionsList
+          options={this.state.options}
+        />
       </div>
     )
   }

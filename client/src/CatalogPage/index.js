@@ -15,7 +15,7 @@ class CatalogPage extends Component {
     this.state = {
       items:[],
       designers: [],
-      categories: [],
+      categories: {},
       selectedDesigners: [],
       selectedCategories: [],
       selectedItem: {},
@@ -44,15 +44,27 @@ class CatalogPage extends Component {
     fetch("/api/web/items", {
       headers: headers
     }).then(res => this.props.apiResponseHandler(res)).then(results => {
-      console.log(results.items)
       this.setState({
         items: results.items,
         designers: [...new Set(results.items.map(item => item.title))],
-        categories: [...new Set(results.items.map(item => item.category))]
+        categories: this.buildCategoryTree(results.items)
       })
     })
   }
-    
+  
+  buildCategoryTree(items) {
+    var tree = {}
+    for (var item of items) {
+      if(!tree[item.category]) {
+        tree[item.category] = []
+      }
+      if(!tree[item.category].includes(item.sub_category)){
+        tree[item.category].push(item.sub_category)
+      }
+    }
+    return tree
+  }
+  
   filteredAndSortedItems() {
     var displayItems = {
       rotation: [],
@@ -84,17 +96,19 @@ class CatalogPage extends Component {
       displayItems.catalog = displayItems.catalog.filter(item => this.state.selectedDesigners.includes(item.title))
     }
     if(this.state.selectedCategories.length) {
-      displayItems.catalog = displayItems.catalog.filter(item => this.state.selectedCategories.includes(item.category))
+      displayItems.catalog = displayItems.catalog.filter(item => (this.state.selectedCategories.includes(item.category) || this.state.selectedCategories.includes(item.sub_category)))
     }
     
     return displayItems
   }
   
   filterDesigners(selectedFilters){
+    console.log(selectedFilters)
     this.setState({selectedDesigners: selectedFilters})
   }
   
   filterCategories(selectedFilters){
+    console.log(selectedFilters)
     this.setState({selectedCategories: selectedFilters})
   }
 
@@ -155,7 +169,7 @@ class CatalogPage extends Component {
   render(){
     const selectedItem = this.state.selectedItem
     const displayItems = this.filteredAndSortedItems()
-        
+            
     var displayJoinBannerCTA = true
     if(this.props.userLoggedIn){
       displayJoinBannerCTA = !(this.props.auth && (this.props.userLoggedIn.subscription || false))
@@ -192,6 +206,7 @@ class CatalogPage extends Component {
                     <RTUIFilterSidebar
                       options={this.state.categories}
                       title={"Categories"}
+                      singleSelect={true}
                       onFilterChange={(s) => this.filterCategories(s)}
                     />
                     <RTUIFilterSidebar
