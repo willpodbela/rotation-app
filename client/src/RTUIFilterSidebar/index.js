@@ -107,7 +107,7 @@ class RTUIFilterSidebar extends Component {
               >
               {option.value}
               </div>
-              {(option.children && option.selected) &&
+              {(option.children && (option.selected || this.getSelectedValues(option.children).length > 0)) &&
                 <div className="left10">
                   <OptionsList
                     options={option.children}
