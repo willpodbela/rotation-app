@@ -94,7 +94,7 @@ class RTUIFilterSidebar extends Component {
       return (
         <div>
           {options.map(option => (
-            <div>
+            <div key={option.value}>
               <div
                 data-key={option.value}
                 onClick={(e) => this.filterClicked(e)}
