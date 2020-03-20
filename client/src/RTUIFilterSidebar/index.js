@@ -43,7 +43,11 @@ class RTUIFilterSidebar extends Component {
           foundInChildren = childrenValues[1]
         }
         if(this.state.singleSelect) {
-          copy[index].selected = (option.value === value) || foundInChildren
+          if(option.value === value){
+            copy[index].selected = !copy[index].selected
+          } else {
+            copy[index].selected = foundInChildren
+          }
         } else {
           if(option.value === value){
             copy[index].selected = !copy[index].selected
