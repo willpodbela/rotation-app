@@ -173,6 +173,46 @@ class CatalogPage extends Component {
       displayJoinBannerCTA = !(this.props.auth && (this.props.userLoggedIn.subscription || false))
     }
     
+    const CatalogSection = ({ children, items, title, subtitle, emptyDefault }) => {
+      return (
+        <div>
+          {items.length > 0 ? (
+            <div className="catalog_section padding_top10 flex">
+              {children}
+              {title &&
+                <div className="catalog_title width_full left20 medium druk_xs rotation_gray padding_bottom10">{title}</div>
+              }
+              {subtitle &&
+                <div className="width_full proxima_small rotation_gray left20 padding_bottom20">{subtitle}</div>          
+              }
+              {items.map((item, index) => {
+                return (
+                  <div key={index} onClick={(e) => this.displayItemModal(e, item)}>
+                    <ItemCard item={item} />
+                  </div>
+                )
+              })}
+            </div>
+          ) : emptyDefault ? (
+            <div className="catalog_section padding_top10 flex">
+              {emptyDefault}
+            </div>
+          ) : (
+            <span></span>
+          )}
+        </div>
+      )
+    }
+    
+    const EmptyCatalog = () => {
+      return (
+        <div>
+          <div className="catalog_title druk_xs rotation_gray medium left20">Catalog</div>
+          <div className="width_full proxima_small rotation_gray left20 padding_bottom20 padding_top20">Whoops! No items matching these criteria. Disable some of your filters to see more items.</div>
+        </div>
+      )
+    }
+    
     return (
       <div className="CatalogPage flex justify_center align_center gray_border_top padding_bottom300">
       <RotationHelmet title = "Clothing | The Rotation" />
@@ -218,74 +258,32 @@ class CatalogPage extends Component {
             </div>
           </StickyContainer>
           <div>
-            {displayItems.rotation.length > 0 &&
-              <div className="catalog_section padding_top10 flex">
-                <div className="catalog_title width_full left20 filters_title medium druk_xs rotation_gray padding_bottom20">My Rotation</div>
-                {displayItems.rotation.map((item, index) => {
-                  return (
-                    <div key={index} onClick={(e) => this.displayItemModal(e, item)}>
-                      <ItemCard item={item} />
-                    </div>
-                  )
-                })}
-              </div>
-            }
-            {displayItems.next.length > 0 &&
-              <div className="catalog_section padding_top10 flex">
-                <div className="catalog_title width_full left20 medium druk_xs rotation_gray padding_bottom10">Shipping Soon</div>
-                <div className="width_full proxima_small rotation_gray left20 padding_bottom20">You can change these items anytime until your order leaves our warehouse.</div>
-                {displayItems.next.map((item, index) => {
-                  return (
-                    <div key={index} onClick={(e) => this.displayItemModal(e, item)}>
-                      <ItemCard item={item} />
-                    </div>
-                  )
-                })}
-              </div>
-            
-            }
-            {displayItems.favorites.length > 0 &&
-              <div className="catalog_section padding_top10 flex">
-                <div className="catalog_title width_full left20 medium druk_xs rotation_gray padding_bottom20">Favorites</div>
-                {displayItems.favorites.map((item, index) => {
-                  return (
-                    <div key={index} onClick={(e) => this.displayItemModal(e, item)}>
-                      <ItemCard item={item} />
-                    </div>
-                  )
-                })}
-              </div>
-            }
-            {displayItems.catalog.length > 0 &&
-              <div className="catalog_section padding_top10 flex">
-                <div className="catalog_headers flex justify_between width_full padding_bottom10">
-                  <div className="catalog_title druk_xs rotation_gray medium left20">Catalog</div>
-                  <div className="size_btns flex justify_between">
-                    {this.props.auth &&
-                      this.state.sizes.map((size, index) => {
-                        return (
-                          <div
-                            key={index}
-                            onClick={(e) => this.filterSizes(e)}
-                            className="rotation_gray_border height40 width40 flex justify_center align_center proxima_large rotation_gray cursor_pointer"
-                            style={{background: size.selected ? "#333333" : "#FFFFFF", color: size.selected ? "#FFFFFF" : "#333333"}}
-                          >
-                            {size.value}
-                          </div>
-                        )
-                      })
-                    }
-                  </div>
+            <CatalogSection items={displayItems.rotation} title={"My Rotation"} />
+            <CatalogSection items={displayItems.next} title={"Shipping Soon"} subtitle={"You can change these items anytime until your order leaves our warehouse."} />
+            <CatalogSection items={displayItems.favorites} title={"Favorites"} />
+            <CatalogSection items={displayItems.catalog}
+              emptyDefault={ (this.state.selectedDesigners.length > 0 || this.state.selectedCategories.length > 0) ? <EmptyCatalog /> : null }
+            >
+              <div className="catalog_headers flex justify_between width_full padding_bottom10">
+                <div className="catalog_title druk_xs rotation_gray medium left20">Catalog</div>
+                <div className="size_btns flex justify_between">
+                  {this.props.auth &&
+                    this.state.sizes.map((size, index) => {
+                      return (
+                        <div
+                          key={index}
+                          onClick={(e) => this.filterSizes(e)}
+                          className="rotation_gray_border height40 width40 flex justify_center align_center proxima_large rotation_gray cursor_pointer"
+                          style={{background: size.selected ? "#333333" : "#FFFFFF", color: size.selected ? "#FFFFFF" : "#333333"}}
+                        >
+                          {size.value}
+                        </div>
+                      )
+                    })
+                  }
                 </div>
-                {displayItems.catalog.map((item, index) => {
-                  return (
-                    <div key={index} onClick={(e) => this.displayItemModal(e, item)}>
-                      <ItemCard item={item} />
-                    </div>
-                  )
-                })}
               </div>
-            }
+            </CatalogSection>
           </div>
         </div>
       
