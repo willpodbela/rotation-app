@@ -114,7 +114,7 @@ class App extends Component {
             email: res.user.email
           });
           
-          // Identify User for for analytics purposes
+          // Identify User after sign up
           window.analytics.identify(res.user.id, {
             email: res.user.email
           });
@@ -172,9 +172,10 @@ class App extends Component {
         })
         this.updateUserWithAdvertisementCodeIfNeeded()
         
-        // Identify User for for analytics purposes
+        // Identify User after log in
         window.analytics.identify(res.user.id, {
-          email: res.user.email
+          email: res.user.email,
+          plan: res.user.subscription.item_qty
         });
         
         window.location.reload(true)
