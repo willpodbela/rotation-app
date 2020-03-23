@@ -1,15 +1,27 @@
 .Nav{
   height: 88px;
 }
-@media (max-width: 640px) {
+.download_app_btn{
+  height: 39px;
+  width: 147px;
+  border-radius: 20px;
+}
+@media (max-width: 720px) {
   .nav_elements{
     margin-left: 0px !important;
     margin-right: 0px !important;
     justify-content: space-around !important;
   }
-}
-.download_app_btn{
-  height: 39px;
-  width: 147px;
-  border-radius: 20px;
+  .download_app_btn{
+    height: 36px;
+    width: 100px;
+    border-radius: 18px;
+  }
+  .menu_buttons{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .logged_in{
+    padding: 10px;
+  }
 }
