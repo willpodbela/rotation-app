@@ -38,6 +38,10 @@ a{
   margin-left: 13%;
   margin-right: 13%;
 }
+.druk_xl{
+  font-family: "Druk Text Wide";
+  font-size: 48px;
+}
 .druk_large{
   font-family: "Druk Text Wide";
   font-size: 36px;
@@ -2866,7 +2870,7 @@ b {
   border-bottom-right-radius: 10px;
 }
 
-.pricing_table_1 .price .inline_block {
+.pricing_table_1 .price .inline_block { 
   vertical-align: top;
 }
 
