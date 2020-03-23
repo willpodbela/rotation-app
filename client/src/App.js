@@ -109,13 +109,14 @@ class App extends Component {
             isLoading: false
           })
           this.updateUserWithAdvertisementCodeIfNeeded()
-          
-          window.analytics.track('Sign Up', {
-            email: res.user.email
-          });
-          
+          // Mixpanel-required Alias pairing
+          window.analytics.alias(res.user.id)
+
           // Identify User after sign up
           window.analytics.identify(res.user.id, {
+            email: res.user.email
+          });
+          window.analytics.track('Sign Up', {
             email: res.user.email
           });
           
