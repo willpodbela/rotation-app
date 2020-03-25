@@ -64,7 +64,19 @@
     margin-right: 5% !important;
   }
 }
-
+.modal_image{
+  max-width: 75%;
+}
+.reserve_btn{
+  height: 44px;
+}
+.modal_btn{
+  width: 44px;
+  height: 44px;
+}
+.modal_item{
+  max-width: 800px !important;
+}
 @media (max-width: 1000px) and (min-width: 750px) {
   .modal_item{
     max-width: 600px !important;
