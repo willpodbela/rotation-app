@@ -176,6 +176,9 @@ class ItemActionPane extends Component {
         <div className="modal_brand proxima_small rotation_gray opacity6 uppercase">{selectedItem.title.value}</div>
         <div className="modal_description overflow_scroll druk_medium rotation_gray line_height24 capitalize">{selectedItem.subtitle}</div>
         <div className="product_description proxima_small overflow_scroll rotation_gray">{selectedItem.description}</div>
+        {selectedItem.supplier_color &&
+          <div className="product_description proxima_small overflow_scroll rotation_gray">Supplier Color: {selectedItem.supplier_color}</div>
+        }
         {this.props.auth && this.state.subscription ? (
           <div>
             <div className="modal_size_btns flex modal_buttons">
