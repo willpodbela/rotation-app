@@ -19,12 +19,12 @@ class RTUIFilterSidebar extends Component {
   dressOptions(options) {
     var ret = []
     if(options.constructor === Object) {
-      for (var opt in options) {
-        ret.push({value: opt, selected: false, children: this.dressOptions(options[opt])})
-      }
+      ret = Object.keys(options).map(opt => {
+        return {value: opt, selected: false, children: this.dressOptions(options[opt])}
+      })
     } else {
-      ret = options.map(option => {
-        return {value: option, selected: false, children: null}
+      ret = options.map(opt => {
+        return {value: opt, selected: false, children: null}
       })
     }
     ret.sort((a, b) => (a.value > b.value) ? 1 : ((b.value > a.value) ? -1 : 0));
