@@ -9,6 +9,9 @@ class KpiController < ApplicationController
     .includes(:not_cancelled_reservations, :units)
     .group_by(&@slice_by.to_sym)
     
+    # Sort groups by newest member item first
+    @penetration_items = @penetration_items.sort_by { |k, v| v.max_by(&:created_at).created_at }.reverse!
+    
     @customer_sizes = Hash.new
     User.paying_customers.each do |u|
       res_sizes = u.reservations.map(&:size).compact

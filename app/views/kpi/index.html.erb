@@ -39,11 +39,11 @@
       <th>90-day</th>
       <th>30-day</th>
     </tr>
-    <% @penetration_items.each do |value, array| %>
+    <% @penetration_items.each do |kv_array_pair| %>
     <tr>
-      <td><%= value || "*No Value" %></td>
-      <td><%= number_with_precision((array.sum {|e| e.cum_days_rented(Time.zone.now-90.day) }) * 100 / ((array.sum {|e| e.cum_days_units_in_service(Time.zone.now-90.day)}).to_f.nonzero? || 1), :precision => 2) %>%</td>
-      <td><%= number_with_precision((array.sum {|e| e.cum_days_rented(Time.zone.now-30.day) }) * 100 / ((array.sum {|e| e.cum_days_units_in_service(Time.zone.now-30.day)}).to_f.nonzero? || 1), :precision => 2) %>%</td>
+      <td><%= kv_array_pair[0] || "*No Value" %></td>
+      <td><%= number_with_precision((kv_array_pair[1].sum {|e| e.cum_days_rented(Time.zone.now-90.day) }) * 100 / ((kv_array_pair[1].sum {|e| e.cum_days_units_in_service(Time.zone.now-90.day)}).to_f.nonzero? || 1), :precision => 2) %>%</td>
+      <td><%= number_with_precision((kv_array_pair[1].sum {|e| e.cum_days_rented(Time.zone.now-30.day) }) * 100 / ((kv_array_pair[1].sum {|e| e.cum_days_units_in_service(Time.zone.now-30.day)}).to_f.nonzero? || 1), :precision => 2) %>%</td>
     </tr>
     <% end %>
   </table>
