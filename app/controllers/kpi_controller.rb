@@ -31,7 +31,7 @@ class KpiController < ApplicationController
   end
   
   def slice_setup
-    @slice_options = ["title", "color", "category", "sub_category", "meta_category", "supplier_color"]
+    @slice_options = ["title", "color", "category", "sub_category", "meta_category", "supplier_color", "season"]
     @slice_by = @slice_options.include?(params[:slice_by]) ? params[:slice_by] : "category"
   end
    
