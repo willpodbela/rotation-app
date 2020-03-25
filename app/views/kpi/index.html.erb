@@ -33,7 +33,7 @@
     <%= submit_tag 'Filter' %>
   <% end %>
   <p class="top10"><i>Total days rented / total days available across all the units. Visible items only.</i></p>
-  <table class="listing admin_table" summary="Unit list">
+  <table class="listing admin_table has_graph" summary="Unit list">
     <tr class="header">
       <th><%= @slice_by.titleize %></th>
       <th>90-day</th>
@@ -55,4 +55,7 @@
     </tr>
     <% end %>
   </table>
+  <div class="admin_table_graph">
+    <%= line_chart @graph_hash, xtitle: "Days (Trailing)", ytitle: "Penetration", suffix: "%", precision: 4  %>
+  </div>
 </div>

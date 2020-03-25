@@ -5,12 +5,16 @@ class KpiController < ApplicationController
     @visible_count = Item.visible.with_images.count
     @inventory = Queries::Inventory.new
     
-    @penetration_items = Item.visible
+    @penetration_hash = Item.visible
     .includes(:not_cancelled_reservations, :units)
     .group_by(&@slice_by.to_sym)
     
     # Sort groups by newest member item first
-    @penetration_items = @penetration_items.sort_by { |k, v| v.max_by(&:created_at).created_at }.reverse!
+    @penetration_items = @penetration_hash.sort_by { |k, v| v.max_by(&:created_at).created_at }.reverse!
+    
+    # Compute penetration going back various points in time for the graph
+    @graph_time_slices = [90, 60, 30, 15, 7]
+    @graph_hash = @penetration_hash.map {|k,v| {name: k, data: (@graph_time_slices.map { |i| { -i => (v.sum {|e| e.cum_days_rented(Time.zone.now-i.day) }) * 100 / ((v.sum {|e| e.cum_days_units_in_service(Time.zone.now-i.day)}).to_f.nonzero? || 1)} }).reduce({}, :merge)}}
     
     @customer_sizes = Hash.new
     User.paying_customers.includes(:reservations).each do |u|
