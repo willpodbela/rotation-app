@@ -37,13 +37,21 @@
     <tr class="header">
       <th><%= @slice_by.titleize %></th>
       <th>90-day</th>
-      <th>30-day</th>
+      <th class="black-border-right">30-day</th>
+      <th>Item Count</th>
+      <th>Unit Count</th>
+      <th>Rental Count</th>
+      <th>Date Newest Item</th>
     </tr>
     <% @penetration_items.each do |kv_array_pair| %>
     <tr>
       <td><%= kv_array_pair[0] || "*No Value" %></td>
       <td><%= number_with_precision((kv_array_pair[1].sum {|e| e.cum_days_rented(Time.zone.now-90.day) }) * 100 / ((kv_array_pair[1].sum {|e| e.cum_days_units_in_service(Time.zone.now-90.day)}).to_f.nonzero? || 1), :precision => 2) %>%</td>
-      <td><%= number_with_precision((kv_array_pair[1].sum {|e| e.cum_days_rented(Time.zone.now-30.day) }) * 100 / ((kv_array_pair[1].sum {|e| e.cum_days_units_in_service(Time.zone.now-30.day)}).to_f.nonzero? || 1), :precision => 2) %>%</td>
+      <td class="black-border-right"><%= number_with_precision((kv_array_pair[1].sum {|e| e.cum_days_rented(Time.zone.now-30.day) }) * 100 / ((kv_array_pair[1].sum {|e| e.cum_days_units_in_service(Time.zone.now-30.day)}).to_f.nonzero? || 1), :precision => 2) %>%</td>
+      <td><%= kv_array_pair[1].size %></td>
+      <td><%= kv_array_pair[1].sum { |e| e.units.size } %></td>
+      <td><%= kv_array_pair[1].sum { |e| e.not_cancelled_reservations.size } %></td>
+      <td><%= kv_array_pair[1].max_by(&:created_at).created_at.to_date %></td>
     </tr>
     <% end %>
   </table>
