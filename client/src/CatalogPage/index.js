@@ -55,11 +55,15 @@ class CatalogPage extends Component {
   buildCategoryTree(items) {
     var tree = {}
     for (var item of items) {
-      if(!tree[item.category]) {
-        tree[item.category] = []
-      }
-      if(!tree[item.category].includes(item.sub_category)){
-        tree[item.category].push(item.sub_category)
+      if(item.category){
+        if(!tree[item.category]) {
+          tree[item.category] = []
+        }
+        if(item.sub_category){
+          if(!tree[item.category].includes(item.sub_category)){
+            tree[item.category].push(item.sub_category)
+          }
+        }
       }
     }
     return tree
