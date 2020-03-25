@@ -237,7 +237,7 @@ class CatalogPage extends Component {
             </div>
           </div>
         }          
-        <div className="catalog_wrapper padding_top25 flex sides13pct">
+        <div className="catalog_wrapper flex sides13pct">
           <StickyContainer>
             <div className="filters_and_designers width150 padding_right10">
               <Sticky>

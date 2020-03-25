@@ -17,52 +17,7 @@
 .catalog_wrapper{
   max-width: 1312px;
   margin: auto;
-  padding: 25px;
-}
-@media (max-width: 1155px) {
-  .catalog_section{
-    width: 708px;
-  }
-}
-@media (max-width: 930px) {
-  .catalog_section{
-    width: 490px;
-  }
-  .catalog_headers{
-    display: block;
-  }
-  .size_btns{
-    margin: 10px 0 10px 20px;
-  }
-}
-@media (max-width: 700px) {
-  .filters_and_designers{
-    display: none;
-  }
-  .catalog_wrapper{
-    justify-content: center !important;
-  }
-  .catalog_section{
-    justify-content: center !important;
-    width: auto;
-  }
-  .card_large{
-    padding-left: 0 !important;
-    width: 150px;
-    padding: 10px 10px 10px 10px;
-  }
-  .size_btns{
-    margin-left: 10px;
-  }
-  .catalog_title{
-    margin-left: 10px;
-  }
-}
-@media (max-width: 538px) {
-  .catalog_wrapper{
-    margin-left: 5% !important;
-    margin-right: 5% !important;
-  }
+  padding: 25px 20px;
 }
 .modal_image{
   max-width: 75%;
@@ -76,72 +31,6 @@
 }
 .modal_item{
   max-width: 800px !important;
-}
-@media (max-width: 1000px) and (min-width: 750px) {
-  .modal_item{
-    max-width: 600px !important;
-  }
-  .reserve_btn{
-    width: 130px !important;
-  }
-}
-@media (max-width: 749px) {
-  .modal_item{
-    margin: 0;
-    padding: 0;
-  }
-  .modal_section{
-    min-height: 1000px !important;
-  }
-  .reserve_btn{
-    width: 100%;
-  }
-  .like_btn{
-    margin-top: 20px;
-    width: 100%;
-  }
-  .plan_modal{
-    margin-top: 250px;
-    width: 100% !important;
-    text-align: center;
-  }
-  .plan_btns{
-    justify-content: space-evenly !important;
-  }
-  .add_credit_card{
-    width: 250px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .mobile_billing_modal{
-    display: block !important;
-  }
-  .non_mobile_billing_modal{
-    display: none;
-  }
-  .shipping_input{
-    width:250px !important;
-    margin-left: auto !important;
-  }
-  .confirm_modal{
-    width: 300px !important;
-  }
-  .confirm_modal_box{
-    width: 300px;
-    height: auto !important;
-  }
-  .sign_up_modal{
-    margin-top: 250px;
-  }
-  .login_modal{
-    margin-top: 250px;
-  }
-  .mobile_overflow{
-    display: flex;
-  }
-  .non_mobile_overflow{
-    display: none;
-  }
 }
 .w-button {
   display: inline-block;
@@ -227,8 +116,6 @@
   color: #fff;
   text-align: center;
 }
-
-
 .cta-row {
   display: -webkit-box;
   display: -webkit-flex;
@@ -312,7 +199,6 @@
   color: #fff;
   font-weight: 400;
 }
-
 .button.dark {
   margin-right: 0px;
   padding: 20px 40px;
@@ -324,7 +210,6 @@
   color: #fff;
   line-height: 22px;
 }
-
 .button.dark:hover {
   border-style: none;
   border-color: #53d7db;
@@ -334,18 +219,15 @@
   transform: translate(0px, -6px);
   color: #fff;
 }
-
 .button.dark.center {
   display: block;
   text-align: center;
 }
-
 .button.white {
   font-family: 'Roboto Mono', sans-serif;
   font-weight: 700;
   letter-spacing: 4px;
 }
-
 .text-block-4 {
   position: absolute;
   top: 50%;
@@ -358,7 +240,20 @@
   font-weight: 500;
 }
 
-@media screen and (max-width:991px) {
+@media (max-width: 1150px) {
+  .catalog_section{
+    width: 708px;
+  }
+}
+@media (max-width: 1000px) and (min-width: 750px) {
+  .modal_item{
+    max-width: 600px !important;
+  }
+  .reserve_btn{
+    width: 130px !important;
+  }
+}
+@media (max-width:991px) {
   .w-container {
     max-width: 728px;
   }
@@ -374,19 +269,18 @@
     padding-right: 10px;
     padding-left: 10px;
   }
-  
+  .catalog_wrapper{
+    justify-content: center;
+    padding: 10px 0 0 0;
+  }
+  .catalog_section{
+    justify-content: center;
+    width: auto;
+    padding: 25px 0 0 0;
+  }
   .left-block {
     display: block;
     margin-bottom: 0px;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-box-align: start;
-    -webkit-align-items: flex-start;
-    -ms-flex-align: start;
-    align-items: flex-start;
   }
   .section-tittle.cta {
     font-size: 24px;
@@ -398,48 +292,95 @@
     -ms-flex-pack: start;
     justify-content: flex-start;
   }
+  .catalog_section{
+    width: 490px;
+  }
+  .size_btns{
+    margin: 10px 0 10px 20px;
+  }
 }
-
-@media screen and (max-wdith:767px) {
-  .w-row,
-  .w-container .w-row {
-    margin-left: 0;
-    margin-right: 0;
+@media (max-width: 749px) {
+  .modal_item{
+    margin: 0;
+    padding: 0;
   }
-  .w-col {
+  .modal_section{
+    min-height: 1000px !important;
+  }
+  .reserve_btn{
     width: 100%;
-    left: auto;
-    right: auto;
   }
-  .section.cta {
-    background-image: -webkit-gradient(linear, left top, right top, color-stop(44%, #dbdbdb), to(hsla(0, 0%, 100%, 0))), url('../img/cta-banner-background.jpg');
-    background-image: linear-gradient(90deg, #dbdbdb 44%, hsla(0, 0%, 100%, 0)), url('../img/cta-banner-background.jpg');
-    background-position: 0px 0px, 50% 33%;
-    background-size: auto, cover;
-    background-repeat: repeat, no-repeat;
+  .like_btn{
+    margin-top: 20px;
+    width: 100%;
   }
-  .container {
-    height: auto;
-  }
-  .cta-row {
-    display: block;
-  }
-  .left-block {
-    margin-bottom: 60px;
-  }
-  .cta-button-block {
-    margin-top: 0px;
-    -webkit-box-pack: start;
-    -webkit-justify-content: flex-start;
-    -ms-flex-pack: start;
-    justify-content: flex-start;
-  }
-  .button {
+  .plan_modal{
+    margin-top: 250px;
+    width: 100% !important;
     text-align: center;
   }
+  .plan_btns{
+    justify-content: space-evenly !important;
+  }
+  .add_credit_card{
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .mobile_billing_modal{
+    display: block !important;
+  }
+  .non_mobile_billing_modal{
+    display: none;
+  }
+  .shipping_input{
+    width:250px !important;
+    margin-left: auto !important;
+  }
+  .confirm_modal{
+    width: 300px !important;
+  }
+  .confirm_modal_box{
+    width: 300px;
+    height: auto !important;
+  }
+  .sign_up_modal{
+    margin-top: 250px;
+  }
+  .login_modal{
+    margin-top: 250px;
+  }
+  .mobile_overflow{
+    display: flex;
+  }
+  .non_mobile_overflow{
+    display: none;
+  }
 }
-
-@media screen and (max-width: 479px) {
+@media (max-width: 810px) {
+  .filters_and_designers{
+    display: none;
+  }
+  .card_large{
+    padding-left: 0 !important;
+    width: 150px;
+    padding: 10px;
+  }
+  .size_btns{
+    margin-left: 10px;
+  }
+  .catalog_title{
+    margin-left: 10px;
+  }
+}
+@media (max-width: 538px) {
+  .catalog_wrapper{
+    margin-left: 5% !important;
+    margin-right: 5% !important;
+  }
+  .catalog_section {
+      width: auto;
+  }
   .w-container {
     max-width: none;
   }
@@ -457,7 +398,6 @@
   .container {
     height: auto;
   }
-  
   .cta-row {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
