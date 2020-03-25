@@ -188,7 +188,14 @@ class CatalogPage extends Component {
               {items.map((item, index) => {
                 return (
                   <div key={index} onClick={(e) => this.displayItemModal(e, item)}>
-                    <ItemCard item={item} />
+                    <ItemCard 
+                    item={item} 
+                    auth={this.props.auth}
+                    userLoggedIn={this.props.userLoggedIn}
+                    apiResponseHandler={this.props.apiResponseHandler}
+                    actionComplete={(e) => this.itemUpdated(e, selectedItem)}
+                    showOnboardingModal={(e) => this.displayOnboardingModal(e)}
+                    />
                   </div>
                 )
               })}
