@@ -4,6 +4,7 @@ class ItemsController < AdminBaseController
   
   def index
     @items = Item
+    .includes(:not_cancelled_reservations)
     .where(query_params)
     .order("#{sort_column} #{sort_direction}")
     
