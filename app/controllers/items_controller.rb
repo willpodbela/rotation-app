@@ -4,6 +4,7 @@ class ItemsController < AdminBaseController
   
   def index
     @items = Item
+    .includes(:not_cancelled_reservations)
     .where(query_params)
     .order("#{sort_column} #{sort_direction}")
     
@@ -92,6 +93,6 @@ class ItemsController < AdminBaseController
   def set_options
     @color_options = ["Black", "Beige", "White", "Grey", "Navy", "Denim", "Tie-Dye", "Brown", "Metallic", "Purple", "Blue", "Pink", "Green", "Yellow", "Orange", "Red", "Other"]
     @category_options = ["Jackets & Coats", "Tops", "Bottoms", "Shorts", "Sweaters", "Jewelry", "Jeans"]
-    @sub_category_options = ["Puffers", "Bombers", "Coats", "Denim Jackets", "Down", "Fur & Shearling", "Jackets", "Leather Jackets", "Peacoats", "Trench Coats", "Vests", "Cargo Pants", "Leather Pants", "Track Pants", "Sweatpants", "Trousers", "Cardigans", "Knits", "Crewnecks", "Hoodies", "Zipups", "Sweatshirts", "Turtlenecks", "V-Necks", "Henleys", "Polos", "T-Shirts", "Button-downs", "Longsleeves", "Tank Tops", "Rings", "Necklaces", "Bracelets"]
+    @sub_category_options = ["Puffers", "Bombers", "Coats", "Denim Jackets", "Down", "Fur & Shearling", "Jackets", "Leather Jackets", "Track Jackets", "Peacoats", "Trench Coats", "Vests", "Cargo Pants", "Leather Pants", "Track Pants", "Sweatpants", "Trousers", "Cardigans", "Knits", "Crewnecks", "Hoodies", "Zipups", "Sweatshirts", "Turtlenecks", "V-Necks", "Henleys", "Polos", "T-Shirts", "Button-downs", "Longsleeves", "Tank Tops", "Rings", "Necklaces", "Bracelets"]
   end
 end

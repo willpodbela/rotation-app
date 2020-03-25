@@ -20,7 +20,10 @@
       <th><%= sort_link "supplier_color" %></th>
       <th>Owned Inventory</th>
       <th><%= sort_link "hidden", "Visible?" %></th>
-      <th><%= sort_link "landing_featured", "Featured?" %></th>
+      <th class="black-border-right"><%= sort_link "landing_featured", "Featured?" %></th>
+      <th>Rentals</th>
+      <th>Cumulative Days Rented</th>
+      <th>Days Since Last Rental</th>
     </tr>
     <% @items.each do |item| %>
     <tr>
@@ -42,7 +45,10 @@
         <% end %>
       </td>
       <td><%= item.hidden ? '✗' : '✓' %></td>
-      <td><%= item.landing_featured ? '✓' : '✗'  %></td>
+      <td class="black-border-right"><%= item.landing_featured ? '✓' : '✗'  %></td>
+      <td><%= item.not_cancelled_reservations.length %></td>
+      <td><%= item.cum_days_rented %></td>
+      <td><%= item.days_since_last_rental || "N/A" %></td>
       <td class="actions">
         <%= link_to("Show", item_path(item), :class => 'action -show') %>
         <%= link_to("Edit", edit_item_path(item), :class => 'action edit') %>
