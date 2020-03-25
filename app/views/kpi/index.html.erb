@@ -56,7 +56,6 @@
     <% end %>
   </table>
   <div class="admin_table_graph">
-    <%= javascript_include_tag "chartkick" %>
     <%= line_chart @graph_hash, xtitle: "Days (Trailing)", ytitle: "Penetration", suffix: "%", precision: 4  %>
   </div>
 </div>
