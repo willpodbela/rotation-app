@@ -218,7 +218,7 @@ class CatalogPage extends Component {
     }
     
     return (
-      <div className="CatalogPage flex justify_center align_center gray_border_top padding_bottom300">
+      <div className="CatalogPage flex left-block justify_center align_center gray_border_top padding_bottom300">
       <RotationHelmet title = "Clothing | The Rotation" />
         {displayJoinBannerCTA &&
           <div className="section cta">

@@ -17,20 +17,16 @@
 .catalog_wrapper{
   max-width: 1312px;
   margin: auto;
+  padding: 25px;
 }
-@media (max-width: 1491px) {
+@media (max-width: 1155px) {
   .catalog_section{
     width: 708px;
   }
 }
-@media (max-width: 1174px) {
+@media (max-width: 930px) {
   .catalog_section{
-    width: 472px;
-  }
-}
-@media (max-width: 856px) {
-  .catalog_section{
-    width: 490px; /* causing 1 column catalog on mobile */ 
+    width: 490px;
   }
   .catalog_headers{
     display: block;
@@ -39,13 +35,10 @@
     margin: 10px 0 10px 20px;
   }
 }
-@media (max-width: 538px) {
-  .catalog_wrapper{
-    margin-left: 5% !important;
-    margin-right: 5% !important;
+@media (max-width: 700px) {
+  .filters_and_designers{
+    display: none;
   }
-}
-@media (max-width: 440px) {
   .catalog_wrapper{
     justify-content: center !important;
   }
@@ -65,24 +58,13 @@
     margin-left: 10px;
   }
 }
-.modal_image{
-  max-width: 75%;
-}
-.reserve_btn{
-  height: 44px;
-}
-.modal_btn{
-  width: 44px;
-  height: 44px;
-}
-.modal_item{
-  max-width: 800px !important;
-}
-@media (max-width: 650px) {
-  .filters_and_designers{
-    display: none;
+@media (max-width: 538px) {
+  .catalog_wrapper{
+    margin-left: 5% !important;
+    margin-right: 5% !important;
   }
 }
+
 @media (max-width: 1000px) and (min-width: 750px) {
   .modal_item{
     max-width: 600px !important;
