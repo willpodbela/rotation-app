@@ -38,13 +38,6 @@ class ItemActionPane extends Component {
     })
   }
   
-  addSelectedProperty(items){
-    items.forEach(item => {
-      item.title = {value: item.title, selected: false}
-    })
-    return items
-  }
-  
   toggleModalSizes(e){
     let sizesCopy = [...this.state.modalSizes]
     this.state.modalSizes.forEach((size, index) => {

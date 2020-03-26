@@ -31,9 +31,7 @@ class ItemDetailPage extends Component {
         item: item.title+" "+item.subtitle,
         id: item.id
       }); // Name of this page view for analytics purposes 
-        
-      //FIXME: This transformation happens on every item in CatalogPage so we need to match it here for now.
-      item.title = {value: item.title, selected: false}
+      
       this.setState({item: item})
     })
   }

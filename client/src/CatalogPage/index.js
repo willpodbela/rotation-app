@@ -135,7 +135,7 @@ class CatalogPage extends Component {
   
   itemDetailUrlForItem(item) {
     var str = item.title+"-"+item.subtitle+"-"+item.id;
-    str = str.replace(/\s+/g, '-').toLowerCase();
+    str = str.replace(/\s+/g, '-').replace(/\./g, '').toLowerCase();
     return ("/catalog/"+str)
   }
 

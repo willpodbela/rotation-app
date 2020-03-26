@@ -17,7 +17,7 @@ const base_url = "https://www.therotation.club"
 
 function itemInfoForItem(item) {
   var str = item.title+"-"+item.subtitle+"-"+item.id;
-  return str.replace(/\s+/g, '-').toLowerCase();
+  return str.replace(/\s+/g, '-').replace(/\s+/g, '-').replace(/\./g, '').toLowerCase();
 }
 
 async function generateSitemap() {
