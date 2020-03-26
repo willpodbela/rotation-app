@@ -59,7 +59,7 @@ class ItemDetailPage extends Component {
           <div className="proxima_small spacing30 uppercase bold left20 flex align_center">Back</div>
         </Link>
         {item &&
-          <div className="flex justify_between sides13pct top30 bottom100">
+          <div className="flex justify_center top30 bottom100">
             <div className="width650 height650 light_background flex justify_center align_center">
               <img src={item.image_url} className="max_height500 blend_background" alt="" />
             </div>
