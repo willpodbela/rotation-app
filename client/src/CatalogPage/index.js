@@ -87,6 +87,9 @@ class CatalogPage extends Component {
       }
     })
     this.setState({items: itemsCopy})
+    window.analytics.track('Filtered by Size', {
+      brand: e.target.innerHTML
+    })
   }
 
   filterSizes(e){
@@ -97,11 +100,22 @@ class CatalogPage extends Component {
       }
     })
     this.setState({sizes: sizesCopy})
+    window.analytics.track('Filtered by Size', {
+      size: e.target.innerHTML
+    })
   }
 
   displayItemModal(e, item){
     this.setState({currentModal: "item", selectedItem: item})
     this.setBrowserURLwithoutRerender(this.itemDetailUrlForItem(item), ("The Rotation | "+item.title+" | "+item.subtitle))
+    window.analytics.track('Product Viewed', {
+      product_id: item.id,
+      category: item.category,
+      brand: item.title.value,
+      name: item.subtitle,
+      url: item.url,
+      image_url: item.image_url
+    })
   }
   
   setBrowserURLwithoutRerender(url, title="The Rotation | Catalog") {

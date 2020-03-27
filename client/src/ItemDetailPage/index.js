@@ -30,8 +30,15 @@ class ItemDetailPage extends Component {
       window.analytics.page("Item Detail", {
         item: item.title+" "+item.subtitle,
         id: item.id
-      }); // Name of this page view for analytics purposes 
-        
+      }) // Name of this page view for analytics purposes 
+      window.analytics.track('Product Viewed', {
+        product_id: item.id,
+        category: item.category,
+        brand: item.title.value,
+        name: item.subtitle,
+        url: item.url,
+        image_url: item.image_url
+      }) // Event for analytics
       //FIXME: This transformation happens on every item in CatalogPage so we need to match it here for now.
       item.title = {value: item.title, selected: false}
       this.setState({item: item})

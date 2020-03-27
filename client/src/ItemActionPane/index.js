@@ -77,7 +77,7 @@ class ItemActionPane extends Component {
             category: this.props.item.category,
             brand: this.props.item.title.value,
             name: this.props.item.subtitle,
-            variant: this.state.modalSizes.find(size => size.selected).value, // Size
+            // variant: this.state.modalSizes.find(size => size.selected).value, // Size
             url: this.props.item.url,
             image_url: this.props.item.image_url
           }) 
@@ -111,7 +111,7 @@ class ItemActionPane extends Component {
             category: this.props.item.category,
             brand: this.props.item.title.value,
             name: this.props.item.subtitle,
-            variant: this.state.modalSizes.find(size => size.selected).value, // Size
+            // variant: this.state.modalSizes.find(size => size.selected).value, // Size
             url: this.props.item.url,
             image_url: this.props.item.image_url
           })
