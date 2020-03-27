@@ -178,7 +178,9 @@ class ItemActionPane extends Component {
               size.available = selectedItem.sizes[size.value] > 0
             })}
             {myRotationItemSelected || upNextItemSelected ? (
-              this.state.modalSizes.map((size, index) => {
+              <div className="proxima_small rotation_gray uppercase">Reserved Size: {selectedItem.reservation.size}</div>
+
+              /*this.state.modalSizes.map((size, index) => {
                 return (
                   <div
                     key={index}
@@ -187,8 +189,8 @@ class ItemActionPane extends Component {
                   >
                     {size.value}
                   </div>
-                )
-              })
+                ) 
+              }) */
             ) : (
               this.state.modalSizes.map((size, index) => {
                 return (
