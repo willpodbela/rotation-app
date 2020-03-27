@@ -49,7 +49,7 @@ class ItemCard extends Component {
         <div className="flex justify_between align_center padding_top10">
           <div className="proxima_small semibold rotation_gray uppercase overflow_scroll nowrap width190">{item.title}</div>
 
-          {this.props.auth && this.state.subscription ? (
+          {this.props.auth ?(
           <div> 
             {item.is_favorite ? (
               <div className="cursor_pointer" onClick={(e) => this.unfavoriteItem(e)}><img src={Favorite} height="14" width="14" alt="" /></div>
@@ -59,8 +59,8 @@ class ItemCard extends Component {
           </div>
           ) : (
             <div>
-              {/* <Link to="/sign-up" className="cursor_pointer"><img src={Unfavorite} height="14" width="14" alt="" /></Link> */}
-              <div onClick={(e) => this.props.showOnboardingModal(true)} className="cursor_pointer"><img src={Unfavorite} height="14" width="14" alt="" /></div>
+              <div onClick={(e) => this.props.showOnboardingModal(e,true)} className="cursor_pointer"><img src={Unfavorite} height="14" width="14" alt="" />
+              </div>
             </div>
           )}
           

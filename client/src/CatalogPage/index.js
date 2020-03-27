@@ -154,7 +154,8 @@ class CatalogPage extends Component {
     return availableSizes
   }
 
-  displayOnboardingModal(forceSignUpFirst = false) {
+  displayOnboardingModal(e,forceSignUpFirst = false) {
+    e.stopPropagation()
     this.setState({ currentModal: "onboarding", forceSignUpFirst: forceSignUpFirst })
   }
   
@@ -313,7 +314,7 @@ class CatalogPage extends Component {
             auth={this.props.auth}
             userLoggedIn={this.props.userLoggedIn}
             apiResponseHandler={this.props.apiResponseHandler}
-            showOnboardingModal={(e) => this.displayOnboardingModal()}
+            showOnboardingModal={(e) => this.displayOnboardingModal(e)}
             actionComplete={(e) => this.itemUpdated(e, selectedItem)}
             onClose={(e) => this.hideModal(e)}
           />
