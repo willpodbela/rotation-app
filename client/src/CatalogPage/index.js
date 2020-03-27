@@ -86,7 +86,7 @@ class CatalogPage extends Component {
             displayItems.next.push(item)
         }
       } else if (item.is_favorite) {
-        displayItems.favs.push(item)
+        displayItems.favorites.push(item)
       } else {
         displayItems.catalog.push(item)
       }
