@@ -16078,6 +16078,12 @@ b {
     -webkit-box-align: end;
     -ms-flex-align: end;
     align-items: flex-end; }
+  .flex.direction_column {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column; }
 
 .inline_block {
   display: inline-block; }
