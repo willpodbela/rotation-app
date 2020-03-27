@@ -181,6 +181,7 @@ class CatalogPage extends Component {
                     <h2 className="section-tittle cta">Access the largest private collection of men's streetwear and designer clothing - without limits.</h2>
                     <div className="cta-button-block">
                       <div onClick={(e) => this.displayOnboardingModal(true)} className="button white w-button">JOIN NOW</div>
+                      {/* TODO - Add 'Promotion Clicked' event in here  */}
                     </div>
                   </div>
                 </div>
