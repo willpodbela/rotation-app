@@ -86,7 +86,7 @@ class OnboardingModal extends Component {
         "Authorization": `Token ${Auth.getToken()}`
       }
     }).then(res => this.props.apiResponseHandler(res, "Welcome to the Rotation! You're going to like it here. Pick your first item below.")).then(res => {
-      window.analytics.track('Subscription Purchased', {
+      window.analytics.track('Subscription Started', {
         item_qty: itemQuantity,
         value: this.selectedPlanMonthlyCostInt(),
         currency: "usd"

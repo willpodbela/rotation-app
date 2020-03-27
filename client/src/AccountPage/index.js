@@ -84,7 +84,13 @@ class AccountPage extends Component {
         "Content-Type": "application/json",
         "Authorization": `Token ${Auth.getToken()}`
       }
-    }).then(res => this.props.apiResponseHandler(res, "Subscription Created!"))
+    }).then(res => this.props.apiResponseHandler(res, "Subscription Created!")).then(res => {
+      window.analytics.track('Subscription Started', {
+        item_qty: itemQuantity,
+        value: this.selectedPlanMonthlyCostInt(),
+        currency: "usd"
+      });
+    })
   }
 
   cancelSubscription(){
