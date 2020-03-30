@@ -1,8 +1,7 @@
 import React, { Component } from "react"
 import "./bootstrap-modal.css"
 import Auth from "../modules/Auth"
-import Unfavorite from "../img/Unfavorite.png"
-import Favorite from "../img/Favorite.png"
+import FavoriteButtonPane from "../FavoriteButtonPane"
 import "./style.css"
 
 class ItemActionPane extends Component {
@@ -114,35 +113,6 @@ class ItemActionPane extends Component {
     }
   }
 
-  favoriteItem(e){
-    fetch(`/api/web/items/${this.props.item.id}/favorite`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Token ${Auth.getToken()}`
-      }
-    }).then(res => this.props.apiResponseHandler(res)).then(res => {
-      if(this.props.actionComplete) {
-        this.props.actionComplete(e) 
-      }
-    })
-  }
-
-  unfavoriteItem(e){
-    fetch(`/api/web/items/${this.props.item.id}/favorite`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Token ${Auth.getToken()}`
-      }
-    }).then(res => {
-      //TODO: Handle errors. Can't use apiResponseHandler in its current format since it always attempts to call .json()
-      if(this.props.actionComplete) {
-        this.props.actionComplete(e) 
-      }
-    })
-  }
-
   getSizesAvailable(item){
     const sizes = item.sizes
     let availableSizes = []
@@ -217,13 +187,15 @@ class ItemActionPane extends Component {
           ) : (
             <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}>Reserve</div>
           )}
-          {selectedItem.is_favorite ? (
-            <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.unfavoriteItem(e)}><img src={Favorite} height="14" width="14" alt="" /></div>
-          ) : this.props.auth ? (
-            <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.favoriteItem(e)}><img src={Unfavorite} height="14" width="14" alt="" /></div>                
-          ) : (
-            <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}><img src={Unfavorite} height="14" width="14" alt="" /></div>
-          )}
+          <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center">
+            <FavoriteButtonPane
+              item={this.props.item}
+              auth={this.props.auth}
+              apiResponseHandler={this.props.apiResponseHandler}
+              showOnboardingModal={this.props.showOnboardingModal}
+              actionComplete={this.props.actionComplete}
+            />
+          </div>
         </div>
       </div>
     )
