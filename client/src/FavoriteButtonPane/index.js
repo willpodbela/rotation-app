@@ -5,6 +5,7 @@ import Auth from "../modules/Auth"
 
 class FavoriteButtonPane extends Component {
   favoriteItem(e){
+    e.stopPropagation()
     fetch(`/api/web/items/${this.props.item.id}/favorite`, {
       method: "POST",
       headers: {
@@ -19,6 +20,7 @@ class FavoriteButtonPane extends Component {
   }
 
   unfavoriteItem(e){
+    e.stopPropagation()
     fetch(`/api/web/items/${this.props.item.id}/favorite`, {
       method: "DELETE",
       headers: {
