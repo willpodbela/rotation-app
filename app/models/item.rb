@@ -65,6 +65,11 @@ class Item < ApplicationRecord
     end
   end
   
+  # Which quarter this item was created, returned in fiscal format (ex. "Q1 20")
+  def season
+    "Q#{(self.created_at.month / 3.0).ceil} #{self.created_at.year % 100}"
+  end
+  
   # Total days rented across all reservations and units (active and ended)
   # eager_load not_cancelled_reservations when planning to make this call
   def cum_days_rented(since = nil)

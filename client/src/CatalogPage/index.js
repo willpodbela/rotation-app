@@ -55,11 +55,15 @@ class CatalogPage extends Component {
   buildCategoryTree(items) {
     var tree = {}
     for (var item of items) {
-      if(!tree[item.category]) {
-        tree[item.category] = []
-      }
-      if(!tree[item.category].includes(item.sub_category)){
-        tree[item.category].push(item.sub_category)
+      if(item.category){
+        if(!tree[item.category]) {
+          tree[item.category] = []
+        }
+        if(item.sub_category){
+          if(!tree[item.category].includes(item.sub_category)){
+            tree[item.category].push(item.sub_category)
+          }
+        }
       }
     }
     return tree
@@ -130,8 +134,8 @@ class CatalogPage extends Component {
   }
   
   itemDetailUrlForItem(item) {
-    var str = item.title.value+"-"+item.subtitle+"-"+item.id;
-    str = str.replace(/\s+/g, '-').toLowerCase();
+    var str = item.title+"-"+item.subtitle+"-"+item.id;
+    str = str.replace(/\s+/g, '-').replace(/\./g, '').toLowerCase();
     return ("/catalog/"+str)
   }
 
@@ -222,7 +226,7 @@ class CatalogPage extends Component {
     }
     
     return (
-      <div className="CatalogPage flex justify_center align_center gray_border_top padding_bottom300">
+      <div className="CatalogPage flex left-block justify_center align_center gray_border_top">
       <RotationHelmet title = "Clothing | The Rotation" />
         {displayJoinBannerCTA &&
           <div className="section cta">
@@ -241,59 +245,66 @@ class CatalogPage extends Component {
             </div>
           </div>
         }          
-        <div className="catalog_wrapper padding_top25 flex sides13pct">
-          <StickyContainer>
-            <div className="filters_and_designers width150 padding_right10">
-              <Sticky>
-                {({
-                  style
-                }) => (
-                  <div className="overflow_scroll width150 padding_top10" style={style}>
-                    <RTUIFilterSidebar
-                      options={this.state.categories}
-                      title={"Categories"}
-                      singleSelect={true}
-                      onFilterChange={(s) => this.filterCategories(s)}
-                    />
-                    <RTUIFilterSidebar
-                      options={this.state.designers}
-                      title={"Designers"}
-                      onFilterChange={(s) => this.filterDesigners(s)}
-                    />
-                  </div>
-                )}
-              </Sticky>
-            </div>
-          </StickyContainer>
-          <div>
-            <CatalogSection items={displayItems.rotation} title={"My Rotation"} />
-            <CatalogSection items={displayItems.next} title={"Shipping Soon"} subtitle={"You can change these items anytime until your order leaves our warehouse."} />
-            <CatalogSection items={displayItems.favorites} title={"Favorites"} />
-            <CatalogSection items={displayItems.catalog}
-              emptyDefault={ (this.state.selectedDesigners.length > 0 || this.state.selectedCategories.length > 0) ? <EmptyCatalog /> : null }
-            >
-              <div className="catalog_headers flex justify_between width_full padding_bottom10">
-                <div className="catalog_title druk_xs rotation_gray medium left20">Catalog</div>
-                <div className="size_btns flex justify_between">
-                  {this.props.auth &&
-                    this.state.sizes.map((size, index) => {
-                      return (
-                        <div
-                          key={index}
-                          onClick={(e) => this.filterSizes(e)}
-                          className="rotation_gray_border height40 width40 flex justify_center align_center proxima_large rotation_gray cursor_pointer"
-                          style={{background: size.selected ? "#333333" : "#FFFFFF", color: size.selected ? "#FFFFFF" : "#333333"}}
-                        >
-                          {size.value}
-                        </div>
-                      )
-                    })
-                  }
-                </div>
+        {this.state.items.length > 0 ? (
+          <div className="catalog_wrapper flex sides13pct padding_bottom300">
+            <StickyContainer>
+              <div className="filters_and_designers width150 padding_right10">
+                <Sticky>
+                  {({
+                    style
+                  }) => (
+                    <div className="overflow_scroll width150 padding_top10" style={style}>
+                      <RTUIFilterSidebar
+                        options={this.state.categories}
+                        title={"Categories"}
+                        singleSelect={true}
+                        onFilterChange={(s) => this.filterCategories(s)}
+                      />
+                      <RTUIFilterSidebar
+                        options={this.state.designers}
+                        title={"Designers"}
+                        onFilterChange={(s) => this.filterDesigners(s)}
+                      />
+                    </div>
+                  )}
+                </Sticky>
               </div>
-            </CatalogSection>
+            </StickyContainer>
+            <div>
+              <CatalogSection items={displayItems.rotation} title={"My Rotation"} />
+              <CatalogSection items={displayItems.next} title={"Shipping Soon"} subtitle={"You can change these items anytime until your order leaves our warehouse."} />
+              <CatalogSection items={displayItems.favorites} title={"Favorites"} />
+              <CatalogSection items={displayItems.catalog}
+                emptyDefault={ (this.state.selectedDesigners.length > 0 || this.state.selectedCategories.length > 0) ? <EmptyCatalog /> : null }
+              >
+                <div className="catalog_headers flex justify_between width_full padding_bottom10">
+                  <div className="catalog_title druk_xs rotation_gray medium left20">Catalog</div>
+                  <div className="size_btns flex justify_between">
+                    {this.props.auth &&
+                      this.state.sizes.map((size, index) => {
+                        return (
+                          <div
+                            key={index}
+                            onClick={(e) => this.filterSizes(e)}
+                            className="rotation_gray_border height40 width40 flex justify_center align_center proxima_large rotation_gray cursor_pointer"
+                            style={{background: size.selected ? "#333333" : "#FFFFFF", color: size.selected ? "#FFFFFF" : "#333333"}}
+                          >
+                            {size.value}
+                          </div>
+                        )
+                      })
+                    }
+                  </div>
+                </div>
+              </CatalogSection>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className={`width_full ${displayJoinBannerCTA ? "height300" : "height600"} flex align_center justify_center direction_column`}>
+            <div className="rotation_gray druk_large">The Rotation</div>
+            <div className="rotation_gray proxima_large">Loading catalog...</div>
+          </div>
+        )}
       
         {this.state.currentModal === "onboarding" &&
           <OnboardingModal

@@ -9,6 +9,7 @@ class FulfillmentController < AdminBaseController
     .order("#{sort_column} #{sort_direction}")
     
     @offline_units = Unit.offline
+    .includes(:item)
   end
   
   private
