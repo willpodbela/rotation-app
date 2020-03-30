@@ -135,6 +135,8 @@ $(document).ready(function(){
       <th class="black-border-right">Action Required</th>
       <th>#</th>
       <th>Item</th>
+      <th>Color</th>
+      <th>Supplier</th>
       <th>Size</th>
       <th>Notes</th>
     </tr>
@@ -148,6 +150,8 @@ $(document).ready(function(){
       </td>
       <td><%= unit.id %></td>
       <td><%= link_to("#{unit.item.title or ''} #{unit.item.subtitle or ''}", item_path(unit.item)) %></td>
+      <td><%= unit.item.color %></td>
+      <td><%= unit.item.supplier_color %></td>
       <td><%= unit.size %></td>
       <td class="slim-text">
         <%= unit.notes %>

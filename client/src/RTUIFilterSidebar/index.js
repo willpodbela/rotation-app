@@ -17,17 +17,18 @@ class RTUIFilterSidebar extends Component {
   }
   
   dressOptions(options) {
+    var ret = []
     if(options.constructor === Object) {
-      var ret = []
-      for (var opt in options) {
-        ret.push({value: opt, selected: false, children: this.dressOptions(options[opt])})
-      }
-      return ret
+      ret = Object.keys(options).map(opt => {
+        return {value: opt, selected: false, children: this.dressOptions(options[opt])}
+      })
     } else {
-      return options.map(option => {
-        return {value: option, selected: false, children: null}
+      ret = options.map(opt => {
+        return {value: opt, selected: false, children: null}
       })
     }
+    ret.sort((a, b) => (a.value > b.value) ? 1 : ((b.value > a.value) ? -1 : 0));
+    return ret
   }
   
   // returns an array, first value is the new options true, second value is wether or not the value was found in that tree

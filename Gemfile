@@ -33,7 +33,8 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 # adds pagination to ActiveModels
 gem 'kaminari'
-
+# Chartkick allows for chart and graph easy visualizations, used in KPI dashboard
+gem "chartkick"
 
 # For help with registering and authenticating users (outside of API token auth)
 gem 'devise', '4.4.0'
