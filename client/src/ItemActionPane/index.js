@@ -148,17 +148,7 @@ class ItemActionPane extends Component {
               size.available = selectedItem.sizes[size.value] > 0
             })}
             {myRotationItemSelected || upNextItemSelected ? (
-              this.state.modalSizes.map((size, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="modal_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center cursor_pointer"
-                    style={{background: size.value === selectedItem.reservation.size ? "#333333" : size.available ? "#FFFFFF" : "#F2F2F2", color: size.value === selectedItem.reservation.size ? "#FFFFFF" : "#333333"}}
-                  >
-                    {size.value}
-                  </div>
-                )
-              })
+              <div className="proxima_small rotation_gray uppercase">Reserved Size: {selectedItem.reservation.size}</div>
             ) : (
               this.state.modalSizes.map((size, index) => {
                 return (
