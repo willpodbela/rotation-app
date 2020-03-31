@@ -61,7 +61,7 @@ class ItemDetailPage extends Component {
         {item &&
           <div className="flex justify_center top30 bottom100">
             <div className="width650 height650 light_background flex justify_center align_center">
-              <img src={item.image_url} className="max_height500 blend_background" alt="" />
+              <img src={item.image_url} className="item_detail_page_image blend_background" alt="" />
             </div>
             <div className="width400">
               <ItemActionPane
