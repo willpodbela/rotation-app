@@ -158,7 +158,8 @@ class CatalogPage extends Component {
     return availableSizes
   }
 
-  displayOnboardingModal(forceSignUpFirst = false) {
+  displayOnboardingModal(e,forceSignUpFirst = false) {
+    e.stopPropagation()
     this.setState({ currentModal: "onboarding", forceSignUpFirst: forceSignUpFirst })
   }
   
@@ -192,7 +193,14 @@ class CatalogPage extends Component {
               {items.map((item, index) => {
                 return (
                   <div key={index} onClick={(e) => this.displayItemModal(e, item)}>
-                    <ItemCard item={item} />
+                    <ItemCard 
+                    item={item} 
+                    auth={this.props.auth}
+                    userLoggedIn={this.props.userLoggedIn}
+                    apiResponseHandler={this.props.apiResponseHandler}
+                    actionComplete={(e) => this.itemUpdated(e, selectedItem)}
+                    showOnboardingModal={(e) => this.displayOnboardingModal(e)}
+                    />
                   </div>
                 )
               })}
@@ -317,7 +325,7 @@ class CatalogPage extends Component {
             auth={this.props.auth}
             userLoggedIn={this.props.userLoggedIn}
             apiResponseHandler={this.props.apiResponseHandler}
-            showOnboardingModal={(e) => this.displayOnboardingModal()}
+            showOnboardingModal={(e) => this.displayOnboardingModal(e)}
             actionComplete={(e) => this.itemUpdated(e, selectedItem)}
             onClose={(e) => this.hideModal(e)}
           />
