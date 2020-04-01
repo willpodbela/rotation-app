@@ -31,6 +31,14 @@ class ItemDetailPage extends Component {
         item: item.title+" "+item.subtitle,
         id: item.id
       }); // Name of this page view for analytics purposes 
+      window.analytics.track('Product Viewed', {
+        product_id: item.id,
+        category: item.category,
+        brand: item.title.value,
+        name: item.subtitle,
+        url: item.url,
+        image_url: item.image_url
+      })
       
       this.setState({item: item})
     })
