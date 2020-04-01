@@ -180,6 +180,7 @@ class App extends Component {
           email: res.user.email,
           plan: res.user.subscription.item_qty
         });
+        window.analytics.track("Signed In")
         
         window.location.reload(true)
       }
