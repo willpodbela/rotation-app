@@ -32,7 +32,6 @@ class CatalogPage extends Component {
   }
 
   componentDidMount(){
-    // window.analytics.identify(this.props.userLoggedIn.id)
     window.analytics.page("Catalog"); // Name of this page view for analytics purposes
     window.scrollTo(0, 0)
     
