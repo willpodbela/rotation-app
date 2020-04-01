@@ -60,11 +60,13 @@ class OnboardingModal extends Component {
   successfulBillingTokenization(token) {
     this.setState({stripeID: token})
     this.showModal("shipping")
+    window.analytics.track('Payment Info Entered')
   }
 
   checkPlanSelected(e){
     if(this.state.planOptions.map(plan => plan.selected).includes(true)){
       this.showModal("billing")
+      window.analytics.track('Plan Selected')
     }else{
       this.props.errorHandler({message: "Please select a plan."})
     }
@@ -90,7 +92,13 @@ class OnboardingModal extends Component {
         item_qty: itemQuantity,
         value: this.selectedPlanMonthlyCostInt(),
         currency: "usd"
-      });
+      })
+      window.analytics.track('Order Completed', {
+        item_qty: itemQuantity,
+        value: this.selectedPlanMonthlyCostInt(),
+        currency: "usd"
+      })
+      ;
       
       window.location.reload(true)
     })
