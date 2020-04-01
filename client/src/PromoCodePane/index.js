@@ -34,6 +34,9 @@ class PromoCodePane extends Component {
       }
     }).then(res => this.props.apiResponseHandler(res, "Code Successfully Applied! Prices will reflect at end of checkout.")).then(res => {
       this.setState({codeSuccess: true})
+      window.analytics.track("Coupon Applied", {
+        coupon_id: this.state.referralCode
+      })
     })
   }
   
