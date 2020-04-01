@@ -74,6 +74,7 @@ class AccountPage extends Component {
     }).then(res => this.props.apiResponseHandler(res, "Account Details Saved!")).then(res => {
       if(this.props.onSuccessfulUpdate) {
        this.props.onSuccessfulUpdate(e)
+       window.analytics.track("Updated Shipping Info")
       }
     })
   }
