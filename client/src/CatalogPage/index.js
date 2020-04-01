@@ -86,9 +86,6 @@ class CatalogPage extends Component {
       }
     })
     this.setState({items: itemsCopy})
-    window.analytics.track('Filtered by Brand', {
-      brand: e.target.innerHTML
-    })
   }
 
   filterSizes(e){
