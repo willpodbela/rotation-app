@@ -63,6 +63,7 @@ class BillingPane extends Component {
       }, (status, response) => {
         if(status === 200){
           this.props.onSuccessfulTokenization(response.id)
+          window.analytics.track('Payment Info Updated')
         }else{
           this.props.errorHandler(response.error)
         }

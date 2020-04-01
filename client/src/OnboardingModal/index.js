@@ -60,7 +60,6 @@ class OnboardingModal extends Component {
   successfulBillingTokenization(token) {
     this.setState({stripeID: token})
     this.showModal("shipping")
-    window.analytics.track('Payment Info Entered')
   }
 
   checkPlanSelected(e){
