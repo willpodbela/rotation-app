@@ -121,6 +121,16 @@ class ItemActionPane extends Component {
     }).then(res => this.props.apiResponseHandler(res, "We've recieved your request and a member of our team will be in contact with you shortly."))
     if(this.props.actionComplete) {
       this.props.actionComplete(e) 
+      window.analytics.track('Purchase Requested', {
+        product_id: this.props.item.id,
+        category: this.props.item.category,
+        brand: this.props.item.title.value,
+        name: this.props.item.subtitle,
+        // variant: this.state.modalSizes.find(size => size.selected).value, // Size
+        url: this.props.item.url,
+        image_url: this.props.item.image_url,
+        reservation_id: this.props.item.reservation.id
+      })
     }
   }
 
