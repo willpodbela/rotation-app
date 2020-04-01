@@ -1,0 +1,24 @@
+
+.to_catalog_button {
+    width: 255px;
+    height: 52px;
+
+}
+.width255 {
+    width: 255px;
+}
+
+@media (max-width: 1085px) {
+    .pg_not_found_image{
+      margin: 80px 20px !important;
+    } 
+  }
+  @media (max-width: 810px) {
+    .pg_not_found_image{
+      width: 375px;
+      height: 345px;
+    }
+    .text_box{
+        margin-top: 10px !important;
+      }
+  }

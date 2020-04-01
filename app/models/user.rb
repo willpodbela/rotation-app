@@ -35,7 +35,7 @@ class User < ApplicationRecord
     CustomerFeedbackMailer.with(user: user).missed_conversion.deliver_later(wait_until: CustomerFeedbackMailer.preferred_time.advance(days: 3))
     
     unless ENV.has_key?('USER_AUTOENROLL_LIMIT')
-      user.access_level = :standard
+      user.access_level = :standard if user.waitlist?
       user.save
     end
   end

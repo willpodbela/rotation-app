@@ -198,7 +198,7 @@ class AccountPage extends Component {
                 userLoggedIn={this.props.userLoggedIn}
                 apiResponseHandler={this.props.apiResponseHandler}
                 onSuccessfulTokenization={(token) => this.updatePayment(token)}
-                errorHandler={(error) => this.props.errorHandler}
+                errorHandler={this.props.errorHandler}
               />
               <div className="height400">
               </div>

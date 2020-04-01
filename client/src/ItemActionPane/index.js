@@ -1,8 +1,7 @@
 import React, { Component } from "react"
 import "./bootstrap-modal.css"
 import Auth from "../modules/Auth"
-import Unfavorite from "../img/Unfavorite.png"
-import Favorite from "../img/Favorite.png"
+import FavoriteButtonPane from "../FavoriteButtonPane"
 import "./style.css"
 
 class ItemActionPane extends Component {
@@ -36,13 +35,6 @@ class ItemActionPane extends Component {
         {value: "XL", selected: false, available: false}
       ]
     })
-  }
-  
-  addSelectedProperty(items){
-    items.forEach(item => {
-      item.title = {value: item.title, selected: false}
-    })
-    return items
   }
   
   toggleModalSizes(e){
@@ -132,35 +124,6 @@ class ItemActionPane extends Component {
     }
   }
 
-  favoriteItem(e){
-    fetch(`/api/web/items/${this.props.item.id}/favorite`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Token ${Auth.getToken()}`
-      }
-    }).then(res => this.props.apiResponseHandler(res)).then(res => {
-      if(this.props.actionComplete) {
-        this.props.actionComplete(e) 
-      }
-    })
-  }
-
-  unfavoriteItem(e){
-    fetch(`/api/web/items/${this.props.item.id}/favorite`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Token ${Auth.getToken()}`
-      }
-    }).then(res => {
-      //TODO: Handle errors. Can't use apiResponseHandler in its current format since it always attempts to call .json()
-      if(this.props.actionComplete) {
-        this.props.actionComplete(e) 
-      }
-    })
-  }
-
   getSizesAvailable(item){
     const sizes = item.sizes
     let availableSizes = []
@@ -191,63 +154,53 @@ class ItemActionPane extends Component {
     
     return (
       <div className="ItemActionPane height_full" style={{position: "relative"}}>
-        <div className="modal_brand proxima_small rotation_gray opacity6 uppercase">{selectedItem.title.value}</div>
+        <div className="modal_brand proxima_small rotation_gray opacity6 uppercase">{selectedItem.title}</div>
         <div className="modal_description overflow_scroll druk_medium rotation_gray line_height24 capitalize">{selectedItem.subtitle}</div>
         <div className="product_description proxima_small overflow_scroll rotation_gray">{selectedItem.description}</div>
-        {this.props.auth && this.state.subscription ? (
-          <div>
-            <div className="modal_size_btns flex modal_buttons">
-              {this.state.modalSizes.forEach(size => {
-                size.available = selectedItem.sizes[size.value] > 0
-              })}
-              {myRotationItemSelected || upNextItemSelected ? (
-                this.state.modalSizes.map((size, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className="modal_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center cursor_pointer"
-                      style={{background: size.value === selectedItem.reservation.size ? "#333333" : size.available ? "#FFFFFF" : "#F2F2F2", color: size.value === selectedItem.reservation.size ? "#FFFFFF" : "#333333"}}
-                    >
-                      {size.value}
-                    </div>
-                  )
-                })
-              ) : (
-                this.state.modalSizes.map((size, index) => {
-                  return (
-                    <div
-                      key={index}
-                      onClick={(e) => this.toggleModalSizes(e)}
-                      className="modal_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center cursor_pointer"
-                      style={{background: !size.available ? "#F2F2F2" : size.selected ? "#333333" : "#FFFFFF", color: size.selected && size.available ? "#FFFFFF" : "#333333"}}
-                    >
-                      {size.value}
-                    </div>
-                  )
-                })
-              )}
-            </div>
-            <div className="modal_buttons flex">
-              {myRotationItemSelected ? (
-                <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer green request_to_buy" onClick={(e) => this.requestToBuy(e)}>Request to Buy</div>
-              ) : upNextItemSelected ? (
-                <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer red" onClick={(e) => this.removeItem(e)}>Remove</div>
-              ) : (
-                <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}>Reserve</div>
-              )}
-              {selectedItem.is_favorite ? (
-                <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.unfavoriteItem(e)}><img src={Favorite} height="14" width="14" alt="" /></div>
-              ) : (
-                <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.favoriteItem(e)}><img src={Unfavorite} height="14" width="14" alt="" /></div>
-              )}
-            </div>
+        {selectedItem.supplier_color &&
+          <div className="product_description proxima_small overflow_scroll rotation_gray">Supplier Color: {selectedItem.supplier_color}</div>
+        }  
+        {(this.props.auth && this.state.subscription) &&
+          <div className="modal_size_btns flex modal_buttons">
+            {this.state.modalSizes.forEach(size => {
+              size.available = selectedItem.sizes[size.value] > 0
+            })}
+            {myRotationItemSelected || upNextItemSelected ? (
+              <div className="proxima_small rotation_gray uppercase">Reserved Size: {selectedItem.reservation.size}</div>
+            ) : (
+              this.state.modalSizes.map((size, index) => {
+                return (
+                  <div
+                    key={index}
+                    onClick={(e) => this.toggleModalSizes(e)}
+                    className="modal_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center cursor_pointer"
+                    style={{background: !size.available ? "#F2F2F2" : size.selected ? "#333333" : "#FFFFFF", color: size.selected && size.available ? "#FFFFFF" : "#333333"}}
+                  >
+                    {size.value}
+                  </div>
+                )
+              })
+            )}
           </div>
-        ) : (
-          <div className="modal_buttons flex">
+        }
+        <div className="modal_buttons flex">
+          {myRotationItemSelected ? (
+            <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer green request_to_buy" onClick={(e) => this.requestToBuy(e)}>Request to Buy</div>
+          ) : upNextItemSelected ? (
+            <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer red" onClick={(e) => this.removeItem(e)}>Remove</div>
+          ) : (
             <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}>Reserve</div>
-            <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}><img src={Unfavorite} height="14" width="14" alt="" /></div>
+          )}
+          <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center">
+            <FavoriteButtonPane
+              item={this.props.item}
+              auth={this.props.auth}
+              apiResponseHandler={this.props.apiResponseHandler}
+              showOnboardingModal={this.props.showOnboardingModal}
+              actionComplete={this.props.actionComplete}
+            />
           </div>
-        )}
+        </div>
       </div>
     )
   }

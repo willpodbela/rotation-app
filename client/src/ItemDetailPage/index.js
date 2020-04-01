@@ -31,9 +31,7 @@ class ItemDetailPage extends Component {
         item: item.title+" "+item.subtitle,
         id: item.id
       }); // Name of this page view for analytics purposes 
-        
-      //FIXME: This transformation happens on every item in CatalogPage so we need to match it here for now.
-      item.title = {value: item.title, selected: false}
+      
       this.setState({item: item})
     })
   }
@@ -61,9 +59,9 @@ class ItemDetailPage extends Component {
           <div className="proxima_small spacing30 uppercase bold left20 flex align_center">Back</div>
         </Link>
         {item &&
-          <div className="flex justify_between sides13pct top30 bottom100">
+          <div className="flex justify_center top30 bottom100">
             <div className="width650 height650 light_background flex justify_center align_center">
-              <img src={item.image_url} className="max_height500 blend_background" alt="" />
+              <img src={item.image_url} className="item_detail_page_image blend_background" alt="" />
             </div>
             <div className="width400">
               <ItemActionPane

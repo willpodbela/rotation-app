@@ -1,11 +1,12 @@
 import React, { Component } from "react"
-import Unfavorite from "../img/Unfavorite.png"
-import Favorite from "../img/Favorite.png"
+import FavoriteButtonPane from "../FavoriteButtonPane"
 import "./style.css"
-
+  
 class ItemCard extends Component {
+
   render(){
     const item = this.props.item
+
     return (
       <div className="card_large padding_left20 padding_bottom20 cursor_pointer">
         <div
@@ -15,12 +16,14 @@ class ItemCard extends Component {
           }}>
         </div>
         <div className="flex justify_between align_center padding_top10">
-          <div className="proxima_small semibold rotation_gray uppercase overflow_scroll nowrap width190">{item.title.value}</div>
-          {item.is_favorite ? (
-            <img src={Favorite} height="14" width="14" alt="" />
-          ) : (
-            <img src={Unfavorite} height="14" width="14" alt="" />
-          )}
+          <div className="proxima_small semibold rotation_gray uppercase overflow_scroll nowrap width190">{item.title}</div>
+          <FavoriteButtonPane
+            item={this.props.item}
+            auth={this.props.auth}
+            apiResponseHandler={this.props.apiResponseHandler}
+            showOnboardingModal={this.props.showOnboardingModal}
+            actionComplete={this.props.actionComplete}
+          />
         </div>
         <div className="padding_top2 opacity7 proxima_small rotation_gray lowercase">{item.subtitle}</div>
       </div>

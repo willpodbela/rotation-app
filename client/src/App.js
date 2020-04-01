@@ -1,12 +1,13 @@
 import React, { Component } from "react"
 import "./App.css"
-import { BrowserRouter as Router, Route } from "react-router-dom"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import LandingPage from "./LandingPage"
 import AuthPage from "./AuthPage"
 import LoginPane from "./LoginPane"
 import SignUpPane from "./SignUpPane"
 import TermsPage from "./TermsPage"
 import PrivacyPage from "./PrivacyPage"
+import NotFoundPage from "./NotFoundPage"
 import CatalogPage from "./CatalogPage"
 import AccountPage from "./AccountPage"
 import ItemDetailPage from "./ItemDetailPage"
@@ -18,6 +19,7 @@ import AlertDialog from "./AlertDialog"
 
 import login_img from "./img/login.jpg"
 import signup_img from "./img/sign-up.jpg"
+import pg_not_found_img from "./img/page-not-found.png"
 
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { fab } from "@fortawesome/free-brands-svg-icons"
@@ -270,87 +272,97 @@ class App extends Component {
           <div className="App">
             <Nav logoutUser={(e) => this.logoutUser(e)} />
             <AlertDialog error={this.state.error} notice={this.state.notice} onClose={() => this.dialogClosed()} />
-            <Route
-              exact path="/"
-              render={() =>
-                <LandingPage
-                  auth={this.state.authenticated}
+            <Switch>
+              <Route
+                exact path="/"
+                render={() =>
+                  <LandingPage
+                    auth={this.state.authenticated}
+                  />
+              }/>
+              <Route
+                exact path="/login"
+                render={() =>
+                  <AuthPage
+                    auth={this.state.authenticated}
+                    pageTitle={"Log In"}
+                    image={login_img}
+                    authPane={
+                      <LoginPane
+                        handleLoginSubmit={(e, email, pass) => this.handleLoginSubmit(e, email, pass)}
+                        forgotPassword={(e, email) => this.forgotPassword(e, email)}
+                        handleSignUpClicked={(e) => window.location.replace("/sign-up")}
+                      />
+                    }
+                  />
+              }/>
+              <Route
+                exact path="/sign-up"
+                render={() =>
+                  <AuthPage
+                    auth={this.state.authenticated}
+                    pageTitle={"Sign Up"}
+                    image={signup_img}
+                    authPane={
+                      <SignUpPane
+                        handleSignUp={(e, email, pass, confirm) => this.handleSignUp(e, email, pass, confirm)}
+                        handleLogInClicked={(e) => window.location.replace("/login")}
+                      />
+                    }
+                  />
+              }/>
+              <Route
+                exact path="/catalog"
+                render={() =>
+                  <CatalogPage
+                    auth={this.state.authenticated}
+                    handleSignUp={(e, email, pass, confirm) => this.handleSignUp(e, email, pass, confirm)}
+                    handleLoginSubmit={(e, email, pass) => this.handleLoginSubmit(e, email, pass)}
+                    forgotPassword={(e) => this.forgotPassword(e)}
+                    errorHandler={(error) => this.showError(error)}
+                    noticeHandler={(notice) => this.showNotice(notice)}
+                    apiResponseHandler={(res, successMessage) => this.apiResponseHandler(res, successMessage)}
+                    userLoggedIn={this.state.userLoggedIn}
+                  />
+              }/>
+              <Route
+                exact path="/account"
+                render={() =>
+                  <AccountPage
+                    auth={this.state.authenticated}
+                    userLoggedIn={this.state.userLoggedIn}
+                    errorHandler={(error) => this.showError(error)}
+                    noticeHandler={(notice) => this.showNotice(notice)}
+                    apiResponseHandler={(res, successMessage) => this.apiResponseHandler(res, successMessage)}
+                  />
+              }/>
+              <Route
+                path="/catalog/:itemInfo"
+                render={(props) =>
+                  <ItemDetailPage
+                    {...props}
+                    auth={this.state.authenticated}
+                    userLoggedIn={this.state.userLoggedIn}
+                    errorHandler={(error) => this.showError(error)}
+                    noticeHandler={(notice) => this.showNotice(notice)}
+                    apiResponseHandler={(res, successMessage) => this.apiResponseHandler(res, successMessage)}
+                    handleSignUp={(e, email, pass) => this.handleSignUp(e, email, pass)}
+                    handleLoginSubmit={(e, email, pass, confirm) => this.handleLoginSubmit(e, email, pass, confirm)}
+                    forgotPassword={(e, email) => this.forgotPassword(e, email)}
+                  />
+              }/>
+              <Route path="/terms" exact component={TermsPage} />
+              <Route path="/privacy" exact component={PrivacyPage} />
+              <Route path="/faq" exact component={FaqPage} />
+              <Route 
+                path="/*" 
+                render={(props) =>
+                <NotFoundPage 
+                image={pg_not_found_img}
                 />
-            }/>
-            <Route
-              exact path="/login"
-              render={() =>
-                <AuthPage
-                  auth={this.state.authenticated}
-                  pageTitle={"Log In"}
-                  image={login_img}
-                  authPane={
-                    <LoginPane
-                      handleLoginSubmit={(e, email, pass) => this.handleLoginSubmit(e, email, pass)}
-                      forgotPassword={(e, email) => this.forgotPassword(e, email)}
-                      handleSignUpClicked={(e) => window.location.replace("/sign-up")}
-                    />
-                  }
-                />
-            }/>
-            <Route
-              exact path="/sign-up"
-              render={() =>
-                <AuthPage
-                  auth={this.state.authenticated}
-                  pageTitle={"Sign Up"}
-                  image={signup_img}
-                  authPane={
-                    <SignUpPane
-                      handleSignUp={(e, email, pass, confirm) => this.handleSignUp(e, email, pass, confirm)}
-                      handleLogInClicked={(e) => window.location.replace("/login")}
-                    />
-                  }
-                />
-            }/>
-            <Route
-              exact path="/catalog"
-              render={() =>
-                <CatalogPage
-                  auth={this.state.authenticated}
-                  handleSignUp={(e, email, pass, confirm) => this.handleSignUp(e, email, pass, confirm)}
-                  handleLoginSubmit={(e, email, pass) => this.handleLoginSubmit(e, email, pass)}
-                  forgotPassword={(e) => this.forgotPassword(e)}
-                  errorHandler={(error) => this.showError(error)}
-                  noticeHandler={(notice) => this.showNotice(notice)}
-                  apiResponseHandler={(res, successMessage) => this.apiResponseHandler(res, successMessage)}
-                  userLoggedIn={this.state.userLoggedIn}
-                />
-            }/>
-            <Route
-              exact path="/account"
-              render={() =>
-                <AccountPage
-                  auth={this.state.authenticated}
-                  userLoggedIn={this.state.userLoggedIn}
-                  errorHandler={(error) => this.showError(error)}
-                  noticeHandler={(notice) => this.showNotice(notice)}
-                  apiResponseHandler={(res, successMessage) => this.apiResponseHandler(res, successMessage)}
-                />
-            }/>
-            <Route
-              path="/catalog/:itemInfo"
-              render={(props) =>
-                <ItemDetailPage
-                  {...props}
-                  auth={this.state.authenticated}
-                  userLoggedIn={this.state.userLoggedIn}
-                  errorHandler={(error) => this.showError(error)}
-                  noticeHandler={(notice) => this.showNotice(notice)}
-                  apiResponseHandler={(res, successMessage) => this.apiResponseHandler(res, successMessage)}
-                  handleSignUp={(e, email, pass) => this.handleSignUp(e, email, pass)}
-                  handleLoginSubmit={(e, email, pass, confirm) => this.handleLoginSubmit(e, email, pass, confirm)}
-                  forgotPassword={(e, email) => this.forgotPassword(e, email)}
-                />
-            }/>
-            <Route path="/terms" exact component={TermsPage} />
-            <Route path="/privacy" exact component={PrivacyPage} />
-            <Route path="/faq" exact component={FaqPage} />
+              }/>
+              
+            </Switch>
             <Footer />
           </div>
         </Router>
