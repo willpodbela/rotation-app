@@ -108,10 +108,16 @@ class CatalogPage extends Component {
   
   filterDesigners(selectedFilters){
     this.setState({selectedDesigners: selectedFilters})
+    window.analytics.track('Filtered by Brand', {
+      brands: selectedFilters
+    })
   }
   
   filterCategories(selectedFilters){
     this.setState({selectedCategories: selectedFilters})
+    window.analytics.track('Filtered by Category', {
+      categories: selectedFilters
+    })
   }
 
   filterSizes(e){
