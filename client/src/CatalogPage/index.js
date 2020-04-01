@@ -127,14 +127,6 @@ class CatalogPage extends Component {
   displayItemModal(e, item){
     this.setState({currentModal: "item", selectedItem: item})
     this.setBrowserURLwithoutRerender(this.itemDetailUrlForItem(item), ("The Rotation | "+item.title+" | "+item.subtitle))
-    window.analytics.track('Product Viewed', {
-      product_id: item.id,
-      category: item.category,
-      brand: item.title.value,
-      name: item.subtitle,
-      url: item.url,
-      image_url: item.image_url
-    })
   }
   
   setBrowserURLwithoutRerender(url, title="The Rotation | Catalog") {

@@ -11,6 +11,14 @@ class ItemModal extends Component {
       item: this.props.item.title+" "+this.props.item.subtitle,
       id: this.props.item.id
     });
+    window.analytics.track('Product Viewed', {
+      product_id: this.props.item.id,
+      category: this.props.item.category,
+      brand: this.props.item.title.value,
+      name: this.props.item.subtitle,
+      url: this.props.item.url,
+      image_url: this.props.item.image_url
+    })
   }
   
   render(){
