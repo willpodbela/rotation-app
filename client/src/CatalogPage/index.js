@@ -122,6 +122,9 @@ class CatalogPage extends Component {
       }
     })
     this.setState({sizes: sizesCopy})
+    window.analytics.track('Filtered by Size', {
+      size: e.target.innerHTML
+    })
   }
 
   displayItemModal(e, item){
