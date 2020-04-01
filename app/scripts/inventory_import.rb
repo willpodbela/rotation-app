@@ -6,7 +6,7 @@ module Scripts
       success = 0
       output = ""
       
-      CSV.foreach(file_path, headers: true, header_converters: :symbol) do |line|
+      CSV.foreach(file_path, headers: true, header_converters: :symbol, encoding: 'windows-1252:utf-8') do |line|
         i = Item.new(line.to_hash)
         i.virtual_qty = 0
            
@@ -25,7 +25,7 @@ module Scripts
       success = 0
       output = ""
       
-      CSV.foreach(file_path, headers: true, header_converters: :symbol) do |line|
+      CSV.foreach(file_path, headers: true, header_converters: :symbol, encoding: 'windows-1252:utf-8') do |line|
         item_keyset = [:title, :subtitle, :color, :supplier_color]
         item, unit = line.to_hash.partition {|k,v| item_keyset.include? k }
         unit = Hash[unit]
