@@ -177,6 +177,16 @@ class CatalogPage extends Component {
     this.hideModal(e)
     this.componentDidMount()
   }
+
+  bannerClicked(e) {
+    this.displayOnboardingModal(e, true)
+    window.analytics.track('Promotion Clicked', {
+      promotion_id: 'promo_1',
+      creative: 'top_banner_1',
+      name: "Access the largest private collection of men's streetwear and designer clothing - without limits",
+      position: 'catalog_top'
+    })
+  }
   
   render(){
     const selectedItem = this.state.selectedItem
@@ -246,7 +256,7 @@ class CatalogPage extends Component {
                   <div className="left-block">
                     <h2 className="section-tittle cta">Access the largest private collection of men's streetwear and designer clothing - without limits.</h2>
                     <div className="cta-button-block">
-                      <div onClick={(e) => this.displayOnboardingModal(true)} className="button white w-button">JOIN NOW</div>
+                      <div onClick={(e) => this.bannerClicked(e)} className="button white w-button">JOIN NOW</div>
                       {/* TODO - Add 'Promotion Clicked' event in here  */}
                     </div>
                   </div>

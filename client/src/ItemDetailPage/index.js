@@ -58,8 +58,6 @@ class ItemDetailPage extends Component {
 
   render(){
     const item = this.state.item
-    console.log(item)
-    console.log(item.title)
     return (
       <div className="ItemDetailPage">
         <Link to="/catalog" className="flex left13pct width80 rotation_gray cursor_pointer">
