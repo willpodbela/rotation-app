@@ -223,11 +223,17 @@ class App extends Component {
   showError(error){
     this.setState({error: error})
     this.setState({notice: null})
+    window.analytics.track("Error Displayed", {
+      error_message: error
+    })
   }
 
   showNotice(notice){
     this.setState({error: null})
     this.setState({notice: notice})
+    window.analytics.track("Notice Displayed", {
+      message: notice
+    })
   }
 
   apiResponseHandler(response, successMessage = null){
