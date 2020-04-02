@@ -71,6 +71,7 @@ class AccountPage extends Component {
         "Authorization": `Token ${Auth.getToken()}`
       }
     }).then(res => this.props.apiResponseHandler(res, "Payment Method Updated!"))
+    window.analytics.track('Payment Info Updated')
   }
 
   createSubscription(stripeID, itemQuantity){
