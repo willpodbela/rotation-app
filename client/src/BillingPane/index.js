@@ -38,13 +38,22 @@ class BillingPane extends Component {
     || this.state.billingName === ""
     || this.state.expiration === "") {
       this.props.errorHandler({message: "Please fill out all credit card fields."})
+      window.analytics.track('Payment Failed', {
+        error_message: "Missing card details"
+      })
     } else if(this.state.billingAddressLine1 === ""
     || this.state.billingCity === ""
     || this.state.billingState === ""
     || this.state.billingZipcode === "") {
       this.props.errorHandler({message: "Please enter a valid billing address."})
+      window.analytics.track('Payment Failed', {
+        error_message: "Invalid billing address"
+      })
     } else if (this.state.expiration.split("/").length !== 2) {
       this.props.errorHandler({message: "Please enter expiration date in the form of MM/YY."})
+      window.analytics.track('Payment Failed', {
+        error_message: "Invalid expiration date format"
+      })
     } else {
       const expMonth = this.state.expiration.split("/")[0].replace(/ /g,'')
       const expYear = this.state.expiration.split("/")[1].replace(/ /g,'')
@@ -66,6 +75,9 @@ class BillingPane extends Component {
           window.analytics.track('Payment Info Updated')
         }else{
           this.props.errorHandler(response.error)
+          window.analytics.track('Payment Failed', {
+            error_message: response.error
+          })
         }
       })
     }
