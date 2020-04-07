@@ -77,8 +77,7 @@ class BillingPane extends Component {
       s.type = "text/javascript";
       s.src = "https://js.stripe.com/v2/";
       s.onload = () => {
-        //window['Stripe'].setPublishableKey("pk_live_1Diz5oMjZzQlcZ2a4eLeHunm");
-        window['Stripe'].setPublishableKey("pk_live_1Diz5oMjZzQlcZ2a4eLeHunm");
+        window['Stripe'].setPublishableKey(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
       }
       window.document.body.appendChild(s);
     }
