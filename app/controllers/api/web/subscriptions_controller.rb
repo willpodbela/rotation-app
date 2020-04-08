@@ -53,8 +53,12 @@ module Api
             subscription = current_user.current_subscription
           end
           
-          set_resource(subscription)
-          render :show, status: :ok
+          if subscription.nil?
+            head :ok
+          else
+            set_resource(subscription)
+            render :show, status: :ok
+          end
         rescue Stripe::CardError, StripeService::StripeServiceError => e
           # CardError = Invalid card; return the error message.
           # StripeServiceError = Something happened in control logic of StripeService class that shouldn't have; return the error message.
