@@ -25,7 +25,7 @@ module Api
         rescue => e
           # Some other error; Return 500
           # TODO: Log
-          render_error(500, e.message)
+          render_error(500, nil)
         end
       end
       
@@ -40,17 +40,17 @@ module Api
         rescue => e
           # Some other error; Return 500
           # TODO: Log
-          render_error(500, e.message)
+          render_error(500, nil)
         end
       end
  
       def update_payment
         begin
-          if !current_user.current_subscription.incomplete? && current_user.current_subscription.paid?
+          if current_user.current_subscription.try(:incomplete?) || (current_user.current_subscription.try(:paid?) == false)
+            subscription = StripeService.change_payment_and_reattempt_monthly_subscription(current_user, subscription_params[:stripe_source_id])
+          else
             StripeService.update_or_create_customer_with_payment(current_user, subscription_params[:stripe_source_id])
             subscription = current_user.current_subscription
-          else
-            subscription = StripeService.change_payment_and_reattempt_monthly_subscription(current_user, subscription_params[:stripe_source_id])
           end
           
           set_resource(subscription)
