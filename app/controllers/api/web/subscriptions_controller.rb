@@ -25,7 +25,7 @@ module Api
         rescue => e
           # Some other error; Return 500
           # TODO: Log
-          render_error(500, nil)
+          render_error(500, e.message)
         end
       end
       
@@ -40,7 +40,7 @@ module Api
         rescue => e
           # Some other error; Return 500
           # TODO: Log
-          render_error(500, nil)
+          render_error(500, e.message)
         end
       end
  
@@ -62,7 +62,7 @@ module Api
         rescue => e
           # Some other error; Return 500
           # TODO: Log
-          render_error(500, nil)
+          render_error(500, e.message)
         end
       end
  
