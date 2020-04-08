@@ -55,6 +55,8 @@
     "RAILS_SERVE_STATIC_FILES": {
       "required": true
     },
+    "REACT_APP_SEGMENT_WRITE_KEY": "1J6Fu3Ka9vrTryvxvE2Mb8kSgk5vb8BD",
+    "REACT_APP_STRIPE_PUBLISHABLE_KEY": "pk_test_Nfvb3ZjRZMUfa9HxzXsz0PnZ",
     "REDIS_PROVIDER": {
       "required": true
     },
