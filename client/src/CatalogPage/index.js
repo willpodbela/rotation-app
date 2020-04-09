@@ -37,6 +37,16 @@ class CatalogPage extends Component {
     window.analytics.page("Catalog"); // Name of this page view for analytics purposes
     window.scrollTo(0, 0)
     
+    this.getItems()
+  }
+  
+  componentDidUpdate(prevProps) {
+    if (this.props.auth !== prevProps.auth) {
+      this.getItems()
+    }
+  }
+  
+  getItems() {
     var headers = { "Content-Type": "application/json" }
     if(this.props.auth){
       headers["Authorization"] = `Token ${Auth.getToken()}`
