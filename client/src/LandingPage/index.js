@@ -17,12 +17,12 @@ class LandingPage extends Component {
     window.analytics.page("Landing"); // Name of this page view for analytics purposes
     window.scrollTo(0, 0)
     
-    fetch("/api/web/items", {
+    fetch("/api/web/items?landing_featured=true", {
       headers: {
         "Content-Type": "application/json"
       }
     }).then(res => res.json()).then(results => {
-      this.setState({items: results.items.filter(item => item.landing_featured)})
+      this.setState({items: results.items})
     })
   }
 
