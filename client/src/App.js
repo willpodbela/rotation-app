@@ -131,7 +131,10 @@ class App extends Component {
     Auth.authenticateToken(token)
     window.location.reload(true)
   }
-
+  
+  // This function is called when an authentication token is still in the session storage,
+  // but the userLoggedIn object is null and must be refreshed. Most likely the browser
+  // window was reloaded.
   getUser(){
     fetch("/api/web/users/me", {
       headers: {
@@ -144,6 +147,17 @@ class App extends Component {
         isLoading: false
       })
       this.updateUserWithAdvertisementCodeIfNeeded()
+      
+      // Even though we most likely identified the user on log in or sign up (when auth 
+      // token in session storage), we call identify again here to re-inform any stateless 
+      // destinations of the users identify (such as Intercom).
+      // The call is wrapped in analytics.ready to prevent race condition and ensure all
+      // destinations have loaded.
+      window.analytics.ready(function() {
+        window.analytics.identify(res.user.id, {
+          email: res.user.email
+        });
+      })
     }).catch(res => {
       this.setState({
         appFailed: true
