@@ -118,10 +118,16 @@ class CatalogPage extends Component {
   
   filterDesigners(selectedFilters){
     this.setState({selectedDesigners: selectedFilters})
+    window.analytics.track('Filtered by Brand', {
+      brands: selectedFilters
+    })
   }
   
   filterCategories(selectedFilters){
     this.setState({selectedCategories: selectedFilters})
+    window.analytics.track('Filtered by Category', {
+      categories: selectedFilters
+    })
   }
 
   filterSizes(e){
@@ -132,6 +138,9 @@ class CatalogPage extends Component {
       }
     })
     this.setState({sizes: sizesCopy})
+    window.analytics.track('Filtered by Size', {
+      size: e.target.innerHTML
+    })
   }
 
   displayItemModal(e, item){
@@ -177,6 +186,16 @@ class CatalogPage extends Component {
     //TODO: Update item in place to avoid networking call every time.
     this.hideModal(e)
     this.componentDidMount()
+  }
+
+  bannerClicked(e) {
+    this.displayOnboardingModal(e, true)
+    window.analytics.track('Promotion Clicked', {
+      promotion_id: 'promo_1',
+      creative: 'top_banner_1',
+      name: "Access the largest private collection of men's streetwear and designer clothing - without limits",
+      position: 'catalog_top'
+    })
   }
   
   render(){
@@ -247,7 +266,8 @@ class CatalogPage extends Component {
                   <div className="left-block">
                     <h2 className="section-tittle cta">Access the largest private collection of men's streetwear and designer clothing - without limits.</h2>
                     <div className="cta-button-block">
-                      <div onClick={(e) => this.displayOnboardingModal(true)} className="button white w-button">JOIN NOW</div>
+                      <div onClick={(e) => this.bannerClicked(e)} className="button white w-button">JOIN NOW</div>
+                      {/* TODO - Add 'Promotion Clicked' event in here  */}
                     </div>
                   </div>
                 </div>

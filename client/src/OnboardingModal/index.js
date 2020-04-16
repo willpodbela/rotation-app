@@ -59,12 +59,14 @@ class OnboardingModal extends Component {
   
   successfulBillingTokenization(token) {
     this.setState({stripeID: token})
+    window.analytics.track("Payment Info Entered")
     this.showModal("shipping")
   }
 
   checkPlanSelected(e){
     if(this.state.planOptions.map(plan => plan.selected).includes(true)){
       this.showModal("billing")
+      window.analytics.track('Plan Selected')
     }else{
       this.props.errorHandler({message: "Please select a plan."})
     }
@@ -86,11 +88,17 @@ class OnboardingModal extends Component {
         "Authorization": `Token ${Auth.getToken()}`
       }
     }).then(res => this.props.apiResponseHandler(res, "Welcome to the Rotation! You're going to like it here. Pick your first item below.")).then(res => {
-      window.analytics.track('Subscription Purchased', {
+      window.analytics.track('Subscription Started', {
         item_qty: itemQuantity,
         value: this.selectedPlanMonthlyCostInt(),
         currency: "usd"
-      });
+      })
+      window.analytics.track('Order Completed', {
+        item_qty: itemQuantity,
+        value: this.selectedPlanMonthlyCostInt(),
+        currency: "usd"
+      })
+      ;
       
       window.location.reload(true)
     })

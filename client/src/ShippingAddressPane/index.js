@@ -75,6 +75,7 @@ class AccountPage extends Component {
       if(this.props.onSuccessfulUpdate) {
        this.props.onSuccessfulUpdate(e)
       }
+      window.analytics.track("Updated Shipping Info")
     })
   }
   

@@ -31,6 +31,14 @@ class ItemDetailPage extends Component {
         item: item.title+" "+item.subtitle,
         id: item.id
       }); // Name of this page view for analytics purposes 
+      window.analytics.track('Product Viewed', {
+        product_id: item.id,
+        category: item.category,
+        brand: item.title.value,
+        name: item.subtitle,
+        url: item.url,
+        image_url: item.image_url
+      })
       
       this.setState({item: item})
     })
@@ -50,8 +58,6 @@ class ItemDetailPage extends Component {
 
   render(){
     const item = this.state.item
-    console.log(item)
-    console.log(item.title)
     return (
       <div className="ItemDetailPage">
         <Link to="/catalog" className="flex left13pct width80 rotation_gray cursor_pointer">
