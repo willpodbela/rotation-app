@@ -11,5 +11,13 @@ class ApplicationRecord < ActiveRecord::Base
         # Silently fail all AirClone Errors
       end
     end
+    
+    self.set_callback :destroy, :after do
+      begin
+        "AirClone::#{self.class.name}".constantize.find_or_create_with_rails_record(self).destroy
+      rescue 
+        # Silently fail all AirClone Errors
+      end
+    end
   end
 end
