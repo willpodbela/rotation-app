@@ -36,6 +36,9 @@ gem 'kaminari'
 # Chartkick allows for chart and graph easy visualizations, used in KPI dashboard
 gem "chartkick"
 
+# Ruby wrapper for Airtable APIs
+gem 'airrecord'
+
 # For help with registering and authenticating users (outside of API token auth)
 gem 'devise', '4.4.0'
 # For use encrypting user passwords sent via API
