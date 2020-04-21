@@ -11,6 +11,8 @@ class Unit < ApplicationRecord
   enum size: [ :S, :M, :L, :XL ]
   enum status: [ :pending, :in_transit_from_supplier, :available, :sold, :returned, :retired, :offline ]
   
+  aircloneable
+  
   def total_cost
     (cost || 0) + (supplier_shipping_cost || 0)
   end
