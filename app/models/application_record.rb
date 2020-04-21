@@ -11,7 +11,7 @@ class ApplicationRecord < ActiveRecord::Base
   
       set_callback :save, :after do
         begin
-          self.airclone.sync
+          airclone.sync
         rescue 
           # Silently fail all AirClone Errors
         end
@@ -19,7 +19,7 @@ class ApplicationRecord < ActiveRecord::Base
   
       set_callback :destroy, :after do
         begin
-          self.airclone.destroy
+          airclone.destroy
         rescue 
           # Silently fail all AirClone Errors
         end
