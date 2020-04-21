@@ -3,7 +3,7 @@ class ApplicationRecord < ActiveRecord::Base
   
   class << self
     # TODO: Can we move this logic into the air_clone module somehow? Similar to how
-    # "devise :confirmable" also users to add extra functionality to a model.
+    # "devise :confirmable" allows users to attach functionality to their a model.
     def aircloneable
       define_method(:airclone) do
         "AirClone::#{self.class.name}".constantize.find_or_create_with_rails_record(self)
