@@ -9,7 +9,7 @@ module AirClone
         hash["Item"] = [clone_id] unless clone_id.nil?
       end
       unless @local.unit.nil?
-        clone_id = AirClone::Item.find_or_create_with_rails_record(@local.unit)&.id
+        clone_id = AirClone::Unit.find_or_create_with_rails_record(@local.unit)&.id
         hash["Unit"] = [clone_id] unless clone_id.nil?
       end
       return hash
