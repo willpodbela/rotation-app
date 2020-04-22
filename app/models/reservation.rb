@@ -13,6 +13,8 @@ class Reservation < ApplicationRecord
   enum size: [ :S, :M, :L, :XL ]
   enum status: [ :scheduled, :processing, :active, :returned, :ended, :cancelled ]
   
+  aircloneable
+  
   def days
     d = (end_date || Date.today).to_date
     (d - start_date.to_date).to_i

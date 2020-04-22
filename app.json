@@ -4,6 +4,12 @@
     "postdeploy": "bundle exec rake db:seed"
   },
   "env": {
+    "AIRTABLE_API_KEY": {
+      "required": true
+    },
+    "AIRTABLE_BASE_ID": {
+      "required": true
+    },
     "API_AUTH_NAME": {
       "required": true
     },

@@ -18,6 +18,8 @@ class Item < ApplicationRecord
   
   attr_reader :image_remote_url
   
+  aircloneable
+  
 	has_attached_file :image,
 		url: "/system/:hash.:extension",
 		hash_secret: "longSecretString",
