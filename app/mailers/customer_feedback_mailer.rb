@@ -45,7 +45,7 @@ class CustomerFeedbackMailer < ApplicationMailer
   
   def inactive_user
     # If user has no processing, active, or scheduled reservations created within the last 3 months
-    if Reservation.where(user: u, status: [:processing, :active, :scheduled]).where("created_at  > ?", 3.month.ago).count == 0
+    if Reservation.where(user: @user, status: [:processing, :active, :scheduled]).where("created_at  > ?", 3.month.ago).count == 0
       @subject = "The Rotation — Checking in"
       mail(to: @user.email, subject: @subject)
     end
