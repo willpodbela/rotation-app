@@ -10,8 +10,11 @@ module AirClone
     def self.find_or_create_with_rails_record(local_record)
       record = find_by_rails_id(local_record.id)
       if record.nil?
-        record = self.new({}, local: local_record)
+        record = self.new({})
       end
+      # We force set local in order to skip the safety check on line 39 since we just did 
+      # that exact call on line 11. Saves an API call.
+      record.instance_variable_set(:@local, local_record)
       return record
     end
     
@@ -30,7 +33,6 @@ module AirClone
     # Local record can be passed in on initialization if we already have it to avoid additional database call
     def initialize(fields = {}, id: nil, created_at: nil, local: nil)
       super(fields, id: id, created_at: created_at)
-      @local = local.nil? ? self.class.name.demodulize.constantize.find_by_id(self["rails_id"]) : local
     end
     
     def local=(record)

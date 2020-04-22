@@ -7,7 +7,8 @@ module AirClone
       hash["cost"] = @local.cost.to_f
       hash["supplier_shipping_cost"] = @local.supplier_shipping_cost.to_f
       unless @local.item.nil?
-        hash["Item"] = [AirClone::Item.find_or_create_with_rails_record(@local.item)&.id]
+        clone_id = AirClone::Item.find_or_create_with_rails_record(@local.item)&.id
+        hash["Item"] = [clone_id] unless clone_id.nil?
       end
       return hash
     end
