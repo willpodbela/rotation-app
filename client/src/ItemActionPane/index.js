@@ -166,6 +166,27 @@ class ItemActionPane extends Component {
         {
           "@context": "http://schema.org/",
           "@type": "Product"
+          "name": "TODO - Product Name",
+          "image": [
+            "TODO - imageURLs",
+            "TODO - imageURLs"
+          ],
+          "description": "TODO - Product Description"
+          "brand": {
+            "@type": "Brand",
+            "name": "TODO - Off White"
+          },
+          "offers": {
+            "@type": "Offer",
+            "url": "TODO - URL",
+            "priceCurrency": "USD",
+            "price": "89.00",
+            availability": "https://schema.org/InStock",
+            "seller": {
+              "@type": "Organization",
+              "name": "The Rotation"
+            }
+          }
         }
       `}</script>
       </RotationHelmet> 
