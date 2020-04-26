@@ -161,6 +161,16 @@ class ItemActionPane extends Component {
     const upNextItemSelected = this.isUpNext(selectedItem)
     
     return (
+      <RotationHelmet>
+        <script type="application/ld+json">{`
+        {
+          "@context": "http://schema.org/",
+          "@type": "Product"
+        }
+      `}</script>
+      </RotationHelmet> 
+      // script={this.props.pageTitle+" | The Rotation"} />
+      
       <div className="ItemActionPane height_full" style={{position: "relative"}}>
         <div className="modal_brand proxima_small rotation_gray opacity6 uppercase">{selectedItem.title}</div>
         <div className="modal_description overflow_scroll druk_medium rotation_gray line_height24 capitalize">{selectedItem.subtitle}</div>
