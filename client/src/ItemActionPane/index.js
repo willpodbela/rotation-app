@@ -3,6 +3,7 @@ import "./bootstrap-modal.css"
 import Auth from "../modules/Auth"
 import FavoriteButtonPane from "../FavoriteButtonPane"
 import "./style.css"
+import RotationHelmet from "../RotationHelmet"
 
 class ItemActionPane extends Component {
   constructor(props){
