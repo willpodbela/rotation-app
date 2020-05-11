@@ -193,56 +193,92 @@ class ItemActionPane extends Component {
       // `}</script>
       // </RotationHelmet> 
       // script={this.props.pageTitle+" | The Rotation"} />
-      
-      <div className="ItemActionPane height_full" style={{position: "relative"}}>
-        <div className="modal_brand proxima_small rotation_gray opacity6 uppercase">{selectedItem.title}</div>
-        <div className="modal_description overflow_scroll druk_medium rotation_gray line_height24 capitalize">{selectedItem.subtitle}</div>
-        <div className="product_description proxima_small overflow_scroll rotation_gray">{selectedItem.description}</div>
-        {selectedItem.supplier_color &&
-          <div className="product_description proxima_small overflow_scroll rotation_gray">Supplier Color: {selectedItem.supplier_color}</div>
-        }  
-        {(this.props.auth && this.state.subscription) &&
-          <div className="modal_size_btns flex modal_buttons">
-            {this.state.modalSizes.forEach(size => {
-              size.available = selectedItem.sizes[size.value] > 0
-            })}
-            {myRotationItemSelected || upNextItemSelected ? (
-              <div className="proxima_small rotation_gray uppercase">Reserved Size: {selectedItem.reservation.size}</div>
+
+
+      <React.Fragment>
+      <JSONLD>
+        <Product 
+          name={selectedItem.title + " " + selectedItem.subtitle} 
+          description={selectedItem.description}
+        >
+          <Generic
+            type="image"
+          >
+
+          </Generic>
+          <Generic 
+            type="brand"
+            jsonldtype="Brand"
+            schema={{
+              name: selectedItem.title
+            }}
+          />
+          <Generic
+            type="offers"
+            jsonldtype="Offer"
+            priceCurrency="USD"
+            availability="In Stock"
+            price="89.00"
+            >
+              <Generic
+                type="seller"
+                jsonldtype="Organization"
+                schema={"The Rotation"}
+              ></Generic>
+            </Generic>
+          </Product>
+        </JSONLD>
+        
+        <div className="ItemActionPane height_full" style={{position: "relative"}}>
+          <div className="modal_brand proxima_small rotation_gray opacity6 uppercase">{selectedItem.title}</div>
+          <div className="modal_description overflow_scroll druk_medium rotation_gray line_height24 capitalize">{selectedItem.subtitle}</div>
+          <div className="product_description proxima_small overflow_scroll rotation_gray">{selectedItem.description}</div>
+          {selectedItem.supplier_color &&
+            <div className="product_description proxima_small overflow_scroll rotation_gray">Supplier Color: {selectedItem.supplier_color}</div>
+          }  
+          {(this.props.auth && this.state.subscription) &&
+            <div className="modal_size_btns flex modal_buttons">
+              {this.state.modalSizes.forEach(size => {
+                size.available = selectedItem.sizes[size.value] > 0
+              })}
+              {myRotationItemSelected || upNextItemSelected ? (
+                <div className="proxima_small rotation_gray uppercase">Reserved Size: {selectedItem.reservation.size}</div>
+              ) : (
+                this.state.modalSizes.map((size, index) => {
+                  return (
+                    <div
+                      key={index}
+                      onClick={(e) => this.toggleModalSizes(e)}
+                      className="modal_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center cursor_pointer"
+                      style={{background: !size.available ? "#F2F2F2" : size.selected ? "#333333" : "#FFFFFF", color: size.selected && size.available ? "#FFFFFF" : "#333333"}}
+                    >
+                      {size.value}
+                    </div>
+                  )
+                })
+              )}
+            </div>
+          }
+          <div className="modal_buttons flex">
+            {myRotationItemSelected ? (
+              <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer green request_to_buy" onClick={(e) => this.requestToBuy(e)}>Request to Buy</div>
+            ) : upNextItemSelected ? (
+              <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer red" onClick={(e) => this.removeItem(e)}>Remove</div>
             ) : (
-              this.state.modalSizes.map((size, index) => {
-                return (
-                  <div
-                    key={index}
-                    onClick={(e) => this.toggleModalSizes(e)}
-                    className="modal_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center cursor_pointer"
-                    style={{background: !size.available ? "#F2F2F2" : size.selected ? "#333333" : "#FFFFFF", color: size.selected && size.available ? "#FFFFFF" : "#333333"}}
-                  >
-                    {size.value}
-                  </div>
-                )
-              })
+              <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}>Reserve</div>
             )}
-          </div>
-        }
-        <div className="modal_buttons flex">
-          {myRotationItemSelected ? (
-            <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer green request_to_buy" onClick={(e) => this.requestToBuy(e)}>Request to Buy</div>
-          ) : upNextItemSelected ? (
-            <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer red" onClick={(e) => this.removeItem(e)}>Remove</div>
-          ) : (
-            <div className="reserve_btn rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center uppercase cursor_pointer" onClick={(e) => this.reserveButtonClicked(e)}>Reserve</div>
-          )}
-          <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center">
-            <FavoriteButtonPane
-              item={this.props.item}
-              auth={this.props.auth}
-              apiResponseHandler={this.props.apiResponseHandler}
-              showOnboardingModal={this.props.showOnboardingModal}
-              actionComplete={this.props.actionComplete}
-            />
+            <div className="modal_btn rotation_gray_border like_btn flex justify_center align_center">
+              <FavoriteButtonPane
+                item={this.props.item}
+                auth={this.props.auth}
+                apiResponseHandler={this.props.apiResponseHandler}
+                showOnboardingModal={this.props.showOnboardingModal}
+                actionComplete={this.props.actionComplete}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      </React.Fragment>
     )
   }
 }
