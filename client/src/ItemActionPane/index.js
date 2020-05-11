@@ -4,6 +4,8 @@ import Auth from "../modules/Auth"
 import FavoriteButtonPane from "../FavoriteButtonPane"
 import "./style.css"
 import RotationHelmet from "../RotationHelmet"
+import { JSONLD, Product, Generic, GenericCollection} from 'react-structured-data';
+
 
 class ItemActionPane extends Component {
   constructor(props){
