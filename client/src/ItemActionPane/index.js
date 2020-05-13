@@ -181,18 +181,8 @@ class ItemActionPane extends Component {
               name: selectedItem.title
             }}
           />
-          <Generic
-            type="offers"
-            jsonldtype="Offer"
-            priceCurrency="USD"
-            availability="In Stock"
-            price="89.00"
-            >
-              <Generic
-                type="seller"
-                jsonldtype="Organization"
-                schema={"The Rotation"}
-              ></Generic>
+            <Generic type="offers" jsonldtype="Offer" schema={{price: "89.00", priceCurrency: "USD", availability: "http://schema.org/InStock"}}>
+              <Generic type="seller" jsonldtype="Organization" schema={{name: "The Rotation"}} />
             </Generic>
           </Product>
         </JSONLD>
