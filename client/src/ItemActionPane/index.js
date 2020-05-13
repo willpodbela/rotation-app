@@ -168,12 +168,8 @@ class ItemActionPane extends Component {
         <Product 
           name={selectedItem.title + " " + selectedItem.subtitle} 
           description={selectedItem.description}
+          image={selectedItem.image_url}
         >
-          <Generic
-            type="image"
-          >
-
-          </Generic>
           <Generic 
             type="brand"
             jsonldtype="Brand"
