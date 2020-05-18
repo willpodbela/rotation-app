@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   resources "users", only: :index do
     resource :profile, only: [:show, :edit, :update]
+    resources :reservations, shallow: true
     get "release", on: :member
     get "become", on: :member
   end

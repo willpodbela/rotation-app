@@ -71,6 +71,11 @@
         <th>Preferred Sizes</th>
         <td><%= (@profile.preferred_sizes.collect {|x| Unit.sizes.key(x) }).join(", ") %></td>
       </tr>
+
+      <tr>
+        <th>Autopilot</th>
+        <td><%= @profile.auto_pilot %></td>
+      </tr>
     </table>
     
     <div class="form-buttons">

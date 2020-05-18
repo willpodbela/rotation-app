@@ -128,6 +128,42 @@ $(document).ready(function(){
     <% end %>
   </table>
   
+
+  <h3>Autopilot</h3>
+  <% if @users.empty? %>
+    <p>There are currently no users that have autopilot enabled and have no active reservations.</p>
+
+  <% else %>
+    <p>Users that have autopilot enabled, but do not have any active reservations.</p>
+    <table class="listing admin_table" summary="Autopilot Users list">
+      <tr class="header">
+        <th>User ID</th>
+        <th>Name</th>
+        <th>Prev Reservation End Date</th>
+        <th>Reservations</th>
+        <th>Historical Size Selection</th>
+      </tr>
+
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= user.profile.full_name %></td>
+          <td><%= user.live_reservations.maximum('end_date') %></td>
+          <td><%= link_to("Show", user_reservations_path(user), :class => 'action index') %></td>
+          
+          <td>
+            <% user.reservations.where.not(status: 'cancelled').group(:size).count.each do |size, amt| %>
+              <% percent = (Float(amt) / user.reservations.where.not(status: 'cancelled').count('size') * 100).round %>
+              <%= "#{size}: #{percent}% "%>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+
+
+  
   <h3>Offline Inventory</h3>
   <p>Units that are out being cleaned or repaired. Bring them back online once ready to be rented again.</p>
   <table class="listing admin_table" summary="Offline Units list">

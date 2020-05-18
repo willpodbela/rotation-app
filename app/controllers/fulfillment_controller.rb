@@ -10,6 +10,11 @@ class FulfillmentController < AdminBaseController
     
     @offline_units = Unit.offline
     .includes(:item)
+
+    @users = User
+    .includes(:live_reservations)
+    .joins(:profile)
+    .where(profiles: {auto_pilot: true} )
   end
   
   private

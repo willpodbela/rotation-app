@@ -67,7 +67,7 @@ class ReservationsController < ApplicationController
   end
   
   def query_params
-    params.permit(:item_id, :status)
+    params.permit(:item_id, :status, :user_id)
   end
   
   def set_item
