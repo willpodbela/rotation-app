@@ -149,7 +149,8 @@ $(document).ready(function(){
           <td><%= user.id %></td>
           <td><%= user.profile.full_name %></td>
           <td><%= user.live_reservations.maximum('end_date') %></td>
-          <td><%= link_to("Show", user_reservations_path(user), :class => 'action index') %></td>
+          <td><%= link_to("Show", user_reservations_path(user, :not_cancelled => true), :class => 'action index') %></td>
+
           
           <td>
             <% user.reservations.where.not(status: 'cancelled').group(:size).count.each do |size, amt| %>

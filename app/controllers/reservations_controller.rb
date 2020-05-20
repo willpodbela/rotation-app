@@ -4,6 +4,9 @@ class ReservationsController < ApplicationController
 
   def index
     @reservations = Reservation.where(query_params).order(:status, :created_at)
+    if params[:not_cancelled] == "true"  
+      @reservations = @reservations.not_cancelled
+    end
     
     vals = []
     @reservations.to_a.each do |r|
@@ -67,7 +70,7 @@ class ReservationsController < ApplicationController
   end
   
   def query_params
-    params.permit(:item_id, :status, :user_id)
+    params.permit(:item_id, :status, :sort_by_section)
   end
   
   def set_item
