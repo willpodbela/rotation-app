@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 20200522125927) do
     t.integer "live_reservations_counter_cache"
     t.integer "scheduled_reservations_counter_cache"
     t.integer "virtual_qty", default: 1, null: false
-    t.string "landing_featured", default: "false", null: false
+    t.string "landing_featured", default: "false"
     t.boolean "special", default: false, null: false
     t.string "category"
     t.string "sub_category"
