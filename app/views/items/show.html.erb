@@ -56,13 +56,10 @@
       <% end %>
     </tr>
     <tr>
-      <th>Featured?</th>
-      <% if @item.landing_featured %>
-        <td>&#10003;</td>
-      <% else %>
-        <td>&#10007;</td>
-      <% end %>
+      <th>Featured Collection</th>
+      <td><%= @item.landing_featured %></td>
     </tr>
+    <tr>
       <th>Special?</th>
       <% if @item.special %>
         <td>&#10003;</td>
