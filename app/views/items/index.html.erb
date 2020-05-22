@@ -20,7 +20,7 @@
       <th><%= sort_link "supplier_color" %></th>
       <th>Owned Inventory</th>
       <th><%= sort_link "hidden", "Visible?" %></th>
-      <th class="black-border-right"><%= sort_link "landing_featured", "Featured?" %></th>
+      <th class="black-border-right"><%= sort_link "landing_featured", "Featured Collection" %></th>
       <th>Rentals</th>
       <th>Cumulative Days Rented</th>
       <th>Days Since Last Rental</th>
@@ -45,7 +45,7 @@
         <% end %>
       </td>
       <td><%= item.hidden ? '✗' : '✓' %></td>
-      <td class="black-border-right"><%= item.landing_featured ? '✓' : '✗'  %></td>
+      <td class="black-border-right"><%= item.landing_featured %></td>
       <td><%= item.not_cancelled_reservations.length %></td>
       <td><%= item.cum_days_rented %></td>
       <td><%= item.days_since_last_rental || "N/A" %></td>
