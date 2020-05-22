@@ -8,7 +8,7 @@ class LandingPage extends Component {
   constructor(props){
     super(props)
     this.state = {
-      items: [],
+      collections: {},
       landingEmail: ""
     }
   }
@@ -22,7 +22,7 @@ class LandingPage extends Component {
         "Content-Type": "application/json"
       }
     }).then(res => res.json()).then(results => {
-      this.setState({items: results.items})
+      this.setState({collections: this.groupBy(results.items, "landing_featured")})
     })
   }
 
@@ -49,8 +49,47 @@ class LandingPage extends Component {
       [name]: value
     })
   }
+  
+  groupBy(xs, key) {
+    return xs.reduce(function(rv, x) {
+      (rv[x[key]] = rv[x[key]] || []).push(x);
+      return rv;
+    }, {});
+  }
 
   render(){
+    const FeaturedCollection = ({ collection_key, title }) => {
+      if(collection_key in this.state.collections) {
+        return (
+          <section className="padding_bottom100 sides13pct">
+            {title &&
+              <h2 className="rotation_gray padding_bottom35">{title}</h2>
+            }
+            <div className="scrolling_wrapper">
+              {this.state.collections[collection_key].map((item, index) => {
+                return (
+                  <Link to="/catalog" key={index}>
+                    <div className="card padding_right30 cursor_pointer">
+                      <div
+                        className="item_card light_background flex align_center justify_center"
+                        style={{
+                          backgroundImage: `url(${item.image_url})`
+                        }}>
+                      </div>
+                      <div className="proxima_small semibold rotation_gray padding_top10 uppercase">{item.title}</div>
+                      <div className="padding_top2 opacity7 proxima_small rotation_gray lowercase">{item.subtitle}</div>
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+          </section>
+        )
+      } else {
+        return (null)
+      }
+    }
+  
     return (
       <div className="LandingPage">
         <RotationHelmet />
@@ -92,27 +131,7 @@ class LandingPage extends Component {
             <div className="step_description line_height20 proxima_medium rotation_gray top30 margin_auto">When you're ready for something new, send your pieces back dirty using the provided pre-paid shipping label.</div>
           </div>
         </section>
-        <section className="padding_bottom100 sides13pct">
-          <h2 className="rotation_gray padding_bottom35">Peek Into Our Closet</h2>
-          <div className="scrolling_wrapper">
-            {this.state.items.map((item, index) => {
-              return (
-                <Link to="/catalog">
-                  <div key={index} className="card padding_right30 cursor_pointer">
-                    <div
-                      className="item_card light_background flex align_center justify_center"
-                      style={{
-                        backgroundImage: `url(${item.image_url})`
-                      }}>
-                    </div>
-                    <div className="proxima_small semibold rotation_gray padding_top10 uppercase">{item.title}</div>
-                    <div className="padding_top2 opacity7 proxima_small rotation_gray lowercase">{item.subtitle}</div>
-                  </div>
-                </Link>
-              )
-            })}
-          </div>
-        </section>
+          <FeaturedCollection collection_key={"true"} title={"Peek Into Our Closet"} />
         <PricingTable />
       </div>
     )

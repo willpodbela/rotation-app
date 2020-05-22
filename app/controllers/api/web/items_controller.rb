@@ -31,8 +31,10 @@ module Api
             render :index
           end
         else
-          if display_params[:landing_featured] == "true"          
-            @items = Item.landing_featured
+          if display_params[:landing_featured] == "true"   
+            # Removal of "false" is a temporary backwards compatibility fix due to the
+            # conversion of landing_featured from a boolean column to a string column.
+            @items = Item.where.not(landing_featured: [nil, "", "false"])
           else 
             @items = Item.visible
           end
