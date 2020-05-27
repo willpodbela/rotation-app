@@ -12,9 +12,8 @@ class FulfillmentController < AdminBaseController
     .includes(:item)
 
     @users = User
-    .includes(:live_reservations)
-    .joins(:profile)
-    .where(profiles: {auto_pilot: true} )
+    .includes(:profile, :not_cancelled_reservations)
+    .where(profiles: {auto_pilot: true} ) - User.joins(:live_reservations)
   end
   
   private

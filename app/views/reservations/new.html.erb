@@ -1,15 +1,21 @@
 <%= link_to("<< All Reservations", reservations_path, :class => 'back-link') %></br>
-<%= link_to("<< All Reservations for Item", item_reservations_path(@item), :class => 'back-link') %>
+<%= link_to("<< All Reservations for Item", item_reservations_path(@item), :class => 'back-link') unless @item.nil? %>
+<%= link_to("<< All Reservations for User", user_reservations_path(@user), :class => 'back-link') unless @user.nil? %>
 
 <div class="reservations new">
   <h2>Create Reservation</h2>
 
-  <%= form_for([@item, @reservation]) do |f| %>
-
+  <%= form_for([@item ? @item : @user, @reservation]) do |f| %>
+    
     <table summary="Reservation form fields">
       <tr>
-        <th>User ID</th>
-        <td><%= f.text_field(:user_id) %></td>
+        <% if @item  %>
+          <th>User ID</th>
+          <td><%= f.text_field(:user_id) %></td>
+        <% else %>
+          <th>Item ID</th>
+          <td><%= f.text_field(:item_id) %></td>
+        <% end %>
       </tr>
       <tr>
         <th>Size</th>
@@ -26,7 +32,7 @@
     </table>
 
     <div class="form-buttons">
-      <%= f.submit("Create Item") %>
+      <%= f.submit("Create") %>
     </div>
 
   <% end %>

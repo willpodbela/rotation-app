@@ -26,7 +26,7 @@ class CatalogPage extends Component {
         {value: "L", selected: false},
         {value: "XL", selected: false}
       ],
-      autoPilot: false,
+      autoPilot: this.props.userLoggedIn.profile.auto_pilot,
       currentModal: false,
       forceSignUpFirst: false,
     }
@@ -40,7 +40,6 @@ class CatalogPage extends Component {
     window.scrollTo(0, 0)
     
     this.getItems()
-    { (this.props.auth && this.state.subscription) && this.getAutoPilotValue() }
   }
   
   componentDidUpdate(prevProps) {
@@ -62,17 +61,6 @@ class CatalogPage extends Component {
         designers: [...new Set(results.items.map(item => item.title))],
         categories: this.buildCategoryTree(results.items)
       })
-    })
-  }
-
-  getAutoPilotValue() {
-    fetch(`/api/web/users/${this.props.userLoggedIn.id}/profile`, {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Token ${Auth.getToken()}`
-      }
-    }).then(res => this.props.apiResponseHandler(res)).then(results => {
-      this.setState({autoPilot: results.profile.auto_pilot})
     })
   }
   
@@ -202,6 +190,11 @@ class CatalogPage extends Component {
     this.componentDidMount()
   }
 
+  autoPilotUpdated(e) {
+    this.hideModal(e)
+    this.setState({autoPilot: !(this.state.autoPilot)})
+  }
+
   bannerClicked(e) {
     this.displayOnboardingModal(e, true)
     window.analytics.track('Promotion Clicked', {
@@ -328,11 +321,8 @@ class CatalogPage extends Component {
                   <div className="catalog_title druk_xs rotation_gray medium left20">Favorites</div>
                   
                   { (this.props.auth && this.state.subscription) &&
-                    <div onClick={(e) => this.displayAutoPilotModal(e)}>
-                      {(this.state.autoPilot) ? 
-                      <div className="rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center text_center width216 cursor_pointer">Automatically Ship Next Box from My Favorites: ON</div>
-                      : <div className="rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center text_center width216 cursor_pointer">Automatically Ship Next Box from My Favorites: OFF</div>
-                      }
+                    <div className="rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center text_center width216 cursor_pointer" onClick={(e) => this.displayAutoPilotModal(e)}>
+                      Automatically Ship Next Box from My Favorites: {(this.state.autoPilot) ? "ON" : "OFF" }
                     </div>
                   }
 
@@ -400,7 +390,8 @@ class CatalogPage extends Component {
           <AutoPilotModal
             autoPilot={this.state.autoPilot}
             userLoggedIn={this.props.userLoggedIn}
-            actionComplete={(e) => this.itemUpdated(e, selectedItem)}
+            actionComplete={(e) => this.autoPilotUpdated(e)}
+            onClose={(e) => this.hideModal(e)}
           />
         }
 

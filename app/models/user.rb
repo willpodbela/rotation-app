@@ -10,6 +10,7 @@ class User < ApplicationRecord
   belongs_to  :advertisement_code, optional: true
 
   has_many :live_reservations, -> { live }, class_name: "Reservation"
+  has_many :not_cancelled_reservations, -> { not_cancelled }, class_name: "Reservation"
   has_many :scheduled_reservations, -> { scheduled }, class_name: "Reservation"
   has_many :my_rotation_items, through: :live_reservations, source: :item
   has_many :up_next_items, through: :scheduled_reservations, source: :item

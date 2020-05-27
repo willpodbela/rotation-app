@@ -143,19 +143,17 @@ $(document).ready(function(){
         <th>Reservations</th>
         <th>Historical Size Selection</th>
       </tr>
-
+     
       <% @users.each do |user| %>
         <tr>
           <td><%= user.id %></td>
           <td><%= user.profile.full_name %></td>
-          <td><%= user.live_reservations.maximum('end_date') %></td>
+          <td><%= user.not_cancelled_reservations.map(&:end_date).compact.max %></td>
           <td><%= link_to("Show", user_reservations_path(user, :not_cancelled => true), :class => 'action index') %></td>
-
-          
           <td>
-            <% user.reservations.where.not(status: 'cancelled').group(:size).count.each do |size, amt| %>
-              <% percent = (Float(amt) / user.reservations.where.not(status: 'cancelled').count('size') * 100).round %>
-              <%= "#{size}: #{percent}% "%>
+            <% res_sizes = user.not_cancelled_reservations.map(&:size).compact %>
+            <% res_sizes.group_by{|x|x}.each do |s, amt| %>
+                <%= "#{s}: #{100*amt.size/res_sizes.length}% "%>
             <% end %>
           </td>
         </tr>

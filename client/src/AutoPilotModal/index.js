@@ -38,16 +38,16 @@ class AutoPilotModal extends Component {
                 <div className="top20 proxima_medium bold rotation_gray">How it works</div>
                 
                 <div className="rotation_gray_border flex align_center width_full padding_top15 padding_bottom15">
-                  <div className="icon_wrapper padding_right10"><FontAwesomeIcon className="checkbox_icon rotation_gray font26 flex justify_center" icon="check-square" /></div>
+                  <FontAwesomeIcon className="rotation_gray font12 float_right padding_top15 padding_bottom15 padding_sides15" icon="check-square" />
                   <div className="line_height20 proxima_large text_left width630 medium rotation_gray">Once we receive your current items, we'll automatically put together your next box from your favorites</div>
 
-                  <div className="icon_wrapper padding_right10"><FontAwesomeIcon className="checkbox_icon rotation_gray font26 flex justify_center" icon="check-square" /></div>
+                  <FontAwesomeIcon className="rotation_gray font12 float_right padding_top15 padding_bottom15 padding_sides15" icon="check-square" />
                   <div className="line_height20 proxima_large text_left width630 medium rotation_gray">You'll have 24 hours to review and change your items before shipment</div>
 
-                  <div className="icon_wrapper padding_right10"><FontAwesomeIcon className="checkbox_icon rotation_gray font26 flex justify_center" icon="check-square" /></div>
+                  <FontAwesomeIcon className="rotation_gray font12 float_right padding_top15 padding_bottom15 padding_sides15" icon="check-square" />
                   <div className="line_height20 proxima_large text_left width630 medium rotation_gray">We'll prioritize what's most popular among the items you haven't rented</div>
 
-                  <div className="icon_wrapper padding_right10"><FontAwesomeIcon className="checkbox_icon rotation_gray font26 flex justify_center" icon="check-square" /></div>
+                  <FontAwesomeIcon className="rotation_gray font12 float_right padding_top15 padding_bottom15 padding_sides15" icon="check-square" />
                   <div className="line_height20 proxima_large text_left width630 medium rotation_gray">We'll automatically select the right size based on your reservation history</div>
                 </div>
                 <div
