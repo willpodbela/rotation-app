@@ -31,7 +31,7 @@ module Api
       
         # Check if user exists
         if User.find_by_email(user_params[:email])
-          render :status => :unprocessable_entity, :json => { :message => "The email is already registered. Did you meant to click Log In?" }
+          render_error(:unprocessable_entity, "The email is already registered. Did you meant to click Sign In?")
         else
           @user = User.new(user_params)
           
@@ -42,9 +42,9 @@ module Api
           end
           
           if @user.save
-            render :show
+            render :show, status: :created
           else
-            render :status=>400, :json => { "message": @user.errors.full_messages.first }
+            render_error(:unprocessable_entity, @user.errors.full_messages.to_sentence)
           end
         end
       end
