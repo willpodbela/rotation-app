@@ -37,7 +37,7 @@ module Api
           
           # Apply global iOS referral code if valid one is set by environmental variable
           code = ENV['IOS_DISCOUNT_CODE']
-          if ReferralCode.exists?(code)
+          if (code = ReferralCode.find_by_id(code)) && code&.active?
             @user.referral_code = code
           end
           
