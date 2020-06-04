@@ -2,7 +2,7 @@ module Api
   module V1
     class UsersController < Api::V1::BaseController
       http_basic_authenticate_with name:ENV["API_AUTH_NAME"], password:ENV["API_AUTH_PASSWORD"], only: [:create]
-      skip_before_action :authenticate_user_from_token!, only: [:create, :sign_up]
+      skip_before_action :authenticate_user_from_token!, only: [:create]
     
       #Failsafe: Override endpoints that we don't want to make available
       def destroy
@@ -19,8 +19,8 @@ module Api
           render_error(403)
         end
       end
-    
-      def create    
+      
+      def create
         begin 
           decrypted_pass = AESCrypt.decrypt(params[:password], ENV["API_AUTH_PASSWORD"])
         rescue Exception => e
@@ -28,23 +28,23 @@ module Api
         end
       
         params[:password] = decrypted_pass
-        super
-      end
       
-      def sign_up
         # Check if user exists
         if User.find_by_email(user_params[:email])
-          render :status=>400, :json => { :message => "The email is already registered. ", :link => { :message => "Click here to Log In.", :url => "/login" } }
+          render_error(:unprocessable_entity, "The email is already registered. Did you meant to click Sign In?")
         else
-          # Instantiate a new object using form parameters
           @user = User.new(user_params)
-          @user.advertisement_code = session[:advertisement_code]
           
-          # Save the object
+          # Apply global iOS referral code if valid one is set by environmental variable
+          code = ENV['IOS_DISCOUNT_CODE']
+          if ReferralCode.exists?(code)
+            @user.referral_code = code
+          end
+          
           if @user.save
-            render :show
+            render :show, status: :created
           else
-            render :status=>400, :json => { "message": @user.errors.full_messages.first }
+            render_error(:unprocessable_entity, @user.errors.full_messages.to_sentence)
           end
         end
       end
