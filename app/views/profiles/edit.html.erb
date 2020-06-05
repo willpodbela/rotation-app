@@ -81,6 +81,10 @@
         <th>Preferred Size 2</th>
         <td><%= f.text_field(:preferred_sizes, multiple: true, value: Unit.sizes.key(@profile.preferred_sizes[1])) %></td>
       </tr>
+      <tr>
+        <th>Autopilot</th>
+        <td><%= f.check_box(:auto_pilot) %></td>
+      </tr>
     </table>
 
     <div class="form-buttons">

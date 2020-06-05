@@ -4,6 +4,7 @@ import "./bootstrap-modal.css"
 import ItemCard from "../ItemCard"
 import OnboardingModal from "../OnboardingModal"
 import ItemModal from "../ItemModal"
+import AutoPilotModal from "../AutoPilotModal"
 import Auth from "../modules/Auth"
 import RTUIFilterSidebar from "../RTUIFilterSidebar"
 import "./style.css"
@@ -30,6 +31,7 @@ class CatalogPage extends Component {
     }
     if(this.props.userLoggedIn){
       this.state.subscription = this.props.userLoggedIn.subscription || false
+      this.state.autoPilot = this.props.userLoggedIn.profile.auto_pilot
     }
   }
 
@@ -188,6 +190,11 @@ class CatalogPage extends Component {
     this.componentDidMount()
   }
 
+  autoPilotUpdated(e) {
+    this.hideModal(e)
+    this.setState({autoPilot: !(this.state.autoPilot)})
+  }
+
   bannerClicked(e) {
     this.displayOnboardingModal(e, true)
     window.analytics.track('Promotion Clicked', {
@@ -197,7 +204,12 @@ class CatalogPage extends Component {
       position: 'catalog_top'
     })
   }
-  
+
+  displayAutoPilotModal(e)
+  {
+    this.setState({currentModal:"autoPilot"})
+  }
+
   render(){
     const selectedItem = this.state.selectedItem
     const displayItems = this.filteredAndSortedItems()
@@ -303,7 +315,20 @@ class CatalogPage extends Component {
             <div>
               <CatalogSection items={displayItems.rotation} title={"My Rotation"} />
               <CatalogSection items={displayItems.next} title={"Shipping Soon"} subtitle={"You can change these items anytime until your order leaves our warehouse."} />
-              <CatalogSection items={displayItems.favorites} title={"Favorites"} />
+              
+              <CatalogSection items={displayItems.favorites} >
+                <div className="catalog_headers flex justify_between width_full padding_bottom10">
+                  <div className="catalog_title druk_xs rotation_gray medium left20">Favorites</div>
+                  
+                  { (this.props.auth && this.state.subscription) &&
+                    <div className="rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center text_center width216 cursor_pointer" onClick={(e) => this.displayAutoPilotModal(e)}>
+                      Automatically Ship Next Box from My Favorites: {(this.state.autoPilot) ? "ON" : "OFF" }
+                    </div>
+                  }
+
+                </div>
+              </CatalogSection>
+
               <CatalogSection items={displayItems.catalog}
                 emptyDefault={ (this.state.selectedDesigners.length > 0 || this.state.selectedCategories.length > 0) ? <EmptyCatalog /> : null }
               >
@@ -360,6 +385,16 @@ class CatalogPage extends Component {
             onClose={(e) => this.hideModal(e)}
           />
         }
+
+        {this.state.currentModal === "autoPilot" &&
+          <AutoPilotModal
+            autoPilot={this.state.autoPilot}
+            userLoggedIn={this.props.userLoggedIn}
+            actionComplete={(e) => this.autoPilotUpdated(e)}
+            onClose={(e) => this.hideModal(e)}
+          />
+        }
+
     </div>
     )
   }

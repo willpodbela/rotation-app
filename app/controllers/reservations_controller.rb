@@ -1,9 +1,12 @@
 class ReservationsController < ApplicationController
   before_action :enforce_access_control_admin!
-  before_action :set_item
+  before_action :set_item_or_user
 
   def index
     @reservations = Reservation.where(query_params).order(:status, :created_at)
+    if params[:not_cancelled] == "true"  
+      @reservations = @reservations.not_cancelled
+    end
     
     vals = []
     @reservations.to_a.each do |r|
@@ -17,18 +20,26 @@ class ReservationsController < ApplicationController
   end
 
   def new
-    @reservation = Reservation.new(:item_id => @item_id)
+    @reservation = Reservation.new(:item_id => @item_id, :user_id => @user_id)
   end
   
   def create
     # Instantiate a new object using form parameters
     @reservation = Reservation.new(reservation_params)
-    @reservation.item = @item
+    if @item
+      @reservation.item = @item
+    else
+      @reservation.user = @user
+    end
     # Save the object
     if @reservation.save
       # If save succeeds, redirect to the index action
       flash[:notice] = "Reservation created successfully."
-      redirect_to(item_reservations_path(@item))
+      if @item
+        redirect_to(item_reservations_path(@item))
+      else
+        redirect_to(user_reservations_path(@user, :not_cancelled => true))
+      end
     else
       # If save fails, redisplay the form so user can fix problems
       render('new')
@@ -63,14 +74,15 @@ class ReservationsController < ApplicationController
   private
   
   def reservation_params
-    params.require(:reservation).permit(:start_date, :end_date, :user_id, :status, :size, :unit_id)
+    params.require(:reservation).permit(:start_date, :end_date, :user_id, :status, :size, :unit_id, :item_id)
   end
   
   def query_params
-    params.permit(:item_id, :status)
+    params.permit(:item_id, :status, :user_id)
   end
   
-  def set_item
+  def set_item_or_user
     @item = Item.find_by_id(params[:item_id]) 
+    @user = User.find_by_id(params[:user_id])
   end
 end

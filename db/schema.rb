@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(version: 20200522125927) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "preferred_sizes", default: [], array: true
+    t.boolean "auto_pilot", default: false
     t.index ["user_id"], name: "index_profiles_on_user_id", unique: true
   end
 

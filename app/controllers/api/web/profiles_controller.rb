@@ -18,7 +18,7 @@ module Api
       private
     
       def profile_params
-        params.require(:profile).permit(:first_name, :last_name, :instagram_auth_token, :address_line_one, :address_line_two, :address_city, :address_state, :address_zip, :preferred_sizes => [])
+        params.require(:profile).permit(:first_name, :last_name, :instagram_auth_token, :address_line_one, :address_line_two, :address_city, :address_state, :address_zip, :auto_pilot, :preferred_sizes => []) 
       end
 
       def query_params
