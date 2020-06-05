@@ -13,7 +13,20 @@ class FulfillmentController < AdminBaseController
 
     @users = User
     .includes(:profile, :not_cancelled_reservations)
-    .where(profiles: {auto_pilot: true} ) - User.joins(:live_reservations)
+    .where(profiles: {auto_pilot: true} )
+    .where('users.id NOT IN (SELECT DISTINCT(user_id) FROM (SELECT  "reservations".* FROM "reservations" WHERE "reservations"."status" IN (0, 1, 2, 3) ) AS live_reservations)')
+    
+    # - User.joins(:live_reservations)
+
+    # .where('id NOT IN (SELECT DISTINCT(users.id) FROM live_reservations)')
+
+    # .joins(:live_reservations)
+    # .group('users.id')
+    # .having('count(live_reservations) = 0')
+
+    # .left_joins(:live_reservations)
+    # .where( live_reservations: { id: nil } )
+
   end
   
   private

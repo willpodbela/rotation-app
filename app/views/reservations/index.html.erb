@@ -1,5 +1,6 @@
 <%= link_to("Back to Admin Home", admin_path, :class => 'back-link') %></br>
 <%= link_to("<< Back to Item", item_path(@item), :class => 'back-link') unless @item.nil? %>
+<%= link_to("<< Back to User", user_profile_path(@user), :class => 'back-link') unless @user.nil? %>
 
 <div class="reservations index">
   <h2>Reservations 

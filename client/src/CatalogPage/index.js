@@ -26,12 +26,12 @@ class CatalogPage extends Component {
         {value: "L", selected: false},
         {value: "XL", selected: false}
       ],
-      autoPilot: this.props.userLoggedIn.profile.auto_pilot,
       currentModal: false,
       forceSignUpFirst: false,
     }
     if(this.props.userLoggedIn){
       this.state.subscription = this.props.userLoggedIn.subscription || false
+      this.state.autoPilot = this.props.userLoggedIn.profile.auto_pilot
     }
   }
 
