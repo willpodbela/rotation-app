@@ -185,9 +185,26 @@ class CatalogPage extends Component {
   }
   
   itemUpdated(e, item) {
-    //TODO: Update item in place to avoid networking call every time.
     this.hideModal(e)
     this.componentDidMount()
+  }
+
+  itemReserved(e, reservation, item) {
+    this.hideModal(e)
+  
+    const itemIndex = this.state.items.findIndex(i => i.id == item.id)
+    let newItems = [...this.state.items]
+    newItems[itemIndex] = {...newItems[itemIndex], reservation : reservation}
+    this.setState({items: newItems})
+  }
+
+  itemRemoved(e, item) {  
+    this.hideModal(e)
+
+    const itemIndex = this.state.items.findIndex(i => i.id == item.id)
+    let newItems = [...this.state.items]
+    newItems[itemIndex] = {...newItems[itemIndex], reservation : null}
+    this.setState({items: newItems})
   }
 
   autoPilotUpdated(e) {
@@ -383,6 +400,9 @@ class CatalogPage extends Component {
             showOnboardingModal={(e) => this.displayOnboardingModal(e)}
             actionComplete={(e) => this.itemUpdated(e, selectedItem)}
             onClose={(e) => this.hideModal(e)}
+            itemRemoved={(e) => this.itemRemoved(e, selectedItem)}
+            itemReserved={(e, reservation) => this.itemReserved(e, reservation, selectedItem)}
+            errorHandler={this.props.errorHandler}
           />
         }
 

@@ -39,6 +39,9 @@ class ItemModal extends Component {
                   apiResponseHandler={this.props.apiResponseHandler}
                   showOnboardingModal={this.props.showOnboardingModal}
                   actionComplete={this.props.actionComplete}
+                  itemReserved={this.props.itemReserved}
+                  itemRemoved={this.props.itemRemoved}
+                  errorHandler={this.props.errorHandler}
                 />
               </div>
             </div>
@@ -59,6 +62,9 @@ class ItemModal extends Component {
                   apiResponseHandler={this.props.apiResponseHandler}
                   showOnboardingModal={this.props.showOnboardingModal}
                   actionComplete={this.props.actionComplete}
+                  itemRemoved={this.props.itemRemoved}
+                  itemReserved={this.props.itemReserved}
+                  errorHandler={this.props.errorHandler}
                 />
               </div>
             </div>

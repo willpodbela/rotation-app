@@ -65,8 +65,8 @@ class ItemActionPane extends Component {
           "Authorization": `Token ${Auth.getToken()}`
         }
       }).then(res => this.props.apiResponseHandler(res)).then(res => {
-        if(this.props.actionComplete) {
-          this.props.actionComplete(e)
+        if(this.props.itemReserved) {
+          this.props.itemReserved(e, res.reservation)
           window.analytics.track('Product Added', {
             product_id: this.props.item.id,
             category: this.props.item.category,
@@ -98,8 +98,8 @@ class ItemActionPane extends Component {
         "Authorization": `Token ${Auth.getToken()}`
       }
     }).then(res => this.props.apiResponseHandler(res)).then(res => {
-        if(this.props.actionComplete) {
-          this.props.actionComplete(e) 
+        if(this.props.itemRemoved) {
+          this.props.itemRemoved(e) 
           window.analytics.track('Product Removed', {
             product_id: this.props.item.id,
             category: this.props.item.category,

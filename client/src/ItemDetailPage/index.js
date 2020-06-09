@@ -77,6 +77,9 @@ class ItemDetailPage extends Component {
                 apiResponseHandler={this.props.apiResponseHandler}
                 showOnboardingModal={(e) => this.showOnboardingModal(e)}
                 actionComplete={(e) => this.actionComplete(e, item)}
+                itemRemoved={(e) => this.actionComplete(e, item)}
+                itemReserved={(e) => this.actionComplete(e, item)}
+                errorHandler={this.props.errorHandler}
               />
             </div>
           </div>
