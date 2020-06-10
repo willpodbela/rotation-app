@@ -41,6 +41,7 @@ class ItemModal extends Component {
                   actionComplete={this.props.actionComplete}
                   itemReserved={this.props.itemReserved}
                   itemRemoved={this.props.itemRemoved}
+                  toggleFavorite={this.props.toggleFavorite}
                   errorHandler={this.props.errorHandler}
                 />
               </div>
@@ -64,6 +65,7 @@ class ItemModal extends Component {
                   actionComplete={this.props.actionComplete}
                   itemRemoved={this.props.itemRemoved}
                   itemReserved={this.props.itemReserved}
+                  toggleFavorite={this.props.toggleFavorite}
                   errorHandler={this.props.errorHandler}
                 />
               </div>

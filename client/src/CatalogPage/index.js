@@ -207,6 +207,15 @@ class CatalogPage extends Component {
     this.setState({items: newItems})
   }
 
+  toggleFavorite(e, item) {
+    this.hideModal(e)
+
+    const itemIndex = this.state.items.findIndex(i => i.id == item.id)
+    let newItems = [...this.state.items]
+    newItems[itemIndex] = {...newItems[itemIndex], is_favorite : !(item.is_favorite)}
+    this.setState({items: newItems})
+  }
+
   autoPilotUpdated(e) {
     this.hideModal(e)
     this.setState({autoPilot: !(this.state.autoPilot)})
@@ -256,8 +265,8 @@ class CatalogPage extends Component {
                     auth={this.props.auth}
                     userLoggedIn={this.props.userLoggedIn}
                     apiResponseHandler={this.props.apiResponseHandler}
-                    actionComplete={(e) => this.itemUpdated(e, selectedItem)}
                     showOnboardingModal={(e) => this.displayOnboardingModal(e)}
+                    toggleFavorite={(e) => this.toggleFavorite(e, item)}
                     />
                   </div>
                 )
@@ -402,6 +411,7 @@ class CatalogPage extends Component {
             onClose={(e) => this.hideModal(e)}
             itemRemoved={(e) => this.itemRemoved(e, selectedItem)}
             itemReserved={(e, reservation) => this.itemReserved(e, reservation, selectedItem)}
+            toggleFavorite={(e) => this.toggleFavorite(e, selectedItem)}
             errorHandler={this.props.errorHandler}
           />
         }

@@ -227,7 +227,7 @@ class ItemActionPane extends Component {
                 auth={this.props.auth}
                 apiResponseHandler={this.props.apiResponseHandler}
                 showOnboardingModal={this.props.showOnboardingModal}
-                actionComplete={this.props.actionComplete}
+                toggleFavorite={this.props.toggleFavorite}
               />
             </div>
           </div>

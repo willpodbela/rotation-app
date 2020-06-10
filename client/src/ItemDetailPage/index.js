@@ -79,6 +79,7 @@ class ItemDetailPage extends Component {
                 actionComplete={(e) => this.actionComplete(e, item)}
                 itemRemoved={(e) => this.actionComplete(e, item)}
                 itemReserved={(e) => this.actionComplete(e, item)}
+                toggleFavorite={(e) => this.actionComplete(e, item)}
                 errorHandler={this.props.errorHandler}
               />
             </div>

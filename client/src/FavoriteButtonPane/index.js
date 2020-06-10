@@ -13,8 +13,8 @@ class FavoriteButtonPane extends Component {
       "Authorization": `Token ${Auth.getToken()}`
       }
     }).then(res => this.props.apiResponseHandler(res)).then(res => {
-      if(this.props.actionComplete) {
-      this.props.actionComplete(e)
+      if(this.props.toggleFavorite) {
+      this.props.toggleFavorite(e)
       window.analytics.track('Product Added to Wishlist', {
         product_id: this.props.item.id,
         category: this.props.item.category,
@@ -37,8 +37,8 @@ class FavoriteButtonPane extends Component {
       }
     }).then(res => {
       //TODO: Handle errors. Can't use apiResponseHandler in its current format since it always attempts to call .json()
-      if(this.props.actionComplete) {
-      this.props.actionComplete(e)
+      if(this.props.toggleFavorite) {
+      this.props.toggleFavorite(e)
       window.analytics.track('Product Removed from Wishlist', {
         product_id: this.props.item.id,
         category: this.props.item.category,
