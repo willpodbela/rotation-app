@@ -39,6 +39,14 @@ class CatalogPage extends Component {
     window.analytics.page("Catalog"); // Name of this page view for analytics purposes
     window.scrollTo(0, 0)
     
+    let search = window.location.search;
+    let params = new URLSearchParams(search);
+    let autopilot = params.get('autopilot');
+    if(autopilot) {
+      this.displayAutoPilotModal(null)
+      this.setBrowserURLwithoutRerender("/catalog")
+    }
+    
     this.getItems()
   }
   
@@ -319,13 +327,9 @@ class CatalogPage extends Component {
               <CatalogSection items={displayItems.favorites} >
                 <div className="catalog_headers flex justify_between width_full padding_bottom10">
                   <div className="catalog_title druk_xs rotation_gray medium left20">Favorites</div>
-                  
-                  { (this.props.auth && this.state.subscription) &&
-                    <div className="rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center text_center width216 cursor_pointer" onClick={(e) => this.displayAutoPilotModal(e)}>
-                      Automatically Ship Next Box from My Favorites: {(this.state.autoPilot) ? "ON" : "OFF" }
-                    </div>
-                  }
-
+                  <div className="rotation_gray_border proxima_medium rotation_gray spacing10 flex justify_center align_center text_center width216 cursor_pointer" onClick={(e) => this.displayAutoPilotModal(e)}>
+                    Automatically Ship Next Box from My Favorites: {(this.state.autoPilot) ? "ON" : "OFF" }
+                  </div>
                 </div>
               </CatalogSection>
 
@@ -392,6 +396,8 @@ class CatalogPage extends Component {
             userLoggedIn={this.props.userLoggedIn}
             actionComplete={(e) => this.autoPilotUpdated(e)}
             onClose={(e) => this.hideModal(e)}
+            userCanEnable={(this.props.auth && this.state.subscription)}
+            sendToSignUp={(e) => this.bannerClicked(e)}
           />
         }
 
