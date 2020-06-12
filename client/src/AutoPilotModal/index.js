@@ -23,7 +23,7 @@ class AutoPilotModal extends Component {
     })
   }
 
-  render(){
+  render(){  
     return (
       <Modal show={this.props.show || true} dialogClassName="modal_item" centered>
         <div className="modal_section width_full white_background">
@@ -31,10 +31,13 @@ class AutoPilotModal extends Component {
 
           <div className="padding_top50 padding_bottom50 padding_sides50">
 
-                <div className="top20 druk_small rotation_gray">Auto Pilot Settings</div>
-                <div className="top20 proxima_medium bold rotation_gray">Current Settings</div>
-                <div className="proxima_medium rotation_gray"> { (this.props.autoPilot) ? <div>Autopilot: ON</div> : <div>Autopilot: OFF</div> } </div>
-
+                <div className="top20 druk_small rotation_gray">Auto Pilot { this.props.userCanEnable && "Settings" }</div>
+                { this.props.userCanEnable && 
+                  <div>
+                    <div className="top20 proxima_medium bold rotation_gray">Current Settings</div>
+                    <div className="proxima_medium rotation_gray"> { (this.props.autoPilot) ? <div>Autopilot: ON</div> : <div>Autopilot: OFF</div> } </div>
+                  </div>
+                }
                 <div className="top20 proxima_medium bold rotation_gray">How it works</div>
                 
                 <div className="rotation_gray_border flex align_center width_full padding_top15 padding_bottom15">
@@ -50,14 +53,17 @@ class AutoPilotModal extends Component {
                   <FontAwesomeIcon className="rotation_gray font12 float_right padding_top15 padding_bottom15 padding_sides15" icon="check-square" />
                   <div className="line_height20 proxima_large text_left width630 medium rotation_gray">We'll automatically select the right size based on your reservation history</div>
                 </div>
-                <div
-                  className="rotation_gray_border rotation_gray_background width170 height50 top40 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer"
-                  onClick={(e) => this.toggleAutoPilot(e)}
-                > 
-                  { (this.props.autoPilot) ? <div> TURN OFF</div> : <div>TURN ON</div> }
-                  <FontAwesomeIcon className="white font12 left20" icon="chevron-right" />
-                </div>
-
+                { this.props.userCanEnable ? (
+                  <div className="rotation_gray_border rotation_gray_background width170 height50 top40 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" onClick={(e) => this.toggleAutoPilot(e)}> 
+                    { (this.props.autoPilot) ? <div> TURN OFF</div> : <div>TURN ON</div> }
+                    <FontAwesomeIcon className="white font12 left20" icon="chevron-right" />
+                  </div>
+                ) : (
+                  <div className="rotation_gray_border rotation_gray_background width170 height50 top40 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" onClick={this.props.sendToSignUp ? this.props.sendToSignUp : this.props.onClose}> 
+                    <div>JOIN NOW</div>
+                    <FontAwesomeIcon className="white font12 left20" icon="chevron-right" />
+                  </div>
+                )}
           </div>
         </div>
       </Modal>
