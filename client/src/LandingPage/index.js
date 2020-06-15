@@ -131,7 +131,9 @@ class LandingPage extends Component {
             <div className="step_description line_height20 proxima_medium rotation_gray top30 margin_auto">When you're ready for something new, send your pieces back dirty using the provided pre-paid shipping label.</div>
           </div>
         </section>
-          <FeaturedCollection collection_key={"true"} title={"Peek Into Our Closet"} />
+        <FeaturedCollection collection_key={"black-led"} title={"Black-Led Labels"} />
+        <FeaturedCollection collection_key={"loungewear"} title={"Luxe Loungewear"} />
+        <FeaturedCollection collection_key={"true"} title={"Streetwear Essentials"} />
         <PricingTable />
       </div>
     )
