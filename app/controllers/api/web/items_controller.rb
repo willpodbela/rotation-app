@@ -34,11 +34,13 @@ module Api
           if display_params[:landing_featured] == "true"   
             # Removal of "false" is a temporary backwards compatibility fix due to the
             # conversion of landing_featured from a boolean column to a string column.
-            @items = Item.where.not(landing_featured: [nil, "", "false"])
+            @items = Item.where.not(landing_featured: [nil, "", "false"]).with_images.order(created_at: :desc)
           else 
-            @items = Item.visible
+            # Unauthenticated catalog listing will use sorting that is optimized for marketing funnel conversion
+            # (in contrast, authenticated catalog on line 25 is sorted by new - which makes sense for a returning user)
+            q = Queries::SortedCatalog.new()
+            @items = q.all
           end
-          @items = @items.with_images.order(created_at: :desc)
         end
       end
     
