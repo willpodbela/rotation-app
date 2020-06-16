@@ -10,7 +10,7 @@ module Queries
       # NOTE: Last time this was updated, we were focused on the warm June weather and the 
       # idea that house partys would be the main social event post-COVID
       
-      most_relevant_cats = [ "T-Shirts", "Tank Tops", "V-Necks", "Henleys", "Sweatpants", "Hoodies", "Polos", "Button-downs", "Longsleeves", "Rings", "Necklaces", "Bracelets", "Trousers", "Crewnecks", "Track Pants", "Track Jackets" ]
+      most_relevant_cats = [ "T-Shirts", "Tank Tops", "V-Necks", "Henleys", "Sweatpants", "Hoodies", "Polos", "Button-Downs", "Button-downs", "Longsleeves", "Rings", "Necklaces", "Bracelets", "Trousers", "Crewnecks", "Track Pants", "Track Jackets" ]
       semi_relevant_cats = [ "Denim Jackets", "Bombers", "Zipups", "Jackets", "Vests", "Cargo Pants" ]
       not_relevant_cats = [ "Knits", "Leather Jackets", "Coats", "Peacoats", "Trench Coats", "Fur & Shearling", "Cardigans", "Puffers", "Turtlenecks", "Down" ]
       
