@@ -183,11 +183,6 @@ class CatalogPage extends Component {
     e.stopPropagation()
     this.setState({ currentModal: "onboarding", forceSignUpFirst: forceSignUpFirst })
   }
-  
-  itemUpdated(e, item) {
-    this.hideModal(e)
-    this.componentDidMount()
-  }
 
   itemReserved(e, reservation, item) {
     this.hideModal(e)
@@ -407,7 +402,6 @@ class CatalogPage extends Component {
             userLoggedIn={this.props.userLoggedIn}
             apiResponseHandler={this.props.apiResponseHandler}
             showOnboardingModal={(e) => this.displayOnboardingModal(e)}
-            actionComplete={(e) => this.itemUpdated(e, selectedItem)}
             onClose={(e) => this.hideModal(e)}
             itemRemoved={(e) => this.itemRemoved(e, selectedItem)}
             itemReserved={(e, reservation) => this.itemReserved(e, reservation, selectedItem)}

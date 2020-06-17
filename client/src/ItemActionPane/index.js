@@ -120,8 +120,8 @@ class ItemActionPane extends Component {
         "Authorization": `Token ${Auth.getToken()}`
       }
     }).then(res => this.props.apiResponseHandler(res, "We've recieved your request and a member of our team will be in contact with you shortly."))
-    if(this.props.actionComplete) {
-      this.props.actionComplete(e) 
+    if(this.props.onClose) {
+      this.props.onClose(e) 
       window.analytics.track('Purchase Requested', {
         product_id: this.props.item.id,
         category: this.props.item.category,
