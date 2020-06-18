@@ -123,9 +123,6 @@ class RTUIFilterSidebar extends Component {
   
     return (
       <div className="padding_bottom20">
-        {this.props.title &&
-          <div className="catalog_title druk_xs rotation_gray medium padding_bottom10">{this.props.title}</div>
-        }
         <OptionsList
           options={this.state.options}
         />

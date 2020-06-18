@@ -303,18 +303,21 @@ class CatalogPage extends Component {
                   {({
                     style
                   }) => (
-                    <div className="overflow_scroll width150 padding_top10" style={style}>
+                    <div className="flex_full_window width150 padding_top10" style={style}>
+                      <div className="catalog_title druk_xs rotation_gray medium padding_bottom10">Categories</div>
                       <RTUIFilterSidebar
                         options={this.state.categories}
-                        title={"Categories"}
                         singleSelect={true}
                         onFilterChange={(s) => this.filterCategories(s)}
                       />
-                      <RTUIFilterSidebar
-                        options={this.state.designers}
-                        title={"Designers"}
-                        onFilterChange={(s) => this.filterDesigners(s)}
-                      />
+
+                      <div className="catalog_title druk_xs rotation_gray medium padding_bottom10">Designers</div>
+                      <div className="flex_div">
+                        <RTUIFilterSidebar
+                          options={this.state.designers}
+                          onFilterChange={(s) => this.filterDesigners(s)}
+                        />
+                      </div>
                     </div>
                   )}
                 </Sticky>

@@ -240,6 +240,17 @@
   font-weight: 500;
 }
 
+.flex_full_window {
+  display: flex;
+  flex-flow: column;
+  height: 100vh;
+}
+
+.flex_div {
+  flex: 1;
+  overflow: auto;
+}
+
 @media (max-width: 1150px) {
   .catalog_section{
     width: 708px;
