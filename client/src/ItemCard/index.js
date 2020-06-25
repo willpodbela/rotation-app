@@ -22,7 +22,7 @@ class ItemCard extends Component {
             auth={this.props.auth}
             apiResponseHandler={this.props.apiResponseHandler}
             showOnboardingModal={this.props.showOnboardingModal}
-            actionComplete={this.props.actionComplete}
+            toggleFavorite={this.props.toggleFavorite}
           />
         </div>
         <div className="padding_top2 opacity7 proxima_small rotation_gray lowercase">{item.subtitle}</div>

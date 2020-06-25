@@ -191,11 +191,32 @@ class CatalogPage extends Component {
     e.stopPropagation()
     this.setState({ currentModal: "onboarding", forceSignUpFirst: forceSignUpFirst })
   }
-  
-  itemUpdated(e, item) {
-    //TODO: Update item in place to avoid networking call every time.
+
+  itemReserved(e, reservation, item) {
     this.hideModal(e)
-    this.componentDidMount()
+  
+    const itemIndex = this.state.items.findIndex(i => i.id == item.id)
+    let newItems = [...this.state.items]
+    newItems[itemIndex] = {...newItems[itemIndex], reservation : reservation}
+    this.setState({items: newItems})
+  }
+
+  itemRemoved(e, item) {  
+    this.hideModal(e)
+
+    const itemIndex = this.state.items.findIndex(i => i.id == item.id)
+    let newItems = [...this.state.items]
+    newItems[itemIndex] = {...newItems[itemIndex], reservation : null}
+    this.setState({items: newItems})
+  }
+
+  toggleFavorite(e, item) {
+    this.hideModal(e)
+
+    const itemIndex = this.state.items.findIndex(i => i.id == item.id)
+    let newItems = [...this.state.items]
+    newItems[itemIndex] = {...newItems[itemIndex], is_favorite : !(item.is_favorite)}
+    this.setState({items: newItems})
   }
 
   autoPilotUpdated(e) {
@@ -247,8 +268,8 @@ class CatalogPage extends Component {
                     auth={this.props.auth}
                     userLoggedIn={this.props.userLoggedIn}
                     apiResponseHandler={this.props.apiResponseHandler}
-                    actionComplete={(e) => this.itemUpdated(e, selectedItem)}
                     showOnboardingModal={(e) => this.displayOnboardingModal(e)}
+                    toggleFavorite={(e) => this.toggleFavorite(e, item)}
                     />
                   </div>
                 )
@@ -385,8 +406,11 @@ class CatalogPage extends Component {
             userLoggedIn={this.props.userLoggedIn}
             apiResponseHandler={this.props.apiResponseHandler}
             showOnboardingModal={(e) => this.displayOnboardingModal(e)}
-            actionComplete={(e) => this.itemUpdated(e, selectedItem)}
             onClose={(e) => this.hideModal(e)}
+            itemRemoved={(e) => this.itemRemoved(e, selectedItem)}
+            itemReserved={(e, reservation) => this.itemReserved(e, reservation, selectedItem)}
+            toggleFavorite={(e) => this.toggleFavorite(e, selectedItem)}
+            errorHandler={this.props.errorHandler}
           />
         }
 

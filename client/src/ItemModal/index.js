@@ -38,7 +38,11 @@ class ItemModal extends Component {
                   userLoggedIn={this.props.userLoggedIn}
                   apiResponseHandler={this.props.apiResponseHandler}
                   showOnboardingModal={this.props.showOnboardingModal}
-                  actionComplete={this.props.actionComplete}
+                  onClose={this.props.onClose}
+                  itemReserved={this.props.itemReserved}
+                  itemRemoved={this.props.itemRemoved}
+                  toggleFavorite={this.props.toggleFavorite}
+                  errorHandler={this.props.errorHandler}
                 />
               </div>
             </div>
@@ -58,7 +62,11 @@ class ItemModal extends Component {
                   userLoggedIn={this.props.userLoggedIn}
                   apiResponseHandler={this.props.apiResponseHandler}
                   showOnboardingModal={this.props.showOnboardingModal}
-                  actionComplete={this.props.actionComplete}
+                  onClose={this.props.onClose}
+                  itemRemoved={this.props.itemRemoved}
+                  itemReserved={this.props.itemReserved}
+                  toggleFavorite={this.props.toggleFavorite}
+                  errorHandler={this.props.errorHandler}
                 />
               </div>
             </div>

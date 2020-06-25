@@ -76,7 +76,11 @@ class ItemDetailPage extends Component {
                 userLoggedIn={this.props.userLoggedIn}
                 apiResponseHandler={this.props.apiResponseHandler}
                 showOnboardingModal={(e) => this.showOnboardingModal(e)}
-                actionComplete={(e) => this.actionComplete(e, item)}
+                onClose={(e) => this.actionComplete(e, item)}
+                itemRemoved={(e) => this.actionComplete(e, item)}
+                itemReserved={(e) => this.actionComplete(e, item)}
+                toggleFavorite={(e) => this.actionComplete(e, item)}
+                errorHandler={this.props.errorHandler}
               />
             </div>
           </div>
