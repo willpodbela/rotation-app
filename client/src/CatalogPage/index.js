@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { StickyContainer, Sticky } from 'react-sticky'
 import "./bootstrap-modal.css"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import ItemCard from "../ItemCard"
 import OnboardingModal from "../OnboardingModal"
 import ItemModal from "../ItemModal"
@@ -28,6 +29,7 @@ class CatalogPage extends Component {
       ],
       currentModal: false,
       forceSignUpFirst: false,
+      query: '',
     }
     if(this.props.userLoggedIn){
       this.state.subscription = this.props.userLoggedIn.subscription || false
@@ -107,7 +109,7 @@ class CatalogPage extends Component {
         }
       } else if (item.is_favorite) {
         displayItems.favorites.push(item)
-      } else {
+      } else if (this.matchesSearchQuery(item)) {
         displayItems.catalog.push(item)
       }
     }
@@ -124,6 +126,16 @@ class CatalogPage extends Component {
     }
     
     return displayItems
+  }
+  
+  matchesSearchQuery(item) {
+    return (
+      (item.title != null && item.title.toLowerCase().includes(this.state.query.toLowerCase())) ||
+      (item.category != null && item.category.toLowerCase().includes(this.state.query.toLowerCase())) ||
+      (item.description != null && item.description.toLowerCase().includes(this.state.query.toLowerCase())) ||
+      (item.sub_category != null && item.sub_category.toLowerCase().includes(this.state.query.toLowerCase())) ||
+      (item.subtitle != null && item.subtitle.toLowerCase().includes(this.state.query.toLowerCase()))
+    )
   }
   
   filterDesigners(selectedFilters){
@@ -239,6 +251,10 @@ class CatalogPage extends Component {
     this.setState({currentModal:"autoPilot"})
   }
 
+  updateQuery(newQuery) {
+    this.setState({query: newQuery})
+  }
+
   render(){
     const selectedItem = this.state.selectedItem
     const displayItems = this.filteredAndSortedItems()
@@ -345,6 +361,12 @@ class CatalogPage extends Component {
               </div>
             </StickyContainer>
             <div>
+
+              <div className="float_right rotation_gray_border width216 height40 flex justify_between align_center">
+                <input className="proxima_medium very_light_gray left5" type="text" placeholder="search..." onChange={(e) => this.updateQuery(e.target.value)} />
+                <FontAwesomeIcon className="font16 very_light_gray right10" icon="search" />
+              </div>
+
               <CatalogSection items={displayItems.rotation} title={"My Rotation"} />
               <CatalogSection items={displayItems.next} title={"Shipping Soon"} subtitle={"You can change these items anytime until your order leaves our warehouse."} />
               
@@ -358,7 +380,7 @@ class CatalogPage extends Component {
               </CatalogSection>
 
               <CatalogSection items={displayItems.catalog}
-                emptyDefault={ (this.state.selectedDesigners.length > 0 || this.state.selectedCategories.length > 0) ? <EmptyCatalog /> : null }
+                emptyDefault={ (this.state.selectedDesigners.length > 0 || this.state.selectedCategories.length > 0 || this.state.query.length > 0) ? <EmptyCatalog /> : null }
               >
                 <div className="catalog_headers flex justify_between width_full padding_bottom10">
                   <div className="catalog_title druk_xs rotation_gray medium left20">Catalog</div>
