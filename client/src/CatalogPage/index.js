@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { StickyContainer, Sticky } from 'react-sticky'
 import "./bootstrap-modal.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Fuse from "fuse.js"
 import ItemCard from "../ItemCard"
 import OnboardingModal from "../OnboardingModal"
 import ItemModal from "../ItemModal"
@@ -98,8 +99,12 @@ class CatalogPage extends Component {
       favorites: [],
       catalog: []
     }
-    
-    for (var item of this.state.items) {
+
+    var queryExists = (this.state.query.length)
+    var searchedItems = queryExists ? this.fuse() : this.state.items
+
+    for (var item of searchedItems) {
+      item = queryExists ? item.item : item
       if(item.reservation) {
         var res = item.reservation
         if (res.status === "active" || res.status === "processing") {
@@ -109,7 +114,7 @@ class CatalogPage extends Component {
         }
       } else if (item.is_favorite) {
         displayItems.favorites.push(item)
-      } else if (this.matchesSearchQuery(item)) {
+      } else {
         displayItems.catalog.push(item)
       }
     }
@@ -128,14 +133,13 @@ class CatalogPage extends Component {
     return displayItems
   }
   
-  matchesSearchQuery(item) {
-    return (
-      (item.title != null && item.title.toLowerCase().includes(this.state.query.toLowerCase())) ||
-      (item.category != null && item.category.toLowerCase().includes(this.state.query.toLowerCase())) ||
-      (item.description != null && item.description.toLowerCase().includes(this.state.query.toLowerCase())) ||
-      (item.sub_category != null && item.sub_category.toLowerCase().includes(this.state.query.toLowerCase())) ||
-      (item.subtitle != null && item.subtitle.toLowerCase().includes(this.state.query.toLowerCase()))
-    )
+  fuse() {
+    var options = { 
+      keys: ['title', 'category', 'description', 'sub_category', 'subtitle'],
+      threshold: 0.4 
+    }
+    var fuse = new Fuse(this.state.items, options)
+    return fuse.search(this.state.query)
   }
   
   filterDesigners(selectedFilters){
