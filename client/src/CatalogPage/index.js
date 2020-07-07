@@ -385,20 +385,18 @@ class CatalogPage extends Component {
                 <div className="catalog_headers flex justify_between width_full padding_bottom10">
                   <div className="catalog_title druk_xs rotation_gray medium left20">Catalog</div>
                   <div className="size_btns flex justify_between">
-                    {this.props.auth &&
-                      this.state.sizes.map((size, index) => {
-                        return (
-                          <div
-                            key={index}
-                            onClick={(e) => this.filterSizes(e)}
-                            className="rotation_gray_border height40 width40 flex justify_center align_center proxima_large rotation_gray cursor_pointer"
-                            style={{background: size.selected ? "#333333" : "#FFFFFF", color: size.selected ? "#FFFFFF" : "#333333"}}
-                          >
-                            {size.value}
-                          </div>
-                        )
-                      })
-                    }
+                    {this.state.sizes.map((size, index) => {
+                      return (
+                        <div
+                          key={index}
+                          onClick={(e) => this.filterSizes(e)}
+                          className="rotation_gray_border height40 width40 flex justify_center align_center proxima_large rotation_gray cursor_pointer"
+                          style={{background: size.selected ? "#333333" : "#FFFFFF", color: size.selected ? "#FFFFFF" : "#333333"}}
+                        >
+                          {size.value}
+                        </div>
+                      )
+                    })}
                   </div>
                 </div>
               </CatalogSection>
