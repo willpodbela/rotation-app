@@ -49,6 +49,11 @@ class CatalogPage extends Component {
       this.displayAutoPilotModal(null)
       this.setBrowserURLwithoutRerender("/catalog")
     }
+    let continue_onboarding = params.get('continue_onboarding');
+    if(continue_onboarding) {
+      this.displayOnboardingModal(null, true)
+      this.setBrowserURLwithoutRerender("/catalog")
+    }
     
     this.getItems()
   }
@@ -204,7 +209,9 @@ class CatalogPage extends Component {
   }
 
   displayOnboardingModal(e,forceSignUpFirst = false) {
-    e.stopPropagation()
+    if(e) {
+      e.stopPropagation()
+    }
     this.setState({ currentModal: "onboarding", forceSignUpFirst: forceSignUpFirst })
   }
 

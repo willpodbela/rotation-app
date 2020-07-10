@@ -237,7 +237,7 @@ class OnboardingModal extends Component {
             }
             {this.state.currentModal === "signup" &&
               <SignUpPane
-                handleSignUp={this.props.handleSignUp}
+                handleSignUp={(e, email, password, confirm) => this.props.handleSignUp(e, email, password, confirm, "/catalog?continue_onboarding=true")}
                 handleLogInClicked={(e) => this.showModal("login")}
               />
             }
