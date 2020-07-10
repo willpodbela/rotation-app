@@ -365,8 +365,7 @@ class CatalogPage extends Component {
               </div>
             </StickyContainer>
             <div>
-
-              <div className="float_right rotation_gray_border width216 height40 flex justify_between align_center">
+              <div className="search_bar float_right rotation_gray_border width216 height40 flex justify_between align_center">
                 <input className="proxima_medium very_light_gray left5" type="text" placeholder="search..." onChange={(e) => this.updateQuery(e.target.value)} />
                 <FontAwesomeIcon className="font16 very_light_gray right10" icon="search" />
               </div>
