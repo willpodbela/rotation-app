@@ -420,6 +420,7 @@ class CatalogPage extends Component {
             handleLoginSubmit={this.props.handleLoginSubmit}
             forgotPassword={this.props.forgotPassword}
             promptSignUpFirst={this.state.forceSignUpFirst}
+            getUser={this.props.getUser}
           />
         }
         {this.state.currentModal === "item" &&
