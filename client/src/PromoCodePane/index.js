@@ -37,6 +37,9 @@ class PromoCodePane extends Component {
       window.analytics.track("Coupon Applied", {
         coupon_id: this.state.referralCode
       })
+      if(this.props.onSuccess) {
+        this.props.onSuccess()
+      }
     })
   }
   

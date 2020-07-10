@@ -54,8 +54,19 @@ class User < ApplicationRecord
     # Enable attribute to be set using String that represents the code (primary key) for the ReferralCode object
     @invalid_referral_code_string = false
     if value.is_a? String
+      # FIXME: Temporary work around to allow users to input AdvertisingCodes in as well.
+      input = value
       value = ReferralCode.find_by_id(value)
-      @invalid_referral_code_string = value.nil?
+      
+      if value.nil?
+        ad_code = AdvertisementCode.find_by_id(input)
+        if ad_code.nil?
+          @invalid_referral_code_string = true
+        else
+          self.advertisement_code = ad_code
+        end
+      end
+      # END FIXME
     end
     # If value is valid referral_code, take off waitlist
     unless value.nil?

@@ -186,6 +186,7 @@ class OnboardingModal extends Component {
                     auth={this.props.auth}
                     userLoggedIn={this.props.userLoggedIn}
                     apiResponseHandler={this.props.apiResponseHandler}
+                    onSuccess={this.props.getUser}
                   />
                 ) : (
                   <div className="proxima_small medium underline rotation_gray top10 bottom20 flex justify_start cursor_pointer" onClick={(e) => this.showPromoCodePane(e)}>Have a promo or referral code?</div>

@@ -50,6 +50,8 @@ class App extends Component {
     }
     
     window.overrideAuthToken = this.overrideAuthToken.bind(this)
+    
+    this.getUser = this.getUser.bind(this);
   }
 
   logoutUser(e){
@@ -344,6 +346,7 @@ class App extends Component {
                     noticeHandler={(notice) => this.showNotice(notice)}
                     apiResponseHandler={(res, successMessage) => this.apiResponseHandler(res, successMessage)}
                     userLoggedIn={this.state.userLoggedIn}
+                    getUser={this.getUser}
                   />
               }/>
               <Route
