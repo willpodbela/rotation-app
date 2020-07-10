@@ -9,6 +9,7 @@ class BillingPane extends Component {
     this.state = {
       billingName: "",
       creditCardNumber: "",
+      amex: false,
       expiration: "",
       cvv: "",
       billingAddressLine1: "",
@@ -29,6 +30,11 @@ class BillingPane extends Component {
     this.setState({
       [name]: value
     })
+
+    if (name == "creditCardNumber") {
+      const isAmex = /^3[47]/.test(value) ? true : false
+      this.setState({ amex: isAmex })
+    }
   }
   
   tokenizePayment(e){
@@ -49,7 +55,7 @@ class BillingPane extends Component {
       const expMonth = this.state.expiration.split("/")[0].replace(/ /g,'')
       const expYear = this.state.expiration.split("/")[1].replace(/ /g,'')
       window.Stripe.card.createToken({
-        number: this.state.creditCardNumber,
+        number: this.state.creditCardNumber.replace(/ /g, ''),
         exp_month: expMonth,
         exp_year: expYear,
         cvc: this.state.cvv.replace(/ /g,''),
@@ -89,40 +95,40 @@ class BillingPane extends Component {
         <div className="non_mobile_billing_modal width620">
           <div className="account_title druk_xs medium rotation_gray">{this.props.headerText || "Update Credit Card"}</div>
           <div className="input_group flex justify_between width_full">
-            <RTUIFormInput title="Name on Card" name="billingName" value={this.state.billingName} onChange={(e) => this.handleInputChange(e)}/>
-            <RTUIFormInput title="Address Line 1" name="billingAddressLine1" value={this.state.billingAddressLine1} onChange={(e) => this.handleInputChange(e)}/>
+            <RTUIFormInput title="Name on Card" name="billingName" placeholder="Virgil Abloh" value={this.state.billingName} onChange={(e) => this.handleInputChange(e)}/>
+            <RTUIFormInput title="Address Line 1" name="billingAddressLine1" placeholder="51 Mercer Street" value={this.state.billingAddressLine1} onChange={(e) => this.handleInputChange(e)}/>
           </div>
           <div className="input_group flex justify_between width_full">
-            <RTUIFormInput title="Card Number" name="creditCardNumber" value={this.state.creditCardNumber} onChange={(e) => this.handleInputChange(e)}/>
+            <RTUIFormInput title="Card Number" name="creditCardNumber" placeholder="1234 1234 1234 1234" value={this.state.creditCardNumber} onChange={(e) => this.handleInputChange(e)} mask={this.state.amex ? "9999 999999 99999" : "9999 9999 9999 9999"} maskChar="" />
             <RTUIFormInput title="Address Line 2" name="billingAddressLine2" value={this.state.billingAddressLine2} onChange={(e) => this.handleInputChange(e)}/>
           </div>
           <div className="input_group flex justify_between width_full">
-            <RTUIFormInput title="Expiration" name="expiration" value={this.state.expiration} onChange={(e) => this.handleInputChange(e)} width="140" />
-            <RTUIFormInput title="CVV" name="cvv" value={this.state.cvv} onChange={(e) => this.handleInputChange(e)} width="140" />
-            <RTUIFormInput title="City" name="billingCity" value={this.state.billingCity} onChange={(e) => this.handleInputChange(e)} />
+            <RTUIFormInput title="Expiration" name="expiration" placeholder="12/34" value={this.state.expiration} onChange={(e) => this.handleInputChange(e)} width="140" mask="99/99" />
+            <RTUIFormInput title="CVV" name="cvv" placeholder="999" value={this.state.cvv} onChange={(e) => this.handleInputChange(e)} width="140" mask="9999" maskChar="" />
+            <RTUIFormInput title="City" name="billingCity" placeholder="New York" value={this.state.billingCity} onChange={(e) => this.handleInputChange(e)} />
           </div>
           <div className="input_group flex justify_between width_full">
             <RTUIButton onClick={(e) => this.tokenizePayment(e)}>
               {this.props.callToActionTitle || "Update Payment Details"}
             </RTUIButton>
-            <RTUIFormInput title="State" name="billingState" value={this.state.billingState} onChange={(e) => this.handleInputChange(e)} width="140" />
-            <RTUIFormInput title="Zip" name="billingZipcode" value={this.state.billingZipcode} onChange={(e) => this.handleInputChange(e)} width="140" />
+            <RTUIFormInput title="State" name="billingState" placeholder="NY" value={this.state.billingState} onChange={(e) => this.handleInputChange(e)} width="140" mask="aa" maskChar="" />
+            <RTUIFormInput title="Zip" name="billingZipcode" placeholder="10013" value={this.state.billingZipcode} onChange={(e) => this.handleInputChange(e)} width="140" mask="99999" maskChar="" />
           </div>
         </div>
         <div className="mobile_billing_modal">
           <div className="account_title druk_xs medium rotation_gray">{this.props.headerText || "Update Credit Card"}</div>
           <div className="input_group flex justify_between width_full">
             <RTUIFormInput title="Name on Card" name="billingName" value={this.state.billingName} onChange={(e) => this.handleInputChange(e)}/>
-            <RTUIFormInput title="Card Number" name="creditCardNumber" value={this.state.creditCardNumber} onChange={(e) => this.handleInputChange(e)}/>
-            <RTUIFormInput title="Expiration" name="expiration" value={this.state.expiration} onChange={(e) => this.handleInputChange(e)} width="140" />
-            <RTUIFormInput title="CVV" name="cvv" value={this.state.cvv} onChange={(e) => this.handleInputChange(e)} width="140" />
+            <RTUIFormInput title="Card Number" name="creditCardNumber" value={this.state.creditCardNumber} onChange={(e) => this.handleInputChange(e)} mask={this.state.amex ? "9999 999999 99999" : "9999 9999 9999 9999"} maskChar="" />
+            <RTUIFormInput title="Expiration" name="expiration" value={this.state.expiration} onChange={(e) => this.handleInputChange(e)} width="140" mask="99/99" />
+            <RTUIFormInput title="CVV" name="cvv" value={this.state.cvv} onChange={(e) => this.handleInputChange(e)} width="140" mask="9999" maskChar="" />
           </div>
           <div className="input_group flex justify_between width_full">
             <RTUIFormInput title="Address Line 1" name="billingAddressLine1" value={this.state.billingAddressLine1} onChange={(e) => this.handleInputChange(e)}/>
             <RTUIFormInput title="Address Line 2" name="billingAddressLine2" value={this.state.billingAddressLine2} onChange={(e) => this.handleInputChange(e)}/>
             <RTUIFormInput title="City" name="billingCity" value={this.state.billingCity} onChange={(e) => this.handleInputChange(e)} />
-            <RTUIFormInput title="State" name="billingState" value={this.state.billingState} onChange={(e) => this.handleInputChange(e)} width="140" />
-            <RTUIFormInput title="Zip" name="billingZipcode" value={this.state.billingZipcode} onChange={(e) => this.handleInputChange(e)} width="140" />
+            <RTUIFormInput title="State" name="billingState" value={this.state.billingState} onChange={(e) => this.handleInputChange(e)} width="140" mask="aa" maskChar="" />
+            <RTUIFormInput title="Zip" name="billingZipcode" value={this.state.billingZipcode} onChange={(e) => this.handleInputChange(e)} width="140" mask="99999" maskChar="" />
           </div>
           <RTUIButton onClick={(e) => this.tokenizePayment(e)}>
               {this.props.callToActionTitle || "Update Payment Details"}
