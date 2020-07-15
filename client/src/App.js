@@ -197,9 +197,13 @@ class App extends Component {
         this.updateUserWithAdvertisementCodeIfNeeded()
         
         // Identify User after log in
+        let qty = null
+        if(res.user.subscription) {
+          qty = res.user.subscription.item_qty
+        }
         window.analytics.identify(res.user.id, {
           email: res.user.email,
-          plan: res.user.subscription.item_qty
+          plan: qty
         });
         window.analytics.track("Signed In")
         
