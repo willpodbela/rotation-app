@@ -22,7 +22,7 @@ module Queries
       @buckets_by_date = Hash.new()
       
       @buckets.each do |k, list|
-        @buckets_by_popularity[k] = list.sort {|b, a| (a.cum_days_rented.to_f / a.cum_days_units_in_service) <=> (b.cum_days_rented.to_f / b.cum_days_units_in_service)}
+        @buckets_by_popularity[k] = list.sort {|b, a| (a.cum_days_rented.to_f / (a.cum_days_units_in_service.nonzero? || 1)) <=> (b.cum_days_rented.to_f / (b.cum_days_units_in_service.nonzero? || 1))}
         @buckets_by_date[k] = list.sort_by(&:created_at).reverse
       end
       
