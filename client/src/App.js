@@ -379,8 +379,8 @@ class App extends Component {
                     errorHandler={(error) => this.showError(error)}
                     noticeHandler={(notice) => this.showNotice(notice)}
                     apiResponseHandler={(res, successMessage) => this.apiResponseHandler(res, successMessage)}
-                    handleSignUp={(e, email, pass) => this.handleSignUp(e, email, pass)}
-                    handleLoginSubmit={(e, email, pass, confirm) => this.handleLoginSubmit(e, email, pass, confirm)}
+                    handleSignUp={(e, email, pass, confirm) => this.handleSignUp(e, email, pass, confirm)}
+                    handleLoginSubmit={(e, email, pass) => this.handleLoginSubmit(e, email, pass)}
                     forgotPassword={(e, email) => this.forgotPassword(e, email)}
                   />
               }/>
