@@ -52,6 +52,7 @@ class App extends Component {
     window.overrideAuthToken = this.overrideAuthToken.bind(this)
     
     this.getUser = this.getUser.bind(this);
+    this.handleSignUp = this.handleSignUp.bind(this);
   }
 
   logoutUser(e){
@@ -89,7 +90,7 @@ class App extends Component {
     }
   }
 
-  handleSignUp(e, email, password, confirm){
+  handleSignUp(e, email, password, confirm, redirect){
     e.preventDefault()
     if(password !== confirm){
       this.showError({message: "Passwords don't match."})
@@ -124,7 +125,11 @@ class App extends Component {
             email: res.user.email
           });
           
-          window.location.reload(true)
+          if(redirect) {
+            window.location.replace(redirect)
+          } else {
+            window.location.reload(true)
+          }
         }
       })
     }
@@ -192,9 +197,13 @@ class App extends Component {
         this.updateUserWithAdvertisementCodeIfNeeded()
         
         // Identify User after log in
+        let qty = null
+        if(res.user.subscription) {
+          qty = res.user.subscription.item_qty
+        }
         window.analytics.identify(res.user.id, {
           email: res.user.email,
-          plan: res.user.subscription.item_qty
+          plan: qty
         });
         window.analytics.track("Signed In")
         
@@ -339,7 +348,7 @@ class App extends Component {
                 render={() =>
                   <CatalogPage
                     auth={this.state.authenticated}
-                    handleSignUp={(e, email, pass, confirm) => this.handleSignUp(e, email, pass, confirm)}
+                    handleSignUp={this.handleSignUp}
                     handleLoginSubmit={(e, email, pass) => this.handleLoginSubmit(e, email, pass)}
                     forgotPassword={(e) => this.forgotPassword(e)}
                     errorHandler={(error) => this.showError(error)}
@@ -370,8 +379,8 @@ class App extends Component {
                     errorHandler={(error) => this.showError(error)}
                     noticeHandler={(notice) => this.showNotice(notice)}
                     apiResponseHandler={(res, successMessage) => this.apiResponseHandler(res, successMessage)}
-                    handleSignUp={(e, email, pass) => this.handleSignUp(e, email, pass)}
-                    handleLoginSubmit={(e, email, pass, confirm) => this.handleLoginSubmit(e, email, pass, confirm)}
+                    handleSignUp={(e, email, pass, confirm) => this.handleSignUp(e, email, pass, confirm)}
+                    handleLoginSubmit={(e, email, pass) => this.handleLoginSubmit(e, email, pass)}
                     forgotPassword={(e, email) => this.forgotPassword(e, email)}
                   />
               }/>
