@@ -17415,6 +17415,17 @@ b {
     .input.white:focus {
       color: #ffffff; }
 
+.gray_placeholder::placeholder {
+  color: #949494;
+  opacity: 1; /* Firefox */
+}
+.gray_placeholder:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #949494;
+}
+.gray_placeholder::-ms-input-placeholder { /* Microsoft Edge */
+  color: #949494;
+}
+
 /* Selects */
 select {
   -webkit-appearance: none;

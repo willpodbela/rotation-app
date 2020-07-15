@@ -92,17 +92,17 @@ class AccountPage extends Component {
       <div className="ShippingAddressPane width620">
         <div className="account_title druk_xs medium rotation_gray">{this.props.headerText || "Shipping Address"}</div>
         <div className="input_group flex justify_between width_full">
-          <RTUIFormInput title="First Name" name="firstName" value={this.state.firstName} onChange={(e) => this.handleInputChange(e)}/>
-          <RTUIFormInput title="Last Name" name="lastName" value={this.state.lastName} onChange={(e) => this.handleInputChange(e)}/>
+          <RTUIFormInput title="First Name" name="firstName" placeholder="Tony" value={this.state.firstName} onChange={(e) => this.handleInputChange(e)}/>
+          <RTUIFormInput title="Last Name" name="lastName" placeholder="Hawk" value={this.state.lastName} onChange={(e) => this.handleInputChange(e)}/>
         </div>
         <div className="input_group flex justify_between width_full">
-          <RTUIFormInput title="Address Line 1" name="addressLine1" value={this.state.addressLine1} onChange={(e) => this.handleInputChange(e)}/>
+          <RTUIFormInput title="Address Line 1" name="addressLine1" placeholder="Washington Street State Park" value={this.state.addressLine1} onChange={(e) => this.handleInputChange(e)}/>
           <RTUIFormInput title="Address Line 2" name="addressLine2" value={this.state.addressLine2} onChange={(e) => this.handleInputChange(e)}/>
         </div>
         <div className="input_group flex justify_between width_full">
-          <RTUIFormInput title="City" name="city" value={this.state.city} onChange={(e) => this.handleInputChange(e)}/>
-          <RTUIFormInput title="Zip" name="zipcode" value={this.state.zipcode} onChange={(e) => this.handleInputChange(e)} width="140" />
-          <RTUIFormInput title="State" name="state" value={this.state.state} onChange={(e) => this.handleInputChange(e)} width="140" />
+          <RTUIFormInput title="City" name="city" placeholder="San Diego" value={this.state.city} onChange={(e) => this.handleInputChange(e)}/>
+          <RTUIFormInput title="Zip" name="zipcode" placeholder="92101" value={this.state.zipcode} onChange={(e) => this.handleInputChange(e)} width="140" mask="99999" maskChar="" />
+          <RTUIFormInput title="State" name="state" placeholder="CA" value={this.state.state} onChange={(e) => this.handleInputChange(e)} width="140" mask="aa" maskChar="" />
         </div>
         <RTUIButton onClick={(e) => this.updateAccountDetails(e)}>
           {this.props.callToActionTitle || "Save Changes"}
