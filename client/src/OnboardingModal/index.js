@@ -9,6 +9,7 @@ import BillingPane from "../BillingPane"
 import LoginPane from "../LoginPane"
 import SignUpPane from "../SignUpPane"
 import PromoCodePane from "../PromoCodePane"
+import RTUICheckboxes from "../RTUICheckboxes"
 
 class OnboardingModal extends Component {
   constructor(props){
@@ -136,7 +137,7 @@ class OnboardingModal extends Component {
     const planSelected = this.state.planOptions.find(plan => plan.selected)
     return (
       <Modal show={this.props.show || true} dialogClassName="modal_item" centered>
-        <div className="modal_section height500 width_full white_background">
+        <div className="modal_section height550 width_full white_background">
           <FontAwesomeIcon className="close_btn rotation_gray font20 float_right padding_top20 padding_bottom20 padding_sides25 cursor_pointer" onClick={this.props.onClose} icon="times" />
           <div className="top50 flex justify_center" style={{clear: "right"}}>
             {this.state.currentModal === "confirm" &&
@@ -144,13 +145,14 @@ class OnboardingModal extends Component {
                 <div className="druk_xs medium rotation_gray">Checkout</div>
                 <div className="proxima_large semibold rotation_gray top30">The Rotation</div>
                 <div className="proxima_large rotation_gray opacity6">{planSelected.itemQty} Items at a Time - {this.subtotal()!==this.selectedPlanMonthlyCostInt() && "$"+this.subtotal()+" today, "}{planSelected.monthlyCost}/month {this.subtotal()!==this.selectedPlanMonthlyCostInt() && "after that"}</div>
-                <div className="confirm_modal_box width400 height100 rotation_gray_border top20">
-                  <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />You'll be charged ${this.subtotal()} now for your first month</div>
-                  <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />You'll be charged {planSelected.monthlyCost} for each month after that</div>
-                  <div className="proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />Cancel at any time before your next cycle</div>
-                  <div className="non_mobile_overflow proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" />By purchasing you agree to the full membership <Link to="/terms">terms & conditions</Link></div>
-                  <div className="mobile_overflow hidden proxima_small rotation_gray"><FontAwesomeIcon className="checkbox_icon rotation_gray font12 right20" icon="check-square" /><div className="width260">By purchasing you agree to the full membership <Link to="/terms">terms & conditions</Link></div></div>
-                </div>
+
+                <RTUICheckboxes>
+                    <span>You'll be charged ${this.subtotal()} now for your first month</span>
+                    <span>You'll be charged {planSelected.monthlyCost} for each month after that</span>
+                    <span>Cancel at any time before your next cycle</span>
+                    <span>By purchasing you agree to the full membership <Link to="/terms">terms & conditions</Link></span>
+                </RTUICheckboxes>
+
                 <div className="confirm_modal rotation_gray_border rotation_gray_background width400 height50 top30 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer" onClick={(e) => this.createSubscription(e, this.state.stripeID, planSelected.itemQty)} >
                   Purchase
                 </div>
@@ -220,6 +222,15 @@ class OnboardingModal extends Component {
                     )
                   })}
                 </div>
+
+                <RTUICheckboxes width="500">
+                  <span>We handle the dry-cleaning</span>
+                  <span>Swap individual pieces anytime</span>
+                  <span>New drops every 2 weeks</span>
+                  <span>Choose pieces from the world’s top men’s designer brands</span>
+                  <span>Keep pieces for as long or as little as you want</span>
+                </RTUICheckboxes>
+
                 <div
                   className="add_credit_card rotation_gray_border rotation_gray_background width300 height50 top40 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer"
                   onClick={(e) => this.checkPlanSelected(e)}
