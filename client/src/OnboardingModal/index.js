@@ -223,13 +223,15 @@ class OnboardingModal extends Component {
                   })}
                 </div>
 
-                <RTUICheckboxes width="500">
-                  <span>We handle the dry-cleaning</span>
-                  <span>Swap individual pieces anytime</span>
-                  <span>New drops every 2 weeks</span>
-                  <span>Choose pieces from the world’s top men’s designer brands</span>
-                  <span>Keep pieces for as long or as little as you want</span>
-                </RTUICheckboxes>
+                <div className="flex justify_center">
+                  <RTUICheckboxes width="500">
+                    <span>We handle the dry-cleaning</span>
+                    <span>Swap individual pieces anytime</span>
+                    <span>New drops every 2 weeks</span>
+                    <span>Choose pieces from the world’s top men’s designer brands</span>
+                    <span>Keep pieces for as long or as little as you want</span>
+                  </RTUICheckboxes>
+                </div>
 
                 <div
                   className="add_credit_card rotation_gray_border rotation_gray_background width300 height50 top40 flex justify_center align_center proxima_xs white uppercase semibold spacing40 cursor_pointer"

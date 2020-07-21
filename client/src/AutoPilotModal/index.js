@@ -41,7 +41,7 @@ class AutoPilotModal extends Component {
                 }
                 <div className="top20 proxima_medium bold rotation_gray">How it works</div>
 
-                <RTUICheckboxes>
+                <RTUICheckboxes width="430">
                   <span>Once we receive your current items, we'll automatically put together your next box from your favorites</span>
                   <span>You'll have 24 hours to review and change your items before shipment</span>
                   <span>We'll prioritize what's most popular among the items you haven't rented</span>
