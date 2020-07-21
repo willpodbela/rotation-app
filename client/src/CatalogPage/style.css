@@ -256,9 +256,9 @@
     width: 708px;
   }
 }
-@media (max-width: 1000px) and (min-width: 750px) {
+@media (max-width: 1000px) and (min-width: 844px) {
   .modal_item{
-    max-width: 600px !important;
+    max-width: 660px !important;
   }
   .reserve_btn{
     width: 130px !important;
@@ -310,10 +310,11 @@
     margin: 10px 0 10px 20px;
   }
 }
-@media (max-width: 749px) {
+@media (max-width: 843px) {
   .modal_item{
     margin: 0;
     padding: 0;
+    min-width: 100%;
   }
   .modal_section{
     min-height: 1000px !important;
