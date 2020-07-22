@@ -5848,6 +5848,13 @@ b {
     padding-top: 80px;
     padding-bottom: 30px;
   }
+  .confirm_modal_box{
+    width: 300px;
+    height: auto !important;
+  }
+  .checkbox_blurb_width{
+    width: 260px;
+  }
 }
 
 /* Smaller than 640px */
@@ -7422,6 +7429,9 @@ b {
 .padding_sides0 {
   padding-left: 0px;
   padding-right: 0px; }
+
+.padding_top4 {
+  padding-top: 4px; }
 
 .top5 {
   margin-top: 5px; }
@@ -16087,6 +16097,15 @@ b {
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
     flex-direction: column; }
+
+.flex_no_wrap {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: nowrap;
+}
 
 .inline_block {
   display: inline-block; }
