@@ -4,7 +4,7 @@
 .mobile_item_modal{
   display: none;
 }
-@media (max-width: 749px) {
+@media (max-width: 844px) {
   .mobile_item_modal{
     display: block !important;
   }
