@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   end
   devise_for :users
 
+  resources :shipments, only: [:index, :show, :create, :update]
   resources :reservations, only: [:index]
   resources :fulfillment, only: [:index]
   resources :units, only: [:index] do

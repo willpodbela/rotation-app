@@ -12,9 +12,12 @@ $(document).ready(function(){
 
 <div class="fulfillment index">
   <h2>Fulfillment Assistant</h2>
+  <%= form_tag shipments_path do %>
+  <%= submit_tag "Create Shippo Label for Reservations" %>
   
   <table class="listing admin_table" summary="Outbound Fulfillment list">
     <tr class="header">
+      <th></th>
       <th style="min-width: 200px;">Detailed Status</th>
       <th class="black-border-right">Action Required</th>
       <th><%= sort_link "id", "#" %></th>
@@ -25,11 +28,14 @@ $(document).ready(function(){
       <th><%= sort_link "users.email", "Email" %></th>
       <th><%= sort_link "items.title", "Item" %></th>
       <th>Ship To</th>
+      <th>To Label</th>
+      <th>Return Label</th>
       <th><%= sort_link "unit_id", "Assigned Inventory" %></th>
       <th><%= sort_link "units.notes", "Inventory Notes" %></th>
     </tr>
     <% @reservations.each do |reservation| %>
     <tr style="<%= reservation.user.current_subscription.nil? ? 'background-color: #ffcccc' : (reservation.user.current_subscription.billing_status != 'paid' ? 'background-color: #ffe5c2' : (reservation.user.current_subscription.status == 'canceled' ? 'background-color: #99ccff' : '')) %>">
+      <td><%= check_box_tag "reservation_ids[]", reservation.id %></td>
       <% if reservation.active? || reservation.returned? %>
         <td>
           (4) Customer
@@ -115,6 +121,18 @@ $(document).ready(function(){
       </td>
       <td><%= reservation.user.profile.full_address %></td>
       <td>
+        <% outbounds = reservation.shipments.select { |s| (s.direction == "outbound" && s.refund_requested.nil?) } %>
+        <% if !outbounds.empty? %>
+            <%= link_to("to label", outbounds.first.label_link) unless !outbounds.empty? %>
+        <% end %>
+      </td>
+      <td>
+        <% returns = reservation.shipments.select { |s| (s.direction == "return" && s.refund_requested.nil?) } %>
+        <% if !returns.empty? %>
+            <%= link_to("return label", returns.first.label_link) %>
+        <% end %>
+      </td>
+      <td>
         <%= link_to("#{reservation.unit.id}: #{reservation.unit.size}", unit_path(reservation.unit)) unless reservation.unit.nil? %>
       </td>
       <td>
@@ -127,6 +145,7 @@ $(document).ready(function(){
     </tr>
     <% end %>
   </table>
+  <% end %>
   
 
   <h3>Autopilot</h3>
