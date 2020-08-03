@@ -123,7 +123,7 @@ $(document).ready(function(){
       <td>
         <% outbounds = reservation.shipments.select { |s| (s.direction == "outbound" && s.refund_requested.nil?) } %>
         <% if !outbounds.empty? %>
-            <%= link_to("to label", outbounds.first.label_link) unless !outbounds.empty? %>
+            <%= link_to("to label", outbounds.first.label_link) %>
         <% end %>
       </td>
       <td>
