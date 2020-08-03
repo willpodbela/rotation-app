@@ -14,4 +14,6 @@ unless Rails.env.production?
   ENV['MAIL_CHIMP_API_KEY'] = "a128a2f0edefa01e9526b94fddaee383-us3"
   ENV['WAREHOUSE_API_AUTH_NAME'] = "authname1"
   ENV['WAREHOUSE_API_AUTH_PASSWORD'] = "password2"
+  ENV['SHIPPO_API_KEY'] = "shippo_test_44f00506d94b385f0888db1f8dc48ca058f436d8"
+  ENV['SHIPPO_ROTATION_ADDRESS_ID'] = "177579278ffd4c04b1eb693ae5bd49ef"
 end

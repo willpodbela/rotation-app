@@ -78,6 +78,12 @@
     "SENDGRID_USERNAME": {
       "required": true
     },
+    "SHIPPO_API_KEY": {
+      "required": true
+    },
+    "SHIPPO_ROTATION_ADDRESS_ID": {
+      "required": true
+    },
     "STRIPE_PLAN_ID": {
       "required": true
     },

@@ -156,6 +156,7 @@ ActiveRecord::Schema.define(version: 20200728185452) do
     t.string "direction", null: false
     t.string "label_link", null: false
     t.string "tracking_link", null: false
+    t.string "tracking_number", null: false
     t.datetime "refund_requested"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

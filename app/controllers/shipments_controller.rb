@@ -23,8 +23,8 @@ class ShipmentsController < ApplicationController
     profile = user.profile
 
     require 'shippo'
-    Shippo::API.token = 'shippo_test_44f00506d94b385f0888db1f8dc48ca058f436d8'
-    rotation_address = "177579278ffd4c04b1eb693ae5bd49ef"
+    Shippo::API.token = ENV["SHIPPO_API_KEY"]
+    rotation_address = ENV["SHIPPO_ROTATION_ADDRESS_ID"]
     
     customer_address = {
       :name => profile.first_name + " " + profile.last_name,
@@ -37,14 +37,12 @@ class ShipmentsController < ApplicationController
       :email => user.email
     }
 
-    # can also just be sent as a parcel object_id
-    # parcel will be picked based on the size of @reservations
     parcel = {
-      :length => 5,
-      :width => 1,
-      :height => 5.555,
-      :distance_unit => :cm,
-      :weight => 2,
+      :length => 13.3,
+      :width => 11.5,
+      :height => 2.4,
+      :distance_unit => :in,
+      :weight => (reservations.size > 2 ? 2 : 1),
       :mass_unit => :lb
     }
 
@@ -81,22 +79,23 @@ class ShipmentsController < ApplicationController
       :shippo_id => to_transaction.object.id, 
       :direction => "outbound", 
       :label_link => to_transaction.label_url, 
-      :tracking_link => to_transaction.tracking_url_provider
+      :tracking_link => to_transaction.tracking_url_provider,
+      :tracking_number => to_transaction.tracking_number,
+      :reservations => reservations
     )
     return_shipment = Shipment.new(
       :shippo_id => return_transaction.object.id, 
       :direction => "return", 
       :label_link => return_transaction.label_url, 
-      :tracking_link => return_transaction.tracking_url_provider
+      :tracking_link => return_transaction.tracking_url_provider,
+      :tracking_number => return_transaction.tracking_number,
+      :reservations => reservations
     )
-
-    to_shipment.reservations = reservations
-    return_shipment.reservations = reservations
 
     if to_shipment.save && return_shipment.save
       flash[:notice] = "Shipment created successfully."
     else
-      flash[:alert] = "Could not create shipment."
+      flash[:alert] = to_shipment.errors.full_messages
     end
     redirect_to fulfillment_index_url
   end
@@ -106,7 +105,7 @@ class ShipmentsController < ApplicationController
     @shipment = Shipment.find(params[:id])
 
     require 'shippo'
-    Shippo::API.token = 'shippo_test_44f00506d94b385f0888db1f8dc48ca058f436d8'
+    Shippo::API.token = ENV["SHIPPO_API_KEY"]
 
     refund = Shippo::Refund.create(
       :transaction => @shipment.shippo_id, 

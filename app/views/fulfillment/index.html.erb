@@ -123,13 +123,13 @@ $(document).ready(function(){
       <td>
         <% outbounds = reservation.shipments.select { |s| (s.direction == "outbound" && s.refund_requested.nil?) } %>
         <% if !outbounds.empty? %>
-            <%= link_to("to label", outbounds.first.label_link) %>
+            <%= link_to("#{outbounds.first.tracking_number}", outbounds.first.label_link, :target => "_blank") %>
         <% end %>
       </td>
       <td>
         <% returns = reservation.shipments.select { |s| (s.direction == "return" && s.refund_requested.nil?) } %>
         <% if !returns.empty? %>
-            <%= link_to("return label", returns.first.label_link) %>
+            <%= link_to("#{returns.first.tracking_number}", returns.first.label_link, :target => "_blank") %>
         <% end %>
       </td>
       <td>

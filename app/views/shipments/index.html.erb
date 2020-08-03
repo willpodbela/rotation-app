@@ -10,7 +10,7 @@
       <th>Direction</th>
       <th>Label</th>
       <th>Tracking</th>
-      <th>Reservation Ids</th>
+      <th>Reservations</th>
       <th>Created</th>
       <th>Refund</th>
     </tr>
@@ -20,11 +20,11 @@
       <td><%= shipment.shippo_id %></td>
       <td><%= shipment.direction %></td>
       <td><%= link_to("label", shipment.label_link, :target => "_blank") %></td>
-      <td><%= link_to("track", shipment.tracking_link, :target => "_blank") %></td>
-      <td><%= shipment.reservations.map { |s| "#{s.id}" }.join(', ') %></td>
+      <td><%= link_to("#{shipment.tracking_number}", shipment.tracking_link, :target => "_blank") %></td>
+      <td><%= raw(shipment.reservations.map { |s| link_to("#{s.id}", reservation_path(s)) }.join(', ')) %></td>
       <td><%= shipment.created_at %></td>
       <td>
-        <% if shipment.refund_requested.nil? %>
+        <% if shipment.direction == "outbound" && shipment.refund_requested.nil? %>
           <%= form_with(model: shipment) do |f| %>
             <%= f.submit("request") %>
           <% end %> 
