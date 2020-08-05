@@ -2,6 +2,7 @@ class Reservation < ApplicationRecord
   belongs_to :item
   belongs_to :user
   belongs_to :unit, optional: true
+  has_and_belongs_to_many :shipments, optional: true
   
   scope :live, -> { where(status: [:processing, :active, :returned]) }
   scope :scheduled, -> { where(status: [:scheduled]) }

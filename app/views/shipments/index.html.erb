@@ -1,0 +1,41 @@
+<div class="shipments index">
+  <%= link_to("Back to Admin Home", admin_path, :class => 'back-link') %>
+
+  <h2>Shipments</h2>
+
+  <table class="listing admin_table" summary="Shipments list">
+    <tr class="header">
+      <th>#</th>
+      <th>Shippo ID</th>
+      <th>Direction</th>
+      <th>Label</th>
+      <th>Tracking</th>
+      <th>Reservations</th>
+      <th>Created</th>
+      <th>Refund</th>
+    </tr>
+    <% @shipments.each do |shipment| %>
+    <tr>
+      <td><%= shipment.id %></td>
+      <td><%= shipment.shippo_id %></td>
+      <td><%= shipment.direction %></td>
+      <td><%= link_to("label", shipment.label_link, :target => "_blank") %></td>
+      <td><%= link_to("#{shipment.tracking_number}", shipment.tracking_link, :target => "_blank") %></td>
+      <td><%= raw(shipment.reservations.map { |s| link_to("#{s.id}", reservation_path(s)) }.join(', ')) %></td>
+      <td><%= shipment.created_at %></td>
+      <td>
+        <% if shipment.direction == "outbound" && shipment.refund_requested.nil? %>
+          <%= form_with(model: shipment) do |f| %>
+            <%= f.submit("request") %>
+          <% end %> 
+          <% else %>
+            <%= shipment.refund_requested %>
+          <% end %>
+      </td>
+      <td class="actions">
+        <%= link_to("Show", shipment_path(shipment), :class => 'action -show') %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>

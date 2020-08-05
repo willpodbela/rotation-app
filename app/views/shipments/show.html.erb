@@ -1,0 +1,45 @@
+<%= link_to("<< All Shipments", shipments_path, :class => 'back-link') %></br>
+
+<div class="shipments show">
+  <h2>Show Shipment</h2>
+
+  <table summary="Shipment detail view">
+      <tr>
+        <th>Shipment ID</th>
+        <td><%= @shipment.id %></td>
+      </tr>
+      <tr>
+        <th>Shippo ID</th>
+        <td><%= @shipment.shippo_id %></td>
+      </tr>
+      <tr>
+        <th>Direction</th>
+        <td><%= @shipment.direction %></td>
+      </tr>
+      <tr>
+        <th>Label</th>
+        <td><%= link_to("label", @shipment.label_link, :target => "_blank") %></td>
+      </tr>
+      <tr>
+        <th>Tracking</th>
+        <td><%= link_to("track", @shipment.tracking_link, :target => "_blank") %></td>
+      </tr>
+      <tr>
+        <th>Reservation Ids</th>
+        <td> <%= @shipment.reservations.map { |s| "#{s.id}" }.join(', ') %></td>
+      </tr>
+      <tr>
+        <th>Refund Requested</th>
+        <td> <%= @shipment.refund_requested %></td>
+      </tr>
+      <tr>
+        <th>Created</th>
+        <td><%= @shipment.created_at %></td>
+      </tr>
+      <tr>
+        <th>Updated</th>
+        <td><%= @shipment.updated_at %></td>
+      </tr>
+    </table>
+
+</div>

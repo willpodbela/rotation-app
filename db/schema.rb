@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200522125927) do
+ActiveRecord::Schema.define(version: 20200728185452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,6 +143,23 @@ ActiveRecord::Schema.define(version: 20200522125927) do
     t.bigint "unit_id"
     t.index ["item_id", "user_id"], name: "index_reservations_on_item_id_and_user_id"
     t.index ["unit_id"], name: "index_reservations_on_unit_id"
+  end
+
+  create_table "reservations_shipments", id: false, force: :cascade do |t|
+    t.integer "reservation_id"
+    t.integer "shipment_id"
+    t.index ["reservation_id", "shipment_id"], name: "index_reservations_shipments_on_reservation_id_and_shipment_id"
+  end
+
+  create_table "shipments", force: :cascade do |t|
+    t.string "shippo_id", null: false
+    t.string "direction", null: false
+    t.string "label_link", null: false
+    t.string "tracking_link", null: false
+    t.string "tracking_number", null: false
+    t.datetime "refund_requested"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "subscriptions", force: :cascade do |t|
