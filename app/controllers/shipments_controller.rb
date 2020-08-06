@@ -1,8 +1,13 @@
-class ShipmentsController < ApplicationController
+class ShipmentsController < AdminBaseController
   before_action :enforce_access_control_admin!
 
   def index
-    @shipments = Shipment.order(created_at: :desc).includes(:reservations)
+    @shipments = Shipment
+    .includes(:reservations)
+    .where(query_params)
+    .order("#{sort_column} #{sort_direction}")
+
+    @filter = query_params
   end
 
   def show
@@ -11,7 +16,12 @@ class ShipmentsController < ApplicationController
     
   def create
     reservations = Reservation.find(params[:reservation_ids])
-    
+    weight = params[:weight]
+
+    if weight.empty?
+      flash[:alert] = "Please enter weight."
+      redirect_to fulfillment_index_url and return
+    end
     reservations.each do |r|
       if r.user_id != reservations.first.user_id
         flash[:alert] = "Reservations must all be from the same user."
@@ -42,7 +52,7 @@ class ShipmentsController < ApplicationController
       :width => 11.5,
       :height => 2.4,
       :distance_unit => :in,
-      :weight => (reservations.size > 2 ? 2 : 1),
+      :weight => weight,
       :mass_unit => :lb
     }
 
@@ -77,18 +87,20 @@ class ShipmentsController < ApplicationController
 
     to_shipment = Shipment.new(
       :shippo_id => to_transaction.object.id, 
-      :direction => "outbound", 
+      :package_direction => "outbound", 
       :label_link => to_transaction.label_url, 
       :tracking_link => to_transaction.tracking_url_provider,
       :tracking_number => to_transaction.tracking_number,
+      :status => to_transaction.tracking_status,
       :reservations => reservations
     )
     return_shipment = Shipment.new(
       :shippo_id => return_transaction.object.id, 
-      :direction => "return", 
+      :package_direction => "return", 
       :label_link => return_transaction.label_url, 
       :tracking_link => return_transaction.tracking_url_provider,
       :tracking_number => return_transaction.tracking_number,
+      :status => return_transaction.tracking_status,
       :reservations => reservations
     )
 
@@ -118,5 +130,14 @@ class ShipmentsController < ApplicationController
       flash[:alert] = "Refund request unsuccessful."
     end
     redirect_back(fallback_location: shipments_path)
+  end
+
+  private
+  def query_params
+    params.permit(:package_direction)
+  end
+
+  def sortable_columns
+    ["status"]
   end
 end

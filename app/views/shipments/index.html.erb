@@ -2,6 +2,8 @@
   <%= link_to("Back to Admin Home", admin_path, :class => 'back-link') %>
 
   <h2>Shipments</h2>
+  <%= link_to("See Only Returns", request.params.merge(package_direction: "return")) unless !(@filter.empty?) %>
+  <%= link_to("See All Shipments", request.params.except(:package_direction)) unless @filter.empty? %>
 
   <table class="listing admin_table" summary="Shipments list">
     <tr class="header">
@@ -10,6 +12,7 @@
       <th>Direction</th>
       <th>Label</th>
       <th>Tracking</th>
+      <th><%= sort_link "status"%></th>
       <th>Reservations</th>
       <th>Created</th>
       <th>Refund</th>
@@ -18,13 +21,14 @@
     <tr>
       <td><%= shipment.id %></td>
       <td><%= shipment.shippo_id %></td>
-      <td><%= shipment.direction %></td>
+      <td><%= shipment.package_direction %></td>
       <td><%= link_to("label", shipment.label_link, :target => "_blank") %></td>
       <td><%= link_to("#{shipment.tracking_number}", shipment.tracking_link, :target => "_blank") %></td>
+      <td><%= shipment.status %></td>
       <td><%= raw(shipment.reservations.map { |s| link_to("#{s.id}", reservation_path(s)) }.join(', ')) %></td>
       <td><%= shipment.created_at %></td>
       <td>
-        <% if shipment.direction == "outbound" && shipment.refund_requested.nil? %>
+        <% if shipment.package_direction == "outbound" && shipment.refund_requested.nil? %>
           <%= form_with(model: shipment) do |f| %>
             <%= f.submit("request") %>
           <% end %> 

@@ -12,8 +12,10 @@ $(document).ready(function(){
 
 <div class="fulfillment index">
   <h2>Fulfillment Assistant</h2>
-  <%= form_tag shipments_path do %>
-  <%= submit_tag "Create Shippo Label for Reservations" %>
+
+  <%= "Weight:" %>
+  <%= text_field_tag(:input_weight, nil, size: 3) %>
+  <%= link_to("Create New Shippo Label", {:controller => "shipments", :action => "create", :weight => "test", :reservation_ids => [1]}, method: :post) %>
   
   <table class="listing admin_table" summary="Outbound Fulfillment list">
     <tr class="header">
@@ -121,13 +123,13 @@ $(document).ready(function(){
       </td>
       <td><%= reservation.user.profile.full_address %></td>
       <td>
-        <% outbounds = reservation.shipments.select { |s| (s.direction == "outbound" && s.refund_requested.nil?) } %>
+        <% outbounds = reservation.shipments.select { |s| (s.package_direction == "outbound" && s.refund_requested.nil?) } %>
         <% if !outbounds.empty? %>
             <%= link_to("#{outbounds.first.tracking_number}", outbounds.first.label_link, :target => "_blank") %>
         <% end %>
       </td>
       <td>
-        <% returns = reservation.shipments.select { |s| (s.direction == "return" && s.refund_requested.nil?) } %>
+        <% returns = reservation.shipments.select { |s| (s.package_direction == "return" && s.refund_requested.nil?) } %>
         <% if !returns.empty? %>
             <%= link_to("#{returns.first.tracking_number}", returns.first.label_link, :target => "_blank") %>
         <% end %>
@@ -145,7 +147,6 @@ $(document).ready(function(){
     </tr>
     <% end %>
   </table>
-  <% end %>
   
 
   <h3>Autopilot</h3>

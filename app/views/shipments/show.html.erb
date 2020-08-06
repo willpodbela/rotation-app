@@ -14,7 +14,7 @@
       </tr>
       <tr>
         <th>Direction</th>
-        <td><%= @shipment.direction %></td>
+        <td><%= @shipment.package_direction %></td>
       </tr>
       <tr>
         <th>Label</th>
@@ -23,6 +23,10 @@
       <tr>
         <th>Tracking</th>
         <td><%= link_to("track", @shipment.tracking_link, :target => "_blank") %></td>
+      </tr>
+      <tr>
+      <th>Status</th>
+        <td><%= @shipment.status %></td>
       </tr>
       <tr>
         <th>Reservation Ids</th>

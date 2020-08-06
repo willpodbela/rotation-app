@@ -1,0 +1,18 @@
+New status of returning shipment: <strong><%= @shipment.status %></strong>
+
+<br/><br/>
+<u>Shipment</u><br/>
+ID: <%= @shipment.id %><br/>
+Shippo ID: <%= @shipment.shippo_id %><br/>
+Tracking: <a href='<%= @shipment.tracking_link %>' target="_blank"><%= @shipment.tracking_number %></a> <br/>
+
+<br/><br/>
+
+<u>User</u><br/>
+ID: <%= @user.id %><br/>
+Email: <%= @user.email %><br/>
+Address Line 1: <%= @profile.address_line_one %><br/>
+Address Line 2: <%= @profile.address_line_two %><br/>
+Address City: <%= @profile.address_city %><br/>
+Address State: <%= @profile.address_state %><br/>
+Address Zip: <%= @profile.address_zip %><br/>
