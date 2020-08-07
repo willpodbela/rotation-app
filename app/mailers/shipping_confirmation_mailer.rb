@@ -6,12 +6,19 @@ class ShippingConfirmationMailer < ApplicationMailer
     after_action :dont_send_duplicates
     
     def shipping_confirmed
-        puts "User reservations remaining = " + @user.reservations_remaining.to_s
-        puts "User data = " + @user.email.to_s
-        if @user.reservations_remaining == 0
-            @subject = 'Your Rotation order made on ' + Time.now.strftime("%B %d") + ' is on its way.'
-            mail(to: @user.email, subject: @subject)
-        end
+      if @user.reservations_remaining == 0
+          @subject = 'Your Rotation order made on ' + Time.now.strftime("%B %d") + ' is on its way.'
+          @title = "Your Rotation Order Has Shipped"
+          @preview = "Your order is being packaged by our operations staff and will be on its way to you soon. Detailed tracking information will be sent over shortly in a separate email."
+          mail(to: @user.email, subject: @subject)
+      end
+    end
+    
+    def time_to_rotate # (Customer returned item -> Reservation ended)
+      @subject = '// Time to Rotate // ' + Time.now.strftime("%B %d")
+      @title = "Your Rotation Has Been Recieved"
+      @preview = "We’ve received your Rotation! Feel free to choose new items in the app."
+      mail(to: @user.email, subject: @subject)
     end
     
     def dont_send_duplicates

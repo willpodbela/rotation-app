@@ -47,9 +47,8 @@ $(document).ready(function(){
               <%= f.submit("Mark as Ended") %>
             <% end %>
           <% else %>
-            <%= form_with(model: reservation.unit, html: {'class' => 'throwaway-ajax'}) do |f| %>
-              <%= f.hidden_field :status, value: :offline %>
-              <%= f.submit("Mark Offline for Cleaning") %>
+            <%= form_with(model: reservation.unit, html: {'class' => 'throwaway-ajax'}, url: returned_unit_path(reservation.unit), method: :post) do |f| %>
+              <%= f.submit("Mark Returned") %>
             <% end %>
           <% end %>
         </td>

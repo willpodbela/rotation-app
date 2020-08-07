@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :units, only: [:index] do
     post :edit_multiple, on: :collection
     post :update_multiple, on: :collection
+    post "returned", on: :member
   end
   resources :items do
     resources :reservations, shallow: true
