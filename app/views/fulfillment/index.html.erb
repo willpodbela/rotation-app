@@ -8,14 +8,30 @@ $(document).ready(function(){
 	    window.location.reload(true)
 	});
 });
+
+$(document).ready(function() {
+  $( "#shipment_form" ).submit(function( event ) {
+    const ids = []
+    $('input[name="reservation_ids[]"]').each(function( index ) {
+      if($(this).prop("checked")) {
+        ids.push($(this).attr('value'))
+      }
+    });
+    $("#reservation_ids_input").val(ids)
+  });
+});
+
 </script>
 
 <div class="fulfillment index">
   <h2>Fulfillment Assistant</h2>
 
-  <%= "Weight:" %>
-  <%= text_field_tag(:input_weight, nil, size: 3) %>
-  <%= link_to("Create New Shippo Label", {:controller => "shipments", :action => "create", :weight => "test", :reservation_ids => [1]}, method: :post) %>
+  <%= form_tag shipments_path, :id => 'shipment_form' do %>
+    <%= "Weight:" %>
+    <%= text_field_tag(:weight, nil, size: 3) %>
+    <%= hidden_field_tag :reservation_ids_input %>
+    <%= submit_tag "Create Shippo Label" %>
+  <% end %>
   
   <table class="listing admin_table" summary="Outbound Fulfillment list">
     <tr class="header">

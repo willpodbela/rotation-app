@@ -15,7 +15,8 @@ class ShipmentsController < AdminBaseController
   end
     
   def create
-    reservations = Reservation.find(params[:reservation_ids])
+    ids = params[:reservation_ids_input].split(',')
+    reservations = Reservation.find(ids)
     weight = params[:weight]
 
     if weight.empty?
@@ -134,7 +135,9 @@ class ShipmentsController < AdminBaseController
 
   private
   def query_params
-    params.permit(:package_direction)
+    params.permit(:package_direction).delete_if do |key, val|
+      key == 'package_direction' && val == "all"
+    end
   end
 
   def sortable_columns

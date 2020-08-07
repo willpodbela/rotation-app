@@ -6,7 +6,7 @@ module Api
     skip_before_action :authenticate_user!
   
     def shippo
-        response = JSON.parse(request.body.read)
+        response = JSON.parse(request.body.read)["data"]
         shipment = Shipment.where(shippo_id: response["object_id"]).first
 
         if shipment.nil?
