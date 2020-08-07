@@ -75,6 +75,33 @@ class UnitsController < AdminBaseController
     redirect_to units_path
   end
 
+  def returned
+    @unit = Unit.find(params[:id])
+    
+    if @unit.live_reservations.count == 1
+      r = @unit.live_reservations.first
+      r.status = :ended
+      unless r.save
+        # TODO: Log error, could not save
+      end
+    else
+      # TODO: Log error, there were either multiple or no active reservations for this unit
+    end
+    
+    @unit.status = :offline
+    respond_to do |format|
+      if @unit.save
+        # If save succeeds, redirect to the show action
+        format.html { redirect_to @unit, notice: 'Unit updated successfully.' }
+        format.js
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { head :no_content }
+      end
+    end
+  end
+
   private
 
   def unit_params
