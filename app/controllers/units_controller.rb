@@ -81,7 +81,9 @@ class UnitsController < AdminBaseController
     if @unit.live_reservations.count == 1
       r = @unit.live_reservations.first
       r.status = :ended
-      unless r.save
+      if r.save
+        ShippingConfirmationMailer.with(user: r.user).time_to_rotate.deliver
+      else
         # TODO: Log error, could not save
       end
     else
