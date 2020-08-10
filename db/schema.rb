@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200728185452) do
+ActiveRecord::Schema.define(version: 20200806163603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,13 +153,14 @@ ActiveRecord::Schema.define(version: 20200728185452) do
 
   create_table "shipments", force: :cascade do |t|
     t.string "shippo_id", null: false
-    t.string "direction", null: false
+    t.string "package_direction", null: false
     t.string "label_link", null: false
     t.string "tracking_link", null: false
     t.string "tracking_number", null: false
     t.datetime "refund_requested"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status", null: false
   end
 
   create_table "subscriptions", force: :cascade do |t|

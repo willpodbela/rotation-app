@@ -8,12 +8,30 @@ $(document).ready(function(){
 	    window.location.reload(true)
 	});
 });
+
+$(document).ready(function() {
+  $( "#shipment_form" ).submit(function( event ) {
+    const ids = []
+    $('input[name="reservation_ids[]"]').each(function( index ) {
+      if($(this).prop("checked")) {
+        ids.push($(this).attr('value'))
+      }
+    });
+    $("#reservation_ids_input").val(ids)
+  });
+});
+
 </script>
 
 <div class="fulfillment index">
   <h2>Fulfillment Assistant</h2>
-  <%= form_tag shipments_path do %>
-  <%= submit_tag "Create Shippo Label for Reservations" %>
+
+  <%= form_tag shipments_path, :id => 'shipment_form' do %>
+    <%= "Weight:" %>
+    <%= text_field_tag(:weight, nil, size: 3) %>
+    <%= hidden_field_tag :reservation_ids_input %>
+    <%= submit_tag "Create Shippo Label" %>
+  <% end %>
   
   <table class="listing admin_table" summary="Outbound Fulfillment list">
     <tr class="header">
@@ -120,13 +138,13 @@ $(document).ready(function(){
       </td>
       <td><%= reservation.user.profile.full_address %></td>
       <td>
-        <% outbounds = reservation.shipments.select { |s| (s.direction == "outbound" && s.refund_requested.nil?) } %>
+        <% outbounds = reservation.shipments.select { |s| (s.package_direction == "outbound" && s.refund_requested.nil?) } %>
         <% if !outbounds.empty? %>
             <%= link_to("#{outbounds.first.tracking_number}", outbounds.first.label_link, :target => "_blank") %>
         <% end %>
       </td>
       <td>
-        <% returns = reservation.shipments.select { |s| (s.direction == "return" && s.refund_requested.nil?) } %>
+        <% returns = reservation.shipments.select { |s| (s.package_direction == "return" && s.refund_requested.nil?) } %>
         <% if !returns.empty? %>
             <%= link_to("#{returns.first.tracking_number}", returns.first.label_link, :target => "_blank") %>
         <% end %>
@@ -144,7 +162,6 @@ $(document).ready(function(){
     </tr>
     <% end %>
   </table>
-  <% end %>
   
 
   <h3>Autopilot</h3>

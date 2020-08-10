@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   end
 
   namespace :api, defaults: {format: :json} do
+    post "shippo", to: "shippo_webhook#shippo"
     post "stripe", to: "stripe_webhook#stripe"
 
     #DEPRECATED as of iOS < v1.2 as we are now calling api/v2
