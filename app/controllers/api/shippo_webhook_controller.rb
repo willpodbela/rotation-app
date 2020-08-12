@@ -17,7 +17,7 @@ module Api
                 :tracking_link => response["tracking_url_provider"],
                 :tracking_number => response["tracking_number"],
                 :created_at => response["object_created"],
-                :status => response["tracking_status"]
+                :status => ""
             )
             shipment.save
         end
@@ -26,7 +26,9 @@ module Api
             shipment.update_attribute(:status, response["tracking_status"])
 
             if shipment.package_direction == "return"
-                ShippoUpdateMailer.with(shipment: shipment).shippo_update.deliver
+                ShippoUpdateMailer.with(shipment: shipment).shippo_return_update.deliver
+            elsif shipment.package_direction == "unknown"
+                ShippoUpdateMailer.with(shipment: shipment).shippo_unknown_update.deliver
             end
         end
         
