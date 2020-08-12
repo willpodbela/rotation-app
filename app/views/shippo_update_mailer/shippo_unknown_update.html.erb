@@ -1,0 +1,10 @@
+New status of an unknown shipment: <strong><%= @shipment.status %></strong>
+
+<br/><br/>
+<u>Shipment</u><br/>
+ID: <%= @shipment.id %><br/>
+Shippo ID: <%= @shipment.shippo_id %><br/>
+Tracking: <a href='<%= @shipment.tracking_link %>' target="_blank"><%= @shipment.tracking_number %></a> <br/>
+<br/>
+
+You can view the addresses on it's shipping label  <a href='<%= @shipment.label_link %>' target="_blank">here</a>
