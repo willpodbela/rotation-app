@@ -89,6 +89,11 @@ class OnboardingModal extends Component {
         "Authorization": `Token ${Auth.getToken()}`
       }
     }).then(res => this.props.apiResponseHandler(res, "Welcome to the Rotation! You're going to like it here. Pick your first item below.")).then(res => {
+
+      fetch("https://www.shareasale.com/sale.cfm?tracking=" + res.subscription.id + "&amount=" + this.subtotal().toFixed(2) + "&merchantID=99797&transtype=sale", {
+        mode: 'no-cors'
+      })
+      
       window.analytics.track('Subscription Started', {
         item_qty: itemQuantity,
         value: this.selectedPlanMonthlyCostInt(),
