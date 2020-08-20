@@ -77,6 +77,15 @@ class OnboardingModal extends Component {
     this.setState({showPromoCode: true})
   }
 
+  SignupMessage = () => {
+    return (
+      <>
+        Welcome to the Rotation! You're going to like it here. Pick your first item below.
+        <img src={`https://www.shareasale.com/sale.cfm?tracking=${this.props.userLoggedIn.id}&amount=${this.subtotal().toFixed(2)}&merchantID=99797&transtype=sale`} width="1" height="1"></img>
+      </>
+    )
+  }
+
   createSubscription(e, stripeID, itemQuantity){
     fetch("/api/web/subscription", {
       method: "POST",
@@ -88,12 +97,7 @@ class OnboardingModal extends Component {
         "Content-Type": "application/json",
         "Authorization": `Token ${Auth.getToken()}`
       }
-    }).then(res => this.props.apiResponseHandler(res, "Welcome to the Rotation! You're going to like it here. Pick your first item below.")).then(res => {
-
-      fetch("https://www.shareasale.com/sale.cfm?tracking=" + res.subscription.id + "&amount=" + this.subtotal().toFixed(2) + "&merchantID=99797&transtype=sale", {
-        mode: 'no-cors'
-      })
-      
+    }).then(res => this.props.apiResponseHandler(res, <this.SignupMessage/>)).then(res => {
       window.analytics.track('Subscription Started', {
         item_qty: itemQuantity,
         value: this.selectedPlanMonthlyCostInt(),
