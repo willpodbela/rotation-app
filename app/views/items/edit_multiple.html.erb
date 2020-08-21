@@ -61,6 +61,10 @@
         <td><%= f.select(:hidden, [["Yes", true], ["No", false]], include_blank: true) %></td>
       </tr>
       <tr>
+        <th>Exclusive?</th>
+        <td><%= f.select(:exclusive, [["Yes", true], ["No", false]], include_blank: true) %></td>
+      </tr>
+      <tr>
         <th>Featured Collection</th>
         <td><%= f.text_field(:landing_featured) %></td>
       </tr>

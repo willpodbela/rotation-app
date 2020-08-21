@@ -14,6 +14,9 @@ class ItemCard extends Component {
           style={{
             backgroundImage: `url(${item.image_url})`
           }}>
+          {item.exclusive &&
+            <div className="exclusive_banner medium proxima width_full white">Exclusive</div>
+          }
         </div>
         <div className="flex justify_between align_center padding_top10">
           <div className="proxima_small semibold rotation_gray uppercase overflow_scroll nowrap width190">{item.title}</div>
