@@ -16,7 +16,6 @@ class OnboardingModal extends Component {
     super(props)
     this.state = {
       currentModal: false,
-      showPromoCode: false,
       planOptions: [
         {itemQty: 2, monthlyCost: "$89", selected: false},
         {itemQty: 3, monthlyCost: "$129", selected: false},
@@ -71,10 +70,6 @@ class OnboardingModal extends Component {
     }else{
       this.props.errorHandler({message: "Please select a plan."})
     }
-  }
-  
-  showPromoCodePane(e){
-    this.setState({showPromoCode: true})
   }
 
   SignupMessage = () => {
@@ -192,16 +187,12 @@ class OnboardingModal extends Component {
                     ["Next Step",<FontAwesomeIcon className="white font12 left20" icon="chevron-right" />]
                   }
                 />
-                {this.state.showPromoCode ? (
-                  <PromoCodePane
-                    auth={this.props.auth}
-                    userLoggedIn={this.props.userLoggedIn}
-                    apiResponseHandler={this.props.apiResponseHandler}
-                    onSuccess={this.props.getUser}
-                  />
-                ) : (
-                  <div className="proxima_small medium underline rotation_gray top10 bottom20 flex justify_start cursor_pointer" onClick={(e) => this.showPromoCodePane(e)}>Have a promo or referral code?</div>
-                )}
+                <PromoCodePane
+                  auth={this.props.auth}
+                  userLoggedIn={this.props.userLoggedIn}
+                  apiResponseHandler={this.props.apiResponseHandler}
+                  onSuccess={this.props.getUser}
+                />
               </div>
             }
             {this.state.currentModal === "plans" &&
