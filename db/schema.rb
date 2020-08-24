@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200806163603) do
+ActiveRecord::Schema.define(version: 20200821151237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 20200806163603) do
     t.string "sub_category"
     t.string "meta_category"
     t.string "supplier_color"
+    t.boolean "exclusive", default: false, null: false
   end
 
   create_table "prelaunch_users", force: :cascade do |t|

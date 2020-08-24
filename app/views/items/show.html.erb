@@ -56,6 +56,14 @@
       <% end %>
     </tr>
     <tr>
+      <th>Exclusive?</th>
+      <% if @item.exclusive %>
+        <td>&#10003;</td>
+      <% else %>
+        <td>&#10007;</td>
+      <% end %>
+    </tr>
+    <tr>
       <th>Featured Collection</th>
       <td><%= @item.landing_featured %></td>
     </tr>

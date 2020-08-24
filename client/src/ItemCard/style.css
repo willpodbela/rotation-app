@@ -4,7 +4,15 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  position: relative;
 }
 .card_large{
   width: 216px;
+}
+
+.exclusive_banner{
+  position: absolute;
+  bottom: 0;
+  background: #FF6A71;
+  text-align: center;
 }
