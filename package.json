@@ -4,7 +4,7 @@
   "dependencies": {},
   "scripts": {
     "build": "cd client && npm install && npm run-script build && cd ..",
-    "deploy": "cp -a client/build/. public/",
+    "deploy": "cp -a client/build/. public/ && mv public/index.html public/react.html",
     "sitemap": "cd client && npm run-script sitemap && cp -a public/sitemap.xml ../public/sitemap.xml && cd ..",
     "postinstall": "npm run-script build && npm run-script deploy && npm run-script sitemap && echo 'Client built!'"
   }

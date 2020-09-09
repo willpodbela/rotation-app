@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :login_redirect
   
   def react_index_html
-    render :file => 'public/index.html', layout: false
+    render :file => 'public/react.html', layout: false
   end
   
   def react_non_html
