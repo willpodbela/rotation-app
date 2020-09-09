@@ -1,13 +1,11 @@
 import React, { Component } from "react"
 import "./App.css"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
-import LandingPage from "./LandingPage"
 import AuthPage from "./AuthPage"
 import LoginPane from "./LoginPane"
 import SignUpPane from "./SignUpPane"
 import TermsPage from "./TermsPage"
 import PrivacyPage from "./PrivacyPage"
-import NotFoundPage from "./NotFoundPage"
 import CatalogPage from "./CatalogPage"
 import AccountPage from "./AccountPage"
 import ItemDetailPage from "./ItemDetailPage"
@@ -19,7 +17,6 @@ import AlertDialog from "./AlertDialog"
 
 import login_img from "./img/login.jpg"
 import signup_img from "./img/sign-up.jpg"
-import pg_not_found_img from "./img/page-not-found.png"
 
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { fab } from "@fortawesome/free-brands-svg-icons"
@@ -306,13 +303,6 @@ class App extends Component {
             <AlertDialog error={this.state.error} notice={this.state.notice} onClose={() => this.dialogClosed()} />
             <Switch>
               <Route
-                exact path="/"
-                render={() =>
-                  <LandingPage
-                    auth={this.state.authenticated}
-                  />
-              }/>
-              <Route
                 exact path="/login"
                 render={() =>
                   <AuthPage
@@ -389,12 +379,11 @@ class App extends Component {
               <Route path="/faq" exact component={FaqPage} />
               <Route 
                 path="/*" 
-                render={(props) =>
-                <NotFoundPage 
-                image={pg_not_found_img}
-                />
+                component={(props) => {
+                  window.location.href = 'https://join.therotation.club'; 
+                  return null;      
+                }       
               }/>
-              
             </Switch>
             <Footer />
           </div>
