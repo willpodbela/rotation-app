@@ -1,5 +1,5 @@
 class CustomerFeedbackMailer < ApplicationMailer
-  default from: 'Zach Podbela <zach@therotation.club>'
+  default from: 'Zayn Fostock <zayn@therotation.club>'
   layout 'customer_feedback_mailer'
   
   before_action :common_setup
