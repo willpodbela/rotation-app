@@ -17,7 +17,7 @@ class ShippingConfirmationMailer < ApplicationMailer
     def shipment_created
       @shipment = params[:shipment]
       if @shipment.package_direction == "outbound"
-        @subject = 'Tracking Information for Rotation order ' + @shipment.tracking_number
+        @subject = 'Tracking Information for Rotation order. ' + @shipment.tracking_number
         @title = "Tracking Information for Your Rotation Order"
         @preview = "Your order is on its way! Please find your tracking information inside."
         @user = @shipment.reservations.first&.user
