@@ -1,0 +1,46 @@
+<table class="wrapper" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+    <tr>
+        <td align="center" bgcolor="#FAFAFA" class="px-sm-16">
+            <table class="container" cellpadding="0" cellspacing="0" role="presentation" width="600">
+                <tr>
+                    <td bgcolor="#FFFFFF">
+                        <div class="spacer line-height-sm-0 py-sm-16" style="line-height: 32px;">&zwnj;</div>
+                        <table cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                            <tr>
+                                <td align="left" class="px-sm-16" style="padding: 0 32px;">
+                                    <p style="color: hsl(0, 0, 29); font-size: 14px; line-height: 23px; font-weight: 500; margin: 0;">
+                                        Hi <%= @user.profile.first_name %>,<br>
+                                        <br>
+                                        Your order from The Rotation is in the mail!<br>
+                                        <br>
+                                    </p>
+                                    <% if @address %>
+                                        <p style="color: hsl(0, 0, 29); font-size: 14px; line-height: 16px; font-weight: 500; margin: 0;">
+                                            <b>The package is being shipped to the following address:</b><br>
+                                            <br>
+                                            <%= @address.split(", ").join("<br>").html_safe %>
+                                        </p>
+                                    <% end %>
+                                    <p style="color: hsl(0, 0, 29); font-size: 14px; line-height: 23px; font-weight: 500; margin: 0;">
+                                        <br>
+                                        Your tracking number is <a href=<%= @shipment.tracking_link %>><%= @shipment.tracking_number %></a>.
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="webfont" align="center" style="padding: 24px 0 0;">
+                                    <a href=<%= @shipment.tracking_link %>
+                                        style="color: rgb(0, 0, 255); display: inline-block; font-size: 13px; font-weight: 700; text-decoration: none;">TRACK MY ROTATION &rarr;</a>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="spacer line-height-sm-0 py-sm-16" style="line-height: 40px;">&zwnj;</div>
+                        <!--[if gte mso 9]></div>
+          </v:textbox></v:rect><![endif]-->
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+    

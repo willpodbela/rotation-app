@@ -1,0 +1,13 @@
+Hi <%= @user.profile.first_name %>,
+
+Your order from The Rotation is in the mail!
+
+<% if @address %>
+The package is being shipped to the following address:
+
+<%= @address.split(", ").join("\n") %>
+
+<% end %>
+Your tracking number is <%= @shipment.tracking_number %>.
+
+<%= @shipment.tracking_link %>

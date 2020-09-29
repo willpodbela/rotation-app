@@ -38,7 +38,7 @@ class ShipmentsController < AdminBaseController
     rotation_address = ENV["SHIPPO_ROTATION_ADDRESS_ID"]
     
     customer_address = {
-      :name => profile.first_name + " " + profile.last_name,
+      :name => profile.full_name,
       :street1 => profile.address_line_one,
       :street2 => profile.address_line_two,
       :city => profile.address_city,
