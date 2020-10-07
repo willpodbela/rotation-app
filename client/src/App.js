@@ -164,6 +164,7 @@ class App extends Component {
         });
       })
     }).catch(res => {
+      Auth.deauthenticateUser()
       this.setState({
         appFailed: true
       })
@@ -285,7 +286,7 @@ class App extends Component {
       return (
         <div className="middle_screen text_center">
           <div className="rotation_gray druk_large">The Rotation</div>
-          <div className="rotation_gray proxima_large">Our server is currently down for maintenance. Please come back later.</div>
+          <div className="rotation_gray proxima_large">An error occured. Please try reloading the page. If the issue persists please contact customer service.</div>
         </div>
       )
     } else if (this.state.isLoading) {
