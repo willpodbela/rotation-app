@@ -91,7 +91,7 @@ GEM
     bcrypt (3.1.20)
     bigdecimal (3.3.1)
     bindex (0.8.1)
-    browser (6.2.0)
+    browser (5.3.1)
     builder (3.3.0)
     capybara (3.40.0)
       addressable
@@ -102,7 +102,8 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
-    chartkick (5.2.1)
+    cgi (0.5.0)
+    chartkick (5.1.5)
     childprocess (5.1.0)
       logger (~> 1.5)
     climate_control (0.2.0)
@@ -135,7 +136,8 @@ GEM
     dotenv-rails (3.1.8)
       dotenv (= 3.1.8)
       railties (>= 6.1)
-    erb (6.0.0)
+    erb (4.0.4)
+      cgi (>= 0.3.3)
     erubi (1.13.1)
     execjs (2.10.0)
     faraday (2.14.0)
@@ -227,6 +229,9 @@ GEM
       letter_opener (~> 1.9)
       railties (>= 6.1)
       rexml
+    libwebsocket (0.1.8)
+      addressable
+      websocket
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -375,12 +380,11 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-webdriver (4.38.0)
-      base64 (~> 0.2)
-      logger (~> 1.4)
-      rexml (~> 3.2, >= 3.2.5)
-      rubyzip (>= 1.2.2, < 4.0)
-      websocket (~> 1.0)
+    selenium-webdriver (2.27.2)
+      childprocess (>= 0.2.5)
+      libwebsocket (~> 0.1.3)
+      multi_json (~> 1.0)
+      rubyzip
     shippo (4.0.0)
       activesupport (>= 4)
       awesome_print
@@ -434,7 +438,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.7.3)
+    zeitwerk (2.6.18)
 
 PLATFORMS
   aarch64-linux
@@ -490,7 +494,7 @@ DEPENDENCIES
   web-console (>= 4.2)
 
 RUBY VERSION
-   ruby 3.2.9p265
+   ruby 3.1.6p260
 
 BUNDLED WITH
-   2.7.2
+   2.6.9
