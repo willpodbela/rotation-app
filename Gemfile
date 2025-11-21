@@ -1,4 +1,4 @@
-ruby '2.6.3'
+ruby '2.7.8'
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -45,7 +45,7 @@ gem 'devise', '4.4.0'
 # For use encrypting user passwords sent via API
 gem 'aescrypt'
 # For file uploading
-gem "paperclip", "~> 5.1"
+gem 'paperclip', '~> 5.3'
 gem 'aws-sdk', '< 3.0'
 # For local environment variables
 gem 'dotenv-rails'
