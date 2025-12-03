@@ -77,6 +77,13 @@ class CatalogPage extends Component {
         designers: [...new Set(results.items.map(item => item.title))],
         categories: this.buildCategoryTree(results.items)
       })
+    }).catch(err => {
+      console.error("Failed to load items:", err)
+      this.setState({
+        items: [],
+        designers: [],
+        categories: {}
+      })
     })
   }
   

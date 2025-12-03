@@ -7,8 +7,8 @@ development:
   <<: *default
   encoding: unicode
   database: rotation_development
-  username: rotationapp
-  password: password1
+  username: willpodbela
+  password: ""
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -17,8 +17,8 @@ test:
   
   encoding: unicode
   database: rotation_test
-  username: rotationapp
-  password: password1
+  username: willpodbela
+  password: ""
 
 production:
   <<: *default

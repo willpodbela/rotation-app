@@ -6,6 +6,7 @@ import LoginPane from "./LoginPane"
 import SignUpPane from "./SignUpPane"
 import TermsPage from "./TermsPage"
 import PrivacyPage from "./PrivacyPage"
+import LandingPage from "./LandingPage"
 import CatalogPage from "./CatalogPage"
 import AccountPage from "./AccountPage"
 import ItemDetailPage from "./ItemDetailPage"
@@ -304,6 +305,15 @@ class App extends Component {
             <AlertDialog error={this.state.error} notice={this.state.notice} onClose={() => this.dialogClosed()} />
             <Routes>
               <Route
+                path="/"
+                element={
+                  <LandingPage
+                    auth={this.state.authenticated}
+                    errorHandler={(error) => this.showError(error)}
+                    noticeHandler={(notice) => this.showNotice(notice)}
+                  />
+              }/>
+              <Route
                 path="/login"
                 element={
                   <AuthPage
@@ -377,14 +387,6 @@ class App extends Component {
               <Route path="/terms" element={<TermsPage />} />
               <Route path="/privacy" element={<PrivacyPage />} />
               <Route path="/faq" element={<FaqPage />} />
-              <Route 
-                path="/*" 
-                element={
-                  (() => {
-                    window.location.href = 'https://join.therotation.club'; 
-                    return null;      
-                  })()
-                }/>
             </Routes>
             <Footer />
           </div>
