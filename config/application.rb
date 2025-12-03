@@ -18,8 +18,13 @@ module RotationApp
 
     config.autoload_paths += [config.root.join('app')]
     
-    # Configure Zeitwerk to skip directories with explicit module namespacing
-    config.eager_load_paths.reject! { |path| path.include?('queries') || path.include?('scripts') || path.include?('services') }
+    # Configure Zeitwerk to handle namespaced directories properly
+    config.after_initialize do
+      loader = Rails.autoloaders.main
+      loader.ignore("#{Rails.root}/app/queries")
+      loader.ignore("#{Rails.root}/app/scripts") 
+      loader.ignore("#{Rails.root}/app/services")
+    end
     
     # Enables CORS so that React front-end can fetch data from Rails
     config.middleware.insert_before 0, Rack::Cors do
