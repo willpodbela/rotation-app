@@ -2,7 +2,7 @@ module Api
   module Warehouse
     module V1
       class UnitsController < Api::V1::BaseController
-        http_basic_authenticate_with name:ENV["WAREHOUSE_API_AUTH_NAME"], password:ENV["WAREHOUSE_API_AUTH_PASSWORD"], only: [:login, :forgot]
+        http_basic_authenticate_with name: ENV.fetch("WAREHOUSE_API_AUTH_NAME", ""), password: ENV.fetch("WAREHOUSE_API_AUTH_PASSWORD", ""), only: [:login, :forgot] if ENV["WAREHOUSE_API_AUTH_NAME"].present?
         skip_before_action :authenticate_user_from_token!
         before_action :set_resource, except: [:create, :index]
             
