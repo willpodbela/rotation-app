@@ -3,7 +3,8 @@ class Profile < ApplicationRecord
 
   after_save :async_fetch_instagram_data_if_needed
   after_save do |profile|
-    MailChimpService.sync_and_tag(profile.user)
+    # NOTE: Disabled for Heroku deployment - MailChimp requires external API key
+    # MailChimpService.sync_and_tag(profile.user)
   end
   
   before_save do |profile| 
