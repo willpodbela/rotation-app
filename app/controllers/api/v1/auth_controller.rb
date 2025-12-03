@@ -1,7 +1,9 @@
 module Api
   module V1
     class AuthController < Api::V1::BaseController
-      http_basic_authenticate_with name:ENV["API_AUTH_NAME"], password:ENV["API_AUTH_PASSWORD"], only: [:login, :forgot]
+      if ENV["API_AUTH_NAME"].present? && ENV["API_AUTH_PASSWORD"].present?
+        http_basic_authenticate_with name: ENV["API_AUTH_NAME"], password: ENV["API_AUTH_PASSWORD"], only: [:login, :forgot]
+      end
       skip_before_action :authenticate_user_from_token!, only: [:login, :forgot]
     
       #Failsafe: Override endpoints that we don't want to make available
