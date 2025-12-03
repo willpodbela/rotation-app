@@ -57,11 +57,19 @@ class Rpush200Updates < ActiveRecord::VERSION::MAJOR >= 5 ? ActiveRecord::Migrat
   end
 
   def self.adapter_name
-    env = (defined?(Rails) && Rails.env) ? Rails.env : 'development'
-    Hash[ActiveRecord::Base.configurations[env].map { |k,v| [k.to_sym,v] }][:adapter]
+    # Resolve adapter name in a way compatible with Rails 6/7
+    if ActiveRecord::Base.respond_to?(:connection_db_config) && ActiveRecord::Base.connection_db_config
+      ActiveRecord::Base.connection_db_config.adapter.to_s.downcase
+    elsif ActiveRecord::Base.respond_to?(:connection_config) && ActiveRecord::Base.connection_config
+      (ActiveRecord::Base.connection_config[:adapter] || '').to_s.downcase
+    else
+      env = (defined?(Rails) && Rails.env) ? Rails.env : 'development'
+      cfg = ActiveRecord::Base.configurations.configs_for(env_name: env).first
+      (cfg&.configuration_hash && cfg.configuration_hash[:adapter] || '').to_s.downcase
+    end
   end
 
   def self.postgresql?
-    adapter_name =~ /postgresql|postgis/
+    adapter_name.to_s =~ /postgresql|postgis|postgres/
   end
 end
