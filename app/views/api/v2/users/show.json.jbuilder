@@ -17,7 +17,7 @@ json.user do
   end
   
   #FIXME these trigger API calls to Stripe in model
-  json.available_tiers          @user.available_tiers
-  json.account_balance          @user.account_balance
+  # json.available_tiers          @user.available_tiers
+  # json.account_balance          @user.account_balance
   #END FIXME
 end
