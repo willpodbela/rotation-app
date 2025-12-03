@@ -1,7 +1,7 @@
 module Api
   module V1
     class ConfigController < Api::V1::BaseController
-      http_basic_authenticate_with name: ENV["API_AUTH_NAME"], password: ENV["API_AUTH_PASSWORD"]
+      http_basic_authenticate_with name: ENV.fetch("API_AUTH_NAME", ""), password: ENV.fetch("API_AUTH_PASSWORD", "") if ENV["API_AUTH_NAME"].present?
       skip_before_action :authenticate_user_from_token!
     
       #Failsafe: Override endpoints that we don't want to make available
