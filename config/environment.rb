@@ -4,6 +4,10 @@ require_relative 'application'
 # Initialize the Rails application.
 Rails.application.initialize!
 
+# Manually load Queries classes since they use explicit module namespacing
+require_relative '../app/queries/inventory'
+require_relative '../app/queries/sorted_catalog'
+
 unless Rails.env.production?
   ENV['API_AUTH_NAME'] = "authname1"
   ENV['API_AUTH_PASSWORD'] = "password2"
