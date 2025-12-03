@@ -1,7 +1,5 @@
-include Queries
-
 module Api
-    module V1
+  module V1
     class ItemsController < Api::V1::BaseController
       skip_before_action :authenticate_user_from_token!, only: [:list]
       before_action :set_inventory, only: [:show, :index, :list]
