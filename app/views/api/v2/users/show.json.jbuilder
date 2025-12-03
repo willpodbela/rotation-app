@@ -3,7 +3,7 @@ json.user do
   json.auth_token               @user.authentication_token
   json.email                    @user.email
   json.is_waitlist              @user.waitlist?
-  json.is_email_confirmed       @user.confirmed?
+  json.is_email_confirmed       true
   json.profile do
     json.merge!                 @user.profile.attributes
   end
