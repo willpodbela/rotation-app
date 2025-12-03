@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Redirect } from "react-router-dom"
+import { Navigate } from "react-router-dom"
 import "./style.css"
 import RotationHelmet from "../RotationHelmet"
 
@@ -11,7 +11,7 @@ class AuthPage extends Component {
   
   render(){
     if(this.props.auth){
-      return <Redirect to="/catalog" />
+      return <Navigate to="/catalog" replace />
     }
     return (
       <div className="AuthPage light_background flex justify_center">

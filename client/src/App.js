@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import "./App.css"
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import AuthPage from "./AuthPage"
 import LoginPane from "./LoginPane"
 import SignUpPane from "./SignUpPane"
@@ -302,10 +302,10 @@ class App extends Component {
           <div className="App">
             <Nav logoutUser={(e) => this.logoutUser(e)} />
             <AlertDialog error={this.state.error} notice={this.state.notice} onClose={() => this.dialogClosed()} />
-            <Switch>
+            <Routes>
               <Route
-                exact path="/login"
-                render={() =>
+                path="/login"
+                element={
                   <AuthPage
                     auth={this.state.authenticated}
                     pageTitle={"Log In"}
@@ -320,8 +320,8 @@ class App extends Component {
                   />
               }/>
               <Route
-                exact path="/sign-up"
-                render={() =>
+                path="/sign-up"
+                element={
                   <AuthPage
                     auth={this.state.authenticated}
                     pageTitle={"Sign Up"}
@@ -335,8 +335,8 @@ class App extends Component {
                   />
               }/>
               <Route
-                exact path="/catalog"
-                render={() =>
+                path="/catalog"
+                element={
                   <CatalogPage
                     auth={this.state.authenticated}
                     handleSignUp={this.handleSignUp}
@@ -350,8 +350,8 @@ class App extends Component {
                   />
               }/>
               <Route
-                exact path="/account"
-                render={() =>
+                path="/account"
+                element={
                   <AccountPage
                     auth={this.state.authenticated}
                     userLoggedIn={this.state.userLoggedIn}
@@ -362,9 +362,8 @@ class App extends Component {
               }/>
               <Route
                 path="/catalog/:itemInfo"
-                render={(props) =>
+                element={
                   <ItemDetailPage
-                    {...props}
                     auth={this.state.authenticated}
                     userLoggedIn={this.state.userLoggedIn}
                     errorHandler={(error) => this.showError(error)}
@@ -375,17 +374,18 @@ class App extends Component {
                     forgotPassword={(e, email) => this.forgotPassword(e, email)}
                   />
               }/>
-              <Route path="/terms" exact component={TermsPage} />
-              <Route path="/privacy" exact component={PrivacyPage} />
-              <Route path="/faq" exact component={FaqPage} />
+              <Route path="/terms" element={<TermsPage />} />
+              <Route path="/privacy" element={<PrivacyPage />} />
+              <Route path="/faq" element={<FaqPage />} />
               <Route 
                 path="/*" 
-                component={(props) => {
-                  window.location.href = 'https://join.therotation.club'; 
-                  return null;      
-                }       
-              }/>
-            </Switch>
+                element={
+                  (() => {
+                    window.location.href = 'https://join.therotation.club'; 
+                    return null;      
+                  })()
+                }/>
+            </Routes>
             <Footer />
           </div>
         </Router>

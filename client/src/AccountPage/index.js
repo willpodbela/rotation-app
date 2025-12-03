@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Redirect } from "react-router-dom"
+import { Navigate } from "react-router-dom"
 import Auth from "../modules/Auth"
 import "./style.css"
 import ShippingAddressPane from "../ShippingAddressPane"
@@ -143,7 +143,7 @@ class AccountPage extends Component {
       endDate = new Date(this.state.subscription.current_period_end)
     }
     if(!this.props.auth){
-      return <Redirect to="/catalog" />
+      return <Navigate to="/catalog" replace />
     }
     return (
       <div className="AccountPage gray_border_top bottom70">

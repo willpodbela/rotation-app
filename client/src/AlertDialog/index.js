@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 class AlertDialog extends Component {
   constructor(props){
@@ -27,30 +27,36 @@ class AlertDialog extends Component {
   }
 
   render(){
+    const alertContent = this.state.error ? (
+      <CSSTransition key="alert" in={true} timeout={200} classNames="alert" unmountOnExit>
+        <div className="AlertDialog alert alert-danger alert-dismissible alert-form-error" role="alert">
+          <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={(e) => this.handleDismiss(e)}><span aria-hidden="true">&times;</span></button>
+          <span className="content">
+            {this.state.error.message}
+            {this.state.error.link &&
+              <Link to={this.state.error.link.url}>{this.state.error.link.message}</Link>
+            }
+          </span>
+        </div>
+      </CSSTransition>
+    ) : this.state.notice ? (
+      <CSSTransition key="notice" in={true} timeout={200} classNames="alert" unmountOnExit>
+        <div className="AlertDialog alert alert-success alert-dismissible alert-form-success" role="alert">
+          <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={(e) => this.handleDismiss(e)}><span aria-hidden="true">&times;</span></button>
+          <span className="content">
+            {this.state.notice.message}
+            {this.state.notice.link &&
+              <Link to={this.state.notice.link.url}>{this.state.notice.link.message}</Link>
+            }
+          </span>
+        </div>
+      </CSSTransition>
+    ) : null
+    
     return (
-      <ReactCSSTransitionGroup transitionName="alert" transitionEnterTimeout={200} transitionLeaveTimeout={200}>
-        {this.state.error ? (
-          <div key="alert" className="AlertDialog alert alert-danger alert-dismissible alert-form-error" role="alert">
-            <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={(e) => this.handleDismiss(e)}><span aria-hidden="true">&times;</span></button>
-            <span className="content">
-              {this.state.error.message}
-              {this.state.error.link &&
-                <Link to={this.state.error.link.url}>{this.state.error.link.message}</Link>
-              }
-            </span>
-          </div>
-        ) : this.state.notice ? (
-          <div key="notice" className="AlertDialog alert alert-success alert-dismissible alert-form-success" role="alert">
-            <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={(e) => this.handleDismiss(e)}><span aria-hidden="true">&times;</span></button>
-            <span className="content">
-              {this.state.notice.message}
-              {this.state.notice.link &&
-                <Link to={this.state.notice.link.url}>{this.state.notice.link.message}</Link>
-              }
-            </span>
-          </div>
-        ) : null }
-      </ReactCSSTransitionGroup>
+      <TransitionGroup>
+        {alertContent}
+      </TransitionGroup>
     )
   }
 }
