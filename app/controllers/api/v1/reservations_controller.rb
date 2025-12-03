@@ -1,7 +1,5 @@
-include Queries
-
 module Api
-    module V1
+  module V1
     class ReservationsController < Api::V1::BaseController
       before_action :validate_ownership, only: [:destroy, :show, :update]
             

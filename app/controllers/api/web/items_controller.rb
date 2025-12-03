@@ -1,5 +1,3 @@
-include Queries
-
 module Api
   module Web
     class ItemsController < Api::Web::BaseController
