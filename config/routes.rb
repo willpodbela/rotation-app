@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: redirect('http://join.therotation.club', status: 301)
+  root to: "application#react_index_html"
 
   get 'kpi/index'
   get "admin", to: "landing#admin"
