@@ -148,15 +148,29 @@ class AddRpush < ActiveRecord::VERSION::MAJOR >= 5 ? ActiveRecord::Migration[5.0
       AddGcm::Rapns::Notification.update_all type: 'Rapns::Apns::Notification'
       AddGcm::Rapns::App.update_all type: 'Rapns::Apns::App'
 
-      change_column :rapns_notifications, :type, :string, null: false
-      change_column :rapns_apps, :type, :string, null: false
-      change_column :rapns_notifications, :device_token, :string, { null: true, limit: 64 }
-      change_column :rapns_notifications, :expiry, :integer, { null: true, default: 1.day.to_i }
-      change_column :rapns_apps, :environment, :string, null: true
-      change_column :rapns_apps, :certificate, :text, null: true, default: nil
-
-      change_column :rapns_notifications, :error_description, :text, null: true, default: nil
-      change_column :rapns_notifications, :sound, :string, default: 'default'
+      # Use direct SQL ALTERs to avoid ActiveRecord arity/compatibility issues
+      # when calling `change_column` across different AR versions.
+      execute <<~SQL
+        ALTER TABLE rapns_notifications ALTER COLUMN "type" TYPE character varying;
+        ALTER TABLE rapns_notifications ALTER COLUMN "type" SET NOT NULL;
+        ALTER TABLE rapns_apps ALTER COLUMN "type" TYPE character varying;
+        ALTER TABLE rapns_apps ALTER COLUMN "type" SET NOT NULL;
+        ALTER TABLE rapns_notifications ALTER COLUMN device_token TYPE character varying(64);
+        ALTER TABLE rapns_notifications ALTER COLUMN device_token DROP NOT NULL;
+        ALTER TABLE rapns_notifications ALTER COLUMN expiry TYPE integer;
+        ALTER TABLE rapns_notifications ALTER COLUMN expiry DROP NOT NULL;
+        ALTER TABLE rapns_notifications ALTER COLUMN expiry SET DEFAULT #{1.day.to_i};
+        ALTER TABLE rapns_apps ALTER COLUMN environment TYPE character varying;
+        ALTER TABLE rapns_apps ALTER COLUMN environment DROP NOT NULL;
+        ALTER TABLE rapns_apps ALTER COLUMN certificate TYPE text;
+        ALTER TABLE rapns_apps ALTER COLUMN certificate DROP NOT NULL;
+        ALTER TABLE rapns_apps ALTER COLUMN certificate DROP DEFAULT;
+        ALTER TABLE rapns_notifications ALTER COLUMN error_description TYPE text;
+        ALTER TABLE rapns_notifications ALTER COLUMN error_description DROP NOT NULL;
+        ALTER TABLE rapns_notifications ALTER COLUMN error_description DROP DEFAULT;
+        ALTER TABLE rapns_notifications ALTER COLUMN sound TYPE character varying;
+        ALTER TABLE rapns_notifications ALTER COLUMN sound SET DEFAULT 'default';
+      SQL
 
       rename_column :rapns_notifications, :attributes_for_device, :data
       rename_column :rapns_apps, :key, :name
@@ -178,7 +192,10 @@ class AddRpush < ActiveRecord::VERSION::MAJOR >= 5 ? ActiveRecord::Migration[5.0
         AddGcm::Rapns::Notification.where(app: app.name).update_all(app_id: app.id)
       end
 
-      change_column :rapns_notifications, :app_id, :integer, null: false
+      execute <<~SQL
+        ALTER TABLE rapns_notifications ALTER COLUMN app_id TYPE integer;
+        ALTER TABLE rapns_notifications ALTER COLUMN app_id SET NOT NULL;
+      SQL
       remove_column :rapns_notifications, :app
 
       if index_name_exists?(:rapns_notifications, "index_rapns_notifications_multi", true)
@@ -195,13 +212,22 @@ class AddRpush < ActiveRecord::VERSION::MAJOR >= 5 ? ActiveRecord::Migration[5.0
       remove_column :rapns_notifications, :type
       remove_column :rapns_apps, :type
 
-      change_column :rapns_notifications, :device_token, :string, { null: false, limit: 64 }
-      change_column :rapns_notifications, :expiry, :integer, { null: false, default: 1.day.to_i }
-      change_column :rapns_apps, :environment, :string, null: false
-      change_column :rapns_apps, :certificate, :text, null: false
-
-      change_column :rapns_notifications, :error_description, :string, null: true, default: nil
-      change_column :rapns_notifications, :sound, :string, default: '1.aiff'
+      execute <<~SQL
+        ALTER TABLE rapns_notifications ALTER COLUMN device_token TYPE character varying(64);
+        ALTER TABLE rapns_notifications ALTER COLUMN device_token SET NOT NULL;
+        ALTER TABLE rapns_notifications ALTER COLUMN expiry TYPE integer;
+        ALTER TABLE rapns_notifications ALTER COLUMN expiry SET NOT NULL;
+        ALTER TABLE rapns_notifications ALTER COLUMN expiry SET DEFAULT #{1.day.to_i};
+        ALTER TABLE rapns_apps ALTER COLUMN environment TYPE character varying;
+        ALTER TABLE rapns_apps ALTER COLUMN environment SET NOT NULL;
+        ALTER TABLE rapns_apps ALTER COLUMN certificate TYPE text;
+        ALTER TABLE rapns_apps ALTER COLUMN certificate SET NOT NULL;
+        ALTER TABLE rapns_notifications ALTER COLUMN error_description TYPE character varying;
+        ALTER TABLE rapns_notifications ALTER COLUMN error_description DROP NOT NULL;
+        ALTER TABLE rapns_notifications ALTER COLUMN error_description DROP DEFAULT;
+        ALTER TABLE rapns_notifications ALTER COLUMN sound TYPE character varying;
+        ALTER TABLE rapns_notifications ALTER COLUMN sound SET DEFAULT '1.aiff';
+      SQL
 
       rename_column :rapns_notifications, :data, :attributes_for_device
       rename_column :rapns_apps, :name, :key
