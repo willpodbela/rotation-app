@@ -4,12 +4,6 @@ require_relative 'application'
 # Initialize the Rails application.
 Rails.application.initialize!
 
-# Manually load classes with explicit module namespacing since Zeitwerk doesn't handle them well
-require_relative '../app/queries/inventory'
-require_relative '../app/queries/sorted_catalog'
-Dir.glob(Rails.root.join('app/scripts/*.rb')).each { |f| require f }
-Dir.glob(Rails.root.join('app/services/*.rb')).each { |f| require f }
-
 unless Rails.env.production?
   ENV['API_AUTH_NAME'] = "authname1"
   ENV['API_AUTH_PASSWORD'] = "password2"
