@@ -28,7 +28,8 @@ class User < ApplicationRecord
 
   after_save do |user|
     user.create_profile unless user.profile.present?
-    MailChimpService.sync_and_tag(user)
+    # NOTE: Disabled for Heroku deployment - MailChimp requires external API key
+    # MailChimpService.sync_and_tag(user)
   end
   
   after_create do |user|
