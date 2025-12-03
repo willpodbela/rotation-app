@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.118e8c50.chunk.css",
+    "main.js": "/static/js/main.f8c73c88.chunk.js",
+    "main.js.map": "/static/js/main.f8c73c88.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.0688f379.js",
+    "runtime-main.js.map": "/static/js/runtime-main.0688f379.js.map",
+    "static/js/2.e2f6077c.chunk.js": "/static/js/2.e2f6077c.chunk.js",
+    "static/js/2.e2f6077c.chunk.js.map": "/static/js/2.e2f6077c.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.118e8c50.chunk.css.map": "/static/css/main.118e8c50.chunk.css.map",
+    "static/js/2.e2f6077c.chunk.js.LICENSE.txt": "/static/js/2.e2f6077c.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/static/media/ProximaNova-Regular.b078618b.ttf",
+    "static/media/Rotation-Banner.33d403a1.jpg": "/static/media/Rotation-Banner.33d403a1.jpg",
+    "static/media/style.css": "/static/media/landing-bg-mobile.1a9146b7.png",
+    "static/media/login.14da64df.jpg": "/static/media/login.14da64df.jpg",
+    "static/media/sign-up.d7466f61.jpg": "/static/media/sign-up.d7466f61.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0688f379.js",
+    "static/js/2.e2f6077c.chunk.js",
+    "static/css/main.118e8c50.chunk.css",
+    "static/js/main.f8c73c88.chunk.js"
+  ]
+}
