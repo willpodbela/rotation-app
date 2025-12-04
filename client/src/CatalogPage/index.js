@@ -74,7 +74,7 @@ class CatalogPage extends Component {
     }).then(res => this.props.apiResponseHandler(res)).then(results => {
       this.setState({
         items: results.items,
-        designers: [...new Set(results.items.filter(item => item.designer).map(item => item.designer))],
+        designers: [...new Set(results.items.map(item => item.title))],
         categories: this.buildCategoryTree(results.items)
       })
     }).catch(err => {
@@ -136,7 +136,7 @@ class CatalogPage extends Component {
       displayItems.catalog = displayItems.catalog.filter(item => this.getSizesAvailable(item).filter(size => selectedSizes.includes(size)).length > 0)
     }
     if(this.state.selectedDesigners.length) {
-      displayItems.catalog = displayItems.catalog.filter(item => this.state.selectedDesigners.includes(item.designer))
+      displayItems.catalog = displayItems.catalog.filter(item => this.state.selectedDesigners.includes(item.title))
     }
     if(this.state.selectedCategories.length) {
       displayItems.catalog = displayItems.catalog.filter(item => (this.state.selectedCategories.includes(item.category) || this.state.selectedCategories.includes(item.sub_category)))
