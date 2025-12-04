@@ -11,7 +11,6 @@ namespace :scrape do
     items_to_create = [
       {
         title: "Supreme Box Logo Hoodie",
-        designer: "Supreme",
         category: "Tops",
         sub_category: "Hoodies",
         supplier: "SSENSE",
@@ -21,7 +20,6 @@ namespace :scrape do
       },
       {
         title: "Fear of God Essentials Hoodie",
-        designer: "Fear of God",
         category: "Tops",
         sub_category: "Hoodies",
         supplier: "SSENSE",
@@ -31,7 +29,6 @@ namespace :scrape do
       },
       {
         title: "Stussy Stock Logo Tee",
-        designer: "Stussy",
         category: "Tops",
         sub_category: "T-Shirts",
         supplier: "SSENSE",
@@ -41,7 +38,6 @@ namespace :scrape do
       },
       {
         title: "Nike Air Force 1 Low",
-        designer: "Nike",
         category: "Footwear",
         sub_category: "Sneakers",
         supplier: "SSENSE",
@@ -51,7 +47,6 @@ namespace :scrape do
       },
       {
         title: "Stone Island Overshirt",
-        designer: "Stone Island",
         category: "Outerwear",
         sub_category: "Shirts",
         supplier: "SSENSE",
@@ -61,7 +56,6 @@ namespace :scrape do
       },
       {
         title: "Yohji Yamamoto Y-3 Track Pants",
-        designer: "Y-3",
         category: "Bottoms",
         sub_category: "Pants",
         supplier: "SSENSE",
@@ -71,7 +65,6 @@ namespace :scrape do
       },
       {
         title: "Acne Studios Oversized Tee",
-        designer: "Acne Studios",
         category: "Tops",
         sub_category: "T-Shirts",
         supplier: "SSENSE",
@@ -81,7 +74,6 @@ namespace :scrape do
       },
       {
         title: "Off-White Diagonal Tee",
-        designer: "Off-White",
         category: "Tops",
         sub_category: "T-Shirts",
         supplier: "SSENSE",
