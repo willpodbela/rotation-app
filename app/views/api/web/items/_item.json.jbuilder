@@ -10,15 +10,23 @@ else
 end
 
 # Handle S3 image URLs gracefully (if bucket not configured, use placeholder)
-begin
-  json.image_url      item.image.url
-  json.image_url_small      item.image.url(:small)
-  json.image_url_large      item.image.url(:large)
-rescue
-  # S3 not configured, use placeholder image
-  json.image_url      "/images/placeholder.jpg"
-  json.image_url_small      "/images/placeholder.jpg"
-  json.image_url_large      "/images/placeholder.jpg"
+# Also support external image URLs stored in image_file_name
+if item.image_file_name.present? && item.image_file_name.start_with?('http')
+  # External URL stored in image_file_name
+  json.image_url      item.image_file_name
+  json.image_url_small      item.image_file_name
+  json.image_url_large      item.image_file_name
+else
+  begin
+    json.image_url      item.image.url
+    json.image_url_small      item.image.url(:small)
+    json.image_url_large      item.image.url(:large)
+  rescue
+    # S3 not configured, use placeholder image
+    json.image_url      "/images/placeholder.jpg"
+    json.image_url_small      "/images/placeholder.jpg"
+    json.image_url_large      "/images/placeholder.jpg"
+  end
 end
 
 json.num_available  @inventory.total_available(item)
