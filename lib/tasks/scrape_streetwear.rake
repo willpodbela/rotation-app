@@ -92,6 +92,12 @@ namespace :scrape do
     ]
 
     items_to_create.each do |item_data|
+      # Convert image_url to image_file_name for the database
+      if item_data.delete(:image_url)
+        # Set a placeholder image file name so items show up in catalog (with_images scope)
+        item_data[:image_file_name] = "placeholder.jpg"
+      end
+      
       # Check if item already exists
       existing = Item.find_by(title: item_data[:title])
       
